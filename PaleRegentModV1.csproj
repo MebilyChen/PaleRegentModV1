@@ -62,6 +62,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="PaleRegentModV1Code\Resources\" />
         <Folder Include="PaleRegentModV1\images\card_portraits\big\"/>
         <Folder Include="PaleRegentModV1\images\powers\big\"/>
         <Folder Include="PaleRegentModV1\images\relics\big\"/>
