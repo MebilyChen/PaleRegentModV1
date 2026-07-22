@@ -21,7 +21,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override CharacterGender Gender => CharacterGender.Neutral;
     //public override int StartingHp => 75;
     
-    public override IEnumerable<CardModel> StartingDeck => [
+    /*public override IEnumerable<CardModel> StartingDeck => [
         ModelDb.Card<Test>(),
         ModelDb.Card<Test>(),
         ModelDb.Card<StrikeRegent>(),
@@ -32,14 +32,14 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
         ModelDb.Card<DefendRegent>(),
         ModelDb.Card<DefendRegent>(),
         ModelDb.Card<DefendRegent>()
-    ];
+    ];*/
 
     /*public override IReadOnlyList<RelicModel> StartingRelics =>
     [
         ModelDb.Relic<DivineRight>()
     ];*/
 
-    public override CardPoolModel CardPool => ModelDb.CardPool<PaleRegentModV1CardPool>();
+    //public override CardPoolModel CardPool => ModelDb.CardPool<PaleRegentModV1CardPool>();
     //public override RelicPoolModel RelicPool => ModelDb.RelicPool<PaleRegentModV1RelicPool>();
     //public override PotionPoolModel PotionPool => ModelDb.PotionPool<PaleRegentModV1PotionPool>();
 
@@ -49,14 +49,14 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override int StartingHp =>
         RegentBase.StartingHp;
 
-    //public override IEnumerable<CardModel> StartingDeck =>
-        //RegentBase.StartingDeck;
+    public override IEnumerable<CardModel> StartingDeck =>
+        RegentBase.StartingDeck;
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
         RegentBase.StartingRelics;
 
-    //public override CardPoolModel CardPool =>
-        //RegentBase.CardPool;
+    public override CardPoolModel CardPool =>
+        RegentBase.CardPool;
 
     public override RelicPoolModel RelicPool =>
         RegentBase.RelicPool;
@@ -96,7 +96,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override string CustomArmPointingTexturePath => "multiplayer_hand_paleregent_point.png".CharacterUiPath();
     
     
-    public override string CustomEnergyCounterPath =>  ModRoot + "/scenes/combat/paleregent_energy_counter.tscn";
+    //public override string CustomEnergyCounterPath =>  ModRoot + "/scenes/combat/paleregent_energy_counter.tscn";
     public override string CustomVisualPath => ModRoot + "/scenes/creature_visuals/paleregent.tscn";
     public override string CustomRestSiteAnimPath => ModRoot + "/scenes/rest_site/characters/paleregent_rest_site.tscn";
     public override string CustomMerchantAnimPath => ModRoot + "/scenes/merchant/characters/paleregent_merchant.tscn";

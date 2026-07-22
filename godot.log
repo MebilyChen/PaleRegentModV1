@@ -1,0 +1,952 @@
+MegaDot v4.5.1.m.14.mono.custom_build - https://godotengine.org
+D3D12 12_0 - Forward+ - Using Device #0: NVIDIA - NVIDIA Quadro P620
+WARNING: PSO caching is not implemented yet in the Direct3D 12 driver.
+   at: pipeline_cache_create (drivers/d3d12/rendering_device_driver_d3d12.cpp:4469)
+
+FMOD Sound System: Successfully initialized
+[INFO] Found release_info.json at: D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\release_info.json
+[INFO] [Sentry.NET] Initialized: env=unknown, release=v0.109.0
+[INFO] Steamworks: attempting initialization...
+[INFO] Steam is running: True
+[INFO] Steamworks initialization succeeded!
+[INFO] Steam is enabled, we will write saves to steam storage. Enabled for account: True, app: True 
+[INFO] Registered 16 migrations
+[INFO] Current save versions: PrefsSave v2; ProfileSave v2; SerializableProgress v22; RunHistory v9; SerializableRun v19; SettingsSave v6
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\CustomSkeletonLoaderV0.0.1-505-V0-0-1-1776065979\CustomSkeletonLoader\CustomSkeletonLoader.json
+[ERROR] Detected old-style dependencies without min version specified! It works for now but this will be removed in a future release. Let the mod author know.
+   at MegaCrit.Sts2.Core.Modding.ModManifest.ReadFromStream(Stream stream, List`1& errors)
+   at MegaCrit.Sts2.Core.Modding.ModManager.ReadModManifest(String filename, ModSource source)
+   at MegaCrit.Sts2.Core.Modding.ModManager.ReadModsInDirRecursive(String path, ModSource source, List`1 newMods)
+   at MegaCrit.Sts2.Core.Modding.ModManager.ReadModsInDirRecursive(String path, ModSource source, List`1 newMods)
+   at MegaCrit.Sts2.Core.Modding.ModManager.ReadModsInDirRecursive(String path, ModSource source, List`1 newMods)
+   at MegaCrit.Sts2.Core.Modding.ModManager.Initialize(IModManagerFileIo fileIo, ModSettings settings, SemanticVersion gameVersion)
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at MegaCrit.Sts2.Core.Modding.ModManager.Initialize(IModManagerFileIo fileIo, ModSettings settings, SemanticVersion gameVersion)
+   at MegaCrit.Sts2.Core.Helpers.OneTimeInitialization.ExecuteVeryEarly()
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at MegaCrit.Sts2.Core.Helpers.OneTimeInitialization.ExecuteVeryEarly()
+   at MegaCrit.Sts2.Core.Nodes.NGame.GameStartup()
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at MegaCrit.Sts2.Core.Nodes.NGame.GameStartup()
+   at MegaCrit.Sts2.Core.Nodes.NGame.GameStartupWrapper()
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at MegaCrit.Sts2.Core.Nodes.NGame.GameStartupWrapper()
+   at MegaCrit.Sts2.Core.Nodes.NGame._EnterTree()
+   at Godot.Node.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.CanvasItem.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Control.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at MegaCrit.Sts2.Core.Nodes.NGame.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Bridge.CSharpInstanceBridge.Call(IntPtr godotObjectGCHandle, godot_string_name* method, godot_variant** args, Int32 argCount, godot_variant_call_error* refCallError, godot_variant* ret)
+
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\ModConfig 27 0.2.3 2026-04-19T09-54Z UHgZfAG6o\ModConfig\ModConfig.json
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV1\PaleRegentModV1.json
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\paleRegent\paleRegent.json
+[INFO] Looking for mods to load from Steam Workshop mod 3747602295 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295 (size 39793294, last modified 1784627235)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295\mod_manifest.json
+[INFO] Looking for mods to load from Steam Workshop mod 3747589529 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529 (size 53622596, last modified 1784298081)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.json
+[INFO] Looking for mods to load from Steam Workshop mod 3737335127 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127 (size 1142351, last modified 1784628565)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.json
+[INFO] Looking for mods to load from Steam Workshop mod 3750485606 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606 (size 59858, last modified 1783786237)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606\mod_manifest.json
+[INFO] Looking for mods to load from Steam Workshop mod 3747605109 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109 (size 103586, last modified 1782625644)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109\mod_manifest.json
+[INFO] Looking for mods to load from Steam Workshop mod 3762348066 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3762348066 (size 90946, last modified 1783768156)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3762348066\mod_manifest.json
+[INFO] Looking for mods to load from Steam Workshop mod 3755203926 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3755203926 (size 147086, last modified 1782855380)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3755203926\CardSkinLoader.json
+[INFO] Looking for mods to load from Steam Workshop mod 3747513223 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223 (size 349703, last modified 1784688994)
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223\Sts2SkinManager.json
+[Sentry.GDExtension] Initialized: env=playtesters, release=v0.109.0
+[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=5835, windowFocused=True]
+[INFO] Skipping loading mod CustomSkeletonLoader, it is set to disabled in settings
+[INFO] Skipping loading mod paleRegent, it is set to disabled in settings
+[INFO] Mods have been re-sorted because we detected a change or dependency order was broken. New sorting order:
+[INFO]   0: STS2 Skin Manager (Sts2SkinManager)
+[INFO]   1: 皮皮配置: ModConfig (ModConfig)
+[INFO]   2: Load Order Manager / 模组加载顺序管理 (LoadOrderManager)
+[INFO]   3: Auto Mod Subscriber (AutoModSubscriber)
+[INFO]   4: Multiplayer Mod Sync / 联机模组同步 (MultiplayerModSync)
+[INFO]   5: RitsuLib (STS2-RitsuLib)
+[INFO]   6: BaseLib (BaseLib)
+[INFO]   7: Card Skin Loader (CardSkinLoader)
+[INFO]   8: Hornet / 大黄蜂 (HornetMod)
+[INFO]   9: 苍白之王|Pale Regent (PaleRegentModV1)
+[WARN] Mod Sts2SkinManager does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223\Sts2SkinManager.dll
+[INFO] Calling initializer method of type Sts2SkinManager.MainFile for Sts2SkinManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [Sts2SkinManager] Harmony patches applied.
+[INFO] [Sts2SkinManager] steam workshop mods root: D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840
+[INFO] [Sts2SkinManager] base character roster (5): [defect, ironclad, necrobinder, regent, silent]
+[INFO] [Sts2SkinManager] dll-skin rescue: no existing assignments to check.
+[INFO] [Sts2SkinManager]   [user-skip] PaleRegentModV1 (in _dll_skin_skipped) — leaving auto-mount intact.
+[INFO] [Sts2SkinManager]   [user-skip] paleRegent (in _dll_skin_skipped) — leaving auto-mount intact.
+[INFO] [Sts2SkinManager]   [user-skip] regentSkin (in _dll_skin_skipped) — leaving auto-mount intact.
+[INFO] [Sts2SkinManager] skipped 2 custom-character mod(s) — not in base roster, leaving auto-mount intact:
+[INFO] [Sts2SkinManager]   [skip] HornetMod → [hornet] char_select:13
+[INFO] [Sts2SkinManager]   [skip] BaseLib → [] custom_char:2
+[INFO] [Sts2SkinManager] detected 0 character skin pck(s), 0 card pack pck(s), 0 event-art pck(s):
+[INFO] [Sts2SkinManager] toggle eligibility → mixed=[] vanillaBodyEligible=[] vanillaCardsEligible=[]
+[INFO] [Sts2SkinManager] skin_choices.json → C:/Users/chenz/AppData/Roaming/SlayTheSpire2\Sts2SkinManager\skin_choices.json
+[INFO] [Sts2SkinManager] card pack state: ordering=[], enabled={  }
+[INFO] [Sts2SkinManager] watching C:/Users/chenz/AppData/Roaming/SlayTheSpire2\Sts2SkinManager\skin_choices.json for live skin changes
+[INFO] [Sts2SkinManager] all mods: 9 mod(s) tracked:
+[INFO] [Sts2SkinManager]   [all-mods] paleRegent → skipped
+[INFO] [Sts2SkinManager]   [all-mods] PaleRegentModV1 → skipped
+[INFO] [Sts2SkinManager]   [all-mods] regentSkin → skipped
+[INFO] [Sts2SkinManager]   [all-mods] AutoModSubscriber → pending
+[INFO] [Sts2SkinManager]   [all-mods] CardSkinLoader → pending
+[INFO] [Sts2SkinManager]   [all-mods] CustomSkeletonLoader → pending
+[INFO] [Sts2SkinManager]   [all-mods] LoadOrderManager → pending
+[INFO] [Sts2SkinManager]   [all-mods] ModConfig → pending
+[INFO] [Sts2SkinManager]   [all-mods] MultiplayerModSync → pending
+[INFO] Finished mod initialization for 'STS2 Skin Manager' (Sts2SkinManager).
+[WARN] Mod ModConfig does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\ModConfig 27 0.2.3 2026-04-19T09-54Z UHgZfAG6o\ModConfig\ModConfig.dll
+[INFO] Loading Godot PCK D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\ModConfig 27 0.2.3 2026-04-19T09-54Z UHgZfAG6o\ModConfig\ModConfig.pck
+[INFO] Calling initializer method of type ModConfig.MainFile for ModConfig, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [sts2.piyixiajiuhenfen.modconfig] LocManager.Instance is null at init, will use lazy detection
+[INFO] [sts2.piyixiajiuhenfen.modconfig] ModConfig v0.2.3 initialized! (zero Harmony, cross-platform)
+[INFO] Finished mod initialization for '皮皮配置: ModConfig' (ModConfig).
+[WARN] Mod LoadOrderManager does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109\LoadOrderManager.dll
+[INFO] No ModInitializerAttribute detected. Calling Harmony.PatchAll for LoadOrderManager, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null
+[LoadOrderManager] [2026-07-22 20:14:54.694] [INFO] Initialize called.
+[LoadOrderManager] [2026-07-22 20:14:54.698] [INFO] Log file: C:/Users/chenz/AppData/Roaming/SlayTheSpire2\LoadOrderManager\load_order_manager.log
+[LoadOrderManager] [2026-07-22 20:14:54.708] [INFO] Startup diagnostics context: runtimeUserId=76561198188651006, pathUserId=76561198188651006, settingsPath=user://steam/76561198188651006/settings.save, currentTop=Sts2SkinManager::2 > ModConfig::1 > LoadOrderManager::2 > AutoModSubscriber::2 > MultiplayerModSync::2 > STS2-RitsuLib::2 > BaseLib::2 > CardSkinLoader::2
+[LoadOrderManager] [2026-07-22 20:14:54.711] [INFO] Startup diagnostics: no previous apply snapshot for current user.
+[LoadOrderManager] [2026-07-22 20:14:54.719] [INFO] Harmony patches applied.
+[LoadOrderManager] [2026-07-22 20:14:54.719] [INFO] Loaded.
+[INFO] Finished mod initialization for 'Load Order Manager / 模组加载顺序管理' (LoadOrderManager).
+[WARN] Mod AutoModSubscriber does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606\AutoModSubscriber.dll
+[INFO] No ModInitializerAttribute detected. Calling Harmony.PatchAll for AutoModSubscriber, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[AutoModSubscriber] ModuleInit.Initialize() called
+[AutoModSubscriber] Harmony PatchAll done: hooked 3 method(s)
+[INFO] Finished mod initialization for 'Auto Mod Subscriber' (AutoModSubscriber).
+[WARN] Mod MultiplayerModSync does not declare min game version. Assuming that it is supported.
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3762348066\MultiplayerModSync.dll
+[INFO] Calling initializer method of type Sts2MultiplayerModSync.MultiplayerModSyncMod for MultiplayerModSync, Version=0.2.3.0, Culture=neutral, PublicKeyToken=null
+[MultiplayerModSync] initialized v0.2.3
+[INFO] Finished mod initialization for 'Multiplayer Mod Sync / 联机模组同步' (MultiplayerModSync).
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295\STS2-RitsuLib.dll
+[INFO] Calling initializer method of type STS2RitsuLib.Loader.Bootstrap for STS2-RitsuLib.Loader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [RitsuLib.Loader] Host version label=v0.109.0 numeric=0.109.0; picked variant 0.109.0.
+[INFO] Associated assembly STS2-RitsuLib, Version=0.4.62.0, Culture=neutral, PublicKeyToken=null with mod STS2-RitsuLib
+[INFO] [com.ritsukage.sts2-RitsuLib] Framework ID: com.ritsukage.sts2-RitsuLib
+[INFO] [com.ritsukage.sts2-RitsuLib] Framework Name: RitsuLib
+[INFO] [com.ritsukage.sts2-RitsuLib] Version: 0.4.62 [compat branch: 0.109.0]
+[INFO] [com.ritsukage.sts2-RitsuLib] Initializing shared framework...
+[INFO] [com.ritsukage.sts2-RitsuLib] [HarmonyInitSetterCompat] Installed on 2 reflection importer entry point(s).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Config] Debug compatibility master is enabled. Sub-flags (only when master on): LocTable=True, UnlockEpoch=True, AncientArchitect=True. Mod Steam cloud mirror: disabled. Config file: user://steam/76561198188651006/mod_data/com.ritsukage.sts2-RitsuLib/settings.json
+[INFO] [com.ritsukage.sts2-RitsuLib] [DebugLogViewer] Local debug log viewer listening at http://127.0.0.1:18742/?token=5b4cc3e2ccdf14384977d1fdd0c4bb57
+[INFO] [com.ritsukage.sts2-RitsuLib] [Godot] RitsuGodot node factories initialized.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SmartFormat] Registered Source: STS2RitsuLib.Combat.SecondaryResources.SecondaryResourceLocStringSource (order=0).
+[INFO] [com.ritsukage.sts2-RitsuLib] [SmartFormat] Registered Formatter: STS2RitsuLib.Combat.SecondaryResources.SecondaryResourceIconsFormatter (order=0).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - framework core] Applying 404 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - framework core] Patch application complete: 404 applied, 0 ignored, 0 failed, 404 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - framework core] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - settings ui] Applying 7 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - settings ui] Patch application complete: 7 applied, 0 ignored, 0 failed, 7 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - settings ui] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content assets] Applying 115 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content assets] Patch application complete: 115 applied, 0 ignored, 0 failed, 115 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content assets] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - character assets] Applying 52 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - character assets] Patch application complete: 52 applied, 0 ignored, 0 failed, 52 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - character assets] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Applying 24 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Patch application complete: 24 applied, 0 ignored, 0 failed, 24 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - persistence] Applying 3 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - persistence] Patch application complete: 3 applied, 0 ignored, 0 failed, 3 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - persistence] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - unlocks] Applying 22 patches...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - unlocks] Patch application complete: 22 applied, 0 ignored, 0 failed, 22 total
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - unlocks] All patches applied successfully
+[INFO] [com.ritsukage.sts2-RitsuLib] [Graphics] 2D texture filter applied: linear_mipmap.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Coordinator initialized.
+[INFO] [com.ritsukage.sts2-RitsuLib] Shared framework initialization complete.
+[INFO] Finished mod initialization for 'RitsuLib' (STS2-RitsuLib).
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.dll
+[INFO] Loading Godot PCK D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.pck
+[INFO] Calling initializer method of type BaseLib.BaseLibMain for BaseLib, Version=3.3.8.0, Culture=neutral, PublicKeyToken=null
+[INFO] [BaseLib] Created node factory for Control.
+[INFO] [BaseLib] Created node factory for NCreatureVisuals.
+[INFO] [BaseLib] Created node factory for NRestSiteCharacter.
+[INFO] [BaseLib] Created node factory for NMerchantCharacter.
+[INFO] [BaseLib] Created node factory for NEnergyCounter.
+[INFO] [BaseLib] Created node factory for NCustomTreasureRoomChest.
+[INFO] [BaseLib] Registered config for mod BaseLib
+[INFO] [BaseLib] Performing CustomPile patch
+[INFO] [BaseLib] Starting PatchAll for assembly BaseLib, Version=3.3.8.0, Culture=neutral, PublicKeyToken=null
+[INFO] [BaseLib] Patching state machine: MegaCrit.Sts2.Core.Nodes.Combat.NCreature+<AnimDie>d__106
+[INFO] [BaseLib] Adding new state 5 for method CustomAnimationPatch.WaitCustomAnim before Wait with result type None ()
+[INFO] [BaseLib] Patching state machine: MegaCrit.Sts2.Core.Hooks.Hook+<AfterCardPlayed>d__16
+[INFO] [BaseLib] Adding new state 2 for method AfterCardPlayedPatch.BeforeAfterPlayHooks before AfterCardPlayed with result type None ()
+[INFO] [BaseLib] Skipping SentryService shutdown patch; no match found.
+[INFO] [BaseLib] Patching state machine: MegaCrit.Sts2.Core.Models.CardModel+<SpendResources>d__336
+[INFO] [BaseLib] Adding new state 2 for method CustomResourcePatches.SpendAdditionalCosts after SpendStars with result type None ()
+[INFO] [BaseLib] No valid target found, skipping old ExhaustivePatch
+[INFO] [BaseLib] No valid target found, skipping old PurgePatch
+[INFO] [BaseLib] Applied 266 patches successfully, 0 failed
+[INFO] Finished mod initialization for 'BaseLib' (BaseLib).
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3755203926\CardSkinLoader.dll
+[INFO] Calling initializer method of type CardSkinLoader.Entry for CardSkinLoader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [BaseLib] Registered config for mod CardSkinLoader
+[INFO] [CardSkinLoader] Loaded 0 card skin packs with 0 active card overrides.
+[INFO] Finished mod initialization for 'Card Skin Loader' (CardSkinLoader).
+[WARN] Mod HornetMod declares version 1.2.11(beta) which is not a valid Semantic Version
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.dll
+[INFO] Loading Godot PCK D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.pck
+[INFO] Calling initializer method of type HornetMod.Entry for HornetMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] [com.ritsukage.sts2-RitsuLib] [SecondaryResource] Registered HORNET_MOD_SECONDARY_RESOURCE_SILK (mod=HornetMod).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - node attachments] Applying 1 dynamic patch(es)...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - node attachments] Dynamic patch application complete: 1/1 succeeded
+[INFO] [com.ritsukage.sts2-RitsuLib] [NodeAttachment] Registered HORNET_MOD_NODEATTACHMENT_SILK_COMBAT_COUNTER: MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi -> STS2RitsuLib.Combat.SecondaryResources.NSecondaryResourceCounter (Order=0, Source=factory)
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - node attachments] Applying 1 dynamic patch(es)...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - node attachments] Dynamic patch application complete: 1/1 succeeded
+[INFO] [com.ritsukage.sts2-RitsuLib] [NodeAttachment] Registered HORNET_MOD_NODEATTACHMENT_SILK_CARD_COST: MegaCrit.Sts2.Core.Nodes.Cards.NCard -> STS2RitsuLib.Combat.SecondaryResources.NSecondaryResourceCardCostUi (Order=0, Source=factory)
+[INFO] [HornetMod] SilkFreePatch registered.
+[INFO] [HornetMod] [Keywords] Registered keyword: HORNET_MOD_KEYWORD_TOOL (CardKeyword=0x44B72EC0)
+[INFO] [HornetMod] HornetMod initialized.
+[INFO] Finished mod initialization for 'Hornet / 大黄蜂' (HornetMod).
+[INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV1\PaleRegentModV1.dll
+[INFO] Loading Godot PCK D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV1\PaleRegentModV1.pck
+[INFO] Calling initializer method of type PaleRegentModV1.PaleRegentModV1Code.MainFile for PaleRegentModV1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+========== PaleRegent resource check started ==========
+[PaleRegent Resource Check] file=False, resource=True, path=res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn
+[PaleRegent Resource Check] file=False, resource=True, path=res://PaleRegentModV1/animations/characters/paleregent/paleregent.png
+[PaleRegent Resource Check] file=False, resource=True, path=res://PaleRegentModV1/animations/characters/paleregent/paleregent.atlas
+[PaleRegent Resource Check] file=False, resource=True, path=res://PaleRegentModV1/animations/characters/paleregent/paleregent.skel
+[PaleRegent Resource Check] file=False, resource=True, path=res://PaleRegentModV1/animations/characters/paleregent/paleregent_skel_data.tres
+========== PaleRegent resource check finished ==========
+[INFO] Finished mod initialization for '苍白之王|Pale Regent' (PaleRegentModV1).
+[INFO] [com.ritsukage.sts2-RitsuLib] 
+=== RitsuLib Mod Debug Information ===
+Host Version: v0.109.0
+RitsuLib Version: 0.4.62 [compat branch: 0.109.0]
+BaseLib: v3.3.8
+Loaded Mods: 10
+Registered Mods: 12
+Mod List:
+  * STS2 Skin Manager [Sts2SkinManager] (0.27.1)
+  * 皮皮配置: ModConfig [ModConfig] (0.2.3)
+  * Load Order Manager / 模组加载顺序管理 [LoadOrderManager] (0.3.0)
+  * Auto Mod Subscriber [AutoModSubscriber] (0.1.2)
+  * Multiplayer Mod Sync / 联机模组同步 [MultiplayerModSync] (0.2.3)
+  * RitsuLib [STS2-RitsuLib] (0.4.62)
+  * BaseLib (v3.3.8)
+  * Card Skin Loader [CardSkinLoader] (0.1.0)
+  * Hornet / 大黄蜂 [HornetMod] (1.2.11(beta))
+  * 苍白之王|Pale Regent [PaleRegentModV1] (v0.0.1)
+Common Incompatible Mods:
+  * 皮皮配置: ModConfig [ModConfig] (0.2.3) state=Loaded source=ModsDirectory
+
+[INFO]  --- RUNNING MODDED! --- Loaded 10 mods (12 total)
+[Sentry.GDExtension] should_sample callable set
+[WARN] Asset not cached: res://scenes/debug/dev_console.tscn
+[INFO] Syncing cloud save files to the local save directory
+[WARN] Asset not cached: res://scenes/cards/card.tscn
+[WARN] Asset not cached: res://scenes/cards/holders/grid_card_holder.tscn
+[INFO] AtlasManager: Loaded ui_atlas with 102 sprites
+[INFO] AtlasManager: Loaded compressed with 45 sprites
+[WARN] [com.ritsukage.sts2-RitsuLib] [ModelDb] ReflectionHelper.ModTypes was already cached before LocManager.Initialize (6768 types). Clearing the cache so post-mod-load scans include all loaded mod types; another mod likely accessed ReflectionHelper.ModTypes before mod loading completed.
+[INFO] [HornetMod] [Content] Registered card: HornetAberrantCurse (id=HORNET_MOD_CARD_HORNET_ABERRANT_CURSE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetArcClaw (id=HORNET_MOD_CARD_HORNET_ARC_CLAW) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetArchitect (id=HORNET_MOD_CARD_HORNET_ARCHITECT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetAscendantGrip (id=HORNET_MOD_CARD_HORNET_ASCENDANT_GRIP) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBarbedBracelet (id=HORNET_MOD_CARD_HORNET_BARBED_BRACELET) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBeast (id=HORNET_MOD_CARD_HORNET_BEAST) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBindThread (id=HORNET_MOD_CARD_HORNET_BIND_THREAD) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBiomassForm (id=HORNET_MOD_CARD_HORNET_BIOMASS_FORM) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBlastPouch (id=HORNET_MOD_CARD_HORNET_BLAST_POUCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetBurrowDrill (id=HORNET_MOD_CARD_HORNET_BURROW_DRILL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetChallenge (id=HORNET_MOD_CARD_HORNET_CHALLENGE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetChargeSlash (id=HORNET_MOD_CARD_HORNET_CHARGE_SLASH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetClawMirror (id=HORNET_MOD_CARD_HORNET_CLAW_MIRROR) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetCompass (id=HORNET_MOD_CARD_HORNET_COMPASS) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetCrossStitch (id=HORNET_MOD_CARD_HORNET_CROSS_STITCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetCurveSickle (id=HORNET_MOD_CARD_HORNET_CURVE_SICKLE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetDeathWormPouch (id=HORNET_MOD_CARD_HORNET_DEATH_WORM_POUCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetDeepElegy (id=HORNET_MOD_CARD_HORNET_DEEP_ELEGY) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetDefend (id=HORNET_MOD_CARD_HORNET_DEFEND) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetDruidEye (id=HORNET_MOD_CARD_HORNET_DRUID_EYE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetDuel (id=HORNET_MOD_CARD_HORNET_DUEL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetElectrodeBall (id=HORNET_MOD_CARD_HORNET_ELECTRODE_BALL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetEternalBloom (id=HORNET_MOD_CARD_HORNET_ETERNAL_BLOOM) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetFleaEgg (id=HORNET_MOD_CARD_HORNET_FLEA_EGG) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetFleaNectar (id=HORNET_MOD_CARD_HORNET_FLEA_NECTAR) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetFlintPlate (id=HORNET_MOD_CARD_HORNET_FLINT_PLATE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetFracturedMask (id=HORNET_MOD_CARD_HORNET_FRACTURED_MASK) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetGearBee (id=HORNET_MOD_CARD_HORNET_GEAR_BEE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetHunter (id=HORNET_MOD_CARD_HORNET_HUNTER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetHunterCoordination (id=HORNET_MOD_CARD_HORNET_HUNTER_COORDINATION) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetInjectorBand (id=HORNET_MOD_CARD_HORNET_INJECTOR_BAND) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetLifebloodVial (id=HORNET_MOD_CARD_HORNET_LIFEBLOOD_VIAL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetLongClaw (id=HORNET_MOD_CARD_HORNET_LONG_CLAW) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetLongNeedle (id=HORNET_MOD_CARD_HORNET_LONG_NEEDLE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMagmaBell (id=HORNET_MOD_CARD_HORNET_MAGMA_BELL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMagnetBrooch (id=HORNET_MOD_CARD_HORNET_MAGNET_BROOCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMagnetDice (id=HORNET_MOD_CARD_HORNET_MAGNET_DICE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMaintenance (id=HORNET_MOD_CARD_HORNET_MAINTENANCE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMemoryCrystal (id=HORNET_MOD_CARD_HORNET_MEMORY_CRYSTAL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetMultiBinder (id=HORNET_MOD_CARD_HORNET_MULTI_BINDER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetNailSting (id=HORNET_MOD_CARD_HORNET_NAIL_STING) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetNeedleDash (id=HORNET_MOD_CARD_HORNET_NEEDLE_DASH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetPaleClaw (id=HORNET_MOD_CARD_HORNET_PALE_CLAW) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetPearlCannon (id=HORNET_MOD_CARD_HORNET_PEARL_CANNON) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetPinBadge (id=HORNET_MOD_CARD_HORNET_PIN_BADGE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetPlaceholder (id=HORNET_MOD_CARD_HORNET_PLACEHOLDER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetPollenPouch (id=HORNET_MOD_CARD_HORNET_POLLEN_POUCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetQuickSling (id=HORNET_MOD_CARD_HORNET_QUICK_SLING) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetReaper (id=HORNET_MOD_CARD_HORNET_REAPER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetRemoteViewer (id=HORNET_MOD_CARD_HORNET_REMOTE_VIEWER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetRuinedTool (id=HORNET_MOD_CARD_HORNET_RUINED_TOOL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetRunicFury (id=HORNET_MOD_CARD_HORNET_RUNIC_FURY) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSawtoothRing (id=HORNET_MOD_CARD_HORNET_SAWTOOTH_RING) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetShaman (id=HORNET_MOD_CARD_HORNET_SHAMAN) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetShellPendant (id=HORNET_MOD_CARD_HORNET_SHELL_PENDANT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkBladeDash (id=HORNET_MOD_CARD_HORNET_SILK_BLADE_DASH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkBolt (id=HORNET_MOD_CARD_HORNET_SILK_BOLT) -> TokenCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkHeart (id=HORNET_MOD_CARD_HORNET_SILK_HEART) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkReserve (id=HORNET_MOD_CARD_HORNET_SILK_RESERVE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkSpear (id=HORNET_MOD_CARD_HORNET_SILK_SPEAR) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkSpeedAnklets (id=HORNET_MOD_CARD_HORNET_SILK_SPEED_ANKLETS) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkTransfer (id=HORNET_MOD_CARD_HORNET_SILK_TRANSFER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkWeaveShield (id=HORNET_MOD_CARD_HORNET_SILK_WEAVE_SHIELD) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkshotForgeDaughter (id=HORNET_MOD_CARD_HORNET_SILKSHOT_FORGE_DAUGHTER) -> TokenCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSilkshotTwelfthArchitect (id=HORNET_MOD_CARD_HORNET_SILKSHOT_TWELFTH_ARCHITECT) -> TokenCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSnitchPick (id=HORNET_MOD_CARD_HORNET_SNITCH_PICK) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpiderClimb (id=HORNET_MOD_CARD_HORNET_SPIDER_CLIMB) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpiderStrings (id=HORNET_MOD_CARD_HORNET_SPIDER_STRINGS) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpiralCutter (id=HORNET_MOD_CARD_HORNET_SPIRAL_CUTTER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpiritSilkAscent (id=HORNET_MOD_CARD_HORNET_SPIRIT_SILK_ASCENT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpiritSilkStorm (id=HORNET_MOD_CARD_HORNET_SPIRIT_SILK_STORM) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSpoolExtender (id=HORNET_MOD_CARD_HORNET_SPOOL_EXTENDER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetStingShard (id=HORNET_MOD_CARD_HORNET_STING_SHARD) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetStraightNeedle (id=HORNET_MOD_CARD_HORNET_STRAIGHT_NEEDLE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetStrike (id=HORNET_MOD_CARD_HORNET_STRIKE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSummoningSong (id=HORNET_MOD_CARD_HORNET_SUMMONING_SONG) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSwarmAssault (id=HORNET_MOD_CARD_HORNET_SWARM_ASSAULT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSwiftSpine (id=HORNET_MOD_CARD_HORNET_SWIFT_SPINE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetSwiftStep (id=HORNET_MOD_CARD_HORNET_SWIFT_STEP) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetTeamCover (id=HORNET_MOD_CARD_HORNET_TEAM_COVER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetThiefMark (id=HORNET_MOD_CARD_HORNET_THIEF_MARK) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetThrowingRing (id=HORNET_MOD_CARD_HORNET_THROWING_RING) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetTripleDart (id=HORNET_MOD_CARD_HORNET_TRIPLE_DART) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetTwinClawMirror (id=HORNET_MOD_CARD_HORNET_TWIN_CLAW_MIRROR) -> TokenCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetVoltFilament (id=HORNET_MOD_CARD_HORNET_VOLT_FILAMENT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWanderer (id=HORNET_MOD_CARD_HORNET_WANDERER) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWardingBell (id=HORNET_MOD_CARD_HORNET_WARDING_BELL) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWeaveMemoryNeedle (id=HORNET_MOD_CARD_HORNET_WEAVE_MEMORY_NEEDLE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWeaveSilk (id=HORNET_MOD_CARD_HORNET_WEAVE_SILK) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWeightedBelt (id=HORNET_MOD_CARD_HORNET_WEIGHTED_BELT) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWheelBlade (id=HORNET_MOD_CARD_HORNET_WHEEL_BLADE) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWindSpiritSong (id=HORNET_MOD_CARD_HORNET_WIND_SPIRIT_SONG) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWispfireLantern (id=HORNET_MOD_CARD_HORNET_WISPFIRE_LANTERN) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWitch (id=HORNET_MOD_CARD_HORNET_WITCH) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered card: HornetWreathPurity (id=HORNET_MOD_CARD_HORNET_WREATH_PURITY) -> HornetCardPool
+[INFO] [HornetMod] [Content] Registered character: HornetCharacter (id=HORNET_MOD_CHARACTER_HORNET_CHARACTER)
+[INFO] [HornetMod] [Content] Registered potion: HornetLifebloodPotion (id=HORNET_MOD_POTION_HORNET_LIFEBLOOD_POTION) -> HornetPotionPool
+[INFO] [HornetMod] [Content] Registered potion: HornetSilkPotion (id=HORNET_MOD_POTION_HORNET_SILK_POTION) -> HornetPotionPool
+[INFO] [HornetMod] [Content] Registered potion: HornetVigorPotion (id=HORNET_MOD_POTION_HORNET_VIGOR_POTION) -> HornetPotionPool
+[INFO] [HornetMod] [Content] Registered relic: HornetBiomassGland (id=HORNET_MOD_RELIC_HORNET_BIOMASS_GLAND) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetCrowNest (id=HORNET_MOD_RELIC_HORNET_CROW_NEST) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetHymnCloak (id=HORNET_MOD_RELIC_HORNET_HYMN_CLOAK) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetHymnCylinder (id=HORNET_MOD_RELIC_HORNET_HYMN_CYLINDER) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetMaterialVault (id=HORNET_MOD_RELIC_HORNET_MATERIAL_VAULT) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetNeedleThread (id=HORNET_MOD_RELIC_HORNET_NEEDLE_THREAD) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetPaleNeedle (id=HORNET_MOD_RELIC_HORNET_PALE_NEEDLE) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetSnowCloak (id=HORNET_MOD_RELIC_HORNET_SNOW_CLOAK) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered relic: HornetStatue (id=HORNET_MOD_RELIC_HORNET_STATUE) -> HornetRelicPool
+[INFO] [HornetMod] [Content] Registered starter card: HornetBindThread (id=HORNET_MOD_CARD_HORNET_BIND_THREAD) x1 -> HornetCharacter
+[INFO] [HornetMod] [Content] Registered starter card: HornetChallenge (id=HORNET_MOD_CARD_HORNET_CHALLENGE) x1 -> HornetCharacter
+[INFO] [HornetMod] [Content] Registered starter card: HornetDefend (id=HORNET_MOD_CARD_HORNET_DEFEND) x4 -> HornetCharacter
+[INFO] [HornetMod] [Content] Registered starter card: HornetStrike (id=HORNET_MOD_CARD_HORNET_STRIKE) x4 -> HornetCharacter
+[INFO] [HornetMod] [Content] Registered starter relic: HornetNeedleThread (id=HORNET_MOD_RELIC_HORNET_NEEDLE_THREAD) x1 -> HornetCharacter
+[INFO] [com.ritsukage.sts2-RitsuLib] [AutoRegister] Processed assembly 'HornetMod': 113 operation(s), 113 succeeded, 0 failed.
+[INFO] [BaseLib] Performing early post-mod init
+[INFO] [BaseLib] Mod PaleRegentModV1 that modifies gameplay has BaseLib dependency; gameplay modification enabled.
+[INFO] [BaseLib] Patching act types for custom encounters and events | DeprecatedAct | Glory | Hive | Overgrowth | Underdocks
+[INFO] [BaseLib] Generating interop methods and properties
+[INFO] Loading locale path=res://localization/eng
+[INFO] Found loc table from mod: eng ancients.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: eng card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: eng cards.json. Merging with base loc table
+[INFO] Found loc table from mod: eng characters.json. Merging with base loc table
+[INFO] Found loc table from mod: eng combat_messages.json. Merging with base loc table
+[INFO] Found loc table from mod: eng gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng main_menu_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng monsters.json. Merging with base loc table
+[INFO] Found loc table from mod: eng potions.json. Merging with base loc table
+[INFO] Found loc table from mod: eng powers.json. Merging with base loc table
+[INFO] Found loc table from mod: eng powers.json. Merging with base loc table
+[INFO] Found loc table from mod: eng relics.json. Merging with base loc table
+[INFO] Found loc table from mod: eng settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: eng static_hover_tips.json. Merging with base loc table
+[INFO] Found loc table from mod: eng static_hover_tips.json. Merging with base loc table
+[INFO] Loading locale path=res://localization/zhs
+[INFO] Found loc table from mod: zhs ancients.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs ancients.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_keywords.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs card_selection.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs cards.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs cards.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs characters.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs characters.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs combat_messages.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs combat_messages.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs events.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs gameplay_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs main_menu_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs monsters.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs potions.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs potions.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs powers.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs powers.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs powers.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs relics.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs relics.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs settings_ui.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs static_hover_tips.json. Merging with base loc table
+[INFO] Found loc table from mod: zhs static_hover_tips.json. Merging with base loc table
+[INFO] [HornetMod] [Content] Content registration is now frozen (Init).
+[INFO] [HornetMod] [Keywords] Keyword registration is now frozen (Init).
+[INFO] [HornetMod] [CardTags] Card tag registration is now frozen (Init).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Applying 25 dynamic patch(es)...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Dynamic patch application complete: 25/25 succeeded
+[INFO] [com.ritsukage.sts2-RitsuLib] [Content] Dynamic act content patching initialized for 5 act type(s).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Applying 19 dynamic patch(es)...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Dynamic patch application complete: 19/19 succeeded
+[INFO] [com.ritsukage.sts2-RitsuLib] [Content] Dynamic character starter patching initialized for 10 character type(s).
+[INFO] [BaseLib] Starting custom enum generation for 6768 modded types
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.TargetType with starting value 10 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Rewards.RewardType with starting value 7 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardTransformReward
+[INFO] [BaseLib] Registering RewardType CardTransform
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardUpgradeReward
+[INFO] [BaseLib] Registering RewardType CardUpgrade
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.HoverTips.StaticHoverTip with starting value 17 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.CardKeyword with starting value 8 | IsFlag: False | Half-Size: 16
+[INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.RandomCardUpgradeReward
+[INFO] [BaseLib] Registering RewardType RandomCardUpgrade
+[INFO] [com.ritsukage.sts2-RitsuLib] [ModelDbDefer] Applied deferred patches after ModelDb.Init.
+[INFO] ModelIdSerializationCache initialized. Categories: 20 Entries: 1811 Epochs: 57 Properties: 52 Hash: 851489099
+[INFO]   There are mods included that do not affect gameplay. Hash may not include all IDs.
+[INFO] [BaseLib] Performing late post-mod init
+[WARN] [BaseLib] SavedProperty does not support values of type System.Decimal; change DelayedDexterityPower.DexAmount to a SavedSpireField for BaseLib to save it.
+[WARN] [BaseLib] SavedProperty HitCount will not work on type MemoryCrystalPower; this type is currently also unsupported by BaseLib for saved values.
+[WARN] [BaseLib] SavedProperty Multiplier will not work on type MemoryCrystalPower; this type is currently also unsupported by BaseLib for saved values.
+[WARN] [BaseLib] SavedProperty IsApplied will not work on type MemoryCrystalPower; this type is currently also unsupported by BaseLib for saved values.
+[INFO] [BaseLib] Found 0 SavedSpireFields.
+[INFO] [BaseLib] Adjusting keys of custom message wrappers.
+[INFO] [BaseLib] Using IDs 128 and 129 for custom message wrappers.
+[INFO] Profile-scoped data path initialized: user://steam/76561198188651006/modded/profile1
+[INFO] [com.ritsukage.sts2-RitsuLib] [Persistence] ProfileManager initialized with profile ID: 1
+[INFO] [com.ritsukage.sts2-RitsuLib] [Saves] Progress mirror merged into loaded progress
+[INFO] [com.ritsukage.sts2-RitsuLib] [Saves] Preserving unavailable progress records: cards=2, encounters=3, enemies=2, discoveries=3
+[INFO] [com.ritsukage.sts2-RitsuLib] [Saves] Suppressed 10 expected progress validation warning(s) for unavailable preserved records
+[INFO] [Sentry.NET] Is running modded
+[INFO] [Sentry.NET] Shutting down because event reporting is disabled.
+[INFO] [Sentry.NET] Shutting down
+[INFO] [com.ritsukage.sts2-RitsuLib] [SentryCompat] Skipped native Sentry GDExtension shutdown for STS2 0.107.1+ workaround.
+[INFO] [BaseLib] Adding 0 custom acts to act list.
+[INFO] [BaseLib] Result: ACT.OVERGROWTH (47080905),ACT.UNDERDOCKS (21074965),ACT.HIVE (55456964),ACT.GLORY (29350629)
+[INFO] AtlasManager: Loaded controller_atlas with 112 sprites
+[INFO] [com.ritsukage.sts2-RitsuLib] [Content] Character timeline: CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER RequiresEpochAndTimeline=False
+[INFO] SteamStatsManager: User stats received
+[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 316280803574
+[INFO] Applying display settings...
+  FULLSCREEN: False
+  ASPECT_RATIO: (SixteenByNine)
+  TARGET_DISPLAY: (0)
+  WINDOW_SIZE: (3840, 2019)
+  POSITION: (8, 48)
+[INFO] [Display] Min size: (64, 64) Max size: (16384, 16384)
+[INFO] [Display] Attempting WINDOWED mode on Display 1 of 2 at position (8, 48)
+[INFO] [Display] SUCCESS: (3840, 2019) Windowed mode in Display 0: Position (8, 48) ((8, 48))
+[INFO] Window changed! New size: (3840, 2019)
+[INFO] [Display] New size: (3840, 2019) position: (8, 48)
+[INFO] VSync: Adaptive
+[INFO] [Sts2SkinManager] [Sts2SkinManager] RitsuLib settings integration active (1 entry: overlayAnchor).
+[INFO] === Godot OS Debug Information ===
+Timestamp: 07/22/2026 20:14:51
+OS: Windows
+OS Version: 10.0.19045
+Distribution Name: Windows
+Device Model: 20TQA000CD
+Is Debug Build: False
+Is Sandboxed: False
+Executable Path: D:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2/SlayTheSpire2.exe
+Data Directory: C:/Users/chenz/AppData/Roaming
+User Data Directory: C:/Users/chenz/AppData/Roaming/SlayTheSpire2
+Command Line Args: 
+User Command Line Args: 
+OS Locale: zh_CN
+OS Language: zh
+Game Locale: zh_CN
+Is UserFS Persistent: True
+Is Stdout Verbose: False
+Is Low Processor Usage Mode: False
+Architecture: x86_64
+Engine Version: 4.5.1-m.14 (custom_build)
+Is Editor: False
+Release Version: v0.109.0
+Release Commit: c12f634d
+Release Date: 07/17/2026 02:31:41
+Processor Count: 12
+Processor Name: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Main assembly hash: 1833084275
+Rendering device name: NVIDIA Quadro P620
+  Graphics adapter 0: NVIDIA Quadro P620
+  version: 32.0.15.0
+  Graphics adapter 1: Intel(R) UHD Graphics
+  version: 31.0.101.0
+  Graphics adapter 2: Intel(R) UHD Graphics
+  version: 31.0.101.0
+  Graphics adapter 3: Microsoft Basic Render Driver
+  version: 10.0.19041.0
+Screen info (primary 0):
+  Index 0: Size: (3840, 2160) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
+  Index 1: Size: (2430, 4320) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
+Video Memory Used: 0.0B
+Memory Info:
+  physical: 31.8GB
+  free: 7.3GB
+  available: 63.8GB
+  stack: 8.0MB
+  Static Memory Usage: 0.0B
+  Static Memory Peak Usage: 0.0B
+Disk Info:
+  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 15.7GB Total Free: 15.7GB Total Size: 500.0GB
+  Index 1: Name: D:\ Type: Fixed Format: NTFS Available: 304.6GB Total Free: 304.6GB Total Size: 1.4TB
+  Index 2: Name: E:\ Type: Fixed Format: NTFS Available: 0.9TB Total Free: 0.9TB Total Size: 1.8TB
+Important Environment Variables:
+  PATH: C:\Python314\Scripts\;C:\Python314\;C:\Program Files\PlasticSCM5\server;C:\Program Files\PlasticSCM5\client;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\libnvvp;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Python39\Scripts\;C:\Python39\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;D:\Program Files\IBM\SPSS\Statistics\24\JRE\bin;C:\Program Files\Common Files\Autodesk Shared\;D:\Program Files\MATLAB\R2020b\runtime\win64;D:\Program Files\MATLAB\R2020b\bin;C:\ProgramData\chocolatey\bin;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\dotnet\;D:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\lib\x64;D:\Program Files\Git\cmd;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Program Files (x86)\Rational\common;C:\Maven\apache-maven-3.8.6\bin;%JAVA_HOME%\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.4.0\;C:\Program Files (x86)\ZeroTier\One\;D:\Program Files\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;D:\Users\chenz\AppData\Local\Programs\Microsoft VS Code\bin;%USERPROFILE%\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64;%USERPROFILE%\.dotnet\tools;D:\Program Files\JetBrains\PyCharm Community Edition 2021.2\bin;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;%USERPROFILE%\AppData\Local\Pandoc\;%USERPROFILE%\AppData\Roaming\Programs\Zero Install;%USERPROFILE%\AppData\Roaming\npm;
+  GODOT_ROOT_DIR: 
+  HOME: 
+  DYLD_LIBRARY_PATH: 
+  LD_LIBRARY_PATH: 
+
+[INFO] Preloading 'IntroLogo' assets... count=3 vfx=0
+[INFO] Preloading 'IntroLogo' Complete: assets=3 time_elapsed=55ms
+[INFO] Preloading 'MainMenuEssentials' assets... count=5 vfx=0
+[INFO] Preloading 'MainMenuEssentials' Complete: assets=5 time_elapsed=1,400ms
+[INFO] [Sts2SkinManager] dll-skin: 3 skipped mod(s) (silenced from prompts): [paleRegent, PaleRegentModV1, regentSkin]
+[INFO] [Sts2SkinManager] dll-skin: suppressing auto-suggest for custom-character mod 'HornetMod' (patched [MegaCrit.Sts2.Core.Models.CharacterModel, MegaCrit.Sts2.Core.Nodes.Screens.Shops.NMerchantCharacter]). Its pck adds a non-base character; the byte-frequency suggester would mis-attribute references to a base character.
+[INFO] [Sts2SkinManager] dll-skin forensic: 2 mod(s) with DLL+pck but no recognized skin signal:
+[INFO] [Sts2SkinManager]   [unclassified] ModConfig — no character-id hint found. To manage, add '"ModConfig": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"ModConfig"' to _dll_skin_skipped.
+[INFO] [Sts2SkinManager]   [unclassified] CustomSkeletonLoader — no character-id hint found. To manage, add '"CustomSkeletonLoader": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"CustomSkeletonLoader"' to _dll_skin_skipped.
+[WARN] Asset not cached: res://debug_audio/SOTE_Logo_Echoing_ShortTail.mp3
+[INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
+[INFO] [com.ritsukage.sts2-RitsuLib] [RitsuLib-ModSettings] Loaded translations: language='zhs', fallback='eng', entries=764, local=764, fallbackEntries=0, sources=2 (local=1, fallback=1)
+[INFO] [com.ritsukage.sts2-RitsuLib] [RitsuLib-ModSettings] Subscribed to locale change notifications
+[WARN] Asset not cached: res://themes/settings_screen_line_header.tres
+[WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
+[WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
+[INFO] [BaseLib] More than 8 selection options, enabling character select scroll
+[INFO] [Startup] Time to main menu (Godot ticks): 27532ms
+[INFO] [BaseLib] Adding custom save data to SerializableRun.
+[INFO] [BaseLib] Added 0 new properties to SerializableRun
+[INFO] [BaseLib] Adding custom save data to SerializableCard.
+[INFO] [BaseLib] Added 1 new properties to SerializableCard
+[INFO] [BaseLib] Adding custom save data to SerializablePlayer.
+[INFO] [BaseLib] Added 0 new properties to SerializablePlayer
+[INFO] [BaseLib] Adding custom save data to SerializablePotion.
+[INFO] [BaseLib] Added 0 new properties to SerializablePotion
+[INFO] [BaseLib] Adding custom save data to SerializableRelic.
+[INFO] [BaseLib] Added 0 new properties to SerializableRelic
+[INFO] [BaseLib] Adding custom save data to SerializableReward.
+[INFO] [BaseLib] Added 0 new properties to SerializableReward
+[WARN] Asset not cached: res://PaleRegentModV1\images\charui\character_icon_paleregent.png
+[INFO] [Startup] Time to main menu: 27,856ms
+[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=581.3MB, Objects=8,783, Resources=779, Nodes=1,574, CachedAssets=15
+[INFO] AtlasManager: Loaded epoch_atlas with 57 sprites
+[INFO] AtlasManager: Loaded relic_atlas with 346 sprites
+[INFO] AtlasManager: Loaded relic_outline_atlas with 346 sprites
+[INFO] AtlasManager: Loaded power_atlas with 271 sprites
+[INFO] AtlasManager: Loaded card_atlas with 615 sprites
+[INFO] AtlasManager: Loaded potion_atlas with 64 sprites
+[INFO] AtlasManager: Loaded potion_outline_atlas with 64 sprites
+[INFO] AtlasManager: Loaded stats_screen_atlas with 16 sprites
+[INFO] AtlasManager: Loaded intent_atlas with 310 sprites
+[INFO] AtlasManager: Loaded era_atlas with 27 sprites
+[INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn' for auto-conversion to NCreatureVisuals
+[INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/rest_site/characters/paleregent_rest_site.tscn' for auto-conversion to NRestSiteCharacter
+[INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/merchant/characters/paleregent_merchant.tscn' for auto-conversion to NMerchantCharacter
+[INFO] [BaseLib] Registered scene 'res://scenes/combat/energy_counters/regent_energy_counter.tscn' for auto-conversion to NEnergyCounter
+[INFO] [com.ritsukage.sts2-RitsuLib] [Compat] External framework presence refreshed (deferred initialization completed).
+[INFO] [com.ritsukage.sts2-RitsuLib] [HealthBarForecast] Registered BaseLib bridge provider.
+[INFO] [com.ritsukage.sts2-RitsuLib] [HealthBarGraft] BaseLib graft registry type not found.
+[INFO] [com.ritsukage.sts2-RitsuLib] [MaxHandSize] BaseLib hand-size bridge postfix installed.
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - framework core] Applying 15 dynamic patch(es)...
+[INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - framework core] Dynamic patch application complete: 15/15 succeeded
+[INFO] [com.ritsukage.sts2-RitsuLib] [MaxHandSize] RitsuLib hand-size patch set installed (modern profile).
+[INFO] [com.ritsukage.sts2-RitsuLib] [Audio] FMOD guid map OK: res://audio/GUIDs.txt (46 event path(s))
+[INFO] [com.ritsukage.sts2-RitsuLib] [Audio] deferred FMOD flush complete (banks=1, guid files=1).
+[INFO] [HornetMod] [HornetAudio] 已切换到 FMOD event 模式
+[INFO] Unloading 8 missed cache assets
+[INFO] [Sts2SkinManager] SkinSelectorOverlay attached (OptionButton) to CharacterSelectScreen
+[INFO] [Sts2SkinManager] preview panel attached
+[INFO] [Sts2SkinManager] tab panel attached (card=0, mixed=0)
+[INFO] [Sts2SkinManager] subscribed to LocManager locale change
+[INFO] [com.ritsukage.sts2-RitsuLib] [Telemetry] Registered applicant 'com.ritsukage.sts2-RitsuLib' -> https://ritsulib-telemetry.ritsukage.com/v1/ingest (3 request(s)).
+[INFO] [com.ritsukage.sts2-RitsuLib] 
+=== RitsuLib Startup Audit: launch to main menu ===
+  harmonyPatchAllTypeLoadGuard: 0.5 ms
+  harmonyInitSetterCompat: 11.6 ms
+  settingsStore: 629.2 ms
+  debugLogViewer: 11.4 ms
+  modSettingsBootstrap: 32.4 ms
+  telemetryBootstrap: 1.9 ms
+  mobileSteamRuntime: 0.1 ms
+  imageResourceLoader: 1.5 ms
+  godotNodeFactories: 1.9 ms
+  modTypeDiscoveryBuiltIns: 0.7 ms
+  secondaryResourceLocalization: 1.6 ms
+  secondaryResourceCloneBridge: 1.2 ms
+  frameworkBuiltIns: 0.3 ms (inclusive 7.3 ms)
+  registerPatches: 75.1 ms
+  patchAll.Core(404): 1103.2 ms
+  patchAll.SettingsUi(7): 34.2 ms
+  patchAll.ContentAssets(115): 171.7 ms
+  patchAll.CharacterAssets(52): 175.8 ms
+  patchAll.ContentRegistry(24): 49.0 ms
+  patchAll.Persistence(3): 4.7 ms
+  patchAll.Unlocks(22): 56.3 ms
+  patchAll: 1.4 ms (inclusive 1596.2 ms)
+  runtimeServices: 11.8 ms
+  modTypeDiscovery.runOnce: 391.9 ms
+  flushDeferredContentPacks: 0.7 ms
+  modelDb.validateCollisions: 17.3 ms
+  modelDb.injectDynamicModels: 3.1 ms
+  modelDb.warmResolvedCaches: 3.3 ms
+  modelDb.validateBaseLibDynamicEnums: 33.8 ms
+  modelDb.warmResolvedCaches: 0.0 ms
+  runtimeDetourCompatibilityScan: 4.9 ms
+  ---
+  RitsuLib exclusive self-time total: 2832.3 ms
+[INFO] [com.ritsukage.sts2-RitsuLib] [UpdateCheck] RitsuLib external update check skipped: loaded from Steam Workshop.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check requested.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Starting Auto check. SteamInitialized=True.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Steamworks Workshop binding initialized.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scanning subscribed Workshop items. Reported=8, Returned=8.
+[INFO] [com.ritsukage.sts2-RitsuLib] [Persistence] [runtime_reflection_spine_profile_auto] Using default values: File not found
+[INFO] Preloading 'Common' assets... count=705 vfx=94
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=874.9MB, Objects=9,093, Resources=777, Nodes=1,699, CachedAssets=5
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Refreshed Workshop details for 8/8 subscribed item(s).
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Using Workshop update scope 'steam:public-beta:host:v0.109.0' (public-beta).
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scan complete. Scope=steam:public-beta:host:v0.109.0, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check result: Available=True, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0, Error=<none>.
+[INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto update check found no Workshop item updates. Inspected=8.
+ERROR: Invalid Task ID
+   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)
+[INFO] Abandoning run from main menu
+[INFO] Player already has Epoch: NEOW_EPOCH
+[INFO] Player already has Epoch: OROBAS_EPOCH
+[INFO] Player already has Epoch: DARV_EPOCH
+[INFO] Wrote 255737 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 255737 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 5613 bytes to path=user://steam/76561198188651006/modded/profile1/saves/history\1784721929.run save_dir=user://steam/76561198188651006
+[INFO] Wrote 5613 bytes to modded/profile1/saves/history/1784721929.run in steam remote store
+[INFO] Saved run history: 1784721929.run
+[INFO] Created Run History entry!
+[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
+[INFO] [com.ritsukage.sts2-RitsuLib] [Sidecar] Session unbound epoch=1
+[INFO] Max ascension changed to 0
+[INFO] Max ascension changed to 1
+[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 1
+[INFO] Max ascension changed to 0
+[INFO] [StartRunLobby (1)] CHARACTER.PALEREGENTMODV1-PALE_REGENT_MOD_V1 has no progress, disabling Ascension.
+[WARN] Asset not cached: res://images/packed/sprite_fonts/star_icon.png
+[INFO] [StartRunLobby (1)] Local player 1 is ready
+[INFO] Embarking on a singleplayer PALEREGENTMODV1-PALE_REGENT_MOD_V1 run. Ascension: 0 Seed: 33WTNXYHBHYD
+[WARN] [com.ritsukage.sts2-RitsuLib] [Audio] FMOD event was not found in GUID mappings or loaded Studio events. operation=PlayOneShot; path=event:/sfx/ui/wipe_regent; guidMapEventCount=46; loadedBankCount=6; loadedEventDescriptionCount=621; banksStillLoading=False
+cannot find sfx path: event:/sfx/ui/wipe_regent
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' assets... count=37 vfx=32
+[INFO] Preloading 'Common' Complete: assets=799 time_elapsed=9,485ms
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' Complete: assets=43 time_elapsed=2,175ms
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=8 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=8 time_elapsed=67ms
+[INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
+[WARN] Asset not cached: res://themes/settings_screen_line_header.tres
+[WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
+[WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
+[INFO] [BaseLib] Creating Control from resource CompressedTexture2D
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=0 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=3ms
+[INFO] Wrote 255737 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 255737 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 46492 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 46492 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 5 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=839ms
+[INFO] [BaseLib] Checking for additional interactions with NEOW
+[INFO] [BaseLib] Found 3 additional dialogues for NEOW with PALEREGENTMODV1-PALE_REGENT_MOD_V1, total 3
+[WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
+[WARN] Asset not cached: res://images/packed/sprite_fonts/regent_energy_icon.png
+[WARN] Asset not cached: res://themes/kreon_bold_shared.tres
+[WARN] Asset not cached: res://images/packed/sprite_fonts/star_icon.png
+[INFO] Wrote 255737 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 255737 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 48545 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 48545 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (5, 1))
+[INFO] Wrote 255737 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 255737 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 48603 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 48603 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 4 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=150ms
+ERROR: System.InvalidCastException: Unable to cast object of type 'Godot.Control' to type 'MegaCrit.Sts2.Core.Nodes.Combat.NStarCounter'.
+   at MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi._Ready_Patch2(NCombatUi this)
+   at Godot.Node.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Control.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Bridge.CSharpInstanceBridge.Call(IntPtr godotObjectGCHandle, godot_string_name* method, godot_variant** args, Int32 argCount, godot_variant_call_error* refCallError, godot_variant* ret)
+   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+   C# backtrace (most recent call first):
+       [0] void Godot.GD.PushError(string)
+       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
+       [2] Godot.NativeInterop.godot_bool Godot.Bridge.CSharpInstanceBridge.Call(nint, Godot.NativeInterop.godot_string_name*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant_call_error*, Godot.NativeInterop.godot_variant*)
+       [3] void Godot.NativeCalls.godot_icall_3_864(nint, nint, nint, Godot.NativeInterop.godot_bool, int)
+       [4] void MegaCrit.Sts2.Core.Helpers.GodotTreeExtensions.AddChildSafely(Godot.Node, Godot.Node)
+       [5] void MegaCrit.Sts2.Core.Nodes.NSceneContainer.SetCurrentScene(Godot.Control)
+       [6] void MegaCrit.Sts2.Core.Nodes.NRun.SetCurrentRoom(Godot.Control)
+       [7] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [9] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [11] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [12] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [13] void System.Threading.Tasks.Task.RunContinuations(object)
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [15] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [17] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [19] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [20] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [21] void System.Threading.Tasks.Task.RunContinuations(object)
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [23] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [25] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [27] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [28] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [29] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SHRINKER_BEETLE_WEAK.
+[INFO] [BaseLib] Auto-converted 'res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn' from Node2D to NCreatureVisuals
+ERROR: System.NullReferenceException: Object reference not set to an instance of an object.
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.UpdateCreatureNavigation()
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.AddCreature(Creature creature)
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.CreateAllyNodes()
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom._Ready()
+   at Godot.Node.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Control.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.InvokeGodotClassMethod(godot_string_name& method, NativeVariantPtrArgs args, godot_variant& ret)
+   at Godot.Bridge.CSharpInstanceBridge.Call(IntPtr godotObjectGCHandle, godot_string_name* method, godot_variant** args, Int32 argCount, godot_variant_call_error* refCallError, godot_variant* ret)
+   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+   C# backtrace (most recent call first):
+       [0] void Godot.GD.PushError(string)
+       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
+       [2] Godot.NativeInterop.godot_bool Godot.Bridge.CSharpInstanceBridge.Call(nint, Godot.NativeInterop.godot_string_name*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant_call_error*, Godot.NativeInterop.godot_variant*)
+       [3] void Godot.NativeCalls.godot_icall_3_864(nint, nint, nint, Godot.NativeInterop.godot_bool, int)
+       [4] void MegaCrit.Sts2.Core.Helpers.GodotTreeExtensions.AddChildSafely(Godot.Node, Godot.Node)
+       [5] void MegaCrit.Sts2.Core.Nodes.NSceneContainer.SetCurrentScene(Godot.Control)
+       [6] void MegaCrit.Sts2.Core.Nodes.NRun.SetCurrentRoom(Godot.Control)
+       [7] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [9] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [11] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [12] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [13] void System.Threading.Tasks.Task.RunContinuations(object)
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [15] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [17] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [19] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [20] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [21] void System.Threading.Tasks.Task.RunContinuations(object)
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [23] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [25] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [27] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [28] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [29] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+[ERROR] System.NullReferenceException: Object reference not set to an instance of an object.
+   at MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch5(NCombatUi this, CombatState state)
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(CombatState state)
+   at MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(CombatState state)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.StartCombat(IRunState runState)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.EnterInternal(IRunState runState, Boolean isRestoringRoomStackBase)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoomInternal(AbstractRoom room, Boolean isRestoringRoomStackBase)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoom(AbstractRoom room)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterMapPointInternal(Int32 actFloor, MapPointType pointType, AbstractRoom preFinishedRoom, Boolean saveGame)
+   at MegaCrit.Sts2.Core.Nodes.Screens.Map.NMapScreen.TravelToMapCoord(MapCoord coord)
+   at MegaCrit.Sts2.Core.GameActions.MoveToMapCoordAction.ExecuteAction()
+   at MegaCrit.Sts2.Core.Helpers.TaskHelper.LogTaskExceptions(Task task)
+   at MegaCrit.Sts2.Core.Helpers.TaskHelper.LogTaskExceptions(Task task)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.GameActions.MoveToMapCoordAction.ExecuteAction()
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Nodes.Screens.Map.NMapScreen.TravelToMapCoord(MapCoord coord)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterMapPointInternal(Int32 actFloor, MapPointType pointType, AbstractRoom preFinishedRoom, Boolean saveGame)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoom(AbstractRoom room)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoomInternal(AbstractRoom room, Boolean isRestoringRoomStackBase)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.EnterInternal(IRunState runState, Boolean isRestoringRoomStackBase)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.FinishSlow(Boolean userDelegateExecute)
+   at System.Threading.Tasks.Task.TrySetException(Object exceptionObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetException(Exception exception, Task`1& taskField)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.StartCombat(IRunState runState)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at MegaCrit.Sts2.Core.Assets.PreloadManager.LoadRoomCombatAssets(EncounterModel encounter, IRunState runState)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at MegaCrit.Sts2.Core.Assets.PreloadManager.LoadRoomAssets(String roomName, IEnumerable`1 additionalAssets)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+   at Godot.Bridge.ScriptManagerBridge.FrameCallback()
+
+[ERROR] GameAction MoveToMapCoordAction 1 MapCoord (5, 1) completed with exception: System.AggregateException: One or more errors occurred. (Object reference not set to an instance of an object.)
+ ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch5(NCombatUi this, CombatState state)
+   at MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(CombatState state)
+   at MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(CombatState state)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.StartCombat(IRunState runState)
+   at MegaCrit.Sts2.Core.Rooms.CombatRoom.EnterInternal(IRunState runState, Boolean isRestoringRoomStackBase)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoomInternal(AbstractRoom room, Boolean isRestoringRoomStackBase)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterRoom(AbstractRoom room)
+   at MegaCrit.Sts2.Core.Runs.RunManager.EnterMapPointInternal(Int32 actFloor, MapPointType pointType, AbstractRoom preFinishedRoom, Boolean saveGame)
+   at MegaCrit.Sts2.Core.Nodes.Screens.Map.NMapScreen.TravelToMapCoord(MapCoord coord)
+   at MegaCrit.Sts2.Core.GameActions.MoveToMapCoordAction.ExecuteAction()
+   at MegaCrit.Sts2.Core.Helpers.TaskHelper.LogTaskExceptions(Task task)
+   at MegaCrit.Sts2.Core.Helpers.TaskHelper.WhenAny(Task[] tasks)
+   at MegaCrit.Sts2.Core.GameActions.GameAction.Execute()
+   --- End of inner exception stack trace ---
+   at MegaCrit.Sts2.Core.GameActions.ActionExecutor.ExecuteActions()
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at Godot.SignalAwaiter.SignalCallback(IntPtr awaiterGCHandlePtr, godot_variant** args, Int32 argCount, godot_bool* outAwaiterIsNull)
+
+[INFO] [BaseLib] NGame.Quit(): saving all ModConfigs
+[INFO] NGame.Quit called
+[INFO] [Display] On exit, saving window size: (3840, 2019) display: 0 position: (8, 48)
+[INFO] Wrote 3859 bytes to path=user://steam/76561198188651006/settings.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 334 bytes to path=user://steam/76561198188651006/modded/profile1/saves/prefs.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 334 bytes to modded/profile1/saves/prefs.save in steam remote store
+[INFO] Wrote 255737 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 255737 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 52 bytes to path=user://steam/76561198188651006/modded/profile.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 52 bytes to modded/profile.save in steam remote store
+[WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
+[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
+[INFO] Steamworks: shutting down...
+[INFO] Steamworks shutdown succeeded!
+FMOD Sound System: System released
+WARNING: 1110 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2678)
+ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.
+ERROR: 5 shaders of type CanvasShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
+ERROR: 30 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
+ERROR: 1 shaders of type ParticlesShaderRD were never freed
+   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
+ERROR: 30 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
+ERROR: 79 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
+ERROR: 6 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
+ERROR: 353 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
+WARNING: 151 RIDs of type "UniformBuffer" were leaked.
+   at: _free_rids (servers/rendering/rendering_device.cpp:6981)
+WARNING: 701 RIDs of type "Texture" were leaked.
+   at: finalize (servers/rendering/rendering_device.cpp:7191)
+ERROR: 396 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 18 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2514)
+ERROR: 390 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:795)
