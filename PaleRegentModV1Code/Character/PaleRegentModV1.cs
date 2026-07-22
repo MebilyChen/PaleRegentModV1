@@ -96,7 +96,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override string CustomArmPointingTexturePath => "multiplayer_hand_paleregent_point.png".CharacterUiPath();
     
     
-    //public override string CustomEnergyCounterPath =>  ModRoot + "/scenes/combat/paleregent_energy_counter.tscn";
+    public override string CustomEnergyCounterPath =>  ModRoot + "/scenes/combat/paleregent_energy_counter.tscn";
     public override string CustomVisualPath => ModRoot + "/scenes/creature_visuals/paleregent.tscn";
     public override string CustomRestSiteAnimPath => ModRoot + "/scenes/rest_site/characters/paleregent_rest_site.tscn";
     public override string CustomMerchantAnimPath => ModRoot + "/scenes/merchant/characters/paleregent_merchant.tscn";
