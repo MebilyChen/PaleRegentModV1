@@ -18,6 +18,7 @@ public partial class MainFile : Node
         //Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
         CheckAnimationResources();
         
+        PaleRegentModV1.PaleRegentModV1Code.Resources.VoidResource.Register();
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();
