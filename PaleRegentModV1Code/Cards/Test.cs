@@ -30,7 +30,9 @@ public class Test() : PaleRegentModV1Card(0,
         await VoidResource.Gain(play.Player, VoidGain);
 
         // 2. 同步施加/叠加 VoidPower（buff 图标 + 回合开始扣能量的挂点）
-        await PowerCmd.Apply<VoidPower>(choiceContext, play.Player, VoidGain, play.Player, this);
+        // 注意：STS2 的 Player 不继承 Creature（和 STS1 不同），
+        // PowerCmd.Apply 的 target/applier 参数要传 play.Player.Creature。
+        await PowerCmd.Apply<VoidPower>(choiceContext, play.Player.Creature, VoidGain, play.Player.Creature, this);
     }
 
     protected override void OnUpgrade()

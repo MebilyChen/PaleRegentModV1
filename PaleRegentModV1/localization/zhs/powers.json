@@ -845,7 +845,7 @@
   "WRAITH_FORM_POWER.description": "在你的回合开始时，失去[blue]1[/blue]点[gold]敏捷[/gold]。",
   "WRAITH_FORM_POWER.smartDescription": "在你的回合开始时，失去[blue]{Amount}[/blue]点[gold]敏捷[/gold]。",
   "WRAITH_FORM_POWER.title": "幽魂形态",
-  "VOID_POWER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。",
-  "VOID_POWER.smartDescription": "在你的回合开始时，失去[blue]{Amount}[/blue]点灵魂。",
-  "VOID_POWER.title": "虚空"
+  "PALEREGENTMODV1-VOID_POWER.title": "虚空",
+  "PALEREGENTMODV1-VOID_POWER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。",
+  "PALEREGENTMODV1-VOID_POWER.smartDescription": "在你的回合开始时，失去[blue]{Amount}[/blue]点灵魂。"
 }

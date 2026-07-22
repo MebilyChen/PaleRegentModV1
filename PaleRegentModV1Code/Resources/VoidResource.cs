@@ -10,7 +10,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Resources;
 
 /// <summary>
 /// 虚空（Void）副资源。基于 RitsuLib 的 SecondaryResource 框架注册。
-/// 机制：虚空跨回合保留（Retain），回合开始时由 VoidPower 扣除等量灵魂（能量）。
+/// 机制：虚空跨回合保留，回合开始时由 VoidPower 扣除等量灵魂（能量）。
+///
+/// 本次编译错误的修复点：
+/// 1. SecondaryResourceDefinition / SecondaryResourceCounterStyle / SecondaryResourceIconStyle
+///    都是 record 类型，属性全部是 init-only —— 只能在 new 的对象初始化器里赋值，
+///    不能先 new 再逐行 style.Xxx = ... 赋值（CS8852 的原因）。
+/// 2. SecondaryResourcePersistencePolicy 的枚举值只有 None / Combat / Run，
+///    没有 Retain（CS0117 的原因）。"跨回合保留"不由它控制——
+///    只要 TurnStartPolicy = None，资源在回合开始时就不会被清空/重置。
+///    PersistencePolicy 管的是"是否写入存档"，这里用 None（战斗内资源即可）。
 /// </summary>
 public static class VoidResource
 {
@@ -21,20 +30,21 @@ public static class VoidResource
     {
         ModSecondaryResourceRegistry registry = RitsuLibFramework.GetSecondaryResourceRegistry("PaleRegentModV1");
 
-        // 构造参数: defaultAmount, baseMaxAmount, minAmount, hardMaxAmount,
-        //           turnStartPolicy, persistencePolicy, locTable, titleKey, descriptionKey,
-        //           smallIconPath, largeIconPath
+        // 构造函数参数全部有默认值，用命名参数只填需要的项。
+        // TitleKey/DescriptionKey 是 init-only，必须通过构造参数传入，不能构造后再赋值。
         SecondaryResourceDefinition def = new SecondaryResourceDefinition(
-            0, null, 0, 9999,
-            SecondaryResourceTurnStartPolicy.None,
-            SecondaryResourcePersistencePolicy.Retain,
-            null, null, null,
-            "res://PaleRegentModV1/images/charui/energy_void.png",
-            "res://PaleRegentModV1/images/charui/energy_void.png"
+            defaultAmount: 0,
+            baseMaxAmount: null,
+            minAmount: 0,
+            hardMaxAmount: 9999,
+            turnStartPolicy: SecondaryResourceTurnStartPolicy.None,   // 回合开始不清空 = 跨回合保留
+            persistencePolicy: SecondaryResourcePersistencePolicy.None,
+            locTable: "static_hover_tips",
+            titleKey: "PALEREGENTMODV1-VOID_COUNTER.title",
+            descriptionKey: "PALEREGENTMODV1-VOID_COUNTER.description",
+            smallIconPath: "res://PaleRegentModV1/images/charui/energy_void.png",
+            largeIconPath: "res://PaleRegentModV1/images/charui/energy_void.png"
         );
-
-        def.TitleKey = "PALEREGENTMODV1-VOID_COUNTER.title";
-        def.DescriptionKey = "PALEREGENTMODV1-VOID_COUNTER.description";
 
         Definition = registry.Register("void", def);
         Id = Definition.Id;
@@ -43,18 +53,18 @@ public static class VoidResource
 
         registry.RegisterCombatUi<NSecondaryResourceCounter>("void_combat_counter", (NCombatUi parent) =>
         {
-            SecondaryResourceCounterStyle style = new SecondaryResourceCounterStyle();
-            style.FontSize = 30;
-            style.OutlineSize = 12;
-            style.OutlineColor = Colors.Black;
-            style.FormatAmount = (int amount, int? max) => $"{amount}";
-
-            // SecondaryResourceIconStyle 是 record 类型，没有公开的 Clone() 方法，
-            // 也不能直接对 Default 的属性赋值（会改到全局默认值）。
-            // 正确写法是用 C# 的 with 表达式创建一个修改过的副本。
-            style.IconStyle = SecondaryResourceIconStyle.Default with
+            // record 的 init-only 属性必须在对象初始化器里一次性赋值
+            SecondaryResourceCounterStyle style = new SecondaryResourceCounterStyle
             {
-                Size = new Vector2(100f, 100f)
+                FontSize = 30,
+                OutlineSize = 12,
+                OutlineColor = Colors.Black,
+                FormatAmount = (int amount, int? max) => $"{amount}",
+                // IconStyle 同为 record：用 with 表达式基于 Default 创建修改副本
+                IconStyle = SecondaryResourceIconStyle.Default with
+                {
+                    Size = new Vector2(100f, 100f)
+                }
             };
 
             NSecondaryResourceCounter counter = NSecondaryResourceCounter.Create(Definition, style);
