@@ -1,44 +1,45 @@
-using BaseLib.Abstracts;
-using MegaCrit.Sts2.Core.Entities.Powers;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Combat;
-using HarmonyLib;
-using Godot;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Resources;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
+/// <summary>
+/// 虚空（Void）Power：作为虚空数量的可视化 buff 挂在玩家身上。
+/// 机制：回合开始能量恢复完成后（AfterEnergyReset 钩子），
+/// 扣除等同于当前虚空数量的灵魂（能量），最低扣到 0。
+///
+/// 注意：
+/// 1. STS2 没有 STS1 的 AtStartOfTurn()，回合开始扣能量的官方标准挂点是
+///    AfterEnergyReset(Player)，参考原版 EnergyNextTurnPower 的实现。
+/// 2. Power 的 Owner 是 Creature 类型而不是 Player，
+///    要通过 Owner.Player / Owner.IsPlayer 访问玩家。
+/// 3. Power 由 ModelDb 反射创建，必须保留无参构造函数；
+///    数量通过 PowerCmd.Apply(power, amount, ...) 设置。
+/// </summary>
 public class VoidPower : PaleRegentModV1Power
 {
-    public const string PowerId = "Void";
-    
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public VoidPower(int amount)
+    public override async Task AfterEnergyReset(Player player)
     {
-        Amount = amount;
-    }
-
-    public override void AtStartOfTurn()
-    {
-        // 虚空机制：回合开始时，扣除相应灵魂。
-        // 例如，灵魂上限为4，上一回合剩余2虚空，下一回合开始灵魂只能恢复到2。
-        // 因为玩家在回合开始时已经恢复了基础能量，我们需要在这里扣除。
-        if (Owner is Player player)
+        // 只处理该 Power 持有者本人的回合
+        if (player != Owner.Player)
         {
-            int voidAmount = Amount;
-            if (voidAmount > 0)
-            {
-                // 扣除能量
-                player.Energy -= voidAmount;
-                if (player.Energy < 0)
-                {
-                    player.Energy = 0;
-                }
-                
-                // 可选：播放一些特效或提示
-                // CombatManager.Instance.AddAction(new FloatTextAction(player, $"失去 {voidAmount} 灵魂", Color.Color8(100, 100, 255)));
-            }
+            return;
         }
+
+        // 以副资源中的虚空数量为准（Power 的 Amount 仅作展示，双轨时可能不同步）
+        int voidAmount = VoidResource.Get(player);
+        if (voidAmount <= 0)
+        {
+            return;
+        }
+
+        // 扣除等量灵魂（能量），PlayerCmd.LoseEnergy 内部会 Clamp 到 0
+        await PlayerCmd.LoseEnergy(voidAmount, player);
     }
 }
