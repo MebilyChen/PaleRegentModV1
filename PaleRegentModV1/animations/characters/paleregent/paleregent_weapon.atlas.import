@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://u0e8t6d1wowb"
+path="res://.godot/imported/paleregent_weapon.atlas-f9303e53890f2484c5ac711b8e003369.spatlas"
+
+[deps]
+
+source_file="res://PaleRegentModV1/animations/characters/paleregent/paleregent_weapon.atlas"
+dest_files=["res://.godot/imported/paleregent_weapon.atlas-f9303e53890f2484c5ac711b8e003369.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

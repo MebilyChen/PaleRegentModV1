@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bitv6cp6gcvao"
+path="res://.godot/imported/paleregent_weapon.skel-e337984afbfc2230e4f9b05baf3db74a.spskel"
+
+[deps]
+
+source_file="res://PaleRegentModV1/animations/characters/paleregent/paleregent_weapon.skel"
+dest_files=["res://.godot/imported/paleregent_weapon.skel-e337984afbfc2230e4f9b05baf3db74a.spskel"]
+
+[params]
+

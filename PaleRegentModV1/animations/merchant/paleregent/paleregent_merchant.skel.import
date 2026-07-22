@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://c4ohg27na2uv3"
+path="res://.godot/imported/paleregent_merchant.skel-91310f8348dd174c2d597a60ca1e90f6.spskel"
+
+[deps]
+
+source_file="res://PaleRegentModV1/animations/merchant/paleregent/paleregent_merchant.skel"
+dest_files=["res://.godot/imported/paleregent_merchant.skel-91310f8348dd174c2d597a60ca1e90f6.spskel"]
+
+[params]
+

@@ -1,0 +1,4 @@
+1、陛下的skin还是会替换掉regent
+2、卡的边框替换（material）
+3、vfx替换：minion、sovereign blade
+4、遗物替换：美味饼干、迷你储君

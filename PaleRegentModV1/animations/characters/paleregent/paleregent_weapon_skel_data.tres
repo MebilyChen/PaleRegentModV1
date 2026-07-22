@@ -1,0 +1,8 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3]
+
+[ext_resource type="SpineAtlasResource" path="res://PaleRegentModV1/animations/characters/paleregent/paleregent_skel_data.tres" id="1_t438k"]
+[ext_resource type="SpineSkeletonFileResource" path="res://PaleRegentModV1/animations/characters/paleregent/paleregent_weapon.skel" id="2_xhuth"]
+
+[resource]
+atlas_res = ExtResource("1_t438k")
+skeleton_file_res = ExtResource("2_xhuth")

@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bvpwa7tbh7u0g"
+path="res://.godot/imported/2.skel-45b6c0547b7d4ebaa59c3844ef500a19.spskel"
+
+[deps]
+
+source_file="res://PaleRegentModV1/animations/rest_site/paleregent/2.skel"
+dest_files=["res://.godot/imported/2.skel-45b6c0547b7d4ebaa59c3844ef500a19.spskel"]
+
+[params]
+

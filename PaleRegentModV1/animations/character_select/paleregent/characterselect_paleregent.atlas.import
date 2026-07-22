@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dv2o1waarrxej"
+path="res://.godot/imported/characterselect_paleregent.atlas-2079b55586ce9395c31817af56613a73.spatlas"
+
+[deps]
+
+source_file="res://PaleRegentModV1/animations/character_select/paleregent/characterselect_paleregent.atlas"
+dest_files=["res://.godot/imported/characterselect_paleregent.atlas-2079b55586ce9395c31817af56613a73.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,18 @@
+{
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.aromaPrinciple": "[sine][white]我一定会驯化瘟疫……[/white][/sine]",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.banter.alive.endTurnPing": "集中注意。",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.banter.dead.endTurnPing": "还没有结束……",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.bestiaryQuote": "我还未征服这个敌人。",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.cardsModifierDescription": "苍白之王的卡牌现在会出现在奖励和商店中。",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.cardsModifierTitle": "苍白之王卡牌",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.description": "失落地下文明的国王。\n依然坚信自己能够拯救他的王国。",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.eventDeathPrevention": "为了我的臣民们，我必须活下去...",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.goldMonologue": "[sine]只要等我的王国复辟……[/sine]",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.possessiveAdjective": "陛下的",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.pronounObject": "陛下",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.pronounPossessive": "陛下的",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.pronounSubject": "陛下",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.title": "苍白之王",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.titleObject": "苍白之王",
+  "PALEREGENTMODV1-PALE_REGENT_MOD_V1.unlockText": "用[green]{Prerequisite}[/green]进行一局游戏来解锁这个角色。"
+}
