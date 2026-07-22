@@ -52,13 +52,13 @@ internal static class PaleRegentCounterTexturePatch
         new(StringComparer.OrdinalIgnoreCase)
         {
             ["energy_star.png"] =
-                TextureRoot + "energy_star.png",
+                TextureRoot + "energy_void.png",
 
             ["energy_star_layer_2.png"] =
-                TextureRoot + "energy_star_layer_2.png",
+                TextureRoot + "energy_void_layer_2.png",
 
             ["energy_star_layer_3.png"] =
-                TextureRoot + "energy_star_layer_3.png",
+                TextureRoot + "energy_void_layer_3.png",
             
             ["regent_orb_layer_1.png"] =
                     TextureRoot + "paleregent_orb_layer_1.png",
