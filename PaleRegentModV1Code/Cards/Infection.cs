@@ -1,0 +1,77 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
+
+namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
+
+/// <summary>
+/// 【感染】状态牌（机制文档：瘟疫流核心资源牌）。
+/// 0 灵魂 + 1 虚空：打出后消耗（清除病灶）。保留。
+/// 若回合结束时仍留在手牌：将一张【疑虑】（原版诅咒）加入抽牌堆（病情恶化）。
+///
+/// 联动：
+/// - 疫刃按消耗牌堆中的感染数量加伤；
+/// - 疫收把手牌感染转化为虚空；
+/// - 疫蔓（PlagueSpreadPower）在感染生成时触发——统一入口
+///   NotifyGenerated(creature) 由生成方调用。
+/// </summary>
+public class Infection : PaleRegentModV1Card
+{
+    private const int VoidCost = 1;
+
+    public Infection() : base(0,
+        CardType.Status, CardRarity.Status,
+        TargetType.None)
+    {
+        CardTraits.SetVoidCost(this, VoidCost);
+    }
+
+    public override int MaxUpgradeLevel => 0;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+
+    /// <summary>回合结束仍在手牌：病情恶化，抽牌堆混入一张【疑虑】。</summary>
+    public override bool HasTurnEndInHandEffect => true;
+
+    protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+    {
+        await CardPileCmd.AddToCombatAndPreview<MegaCrit.Sts2.Core.Models.Cards.Doubt>(
+            Owner.Creature, PileType.Draw, 1, Owner);
+    }
+
+    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        // 打出即消耗（虚空费>0 自动带消耗），无其他效果
+        return Task.CompletedTask;
+    }
+
+    protected override void OnUpgrade()
+    {
+    }
+
+    /// <summary>
+    /// 感染生成统一通知入口：所有"生成感染"的代码生成后调用一次，
+    /// 触发持有者身上的【疫蔓】。
+    /// </summary>
+    public static async Task NotifyGenerated(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner, int count)
+    {
+        PlagueSpreadPower? spread = owner.GetPower<PlagueSpreadPower>();
+        if (spread == null)
+        {
+            return;
+        }
+        for (int i = 0; i < count; i++)
+        {
+            await spread.OnInfectionGenerated();
+        }
+    }
+}

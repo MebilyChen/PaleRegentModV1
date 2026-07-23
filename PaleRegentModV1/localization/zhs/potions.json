@@ -1,4 +1,8 @@
 {
 	"PALEREGENTMODV1-VOID_ESSENCE.title": "虚空精华",
-	"PALEREGENTMODV1-VOID_ESSENCE.description": "获得5点[gold]虚空[/gold]。"
+	"PALEREGENTMODV1-VOID_ESSENCE.description": "获得5点[gold]虚空[/gold]。",
+	"PALEREGENTMODV1-PURE_SEAL_POTION.title": "纯粹封印药水",
+	"PALEREGENTMODV1-PURE_SEAL_POTION.description": "对一个敌人施加1层[gold]纯粹封印[/gold]（回合内第一次攻击无效）。",
+	"PALEREGENTMODV1-VESSEL_POTION.title": "容器药水",
+	"PALEREGENTMODV1-VESSEL_POTION.description": "将2张【容器】置入手牌。"
 }

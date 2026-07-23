@@ -29,4 +29,17 @@ public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity ra
     //Uses card_portraits/card_name.png as image path. These should be smaller images.
     public override string PortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+
+    /// <summary>
+    /// 【造物牌】标记（机制文档：造物流）。
+    /// 佣卫/容器/虚空化形等战斗中生成的牌重写为 true，
+    /// 受【驾驭 Harness】（HarnessPower）数值加成。
+    /// </summary>
+    public virtual bool IsCreationCard => false;
+
+    /// <summary>
+    /// 【纯粹】特质标记（机制文档：纯粹关键词，占位实现）。
+    /// 带纯粹的牌不受感染/变形类效果影响（具体判定在各效果处检查此标记）。
+    /// </summary>
+    public virtual bool IsPure => false;
 }
