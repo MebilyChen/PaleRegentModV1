@@ -19,6 +19,9 @@ public partial class MainFile : Node
         CheckAnimationResources();
         
         PaleRegentModV1.PaleRegentModV1Code.Resources.VoidResource.Register();
+        // 注册虚空资源全局监听器：任何途径的虚空增减（含 RitsuLib 自动支付卡牌虚空费）
+        // 都会自动同步 VoidPower 图标层数（修复：花费虚空后 Power 不移除）
+        PaleRegentModV1.PaleRegentModV1Code.Patches.VoidPowerListener.Init();
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();

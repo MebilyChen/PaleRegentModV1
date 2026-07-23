@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using STS2RitsuLib;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -81,6 +82,37 @@ public static class VoidResource
         }, (ctx) =>
         {
             ctx.Node.Bind(ctx.Player, true);
+        });
+
+        // ---- 卡牌费用显示 UI（修复：虚空费不显示在卡牌上）----
+        // 之前只注册了战斗计数器（RegisterCombatUi），没有注册卡牌费用 UI，
+        // 所以带虚空费的卡牌上看不到费用图标/数字。
+        // 参考 HornetMod SilkResource.Register() 的 silk_card_cost 注册：
+        // NSecondaryResourceCardCostUi 会自动读取卡牌的 SecondaryCosts 并渲染费用，
+        // 没有虚空费的卡不会显示任何内容。
+        registry.RegisterCardUi<NSecondaryResourceCardCostUi>("void_card_cost", (NCard parent) =>
+        {
+            // record 的 init-only 属性必须在对象初始化器里一次性赋值
+            SecondaryResourceCardCostUiStyle style = new SecondaryResourceCardCostUiStyle
+            {
+                IconSize = new Vector2(48f, 48f),
+                FontSize = 28,
+                OutlineSize = 12,
+                AffordableOutlineColor = Colors.Black,
+                UnaffordableOutlineColor = Colors.Black
+            };
+
+            NSecondaryResourceCardCostUi node = NSecondaryResourceCardCostUi.Create(Id, style);
+
+            // 把费用图标放在能量费用图标正下方（与丝线费的摆放方式一致）
+            TextureRect energyIcon = parent.GetNode<TextureRect>("%EnergyIcon");
+            node.Position = energyIcon.Position + new Vector2(0f, 48f);
+
+            return node;
+        }, (ctx) =>
+        {
+            // 卡牌状态变化（抽到手牌/资源变化/费用修改）时刷新显示
+            ctx.Node.Refresh<NCard>(ctx);
         });
     }
 
