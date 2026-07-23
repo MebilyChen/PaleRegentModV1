@@ -8,13 +8,14 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models.Cards;
 using PaleRegentModV1.PaleRegentModV1Code.Cards;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
 /// 【容器计划】buff（能力牌"容器计划"施加，机制文档：造物流）。
-/// 效果：每回合开始时，将 [层数] 张【容器】和 [层数] 张【羞愧】（原版诅咒）
-/// 加入手牌。
+/// 效果：每回合开始时，将 [层数] 张【容器】加入手牌，
+/// 并召集【羞愧】（君王之剑式：已有则全部移回手牌，一张都没有才生成一张）。
 /// </summary>
 public class VesselPlanPower : PaleRegentModV1Power
 {
@@ -29,6 +30,7 @@ public class VesselPlanPower : PaleRegentModV1Power
         }
         Flash();
         await CardPileCmd.AddToCombatAndPreview<Vessel>(Owner, PileType.Hand, (int)Amount, Owner.Player);
-        await CardPileCmd.AddToCombatAndPreview<Shame>(Owner, PileType.Hand, (int)Amount, Owner.Player);
+        // Shame 特质（君王之剑式）：已有则全部移回手牌，一张都没有才生成一张，避免满手诅咒
+        await CurseTraitHelper.Summon<Shame>(Owner.Player);
     }
 }

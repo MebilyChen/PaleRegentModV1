@@ -4,8 +4,12 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -23,6 +27,17 @@ public class FailedVessel() : PaleRegentModV1Card(0,
 
     public override bool IsCreationCard => true;
     public override bool GainsBlock => true;
+
+    /// <summary>
+    /// Shame 特质（君王之剑式）：此牌生成时，将你所有的 Shame 加入手牌（若没有则生成一张）。
+    /// </summary>
+    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
+    {
+        if (card == this)
+        {
+            await CurseTraitHelper.Summon<Shame>(Owner);
+        }
+    }
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【感染】状态牌（机制文档：瘟疫流核心资源牌）。
 /// 0 灵魂 + 1 虚空：打出后消耗（清除病灶）。保留。
-/// 若回合结束时仍留在手牌：将一张【疑虑】（原版诅咒）加入抽牌堆（病情恶化）。
+/// 若回合结束时仍留在手牌：将你所有的【疑虑】加入手牌（若没有则生成一张）——君王之剑式，不会满手诅咒。
 ///
 /// 联动：
 /// - 疫刃按消耗牌堆中的感染数量加伤；
@@ -39,13 +39,15 @@ public class Infection : PaleRegentModV1Card
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
-    /// <summary>回合结束仍在手牌：病情恶化，抽牌堆混入一张【疑虑】。</summary>
+    /// <summary>
+    /// 回合结束仍在手牌：病情恶化——Doubt 特质（君王之剑式）：
+    /// 将你所有的【疑虑】加入手牌；若一张都没有才生成一张，避免满手诅咒。
+    /// </summary>
     public override bool HasTurnEndInHandEffect => true;
 
     protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
     {
-        await CardPileCmd.AddToCombatAndPreview<MegaCrit.Sts2.Core.Models.Cards.Doubt>(
-            Owner.Creature, PileType.Draw, 1, Owner);
+        await CurseTraitHelper.Summon<MegaCrit.Sts2.Core.Models.Cards.Doubt>(Owner);
     }
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
