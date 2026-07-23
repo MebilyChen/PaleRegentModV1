@@ -22,7 +22,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override CharacterGender Gender => CharacterGender.Neutral;
     //public override int StartingHp => 75;
     
-    /*public override IEnumerable<CardModel> StartingDeck => [
+    public override IEnumerable<CardModel> StartingDeck => [
         ModelDb.Card<Test>(),
         ModelDb.Card<Test>(),
         ModelDb.Card<StrikeRegent>(),
@@ -33,14 +33,14 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
         ModelDb.Card<DefendRegent>(),
         ModelDb.Card<DefendRegent>(),
         ModelDb.Card<DefendRegent>()
-    ];*/
+    ];
 
     /*public override IReadOnlyList<RelicModel> StartingRelics =>
     [
         ModelDb.Relic<DivineRight>()
     ];*/
 
-    //public override CardPoolModel CardPool => ModelDb.CardPool<PaleRegentModV1CardPool>();
+    public override CardPoolModel CardPool => ModelDb.CardPool<PaleRegentModV1CardPool>();
     //public override RelicPoolModel RelicPool => ModelDb.RelicPool<PaleRegentModV1RelicPool>();
     //public override PotionPoolModel PotionPool => ModelDb.PotionPool<PaleRegentModV1PotionPool>();
 
@@ -50,8 +50,8 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override int StartingHp =>
         RegentBase.StartingHp;
 
-    public override IEnumerable<CardModel> StartingDeck =>
-        RegentBase.StartingDeck;
+    //public override IEnumerable<CardModel> StartingDeck =>
+        //RegentBase.StartingDeck;
 
     // 初始遗物：苍白信物（灵魂上限+1；每回合开始只恢复[灵魂-虚空]点灵魂）
     public override IReadOnlyList<RelicModel> StartingRelics =>
@@ -59,8 +59,8 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
         ModelDb.Relic<PaleToken>()
     ];
 
-    public override CardPoolModel CardPool =>
-        RegentBase.CardPool;
+    //public override CardPoolModel CardPool =>
+        //RegentBase.CardPool;
 
     public override RelicPoolModel RelicPool =>
         RegentBase.RelicPool;
