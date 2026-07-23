@@ -33,9 +33,10 @@ public class FinishingMove() : PaleRegentModV1Card(6,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 对所有敌人造成伤害（TargetingAllOpponents = AoE，参考原版 Whirlwind）
+        // CombatState 在打出卡牌时必非空，用 ! 消除 CS8604
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
-            .TargetingAllOpponents(CombatState)
+            .TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_giant_horizontal_slash")
             .Execute(choiceContext);
     }

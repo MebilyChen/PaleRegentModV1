@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
@@ -52,8 +53,8 @@ public class ApotheosisPower : PaleRegentModV1Power
 
         Flash();
 
-        // 1. 获得虚空并同步展示层
-        await VoidResource.Gain(Owner.Player, VoidGainPerTurn);
+        // 1. 获得虚空并同步展示层（Owner.Player 在玩家回合必非空，用 ! 消除 CS8604）
+        await VoidResource.Gain(Owner.Player!, VoidGainPerTurn);
         await VoidResource.SyncPower(choiceContext, Owner.Player, null);
 
         // 2. 若手牌中有可失心的牌，弹出选牌界面选 1 张附加【失心】

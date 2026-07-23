@@ -33,8 +33,8 @@ public class VoidEssence : PaleRegentModV1Potion
     {
         AssertValidForTargetedPotion(target);
 
-        // 获得虚空并同步 VoidPower 图标
-        await VoidResource.Gain(target.Player, VoidGain);
+        // Assert 已保证 target 非空，用 ! 消除 CS8604 可空警告
+        await VoidResource.Gain(target!.Player, VoidGain);
         await VoidResource.SyncPower(choiceContext, target.Player, null);
     }
 }
