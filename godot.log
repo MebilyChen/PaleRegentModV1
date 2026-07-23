@@ -58,7 +58,7 @@ FMOD Sound System: Successfully initialized
 [INFO] Looking for mods to load from Steam Workshop mod 3747513223 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223 (size 349703, last modified 1784688994)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223\Sts2SkinManager.json
 [Sentry.GDExtension] Initialized: env=playtesters, release=v0.109.0
-[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=8084, windowFocused=True]
+[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=6687, windowFocused=True]
 [INFO] Skipping loading mod CustomSkeletonLoader, it is set to disabled in settings
 [INFO] Skipping loading mod paleRegent, it is set to disabled in settings
 [INFO] Mods have been re-sorted because we detected a change or dependency order was broken. New sorting order:
@@ -111,12 +111,12 @@ FMOD Sound System: Successfully initialized
 [WARN] Mod LoadOrderManager does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109\LoadOrderManager.dll
 [INFO] No ModInitializerAttribute detected. Calling Harmony.PatchAll for LoadOrderManager, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null
-[LoadOrderManager] [2026-07-23 20:03:50.090] [INFO] Initialize called.
-[LoadOrderManager] [2026-07-23 20:03:50.094] [INFO] Log file: C:/Users/chenz/AppData/Roaming/SlayTheSpire2\LoadOrderManager\load_order_manager.log
-[LoadOrderManager] [2026-07-23 20:03:50.103] [INFO] Startup diagnostics context: runtimeUserId=76561198188651006, pathUserId=76561198188651006, settingsPath=user://steam/76561198188651006/settings.save, currentTop=Sts2SkinManager::2 > ModConfig::1 > LoadOrderManager::2 > AutoModSubscriber::2 > MultiplayerModSync::2 > STS2-RitsuLib::2 > BaseLib::2 > CardSkinLoader::2
-[LoadOrderManager] [2026-07-23 20:03:50.105] [INFO] Startup diagnostics: no previous apply snapshot for current user.
-[LoadOrderManager] [2026-07-23 20:03:50.112] [INFO] Harmony patches applied.
-[LoadOrderManager] [2026-07-23 20:03:50.113] [INFO] Loaded.
+[LoadOrderManager] [2026-07-23 21:54:23.237] [INFO] Initialize called.
+[LoadOrderManager] [2026-07-23 21:54:23.241] [INFO] Log file: C:/Users/chenz/AppData/Roaming/SlayTheSpire2\LoadOrderManager\load_order_manager.log
+[LoadOrderManager] [2026-07-23 21:54:23.253] [INFO] Startup diagnostics context: runtimeUserId=76561198188651006, pathUserId=76561198188651006, settingsPath=user://steam/76561198188651006/settings.save, currentTop=Sts2SkinManager::2 > ModConfig::1 > LoadOrderManager::2 > AutoModSubscriber::2 > MultiplayerModSync::2 > STS2-RitsuLib::2 > BaseLib::2 > CardSkinLoader::2
+[LoadOrderManager] [2026-07-23 21:54:23.255] [INFO] Startup diagnostics: no previous apply snapshot for current user.
+[LoadOrderManager] [2026-07-23 21:54:23.263] [INFO] Harmony patches applied.
+[LoadOrderManager] [2026-07-23 21:54:23.264] [INFO] Loaded.
 [INFO] Finished mod initialization for 'Load Order Manager / 模组加载顺序管理' (LoadOrderManager).
 [WARN] Mod AutoModSubscriber does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606\AutoModSubscriber.dll
@@ -253,7 +253,7 @@ Common Incompatible Mods:
 [WARN] Asset not cached: res://scenes/cards/holders/grid_card_holder.tscn
 [INFO] AtlasManager: Loaded ui_atlas with 102 sprites
 [INFO] AtlasManager: Loaded compressed with 45 sprites
-[WARN] [com.ritsukage.sts2-RitsuLib] [ModelDb] ReflectionHelper.ModTypes was already cached before LocManager.Initialize (6785 types). Clearing the cache so post-mod-load scans include all loaded mod types; another mod likely accessed ReflectionHelper.ModTypes before mod loading completed.
+[WARN] [com.ritsukage.sts2-RitsuLib] [ModelDb] ReflectionHelper.ModTypes was already cached before LocManager.Initialize (6830 types). Clearing the cache so post-mod-load scans include all loaded mod types; another mod likely accessed ReflectionHelper.ModTypes before mod loading completed.
 [INFO] [HornetMod] [Content] Registered card: HornetAberrantCurse (id=HORNET_MOD_CARD_HORNET_ABERRANT_CURSE) -> HornetCardPool
 [INFO] [HornetMod] [Content] Registered card: HornetArcClaw (id=HORNET_MOD_CARD_HORNET_ARC_CLAW) -> HornetCardPool
 [INFO] [HornetMod] [Content] Registered card: HornetArchitect (id=HORNET_MOD_CARD_HORNET_ARCHITECT) -> HornetCardPool
@@ -426,7 +426,7 @@ Common Incompatible Mods:
 [INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Applying 19 dynamic patch(es)...
 [INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Dynamic patch application complete: 19/19 succeeded
 [INFO] [com.ritsukage.sts2-RitsuLib] [Content] Dynamic character starter patching initialized for 10 character type(s).
-[INFO] [BaseLib] Starting custom enum generation for 6785 modded types
+[INFO] [BaseLib] Starting custom enum generation for 6830 modded types
 [INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.TargetType with starting value 10 | IsFlag: False | Half-Size: 16
 [INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Rewards.RewardType with starting value 7 | IsFlag: False | Half-Size: 16
 [INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardTransformReward
@@ -438,7 +438,7 @@ Common Incompatible Mods:
 [INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.RandomCardUpgradeReward
 [INFO] [BaseLib] Registering RewardType RandomCardUpgrade
 [INFO] [com.ritsukage.sts2-RitsuLib] [ModelDbDefer] Applied deferred patches after ModelDb.Init.
-[INFO] ModelIdSerializationCache initialized. Categories: 20 Entries: 1816 Epochs: 57 Properties: 52 Hash: 2172023719
+[INFO] ModelIdSerializationCache initialized. Categories: 20 Entries: 1836 Epochs: 57 Properties: 52 Hash: 42100694
 [INFO]   There are mods included that do not affect gameplay. Hash may not include all IDs.
 [INFO] [BaseLib] Performing late post-mod init
 [WARN] [BaseLib] SavedProperty does not support values of type System.Decimal; change DelayedDexterityPower.DexAmount to a SavedSpireField for BaseLib to save it.
@@ -458,11 +458,11 @@ Common Incompatible Mods:
 [INFO] [Sentry.NET] Shutting down
 [INFO] [com.ritsukage.sts2-RitsuLib] [SentryCompat] Skipped native Sentry GDExtension shutdown for STS2 0.107.1+ workaround.
 [INFO] [BaseLib] Adding 0 custom acts to act list.
-[INFO] [BaseLib] Result: ACT.OVERGROWTH (21074965),ACT.UNDERDOCKS (55456964),ACT.HIVE (29350629),ACT.GLORY (62829075)
+[INFO] [BaseLib] Result: ACT.OVERGROWTH (23201699),ACT.UNDERDOCKS (7488701),ACT.HIVE (289449),ACT.GLORY (2605049)
 [INFO] AtlasManager: Loaded controller_atlas with 112 sprites
 [INFO] [com.ritsukage.sts2-RitsuLib] [Content] Character timeline: CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER RequiresEpochAndTimeline=False
 [INFO] SteamStatsManager: User stats received
-[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 317516672014
+[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 317651222809
 [INFO] Applying display settings...
   FULLSCREEN: False
   ASPECT_RATIO: (SixteenByNine)
@@ -477,7 +477,7 @@ Common Incompatible Mods:
 [INFO] VSync: Adaptive
 [INFO] [Sts2SkinManager] [Sts2SkinManager] RitsuLib settings integration active (1 entry: overlayAnchor).
 [INFO] === Godot OS Debug Information ===
-Timestamp: 07/23/2026 20:03:46
+Timestamp: 07/23/2026 21:54:19
 OS: Windows
 OS Version: 10.0.19045
 Distribution Name: Windows
@@ -519,13 +519,13 @@ Screen info (primary 0):
 Video Memory Used: 0.0B
 Memory Info:
   physical: 31.8GB
-  free: 12.7GB
+  free: 12.3GB
   available: 63.8GB
   stack: 8.0MB
   Static Memory Usage: 0.0B
   Static Memory Peak Usage: 0.0B
 Disk Info:
-  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 15.3GB Total Free: 15.3GB Total Size: 500.0GB
+  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 15.4GB Total Free: 15.4GB Total Size: 500.0GB
   Index 1: Name: D:\ Type: Fixed Format: NTFS Available: 304.4GB Total Free: 304.4GB Total Size: 1.4TB
   Index 2: Name: E:\ Type: Fixed Format: NTFS Available: 0.9TB Total Free: 0.9TB Total Size: 1.8TB
 Important Environment Variables:
@@ -536,9 +536,9 @@ Important Environment Variables:
   LD_LIBRARY_PATH: 
 
 [INFO] Preloading 'IntroLogo' assets... count=3 vfx=0
-[INFO] Preloading 'IntroLogo' Complete: assets=3 time_elapsed=73ms
+[INFO] Preloading 'IntroLogo' Complete: assets=3 time_elapsed=61ms
 [INFO] Preloading 'MainMenuEssentials' assets... count=5 vfx=0
-[INFO] Preloading 'MainMenuEssentials' Complete: assets=5 time_elapsed=1,433ms
+[INFO] Preloading 'MainMenuEssentials' Complete: assets=5 time_elapsed=1,484ms
 [INFO] [Sts2SkinManager] dll-skin: 3 skipped mod(s) (silenced from prompts): [paleRegent, PaleRegentModV1, regentSkin]
 [INFO] [Sts2SkinManager] dll-skin: suppressing auto-suggest for custom-character mod 'HornetMod' (patched [MegaCrit.Sts2.Core.Models.CharacterModel, MegaCrit.Sts2.Core.Nodes.Screens.Shops.NMerchantCharacter]). Its pck adds a non-base character; the byte-frequency suggester would mis-attribute references to a base character.
 [INFO] [Sts2SkinManager] dll-skin forensic: 2 mod(s) with DLL+pck but no recognized skin signal:
@@ -552,22 +552,9 @@ Important Environment Variables:
 [WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
 [WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
 [INFO] [BaseLib] More than 8 selection options, enabling character select scroll
-[INFO] [Startup] Time to main menu (Godot ticks): 25935ms
-[INFO] [BaseLib] Adding custom save data to SerializableRun.
-[INFO] [BaseLib] Added 0 new properties to SerializableRun
-[INFO] [BaseLib] Adding custom save data to SerializableCard.
-[INFO] [BaseLib] Added 1 new properties to SerializableCard
-[INFO] [BaseLib] Adding custom save data to SerializablePlayer.
-[INFO] [BaseLib] Added 0 new properties to SerializablePlayer
-[INFO] [BaseLib] Adding custom save data to SerializablePotion.
-[INFO] [BaseLib] Added 0 new properties to SerializablePotion
-[INFO] [BaseLib] Adding custom save data to SerializableRelic.
-[INFO] [BaseLib] Added 0 new properties to SerializableRelic
-[INFO] [BaseLib] Adding custom save data to SerializableReward.
-[INFO] [BaseLib] Added 0 new properties to SerializableReward
-[WARN] Asset not cached: res://PaleRegentModV1\images\charui\character_icon_paleregent.png
-[INFO] [Startup] Time to main menu: 26,224ms
-[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=581.3MB, Objects=8,789, Resources=779, Nodes=1,574, CachedAssets=15
+[INFO] [Startup] Time to main menu (Godot ticks): 28616ms
+[INFO] [Startup] Time to main menu: 28,755ms
+[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=613.3MB, Objects=8,784, Resources=780, Nodes=1,574, CachedAssets=14
 [INFO] AtlasManager: Loaded epoch_atlas with 57 sprites
 [INFO] AtlasManager: Loaded relic_atlas with 346 sprites
 [INFO] AtlasManager: Loaded relic_outline_atlas with 346 sprites
@@ -578,7 +565,6 @@ Important Environment Variables:
 [INFO] AtlasManager: Loaded stats_screen_atlas with 16 sprites
 [INFO] AtlasManager: Loaded intent_atlas with 310 sprites
 [INFO] AtlasManager: Loaded era_atlas with 27 sprites
-[INFO] [PaleRegentModV1] Could not find card image path: res://PaleRegentModV1\images\card_portraits\test.png
 [INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn' for auto-conversion to NCreatureVisuals
 [INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/rest_site/characters/paleregent_rest_site.tscn' for auto-conversion to NRestSiteCharacter
 [INFO] [BaseLib] Registered scene 'res://PaleRegentModV1/scenes/merchant/characters/paleregent_merchant.tscn' for auto-conversion to NMerchantCharacter
@@ -593,7 +579,7 @@ Important Environment Variables:
 [INFO] [com.ritsukage.sts2-RitsuLib] [Audio] FMOD guid map OK: res://audio/GUIDs.txt (46 event path(s))
 [INFO] [com.ritsukage.sts2-RitsuLib] [Audio] deferred FMOD flush complete (banks=1, guid files=1).
 [INFO] [HornetMod] [HornetAudio] 已切换到 FMOD event 模式
-[INFO] Unloading 8 missed cache assets
+[INFO] Unloading 7 missed cache assets
 [INFO] [Sts2SkinManager] SkinSelectorOverlay attached (OptionButton) to CharacterSelectScreen
 [INFO] [Sts2SkinManager] preview panel attached
 [INFO] [Sts2SkinManager] tab panel attached (card=0, mixed=0)
@@ -601,39 +587,39 @@ Important Environment Variables:
 [INFO] [com.ritsukage.sts2-RitsuLib] [Telemetry] Registered applicant 'com.ritsukage.sts2-RitsuLib' -> https://ritsulib-telemetry.ritsukage.com/v1/ingest (3 request(s)).
 [INFO] [com.ritsukage.sts2-RitsuLib] 
 === RitsuLib Startup Audit: launch to main menu ===
-  harmonyPatchAllTypeLoadGuard: 0.5 ms
+  harmonyPatchAllTypeLoadGuard: 0.6 ms
   harmonyInitSetterCompat: 12.2 ms
-  settingsStore: 628.8 ms
-  debugLogViewer: 10.8 ms
-  modSettingsBootstrap: 35.4 ms
-  telemetryBootstrap: 1.9 ms
+  settingsStore: 658.2 ms
+  debugLogViewer: 9.2 ms
+  modSettingsBootstrap: 30.2 ms
+  telemetryBootstrap: 1.6 ms
   mobileSteamRuntime: 0.1 ms
-  imageResourceLoader: 1.3 ms
-  godotNodeFactories: 1.7 ms
+  imageResourceLoader: 1.4 ms
+  godotNodeFactories: 1.9 ms
   modTypeDiscoveryBuiltIns: 0.6 ms
-  secondaryResourceLocalization: 1.4 ms
-  secondaryResourceCloneBridge: 1.0 ms
-  frameworkBuiltIns: 0.2 ms (inclusive 6.4 ms)
-  registerPatches: 74.6 ms
-  patchAll.Core(404): 1243.1 ms
-  patchAll.SettingsUi(7): 42.0 ms
-  patchAll.ContentAssets(115): 219.3 ms
-  patchAll.CharacterAssets(52): 216.4 ms
-  patchAll.ContentRegistry(24): 69.8 ms
-  patchAll.Persistence(3): 7.0 ms
-  patchAll.Unlocks(22): 74.9 ms
-  patchAll: 1.3 ms (inclusive 1873.9 ms)
-  runtimeServices: 15.2 ms
-  modTypeDiscovery.runOnce: 366.7 ms
-  flushDeferredContentPacks: 0.8 ms
-  modelDb.validateCollisions: 16.1 ms
-  modelDb.injectDynamicModels: 2.7 ms
-  modelDb.warmResolvedCaches: 3.8 ms
-  modelDb.validateBaseLibDynamicEnums: 30.3 ms
+  secondaryResourceLocalization: 1.6 ms
+  secondaryResourceCloneBridge: 1.1 ms
+  frameworkBuiltIns: 0.2 ms (inclusive 6.8 ms)
+  registerPatches: 72.0 ms
+  patchAll.Core(404): 1034.9 ms
+  patchAll.SettingsUi(7): 36.4 ms
+  patchAll.ContentAssets(115): 170.6 ms
+  patchAll.CharacterAssets(52): 182.4 ms
+  patchAll.ContentRegistry(24): 52.1 ms
+  patchAll.Persistence(3): 5.1 ms
+  patchAll.Unlocks(22): 65.1 ms
+  patchAll: 1.4 ms (inclusive 1548.0 ms)
+  runtimeServices: 12.3 ms
+  modTypeDiscovery.runOnce: 363.1 ms
+  flushDeferredContentPacks: 0.9 ms
+  modelDb.validateCollisions: 18.1 ms
+  modelDb.injectDynamicModels: 3.3 ms
+  modelDb.warmResolvedCaches: 3.2 ms
+  modelDb.validateBaseLibDynamicEnums: 41.3 ms
   modelDb.warmResolvedCaches: 0.0 ms
-  runtimeDetourCompatibilityScan: 4.2 ms
+  runtimeDetourCompatibilityScan: 4.3 ms
   ---
-  RitsuLib exclusive self-time total: 3084.2 ms
+  RitsuLib exclusive self-time total: 2785.3 ms
 [INFO] [com.ritsukage.sts2-RitsuLib] [UpdateCheck] RitsuLib external update check skipped: loaded from Steam Workshop.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check requested.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Starting Auto check. SteamInitialized=True.
@@ -641,249 +627,449 @@ Important Environment Variables:
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scanning subscribed Workshop items. Reported=8, Returned=8.
 [INFO] [com.ritsukage.sts2-RitsuLib] [Persistence] [runtime_reflection_spine_profile_auto] Using default values: File not found
 [INFO] Preloading 'Common' assets... count=705 vfx=94
-[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=810.9MB, Objects=9,098, Resources=777, Nodes=1,699, CachedAssets=5
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=842.9MB, Objects=9,090, Resources=776, Nodes=1,699, CachedAssets=5
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Refreshed Workshop details for 8/8 subscribed item(s).
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Using Workshop update scope 'steam:public-beta:host:v0.109.0' (public-beta).
+ERROR: Invalid Task ID
+   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)
+   C# backtrace (most recent call first):
+       [0] void Godot.Bridge.ScriptManagerBridge.GetOrLoadOrCreateScriptForType(System.Type, Godot.NativeInterop.godot_ref*)
+       [1] void Godot.Bridge.ScriptManagerBridge.UpdateScriptClassInfo(nint, Godot.NativeInterop.godot_csharp_type_info*, Godot.NativeInterop.godot_array*, Godot.NativeInterop.godot_dictionary*, Godot.NativeInterop.godot_dictionary*, Godot.NativeInterop.godot_ref*)
+       [2] void Godot.NativeInterop.NativeFuncs.godotsharp_internal_reload_registered_script(nint)
+       [3] void Godot.Bridge.ScriptManagerBridge.GetOrCreateScriptBridgeForType(System.Type, Godot.NativeInterop.godot_ref*)
+       [4] void Godot.Bridge.ScriptManagerBridge.GetOrCreateScriptBridgeForPath(Godot.NativeInterop.godot_string*, Godot.NativeInterop.godot_ref*)
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scan complete. Scope=steam:public-beta:host:v0.109.0, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check result: Available=True, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0, Error=<none>.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto update check found no Workshop item updates. Inspected=8.
-ERROR: Invalid Task ID
-ERROR: Invalid Task ID
-   at: wait_for_task_completion (core/object/worker_thread_pool.cpp:418)
-[INFO] Abandoning run from main menu
-[INFO] Player already has Epoch: NEOW_EPOCH
-[INFO] Player already has Epoch: OROBAS_EPOCH
-[INFO] Player already has Epoch: DARV_EPOCH
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 5609 bytes to path=user://steam/76561198188651006/modded/profile1/saves/history\1784733972.run save_dir=user://steam/76561198188651006
-[INFO] Wrote 5609 bytes to modded/profile1/saves/history/1784733972.run in steam remote store
-[INFO] Saved run history: 1784733972.run
-[INFO] Created Run History entry!
 [WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
 [INFO] [com.ritsukage.sts2-RitsuLib] [Sidecar] Session unbound epoch=1
 [INFO] Max ascension changed to 0
 [INFO] Max ascension changed to 1
 [INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 1
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
-   C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
-[INFO] Preloading 'Common' Complete: assets=799 time_elapsed=9,309ms
+[INFO] Max ascension changed to 0
+[INFO] [StartRunLobby (1)] CHARACTER.PALEREGENTMODV1-PALE_REGENT_MOD_V1 has no progress, disabling Ascension.
+[INFO] Preloading 'Common' Complete: assets=799 time_elapsed=10,182ms
 [INFO] [StartRunLobby (1)] Local player 1 is ready
-[INFO] Embarking on a singleplayer IRONCLAD run. Ascension: 1 Seed: JGYYF9Y46PDS
-[WARN] [com.ritsukage.sts2-RitsuLib] [Content] relic 'RELIC.PALEREGENTMODV1-PALE_TOKEN' is registered in ModelDb but is not contained in any relic pool. Skipping it while building energy icon overrides.
-[INFO] Preloading 'characters=IRONCLAD' assets... count=38 vfx=9
-[INFO] Preloading 'characters=IRONCLAD' Complete: assets=47 time_elapsed=2,305ms
-[INFO] Preloading 'Act=OVERGROWTH' assets... count=8 vfx=0
-[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=8 time_elapsed=51ms
+[INFO] Embarking on a singleplayer PALEREGENTMODV1-PALE_REGENT_MOD_V1 run. Ascension: 0 Seed: 0X66Y542NE0J
+[WARN] [com.ritsukage.sts2-RitsuLib] [Audio] FMOD event was not found in GUID mappings or loaded Studio events. operation=PlayOneShot; path=event:/sfx/ui/wipe_regent; guidMapEventCount=46; loadedBankCount=6; loadedEventDescriptionCount=621; banksStillLoading=False
+cannot find sfx path: event:/sfx/ui/wipe_regent
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' assets... count=38 vfx=6
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' Complete: assets=44 time_elapsed=757ms
+[WARN] Asset not cached: res://animations/map/ceremonial_beast_boss/ceremonial_beast_boss_node_skel_data.tres
+[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=36ms
 [INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
 [WARN] Asset not cached: res://themes/settings_screen_line_header.tres
 [WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
 [WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
+[INFO] [BaseLib] Creating Control from resource CompressedTexture2D
 [INFO] Preloading 'Act=OVERGROWTH' assets... count=0 vfx=0
-[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=2ms
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 47643 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 47643 bytes to modded/profile1/saves/current_run.save in steam remote store
-[INFO] Unloading 4 missed cache assets
-[INFO] Preloading 'Event Room' assets... count=2 vfx=0
-[INFO] Preloading 'Event Room' Complete: assets=2 time_elapsed=982ms
+[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=0 time_elapsed=5ms
+[INFO] Wrote 256058 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256058 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] [BaseLib] Adding custom save data to SerializableRun.
+[INFO] [BaseLib] Added 0 new properties to SerializableRun
+[INFO] [BaseLib] Adding custom save data to SerializableCard.
+[INFO] [BaseLib] Added 1 new properties to SerializableCard
+[INFO] [BaseLib] Adding custom save data to SerializablePlayer.
+[INFO] [BaseLib] Added 0 new properties to SerializablePlayer
+[INFO] [BaseLib] Adding custom save data to SerializablePotion.
+[INFO] [BaseLib] Added 0 new properties to SerializablePotion
+[INFO] [BaseLib] Adding custom save data to SerializableRelic.
+[INFO] [BaseLib] Added 0 new properties to SerializableRelic
+[INFO] [BaseLib] Adding custom save data to SerializableReward.
+[INFO] [BaseLib] Added 0 new properties to SerializableReward
+[INFO] Wrote 47825 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 47825 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 5 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=3 vfx=0
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=792ms
 [INFO] [BaseLib] Checking for additional interactions with NEOW
 [INFO] [BaseLib] Found 3 additional dialogues for NEOW with PALEREGENTMODV1-PALE_REGENT_MOD_V1, total 3
 [WARN] Asset not cached: res://scenes/events/ancient_dialogue_line.tscn
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 49712 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 49712 bytes to modded/profile1/saves/current_run.save in steam remote store
-[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (4, 1))
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 49773 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 49773 bytes to modded/profile1/saves/current_run.save in steam remote store
-[INFO] Unloading 1 missed cache assets
-[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
-[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=221ms
+[INFO] Inspecting Relic: LocString table relics entry PALEREGENTMODV1-PALE_TOKEN.title
+[WARN] Asset not cached: res://PaleRegentModV1\images\relics\big\pale_token.png
 [WARN] Asset not cached: res://themes/kreon_bold_shared.tres
-[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=SHRINKER_BEETLE_WEAK.
-[WARN] Asset not cached: res://scenes/ui/abandon_run_confirm_popup.tscn
-[INFO] Abandoning an in-progress run (player-initiated)
-[INFO] CHARACTER.IRONCLAD has lost to encounter ENCOUNTER.SHRINKER_BEETLE_WEAK. That's 1 losses
-[INFO] CHARACTER.IRONCLAD has died to a MONSTER.SHRINKER_BEETLE. That's 1 losses
-[INFO] Player already has Epoch: NEOW_EPOCH
-[INFO] Player already has Epoch: OROBAS_EPOCH
-[INFO] Player already has Epoch: DARV_EPOCH
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 5959 bytes to path=user://steam/76561198188651006/modded/profile1/saves/history\1784808264.run save_dir=user://steam/76561198188651006
-[INFO] Wrote 5959 bytes to modded/profile1/saves/history/1784808264.run in steam remote store
-[INFO] Saved run history: 1784808264.run
-[INFO] Created Run History entry!
-[INFO] Skipping metrics upload, run was abandoned.
-[INFO] [com.ritsukage.sts2-RitsuLib] [Telemetry] Captured ended run history for 0 authorized applicant(s); abandoned=True, victory=False.
-[WARN] Asset not cached: res://images/ui/game_over_screen/score_floor.png
-[WARN] Asset not cached: res://scenes/screens/game_over_screen/score_line.tscn
-[WARN] Asset not cached: res://images/ui/game_over_screen/score_gold.png
-[WARN] Asset not cached: res://images/ui/game_over_screen/score_ascension.png
-[INFO] This player has all unlocks. No action
-[INFO] No discoveries this time. Very sad
-[INFO] Unloading 6 missed cache assets
-[INFO] Preloading 'Common' assets... count=132 vfx=1
+[INFO] MuteInBackground: environment [displayServer=Windows, os=Windows]
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=48470, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 1
+[INFO] Restored foreground FPS
+[WARN] Asset not cached: res://scenes/ui/card_hover_tip.tscn
+[INFO] Wrote 256206 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256206 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 50236 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 50236 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 1))
+[INFO] Wrote 256206 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256206 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 50292 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 50292 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 4 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=9 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=9 time_elapsed=204ms
+[WARN] Asset not cached: res://themes/kreon_bold_shared.tres
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=FUZZY_WURM_CRAWLER_WEAK.
+[INFO] [BaseLib] Auto-converted 'res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn' from Node2D to NCreatureVisuals
+ERROR: Cannot get class ''.
+   at: _instantiate_internal (core/object/class_db.cpp:547)
+   C# backtrace (most recent call first):
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+WARNING: Node EnergyVfxBack of type  cannot be created. A placeholder will be created instead.
+   at: instantiate (scene/resources/packed_scene.cpp:277)
+   C# backtrace (most recent call first):
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+ERROR: Cannot get class ''.
+   at: _instantiate_internal (core/object/class_db.cpp:547)
+   C# backtrace (most recent call first):
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+WARNING: Node EnergyVfxFront of type  cannot be created. A placeholder will be created instead.
+   at: instantiate (scene/resources/packed_scene.cpp:277)
+   C# backtrace (most recent call first):
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+[INFO] [BaseLib] Auto-converted 'res://PaleRegentModV1/scenes/combat/paleregent_energy_counter.tscn' from Control to NEnergyCounter
+[INFO] [com.ritsukage.sts2-RitsuLib] [CardTargeting] BaseLib custom TargetType bridge resolved.
+[INFO] Player 1 playing card PALEREGENTMODV1-FOCUS (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Monster FUZZY_WURM_CRAWLER performing move FIRST_ACID_GOOP
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 毛绒伏地虫 (index 1))
+[WARN] Asset not cached: res://PaleRegentModV1\images\powers\big\void_power.png
+[INFO] Player 1 chose cards [PALEREGENTMODV1-DEFEND]
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Monster FUZZY_WURM_CRAWLER performing move INHALE
+[WARN] Asset not cached: res://images/powers/strength_power.png
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Monster FUZZY_WURM_CRAWLER performing move ACID_GOOP
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 chose cards [PALEREGENTMODV1-DEFEND]
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Monster FUZZY_WURM_CRAWLER performing move FIRST_ACID_GOOP
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 chose cards [PALEREGENTMODV1-STRIKE]
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 毛绒伏地虫 (index 1))
 [WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
 [WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
-[WARN] Asset not cached: res://scenes/screens/main_menu.tscn
-[INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
-[WARN] Asset not cached: res://themes/settings_screen_line_header.tres
-[WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
-[WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
-[INFO] [BaseLib] More than 8 selection options, enabling character select scroll
-[INFO] [Startup] Time to main menu (Godot ticks): 73733ms
-[INFO] [Sts2SkinManager] SkinSelectorOverlay attached (OptionButton) to CharacterSelectScreen
-[INFO] [Sts2SkinManager] preview panel attached
-[INFO] [Sts2SkinManager] tab panel attached (card=0, mixed=0)
-[INFO] Preloading 'Common' Complete: assets=132 time_elapsed=1,996ms
-[WARN] Asset not cached: res://scenes/screens/singleplayer_submenu.tscn
-[INFO] Max ascension changed to 0
-[INFO] Max ascension changed to 1
-[INFO] [StartRunLobby (1)] CHARACTER.IRONCLAD ascension set to preferred: 1
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+[WARN] Warning: Packet writer is growing from 4096 bytes to 8192 bytes!
+[WARN] Warning: Packet writer is growing from 8192 bytes to 16384 bytes!
+[WARN] Warning: Packet writer is growing from 16384 bytes to 32768 bytes!
+[WARN] Warning: Packet writer is growing from 32768 bytes to 65536 bytes!
+[INFO] Wrote 51411 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 51411 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] CHARACTER.PALEREGENTMODV1-PALE_REGENT_MOD_V1 has won against encounter ENCOUNTER.FUZZY_WURM_CRAWLER_WEAK. That's 2 wins
+[INFO] CHARACTER.PALEREGENTMODV1-PALE_REGENT_MOD_V1 has killed a MONSTER.FUZZY_WURM_CRAWLER. That's 2 kills
+[INFO] Wrote 256206 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256206 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Card rarity: Rolled 0.13303205, need < -0.020000001 for rare (offset = -0.05)
+[INFO] Card rarity: Rolled 0.58778703, need < -0.01 for rare (offset = -0.04)
+[INFO] Card rarity: Rolled 0.5199687, need < 0 for rare (offset = -0.03)
+[INFO] Player 1 obtained 18 gold from reward
+[INFO] Player 1 selected card reward
+[INFO] Player 1 obtained CARD.PALEREGENTMODV1-RECYCLE from card reward
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 2))
+[INFO] Wrote 256328 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256328 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 52969 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 52969 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 3 missed cache assets
+[INFO] Preloading 'Event Room' assets... count=2 vfx=1
+[INFO] Preloading 'Event Room' Complete: assets=3 time_elapsed=187ms
+[WARN] Asset not cached: res://scenes/ui/card_hover_tip.tscn
+[WARN] Asset not cached: res://themes/kreon_bold_shared.tres
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
+[INFO] MuteInBackground: FocusIn received [tween=True, msSinceFocusOut=11178, windowFocused=True]
+[INFO] MuteInBackground: Unmuted, restored volume to 1
+[INFO] Restored foreground FPS
+[INFO] Player vote changed for 1: ->MapVote (gen: 1 coord: (3, 3))
+[INFO] Wrote 256328 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256328 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 55014 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 55014 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Unloading 2 missed cache assets
+[INFO] Preloading 'Combat Room' assets... count=10 vfx=0
+[INFO] Preloading 'Combat Room' Complete: assets=10 time_elapsed=217ms
+[WARN] Asset not cached: res://themes/kreon_bold_shared.tres
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=NIBBITS_WEAK.
+ERROR: Cannot get class ''.
+   at: _instantiate_internal (core/object/class_db.cpp:547)
    C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
-[INFO] [StartRunLobby (1)] Setting preferred Ascension for CHARACTER.IRONCLAD to 0
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] [StartRunLobby (1)] Setting preferred Ascension for CHARACTER.IRONCLAD to 1
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Max ascension changed to 1
-[INFO] [StartRunLobby (1)] CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER ascension set to preferred: 1
-[WARN] Asset not cached: res://images/silk_icon_text.png
-[INFO] Max ascension changed to 1
-[INFO] [StartRunLobby (1)] CHARACTER.DEFECT ascension set to preferred: 1
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+WARNING: Node EnergyVfxBack of type  cannot be created. A placeholder will be created instead.
+   at: instantiate (scene/resources/packed_scene.cpp:277)
    C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
-[INFO] Max ascension changed to 1
-[INFO] [StartRunLobby (1)] CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER ascension set to preferred: 1
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+ERROR: Cannot get class ''.
+   at: _instantiate_internal (core/object/class_db.cpp:547)
    C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
-[INFO] Max ascension changed to 9
-[INFO] [StartRunLobby (1)] CHARACTER.REGENT ascension set to preferred: 0
-[WARN] Asset not cached: res://images/packed/sprite_fonts/star_icon.png
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+WARNING: Node EnergyVfxFront of type  cannot be created. A placeholder will be created instead.
+   at: instantiate (scene/resources/packed_scene.cpp:277)
    C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
-[INFO] Max ascension changed to 2
-[INFO] [StartRunLobby (1)] CHARACTER.SILENT ascension set to preferred: 2
-ERROR: System.InvalidOperationException: Sequence contains no matching element
-   at System.Linq.ThrowHelper.ThrowNoMatchException()
-   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_Pool()
-   at MegaCrit.Sts2.Core.Helpers.EnergyIconHelper.GetPool(AbstractModel model)
-   at MegaCrit.Sts2.Core.Models.RelicModel.get_DynamicDescription_Patch1(RelicModel this)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectScreen.SelectCharacter_Patch3(NCharacterSelectScreen this, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
-   at MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect.NCharacterSelectButton.Select()
-   at Godot.Callable.<From>g__Trampoline|1_0(Object delegateObj, NativeVariantPtrArgs args, godot_variant& ret)
-   at Godot.DelegateUtils.InvokeWithVariantArgs(IntPtr delegateGCHandle, Void* trampoline, godot_variant** args, Int32 argc, godot_variant* outRet)
-   at: void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception) (:0)
-   C# backtrace (most recent call first):
-       [0] void Godot.GD.PushError(string)
-       [1] void Godot.NativeInterop.ExceptionUtils.LogException(System.Exception)
-       [2] void Godot.DelegateUtils.InvokeWithVariantArgs(nint, System.Void*, Godot.NativeInterop.godot_variant**, int, Godot.NativeInterop.godot_variant*)
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 小啃兽 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 小啃兽 (index 1))
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Monster NIBBIT performing move BUTT_MOVE
 [INFO] [BaseLib] NGame.Quit(): saving all ModConfigs
 [INFO] NGame.Quit called
 [INFO] [Display] On exit, saving window size: (3840, 2019) display: 0 position: (8, 48)
 [INFO] Wrote 3859 bytes to path=user://steam/76561198188651006/settings.save save_dir=user://steam/76561198188651006
 [INFO] Wrote 334 bytes to path=user://steam/76561198188651006/modded/profile1/saves/prefs.save save_dir=user://steam/76561198188651006
 [INFO] Wrote 334 bytes to modded/profile1/saves/prefs.save in steam remote store
-[INFO] Wrote 256017 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 256017 bytes to modded/profile1/saves/progress.save in steam remote store
+[INFO] Wrote 256328 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 256328 bytes to modded/profile1/saves/progress.save in steam remote store
 [INFO] Wrote 52 bytes to path=user://steam/76561198188651006/modded/profile.save save_dir=user://steam/76561198188651006
 [INFO] Wrote 52 bytes to modded/profile.save in steam remote store
 [INFO] Steamworks: shutting down...
 [INFO] Steamworks shutdown succeeded!
 FMOD Sound System: System released
-WARNING: 910 RIDs of type "CanvasItem" were leaked.
+WARNING: 814 RIDs of type "CanvasItem" were leaked.
    at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2678)
 ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.
-ERROR: 5 shaders of type CanvasShaderRD were never freed
+ERROR: 6 shaders of type CanvasShaderRD were never freed
    at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
-ERROR: 25 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
+ERROR: 22 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
 ERROR: 1 shaders of type ParticlesShaderRD were never freed
    at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
-ERROR: 25 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
-ERROR: 82 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
-ERROR: 6 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
-ERROR: 222 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
-WARNING: 157 RIDs of type "UniformBuffer" were leaked.
+ERROR: 22 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
+ERROR: 71 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
+ERROR: 7 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
+ERROR: 357 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
+WARNING: 135 RIDs of type "UniformBuffer" were leaked.
    at: _free_rids (servers/rendering/rendering_device.cpp:6981)
-WARNING: 439 RIDs of type "Texture" were leaked.
+WARNING: 709 RIDs of type "Texture" were leaked.
    at: finalize (servers/rendering/rendering_device.cpp:7191)
-ERROR: 300 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
-ERROR: 14 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+ERROR: 279 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
+ERROR: 18 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
 ERROR: 5 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.
 WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
    at: cleanup (core/object/object.cpp:2514)
-ERROR: 249 resources still in use at exit (run with --verbose for details).
+ERROR: 388 resources still in use at exit (run with --verbose for details).
    at: clear (core/io/resource.cpp:795)

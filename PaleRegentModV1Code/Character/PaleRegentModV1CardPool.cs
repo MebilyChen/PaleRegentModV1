@@ -30,7 +30,7 @@ public class PaleRegentModV1CardPool : CustomCardPoolModel
     Generally they should be values between 0 and 1. */
     public override float H => 0f; //Hue; changes the color.
     public override float S => 0f; //Saturation
-    public override float V => 1f; //Brightness
+    public override float V => 1.5f; //Brightness
     
     //Alternatively, leave these values at 1 and provide a custom frame image.
     /*public override Texture2D CustomFrame(CustomCardModel card)
