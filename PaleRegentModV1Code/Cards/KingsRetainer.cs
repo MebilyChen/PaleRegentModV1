@@ -16,7 +16,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// （文档提到与弃壳遗物的联动后续再接。）
 /// </summary>
 public class KingsRetainer() : PaleRegentModV1Card(0,
-    CardType.Attack, CardRarity.Special,
+    CardType.Attack, CardRarity.Token,
     TargetType.AnyEnemy)
 {
     private const int BaseDamage = 10;

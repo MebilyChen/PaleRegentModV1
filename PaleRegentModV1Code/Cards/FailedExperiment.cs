@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 同时对自己施加 1 层【虚空之触】（失控的实验殃及自身）。消耗。
 /// </summary>
 public class FailedExperiment() : PaleRegentModV1Card(0,
-    CardType.Attack, CardRarity.Special,
+    CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
     private const int BaseDamage = 9;

@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 格挡类没有按卡牌来源的统一修正钩子，所以在这里主动读层数）。
 /// </summary>
 public class WingedRetainerCard() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Special,
+    CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
     private const int BaseBlock = 7;

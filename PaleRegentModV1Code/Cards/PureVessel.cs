@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 纯粹。消耗。
 /// </summary>
 public class PureVessel() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Special,
+    CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
     private const int BaseBlock = 12;

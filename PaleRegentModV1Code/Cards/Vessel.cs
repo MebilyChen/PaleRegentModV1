@@ -23,7 +23,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 直接以新卡形式加入弃牌堆，本卡照常消耗）。
 /// </summary>
 public class Vessel() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Special,
+    CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
     private const int SealAmount = 1;

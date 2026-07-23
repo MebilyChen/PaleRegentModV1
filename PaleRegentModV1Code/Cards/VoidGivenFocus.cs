@@ -19,7 +19,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 纯粹。消耗。
 /// </summary>
 public class VoidGivenFocus() : PaleRegentModV1Card(0,
-    CardType.Attack, CardRarity.Special,
+    CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
     private const int BaseDamage = 35;
