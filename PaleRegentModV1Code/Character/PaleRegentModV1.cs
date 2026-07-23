@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Models.Characters;
 using PaleRegentModV1.PaleRegentModV1Code.Cards;
+using PaleRegentModV1.PaleRegentModV1Code.Relics;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Character;
 
@@ -52,8 +53,11 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override IEnumerable<CardModel> StartingDeck =>
         RegentBase.StartingDeck;
 
+    // 初始遗物：苍白信物（灵魂上限+1；每回合开始只恢复[灵魂-虚空]点灵魂）
     public override IReadOnlyList<RelicModel> StartingRelics =>
-        RegentBase.StartingRelics;
+    [
+        ModelDb.Relic<PaleToken>()
+    ];
 
     public override CardPoolModel CardPool =>
         RegentBase.CardPool;

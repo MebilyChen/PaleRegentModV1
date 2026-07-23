@@ -989,5 +989,14 @@
   "YUMMY_COOKIE.description": "拾起时，[gold]升级[/gold][blue]{Cards}[/blue]张牌。",
   "YUMMY_COOKIE.eventDescription": "[gold]升级[/gold][blue]{Cards}[/blue]张牌。",
   "YUMMY_COOKIE.flavor": "[red]这个遗物的细节将在未来揭晓……[/red]",
-  "YUMMY_COOKIE.title": "美味饼干"
+  "YUMMY_COOKIE.title": "美味饼干",
+  "PALEREGENTMODV1-PALE_TOKEN.title": "苍白信物",
+  "PALEREGENTMODV1-PALE_TOKEN.description": "灵魂上限[blue]+1[/blue]。在你的每回合开始时，只能恢复［灵魂上限－虚空］数量的灵魂。",
+  "PALEREGENTMODV1-PALE_TOKEN.flavor": "苍白之王的信物，承载着王国最初的誓约。",
+  "PALEREGENTMODV1-KINGSOUL.title": "国王之魂",
+  "PALEREGENTMODV1-KINGSOUL.description": "灵魂上限[blue]+2[/blue]。在你的每回合开始时，只能恢复［灵魂上限－虚空＋1］数量的灵魂。",
+  "PALEREGENTMODV1-KINGSOUL.flavor": "两颗灵魂合二为一，王的意志至此完整。",
+  "PALEREGENTMODV1-HERS_REGARD.title": "王后信物",
+  "PALEREGENTMODV1-HERS_REGARD.description": "在每场战斗开始时，获得[blue]3[/blue]层[gold]白根[/gold]。拾起时，你的苍白信物变为国王之魂。",
+  "PALEREGENTMODV1-HERS_REGARD.flavor": "她的目光越过苍白的寒枝，落在王的身上。"
 }
