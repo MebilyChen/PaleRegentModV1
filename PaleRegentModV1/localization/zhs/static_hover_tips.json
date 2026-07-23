@@ -1,4 +1,8 @@
 {
-  "PALEREGENTMODV1-VOID_COUNTER.title": "虚空",
-  "PALEREGENTMODV1-VOID_COUNTER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。虚空在回合结束时不会清空。"
+	"PALEREGENTMODV1-VOID_COUNTER.title": "虚空",
+	"PALEREGENTMODV1-VOID_COUNTER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。虚空在回合结束时不会清空。",
+	"PALEREGENTMODV1-LOST.title": "失心",
+	"PALEREGENTMODV1-LOST.description": "该牌不再消耗灵魂，改为消耗虚空（灵魂+虚空合并为虚空费用）。获得重放1。与苍白互斥。",
+	"PALEREGENTMODV1-PALE.title": "苍白",
+	"PALEREGENTMODV1-PALE.description": "移除该牌的失心与虚空费用。获得虚无。"
 }

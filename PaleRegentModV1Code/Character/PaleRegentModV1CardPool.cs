@@ -4,6 +4,18 @@ using Godot;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Character;
 
+/// <summary>
+/// 苍白之王专属卡池。
+/// 自制卡靠卡牌基类的 [Pool(typeof(PaleRegentModV1CardPool))] 自动注入，不需要手写。
+/// 这里【没有】合并原版 Regent 的卡：战斗奖励/商店只会出自制卡，更符合自定义角色定位。
+/// 如果你希望奖励里也能开出原版君主的卡，取消下面注释即可：
+/// <code>
+/// protected override CardModel[] GenerateAllCards()
+/// {
+///     return ModelDb.CardPool&lt;MegaCrit.Sts2.Core.Models.CardPools.RegentCardPool&gt;().AllCards.ToArray();
+/// }
+/// </code>
+/// </summary>
 public class PaleRegentModV1CardPool : CustomCardPoolModel
 {
     public override string Title => PaleRegentModV1.CharacterId; //This is not a display name.

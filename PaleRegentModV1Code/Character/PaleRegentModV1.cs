@@ -22,17 +22,20 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     public override CharacterGender Gender => CharacterGender.Neutral;
     //public override int StartingHp => 75;
     
+    // ======= 初始牌组（10张，按机制文档）=======
+    // 打击 x4 + 防御 x4 + 虚空攻击 x1 + 集中 x1
+    // 这里的 ModelDb.Card<T>() 取的是"模板实例"，开局时游戏会自动为牌组克隆副本，直接这样写即可。
     public override IEnumerable<CardModel> StartingDeck => [
-        ModelDb.Card<Test>(),
-        ModelDb.Card<Test>(),
-        ModelDb.Card<StrikeRegent>(),
-        ModelDb.Card<StrikeRegent>(),
-        ModelDb.Card<StrikeRegent>(),
-        ModelDb.Card<DefendRegent>(),
-        ModelDb.Card<DefendRegent>(),
-        ModelDb.Card<DefendRegent>(),
-        ModelDb.Card<DefendRegent>(),
-        ModelDb.Card<DefendRegent>()
+        ModelDb.Card<Strike>(),
+        ModelDb.Card<Strike>(),
+        ModelDb.Card<Strike>(),
+        ModelDb.Card<Strike>(),
+        ModelDb.Card<Defend>(),
+        ModelDb.Card<Defend>(),
+        ModelDb.Card<Defend>(),
+        ModelDb.Card<Defend>(),
+        ModelDb.Card<VoidStrike>(),
+        ModelDb.Card<Focus>()
     ];
 
     /*public override IReadOnlyList<RelicModel> StartingRelics =>
@@ -62,11 +65,17 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     //public override CardPoolModel CardPool =>
         //RegentBase.CardPool;
 
+    // ======= 重要修复（上一版角色选不上的根因）=======
+    // 之前 RelicPool/PotionPool 指向的是原版 Regent 的池子，
+    // 但我们的自定义遗物用 [Pool(typeof(PaleRegentModV1RelicPool))] 注册进了自定义池。
+    // 自定义池没有被任何角色引用 → 游戏枚举"所有角色用到的池"时找不到苍白信物所属的池
+    // → 选角色时抛异常 "Sequence contains no matching element" → 角色初始化中断，实际还是铁甲战士。
+    // 修复：角色必须指向自定义池；自定义池内部再把原版 Regent 的内容合并进来（见各池类的 GenerateAllXxx）。
     public override RelicPoolModel RelicPool =>
-        RegentBase.RelicPool;
+        ModelDb.RelicPool<PaleRegentModV1RelicPool>();
 
     public override PotionPoolModel PotionPool =>
-        RegentBase.PotionPool;
+        ModelDb.PotionPool<PaleRegentModV1PotionPool>();
 
     /*  PlaceholderCharacterModel will utilize placeholder basegame assets for most of your character assets until you
         override all the other methods that define those assets.

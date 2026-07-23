@@ -1,7 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using STS2RitsuLib;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -83,4 +87,40 @@ public static class VoidResource
     public static async Task Gain(Player player, int amount) => await SecondaryResourceCmd.Gain(player, Id, amount, null);
     public static async Task Spend(Player player, int amount) => await SecondaryResourceCmd.Spend(player, Id, amount, null, null);
     public static async Task Lose(Player player, int amount) => await SecondaryResourceCmd.Lose(player, Id, amount, null);
+
+    /// <summary>
+    /// 把 VoidPower（虚空 Buff 图标）的层数同步为当前虚空副资源数值。
+    /// 任何“获得/消耗虚空”之后都应调用一次本方法，保证图标层数与真实资源一致。
+    ///
+    /// 设计说明：VoidPower 的层数只是“展示 + 回合开始扣灵魂的挂点”，
+    /// 真正的结算数值一律以副资源（SecondaryResourceCmd）为准。
+    /// 同步逻辑（三种情况）：
+    ///   1. 资源为 0 且身上还有 Power → 移除 Power；
+    ///   2. 资源 > 0 且身上没有 Power → 按当前资源量施加 Power；
+    ///   3. 两者都有但数值不同 → 用 ModifyAmount 补差值。
+    /// </summary>
+    /// <param name="choiceContext">当前玩家选择上下文（命令系统需要）</param>
+    /// <param name="player">目标玩家</param>
+    /// <param name="source">来源卡牌（可空，用于日志/悬浮提示追踪）</param>
+    public static async Task SyncPower(PlayerChoiceContext choiceContext, Player player, CardModel? source)
+    {
+        int resource = Get(player);
+        VoidPower? power = player.Creature.GetPower<VoidPower>();
+
+        if (resource <= 0 && power != null)
+        {
+            // 资源清零：移除图标
+            await PowerCmd.Remove(power);
+        }
+        else if (power == null && resource > 0)
+        {
+            // 第一次获得虚空：挂上图标
+            await PowerCmd.Apply<VoidPower>(choiceContext, player.Creature, resource, player.Creature, source);
+        }
+        else if (power != null && (int)power.Amount != resource)
+        {
+            // 数值不一致：补差值（可正可负）
+            await PowerCmd.ModifyAmount(choiceContext, power, resource - (int)power.Amount, player.Creature, source);
+        }
+    }
 }
