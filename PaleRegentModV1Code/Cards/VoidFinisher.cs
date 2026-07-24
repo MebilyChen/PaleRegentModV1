@@ -15,7 +15,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【虚空必杀】稀有攻击牌（虚空流的爆发终端）。
 /// 0 灵魂 + X 虚空：消耗你全部虚空，造成 X 段、每段 4 点伤害；
-/// 若 X 大于 5，则段数翻倍（X×2 段）。
+/// 若 X 不小于 4，则段数翻倍（X×2 段）。
+/// 升级后：每段 5 点伤害，段数 X+1（翻倍时 (X+1)×2）。
 ///
 /// 机制要点：
 /// - 虚空 X 费在构造器用 CardTraits.SetVoidCostX 声明，
@@ -25,14 +26,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 ///
 /// 修改指南：
 /// - 每段伤害：DamagePerHit 常量。
-/// - 翻倍阈值：DoubleThreshold 常量（X > 该值时段数翻倍）。
+/// - 翻倍阈值：DoubleThreshold 常量（X >= 该值时段数翻倍）。
 /// </summary>
 public class VoidFinisher : PaleRegentModV1Card
 {
     /// <summary>每一段的基础伤害（用户可调）。</summary>
     private const int DamagePerHit = 4;
-    /// <summary>段数翻倍阈值：支付的虚空 X 大于此值时，攻击段数变为 X×2。</summary>
-    private const int DoubleThreshold = 5;
+    /// <summary>段数翻倍阈值：支付的虚空 X 不小于此值时，攻击段数翻倍。</summary>
+    private const int DoubleThreshold = 4;
+    /// <summary>额外段数（升级后 +1）。</summary>
+    private int _bonusHits;
 
     public VoidFinisher() : base(0,
         CardType.Attack, CardRarity.Rare,
@@ -69,8 +72,9 @@ public class VoidFinisher : PaleRegentModV1Card
             return; // 0 虚空打出（理论上不会发生），不造成伤害
         }
 
-        // 3. X > 阈值时段数翻倍
-        int hitCount = x > DoubleThreshold ? x * 2 : x;
+        // 3. 基础段数 = X + 升级加成；X >= 阈值时段数翻倍
+        int baseHits = x + _bonusHits;
+        int hitCount = x >= DoubleThreshold ? baseHits * 2 : baseHits;
 
         // 4. 多段伤害
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
@@ -83,7 +87,8 @@ public class VoidFinisher : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        // 升级：每段伤害 +2（4→6），可按需调整
-        DynamicVars.Damage.UpgradeValueBy(2);
+        // 升级：每段伤害 4→5，段数 X+1
+        DynamicVars.Damage.UpgradeValueBy(1);
+        _bonusHits = 1;
     }
 }

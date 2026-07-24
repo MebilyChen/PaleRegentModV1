@@ -5,19 +5,29 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【制造佣卫】能力牌（机制文档：造物流）。
-/// 1 灵魂 能力：每回合开始时，将 1 张【国王佣卫】加入手牌。
-/// 升级后：改为每回合 2 张（层数+1）。
+/// 【佣卫工厂】能力牌（机制文档：造物流）。
+/// 2 灵魂 4 虚空 能力：每回合开始时，将 1 张【国王佣卫】加入手牌。
+/// 升级后：改为生成【国王佣卫+】。
+/// 注：类名仍为 MakeRetainer，卡牌标题改为"佣卫工厂"。
 /// </summary>
-public class MakeRetainer() : PaleRegentModV1Card(1,
-    CardType.Power, CardRarity.Common,
-    TargetType.Self)
+public class MakeRetainer : PaleRegentModV1Card
 {
+    /// <summary>虚空费（表格：2灵魂+4虚空）。</summary>
+    private const int VoidCost = 4;
+    /// <summary>每回合生成张数。</summary>
     private const int ForgePerTurn = 1;
+
+    public MakeRetainer() : base(2,
+        CardType.Power, CardRarity.Uncommon,
+        TargetType.Self)
+    {
+        CardTraits.SetVoidCost(this, VoidCost);
+    }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<RetainerForgePower>(ForgePerTurn)];
@@ -26,10 +36,17 @@ public class MakeRetainer() : PaleRegentModV1Card(1,
     {
         await PowerCmd.Apply<RetainerForgePower>(choiceContext, Owner.Creature,
             DynamicVars["RetainerForgePower"].BaseValue, Owner.Creature, this);
+
+        // 升级后：让 Power 生成升级版【国王佣卫+】
+        if (IsUpgraded &&
+            Owner.Creature.GetPower<RetainerForgePower>() is RetainerForgePower forge)
+        {
+            forge.MakeUpgraded = true;
+        }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["RetainerForgePower"].UpgradeValueBy(1m);
+        // 升级：生成【国王佣卫+】（层数不变，见 OnPlay 里的 MakeUpgraded）
     }
 }

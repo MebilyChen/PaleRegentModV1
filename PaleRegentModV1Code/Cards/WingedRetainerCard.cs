@@ -12,17 +12,25 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【有翼佣卫】生成牌（机制文档：造物流，能力牌"有翼佣卫"每回合生成）。
-/// 0 灵魂 技能：获得 7 点格挡。消耗。
+/// 【有翼佣卫】生成牌（表格设计：造物流，能力牌"有翼卫群"每回合生成）。
+/// 0 灵魂 1 虚空 技能：获得 3 点格挡。消耗。升级后 6 点格挡。
+/// （表格关键词含"模具"，模具体系未实现，暂不接。）
 /// 造物牌：格挡额外 +【驾驭 Harness】层数（伤害类走 HarnessPower 钩子，
 /// 格挡类没有按卡牌来源的统一修正钩子，所以在这里主动读层数）。
 /// </summary>
-public class WingedRetainerCard() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Token,
-    TargetType.Self)
+public class WingedRetainerCard : PaleRegentModV1Card
 {
-    private const int BaseBlock = 7;
+    /// <summary>虚空费（表格：0灵魂+1虚空）。</summary>
+    private const int VoidCost = 1;
+    private const int BaseBlock = 3;
     private const int UpgradeBlockBonus = 3;
+
+    public WingedRetainerCard() : base(0,
+        CardType.Skill, CardRarity.Token,
+        TargetType.Self)
+    {
+        Traits.CardTraits.SetVoidCost(this, VoidCost);
+    }
 
     public override bool IsCreationCard => true;
     public override bool GainsBlock => true;

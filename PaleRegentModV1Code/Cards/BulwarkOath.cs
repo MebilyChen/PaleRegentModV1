@@ -9,15 +9,17 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【誓卫】能力牌（机制文档：占位命名）。
-/// 1 灵魂 能力：每回合你第一次失去生命时，获得 10 点格挡（层数×10）。
-/// 升级后：层数 +1（即 20 点格挡）。
+/// 【誓卫】能力牌（机制文档：瘟疫流附属防御向）。
+/// 3 灵魂 能力：每回合你第一次失去生命时，获得 10 点格挡
+/// （Power 按层数给格挡，卡牌施加 10 层）。
+/// 升级后：13 点格挡（施加 13 层）。
 /// </summary>
-public class BulwarkOath() : PaleRegentModV1Card(1,
+public class BulwarkOath() : PaleRegentModV1Card(3,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    private const int BaseStacks = 1;
+    private const int BaseStacks = 10;
+    private const int UpgradedStacks = 13;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<BulwarkOathPower>(BaseStacks)];
@@ -30,6 +32,6 @@ public class BulwarkOath() : PaleRegentModV1Card(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["BulwarkOathPower"].UpgradeValueBy(1m);
+        DynamicVars["BulwarkOathPower"].UpgradeValueBy(UpgradedStacks - BaseStacks);
     }
 }

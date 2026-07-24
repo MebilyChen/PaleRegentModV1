@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,37 +10,46 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【入梦】技能牌（机制文档：新增效果"入梦"的载体，占位命名）。
-/// 1 灵魂 技能：获得 1 层【入梦】（免疫下一次受到的伤害）。消耗。
-/// 升级后：不再消耗。
+/// 【入梦帷幕】技能牌（机制文档：入梦、白根）。
+/// 2 灵魂 技能：对场上所有生物施加 5 层【入梦】，自己获得 1 层【白根】。
+/// 升级后：改为 10 层入梦。
 /// </summary>
 public class DreamVeil : PaleRegentModV1Card
 {
-    private const int DreamAmount = 1;
+    private const int BaseDreamAmount = 5;
+    private const int WhiteRootAmount = 1;
 
-    /// <summary>升级后移除消耗。</summary>
-    private bool _noExhaust;
-
-    public DreamVeil() : base(1,
+    public DreamVeil() : base(2,
         CardType.Skill, CardRarity.Rare,
         TargetType.Self)
     {
     }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        _noExhaust ? [] : [CardKeyword.Exhaust];
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new PowerVar<DreamPower>(DreamAmount)];
+        [new PowerVar<DreamPower>(BaseDreamAmount)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        decimal amount = DynamicVars["DreamPower"].BaseValue;
+
+        // 自己
         await PowerCmd.Apply<DreamPower>(choiceContext, Owner.Creature,
-            DynamicVars["DreamPower"].BaseValue, Owner.Creature, this);
+            amount, Owner.Creature, this);
+
+        // 所有敌人
+        foreach (var enemy in Owner.Creature.CombatState.HittableEnemies.ToList())
+        {
+            await PowerCmd.Apply<DreamPower>(choiceContext, enemy,
+                amount, Owner.Creature, this);
+        }
+
+        // 自己获得 1 层白根
+        await PowerCmd.Apply<WhiteRootPower>(choiceContext, Owner.Creature,
+            WhiteRootAmount, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        _noExhaust = true;
+        DynamicVars["DreamPower"].UpgradeValueBy(5m);
     }
 }

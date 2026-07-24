@@ -13,14 +13,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【虚空化形】生成牌（机制文档：造物流，"虚空实验"X≥3 / "驯化"5+ 生成）。
 /// 0 灵魂 攻击（全体）：对所有敌人造成 10 点伤害并施加 3 层【虚空之触】。
 /// 纯粹。消耗。
+/// 升级后：15 伤，5 层虚空之触。
 /// </summary>
 public class VoidGivenForm() : PaleRegentModV1Card(0,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
     private const int BaseDamage = 10;
-    private const int UpgradeDamageBonus = 4;
-    private const int TouchAmount = 3;
+    private const int UpgradeDamageBonus = 5;
+    private const int BaseTouch = 3;
+    private const int UpgradeTouchBonus = 2;
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;
@@ -29,7 +31,7 @@ public class VoidGivenForm() : PaleRegentModV1Card(0,
         [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(BaseDamage, ValueProp.Move)];
+        [new DamageVar(BaseDamage, ValueProp.Move), new PowerVar<VoidTouchPower>(BaseTouch)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -39,11 +41,13 @@ public class VoidGivenForm() : PaleRegentModV1Card(0,
             .WithHitFx("vfx/vfx_giant_horizontal_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<VoidTouchPower>(choiceContext, CombatState!.HittableEnemies, TouchAmount, Owner.Creature, this);
+        await PowerCmd.Apply<VoidTouchPower>(choiceContext, CombatState!.HittableEnemies,
+            DynamicVars["VoidTouchPower"].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        DynamicVars["VoidTouchPower"].UpgradeValueBy(UpgradeTouchBonus);
     }
 }

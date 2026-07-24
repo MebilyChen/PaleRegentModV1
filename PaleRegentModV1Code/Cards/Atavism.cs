@@ -11,6 +11,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【返祖】稀有能力牌（后期引擎）。
 /// 6 灵魂：获得【返祖】buff——你每打出一张牌，回复 1 点灵魂。
+/// 升级后：费用 6→4（表格设计）。
 ///
 /// 定位：一次性投资 6 灵魂，之后每张牌都便宜 1 费，
 /// 与失心牌（0 灵魂费）联动时每张牌净赚 1 灵魂。
@@ -35,7 +36,7 @@ public class Atavism() : PaleRegentModV1Card(6,
 
     protected override void OnUpgrade()
     {
-        // 升级方案待定：常见做法是降费（6→5），
-        // 实现方式：EnergyCost.SetCustomBaseCost(5)。
+        // 升级：费用 6→4（UpgradeBy 是升级语义的标准降费 API，卡面会显示绿色费用）
+        EnergyCost.UpgradeBy(-2);
     }
 }

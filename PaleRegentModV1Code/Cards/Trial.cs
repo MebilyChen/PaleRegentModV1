@@ -9,17 +9,19 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【试炼】罕见技能牌（有代价的高性价比格挡）。
-/// 2 灵魂：获得 10 点格挡，将一张状态牌【虚空】置入你的弃牌堆。
+/// 【回避】罕见技能牌（有代价的高性价比格挡）。
+/// 1 灵魂：获得 10 点格挡，将一张状态牌【虚空】置入你的弃牌堆。
+/// 升级后：获得 13 点格挡。
 ///
 /// 定位：低费高格挡，代价是牌库被塞垃圾；
-/// 配合【再利用】（把"虚空"状态牌变成【聚焦】）可以化解负面。
+/// 配合【再利用】（把"虚空"状态牌变成【集中】）可以化解负面。
+/// 注：类名仍为 Trial（避免本地化 key 变动），卡牌标题改为"回避"。
 ///
 /// 修改指南：
 /// - 格挡：BaseBlock / UpgradeBlockBonus 常量。
 /// - 塞的状态牌数量：StatusCount 常量。
 /// </summary>
-public class Trial() : PaleRegentModV1Card(2,
+public class Trial() : PaleRegentModV1Card(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

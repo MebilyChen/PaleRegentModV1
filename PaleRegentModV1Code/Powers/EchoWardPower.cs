@@ -18,13 +18,13 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 /// 所以自制一个可以按层数持续多回合的版本。
 ///
 /// 修改指南：
-/// - 每回合格挡量：改 BlockPerTurn 常量。
+/// - 每回合格挡量：BlockPerTurn 静态字段，由完美格挡施加时写入（基础 3，升级 5）。
 /// - 生效回合数由施加时的层数决定（完美格挡里 Apply 的 amount 参数）。
 /// </summary>
 public class EchoWardPower : PaleRegentModV1Power
 {
-    /// <summary>每回合开始获得的格挡量。</summary>
-    public const int BlockPerTurn = 3;
+    /// <summary>每回合开始获得的格挡量（由完美格挡施加时写入；基础 3，升级 5）。</summary>
+    public static int BlockPerTurn = 3;
 
     public override PowerType Type => PowerType.Buff;
     // Counter：层数可叠加（重复打完美格挡会延长持续回合）

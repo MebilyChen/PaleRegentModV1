@@ -20,14 +20,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 0 灵魂 攻击（全体）：对所有敌人造成 35 点伤害并施加 10 层【虚空之触】；
 /// 然后选择一张手牌变为【虚空】状态牌（神性的代价）。
 /// 纯粹。消耗。
+/// 升级后：40 伤，15 层虚空之触。
 /// </summary>
 public class VoidGivenFocus() : PaleRegentModV1Card(0,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
     private const int BaseDamage = 35;
-    private const int UpgradeDamageBonus = 10;
-    private const int TouchAmount = 10;
+    private const int UpgradeDamageBonus = 5;
+    private const int BaseTouch = 10;
+    private const int UpgradeTouchBonus = 5;
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;
@@ -47,7 +49,7 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
         [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(BaseDamage, ValueProp.Move)];
+        [new DamageVar(BaseDamage, ValueProp.Move), new PowerVar<VoidTouchPower>(BaseTouch)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -57,7 +59,8 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
             .WithHitFx("vfx/vfx_giant_horizontal_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<VoidTouchPower>(choiceContext, CombatState!.HittableEnemies, TouchAmount, Owner.Creature, this);
+        await PowerCmd.Apply<VoidTouchPower>(choiceContext, CombatState!.HittableEnemies,
+            DynamicVars["VoidTouchPower"].BaseValue, Owner.Creature, this);
 
         // 神性的代价：选择一张手牌变为【虚空】状态牌
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
@@ -75,5 +78,6 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        DynamicVars["VoidTouchPower"].UpgradeValueBy(UpgradeTouchBonus);
     }
 }

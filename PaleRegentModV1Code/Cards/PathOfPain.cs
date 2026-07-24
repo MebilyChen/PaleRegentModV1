@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,32 +11,33 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【苦痛之路】技能牌（机制文档：新增效果"苦痛之路"的载体，占位设计）。
-/// 2 灵魂 技能：对目标敌人施加 3 层【苦痛之路】
-/// 消耗。
-/// 升级后：施加 4 层。
+/// 【试炼】稀有技能牌（效果"苦痛之路"的载体；旧名：苦痛之路）。
+/// 3 灵魂 技能：对所有敌人施加 5 层【苦痛之路】。
+/// 升级后：施加 10 层。
 /// </summary>
-public class PathOfPain() : PaleRegentModV1Card(2,
+public class PathOfPain() : PaleRegentModV1Card(3,
     CardType.Skill, CardRarity.Rare,
-    TargetType.AnyEnemy)
+    TargetType.AllEnemies)
 {
-    private const int BaseAmount = 3;
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Exhaust];
+    private const int BaseAmount = 5;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<PathOfPainPower>(BaseAmount)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-        await PowerCmd.Apply<PathOfPainPower>(choiceContext, cardPlay.Target,
-            DynamicVars["PathOfPainPower"].BaseValue, Owner.Creature, this);
+        // 对所有可打敌人施加苦痛之路（HittableEnemies 写法参考 modstudy WeaveMemoryNeedle）
+        List<Creature> enemies = Owner.Creature.CombatState.HittableEnemies.ToList();
+        foreach (Creature enemy in enemies)
+        {
+            await PowerCmd.Apply<PathOfPainPower>(choiceContext, enemy,
+                DynamicVars["PathOfPainPower"].BaseValue, Owner.Creature, this);
+        }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["PathOfPainPower"].UpgradeValueBy(1m);
+        // 升级：5 层 → 10 层
+        DynamicVars["PathOfPainPower"].UpgradeValueBy(5m);
     }
 }

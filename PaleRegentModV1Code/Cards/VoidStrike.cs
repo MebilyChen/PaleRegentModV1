@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【虚空打击】初始牌组特色攻击牌（体现"虚空"双资源机制的入门卡）。
 /// 1 灵魂：造成 3 点伤害，获得 1 点虚空，然后选择一张手牌附加【失心】。
-/// 升级后伤害 +2。
+/// 升级后：伤害 5，可选择至多 2 张手牌附加【失心】。
 ///
 /// 机制要点：
 /// - 虚空是"先攒后花"的资源，这张牌是主要的产出手段之一；
@@ -40,6 +40,8 @@ public class VoidStrike() : PaleRegentModV1Card(1,
     private const int UpgradeDamageBonus = 2;
     /// <summary>打出后获得的虚空数量。</summary>
     private const int VoidGain = 1;
+    /// <summary>可附加失心的手牌数（升级后 2）。</summary>
+    private int _lostTargets = 1;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
@@ -59,12 +61,12 @@ public class VoidStrike() : PaleRegentModV1Card(1,
         await VoidResource.Gain(cardPlay.Player, VoidGain);
         await VoidResource.SyncPower(choiceContext, cardPlay.Player, this);
 
-        // 3. 从手牌选择 1 张牌附加【失心】
+        // 3. 从手牌选择牌附加【失心】（基础 1 张，升级后至多 2 张）
         //    filter：过滤掉不能失心的牌（X 费牌）和自己
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 1),
+            new CardSelectorPrefs(SelectionScreenPrompt, _lostTargets),
             (CardModel c) => c != this && CardTraits.CanApplyLost(c),
             this);
 
@@ -77,5 +79,6 @@ public class VoidStrike() : PaleRegentModV1Card(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        _lostTargets = 2;
     }
 }

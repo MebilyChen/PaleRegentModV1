@@ -10,18 +10,18 @@ using MegaCrit.Sts2.Core.Models;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【驯化】技能牌（机制文档：造物流终端，占位设计）。
-/// 2 灵魂 技能：消耗你手牌、抽牌堆、弃牌堆中所有的【虚空】状态牌：
-/// ≥9 张 → 将 1 张【虚空化神】加入手牌；
-/// ≥5 张 → 将 1 张【虚空化形】加入手牌；
-/// 否则 → 将 1 张【失败实验】加入手牌。消耗。
+/// 【驯化】技能牌（机制文档：造物流终端）。
+/// 2 灵魂 技能：消耗你手牌中所有的【虚空】状态牌：
+/// ≥5 张 → 将 1 张【虚空化神】加入手牌；
+/// ≥2 张 → 将 1 张【虚空化形】加入手牌。消耗。
+/// 升级后：生成升级版（虚空化神+/虚空化形+）。
 /// </summary>
 public class Tame() : PaleRegentModV1Card(2,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
-    private const int GodThreshold = 9;
-    private const int FormThreshold = 5;
+    private const int GodThreshold = 5;
+    private const int FormThreshold = 2;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
@@ -30,9 +30,9 @@ public class Tame() : PaleRegentModV1Card(2,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 收集三个牌堆里的所有【虚空】状态牌
+        // 消耗手牌中所有的【虚空】状态牌
         List<CardModel> voids = CardPile
-            .GetCards(Owner, PileType.Hand, PileType.Draw, PileType.Discard)
+            .GetCards(Owner, PileType.Hand)
             .Where(c => c is TheVoidStatus)
             .ToList();
 
@@ -41,21 +41,31 @@ public class Tame() : PaleRegentModV1Card(2,
             await CardCmd.Exhaust(choiceContext, v);
         }
 
+        CardModel made = null;
         if (voids.Count >= GodThreshold)
         {
-            await CardPileCmd.AddToCombatAndPreview<VoidGivenFocus>(Owner.Creature, PileType.Hand, 1, Owner);
+            made = Owner.Creature.CombatState.CreateCard<VoidGivenFocus>(Owner);
         }
         else if (voids.Count >= FormThreshold)
         {
-            await CardPileCmd.AddToCombatAndPreview<VoidGivenForm>(Owner.Creature, PileType.Hand, 1, Owner);
+            made = Owner.Creature.CombatState.CreateCard<VoidGivenForm>(Owner);
         }
-        else
+
+        if (made != null)
         {
-            await CardPileCmd.AddToCombatAndPreview<FailedExperiment>(Owner.Creature, PileType.Hand, 1, Owner);
+            // 升级后：生成升级版（虚空化神+/虚空化形+）
+            if (IsUpgraded)
+            {
+                CardCmd.Upgrade(made, (CardPreviewStyle)1);
+            }
+            CardCmd.PreviewCardPileAdd(
+                await CardPileCmd.AddGeneratedCardToCombat(made, PileType.Hand, Owner, (CardPilePosition)1),
+                2.2f, (CardPreviewStyle)1);
         }
     }
 
     protected override void OnUpgrade()
     {
+        // 升级：生成升级版牌（见 OnPlay 的 IsUpgraded 分支）
     }
 }

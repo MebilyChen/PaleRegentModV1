@@ -9,9 +9,9 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【疫蔓】能力牌（机制文档：瘟疫流，占位命名）。
-/// 1 灵魂 能力：每当你生成一张【感染】，对随机敌人施加 1 层【瘟疫】。
-/// 升级后：改为 2 层。
+/// 【疫蔓】能力牌（机制文档：瘟疫流）。
+/// 1 灵魂 能力：每当你生成一张【感染】，对场上所有生物施加 1 层【瘟疫】。
+/// 升级后：改为 3 层。
 /// </summary>
 public class PlagueSpread() : PaleRegentModV1Card(1,
     CardType.Power, CardRarity.Uncommon,
@@ -30,6 +30,6 @@ public class PlagueSpread() : PaleRegentModV1Card(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["PlagueSpreadPower"].UpgradeValueBy(1m);
+        DynamicVars["PlagueSpreadPower"].UpgradeValueBy(2m);
     }
 }

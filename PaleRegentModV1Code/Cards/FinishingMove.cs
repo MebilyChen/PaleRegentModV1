@@ -24,8 +24,8 @@ public class FinishingMove() : PaleRegentModV1Card(6,
 {
     /// <summary>基础伤害。</summary>
     private const int BaseDamage = 40;
-    /// <summary>升级后伤害增加量。</summary>
-    private const int UpgradeDamageBonus = 10;
+    /// <summary>升级后伤害增加量（40→48，表格设计）。</summary>
+    private const int UpgradeDamageBonus = 8;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];

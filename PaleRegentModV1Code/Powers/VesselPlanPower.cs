@@ -14,13 +14,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
 /// 【容器计划】buff（能力牌"容器计划"施加，机制文档：造物流）。
-/// 效果：每回合开始时，将 [层数] 张【容器】加入手牌，
-/// 并召集【羞愧】（君王之剑式：已有则全部移回手牌，一张都没有才生成一张）。
+/// 效果：你的每回合开始时，将 [层数] 张【容器】加入手牌。
+/// MakeUpgraded 为 true 时生成升级版【容器+】（由容器计划+设置）。
 /// </summary>
 public class VesselPlanPower : PaleRegentModV1Power
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    /// <summary>是否生成升级版【容器+】（由容器计划+设置）。</summary>
+    public bool MakeUpgraded;
 
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
@@ -29,8 +32,16 @@ public class VesselPlanPower : PaleRegentModV1Power
             return;
         }
         Flash();
-        await CardPileCmd.AddToCombatAndPreview<Vessel>(Owner, PileType.Hand, (int)Amount, Owner.Player);
-        // Shame 特质（君王之剑式）：已有则全部移回手牌，一张都没有才生成一张，避免满手诅咒
-        await CurseTraitHelper.Summon<Shame>(Owner.Player);
+        for (int i = 0; i < (int)Amount; i++)
+        {
+            CardModel vessel = combatState.CreateCard<Vessel>(Owner.Player);
+            if (MakeUpgraded)
+            {
+                CardCmd.Upgrade(vessel, (CardPreviewStyle)1);
+            }
+            CardCmd.PreviewCardPileAdd(
+                await CardPileCmd.AddGeneratedCardToCombat(vessel, PileType.Hand, Owner.Player, (CardPilePosition)1),
+                2.2f, (CardPreviewStyle)1);
+        }
     }
 }

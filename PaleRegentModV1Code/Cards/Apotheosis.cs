@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【化神】稀有能力牌（虚空流的核心终端）。
 /// 0 灵魂 + 7 虚空：获得【化神】buff——
-/// 每回合开始获得 1 点虚空，并选择一张手牌附加【失心】。
+/// 每回合开始获得 1 点虚空（升级后 2 点），并选择一张手牌附加【失心】。
 ///
 /// 机制要点：
 /// - 虚空费在构造器里用 CardTraits.SetVoidCost 声明，
@@ -42,17 +42,19 @@ public class Apotheosis : PaleRegentModV1Card
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [new PowerVar<ApotheosisPower>(1)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 施加【化神】buff（Single 不叠层）
-        await PowerCmd.Apply<ApotheosisPower>(choiceContext, cardPlay.Player.Creature, 1, cardPlay.Player.Creature, this);
+        // 施加【化神】buff（层数 = 每回合获得的虚空数；基础 1，升级 2）
+        await PowerCmd.Apply<ApotheosisPower>(choiceContext, cardPlay.Player.Creature,
+            DynamicVars["ApotheosisPower"].BaseValue, cardPlay.Player.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级方案待定：可以降低虚空费（如 7→5），
-        // 需要在这里调用 CardTraits.SetVoidCost(this, 5) 并同步改卡面描述。
+        // 升级：每回合开始获得的虚空 1 → 2
+        DynamicVars["ApotheosisPower"].UpgradeValueBy(1m);
     }
 }

@@ -3,69 +3,102 @@ using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
-/// 【瘟疫】debuff（机制文档：新增负面效果）。
-/// 效果：持有者的回合结束时，进行【层数】次独立的随机攻击——
-/// 每一次都重新随机选取一个存活生物（包括自己、队友、敌人和召唤物）作为目标，
-/// 造成固定伤害。结算完毕后瘟疫消失。
+/// 【瘟疫】debuff（机制文档：新增负面效果，表格设计版）。
+/// 效果：本回合内，增加 [层数] 的力量；本回合的每次攻击将额外对随机生物
+/// 造成 [层数] 次 3 点基础攻击（随机对象包括自己、队友、敌人和召唤物；
+/// 基础攻击计入力量增长，即每段 3 点吃持有者的伤害加成）。
+/// 持有者一方回合结束时效果消失（"本回合内"）。
 ///
-/// 例：叠加 2 层 = 本回合结束时随机打 2 次，每次都单独随机一个对象；
-/// 多段伤害即增加攻击段数，而不是把伤害合并成一次。
-///
-/// 占位说明（后续可微调）：
-/// - 每段伤害占位为 3 点（DamagePerHit 常量），改数值直接改常量即可。
+/// 实现说明：
+/// - 力量增益：通过 ModifyDamageAdditive 提供 +Amount 攻击伤害加成（等效力量，
+///   避免额外挂 StrengthPower 带来的回合结束同步移除问题）；
+/// - 每次攻击后：AfterDamageGiven 触发 [层数] 段独立随机 3 点攻击伤害
+///   （不带 Unpowered，吃力量/瘟疫加成），_resolving 防止段伤递归触发自身；
 /// - 嘲讽卡【集火号令】通过 FocusTarget 静态字段占位实现：本回合内瘟疫的
-///   随机攻击全部集中在该目标上（回合结束清空）。
+///   随机攻击全部集中在该目标上（回合结束清空）；
 /// - 【疫佑】：玩家侧任意生物持有 PlagueWardPower 时，随机目标排除玩家侧。
 /// </summary>
 public class PlaguePower : PaleRegentModV1Power
 {
-    /// <summary>每段随机攻击的占位伤害。</summary>
+    /// <summary>每段随机攻击的基础伤害。</summary>
     private const decimal DamagePerHit = 3m;
 
     /// <summary>嘲讽占位：本回合瘟疫随机攻击集中的目标（null = 正常随机）。</summary>
     public static Creature? FocusTarget;
 
+    /// <summary>防止随机段伤本身再次触发瘟疫（递归保护）。</summary>
+    private bool _resolving;
+
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    /// <summary>
-    /// 持有者回合结束时：进行层数次独立随机攻击（每次单独随机目标），随后瘟疫消失。
-    /// </summary>
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    /// <summary>力量增益部分：持有者造成的攻击伤害 +Amount（加法修正，等效力量）。</summary>
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
-        if (!participants.Contains(Owner))
+        if (dealer != Owner || target == Owner)
+        {
+            return 0m;
+        }
+        return Amount;
+    }
+
+    /// <summary>持有者每次造成攻击伤害后：额外进行 [层数] 次独立随机 3 点基础攻击。</summary>
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
+    {
+        if (dealer != Owner || _resolving)
         {
             return;
         }
 
         ICombatState? combatState = Owner.CombatState;
-        if (combatState != null)
+        if (combatState == null)
+        {
+            return;
+        }
+
+        _resolving = true;
+        try
         {
             Flash();
             int hits = (int)Amount;
             for (int i = 0; i < hits; i++)
             {
                 // 每一段攻击都重新随机一个存活生物；嘲讽期间集中在 FocusTarget 上
-                Creature? target = FocusTarget is { IsAlive: true }
+                Creature? extraTarget = FocusTarget is { IsAlive: true }
                     ? FocusTarget
                     : PickRandomAliveCreature(combatState);
-                if (target == null)
+                if (extraTarget == null)
                 {
                     break;
                 }
-                await CreatureCmd.Damage(choiceContext, target, DamagePerHit, ValueProp.Unpowered | ValueProp.SkipHurtAnim, Owner);
+                // 基础攻击：不带 Unpowered，计入力量/瘟疫加成
+                await CreatureCmd.Damage(choiceContext, extraTarget, DamagePerHit, ValueProp.SkipHurtAnim, Owner);
             }
         }
+        finally
+        {
+            _resolving = false;
+        }
+    }
 
+    /// <summary>持有者一方回合结束：瘟疫消失（"本回合内"）。</summary>
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (!participants.Contains(Owner))
+        {
+            return;
+        }
         FocusTarget = null;
         await PowerCmd.Remove(this);
     }

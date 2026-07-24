@@ -10,7 +10,7 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【失败实验】生成牌（机制文档：造物流，"虚空实验"X&lt;3 时生成）。
+/// 【失败实验】生成牌（表格设计：造物流，"虚空实验"X&lt;3 时生成）。升级后 15 伤。
 /// 0 灵魂 攻击（全体）：对所有敌人造成 9 点伤害并施加 1 层【虚空之触】，
 /// 同时对自己施加 1 层【虚空之触】（失控的实验殃及自身）。消耗。
 /// </summary>
@@ -19,7 +19,7 @@ public class FailedExperiment() : PaleRegentModV1Card(0,
     TargetType.AllEnemies)
 {
     private const int BaseDamage = 9;
-    private const int UpgradeDamageBonus = 3;
+    private const int UpgradeDamageBonus = 6;
     private const int TouchAmount = 1;
 
     public override bool IsCreationCard => true;

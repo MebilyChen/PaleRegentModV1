@@ -17,7 +17,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
 /// 【化神】buff（由卡牌【化神】施加，持续到战斗结束）。
-/// 效果：你的每个回合开始时，获得 1 点虚空，然后选择一张手牌附加【失心】。
+/// 效果：你的每个回合开始时，获得 [层数] 点虚空，然后选择一张手牌附加【失心】。
+/// 层数由卡牌施加：基础 1，升级 2。
 ///
 /// 说明：
 /// - StackType = Single：不叠层，重复打【化神】不会翻倍触发。
@@ -28,15 +29,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 ///   （保留牌等）；如果希望在抽完牌后选，需要换成别的钩子（后续可调）。
 ///
 /// 修改指南：
-/// - 每回合虚空获得量：VoidGainPerTurn 常量。
+/// - 每回合虚空获得量 = Amount（在卡牌 Apotheosis 的 PowerVar 里改）。
 /// - 选牌提示文案：powers.json 里对应的描述 + cards.json 的 selectionScreenPrompt
 ///   （Power 没有 SelectionScreenPrompt 属性，这里直接用本地化字符串）。
 /// </summary>
 public class ApotheosisPower : PaleRegentModV1Power
 {
-    /// <summary>每回合开始获得的虚空数量。</summary>
-    private const int VoidGainPerTurn = 1;
-
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
@@ -54,7 +52,7 @@ public class ApotheosisPower : PaleRegentModV1Power
         Flash();
 
         // 1. 获得虚空并同步展示层（Owner.Player 在玩家回合必非空，用 ! 消除 CS8604）
-        await VoidResource.Gain(Owner.Player!, VoidGainPerTurn);
+        await VoidResource.Gain(Owner.Player!, Amount);
         await VoidResource.SyncPower(choiceContext, Owner.Player, null);
 
         // 2. 若手牌中有可失心的牌，弹出选牌界面选 1 张附加【失心】
