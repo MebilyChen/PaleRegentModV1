@@ -18,7 +18,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 0 灵魂 技能：获得 4 点格挡，获得 1 点虚空（残次品也有残次品的用处）。消耗。
 /// </summary>
 public class FailedVessel() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Token,
+    CardType.Skill, CardRarity.Status,
     TargetType.Self)
 {
     private const int BaseBlock = 4;

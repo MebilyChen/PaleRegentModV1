@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【纯粹容器】生成牌（机制文档：造物流，容器吸收 3+ 张感染孕育的完全体）。
-/// 0 灵魂 技能：获得 12 点格挡，获得 1 层【入梦】（免疫下一次伤害）。
+/// 0 灵魂 技能：获得 12 点格挡，获得 1 层【虚空护卫】（免疫下一次伤害）。
 /// 纯粹。消耗。
 /// </summary>
 public class PureVessel() : PaleRegentModV1Card(0,
