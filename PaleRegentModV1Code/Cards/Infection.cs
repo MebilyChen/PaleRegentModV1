@@ -52,9 +52,10 @@ public class Infection : PaleRegentModV1Card
 
     protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
     {
-        // 1) 随机一张其他手牌（非感染）变为感染（用官方战斗随机数流，保证联机/回放一致）
+        // 1) 随机一张其他手牌（非感染、非【纯粹】）变为感染（用官方战斗随机数流，保证联机/回放一致）
+        // 20260725 批次：带【纯粹】的牌不会被感染（机制文档：名词表·纯粹）
         List<CardModel> candidates = CardPile.GetCards(Owner, PileType.Hand)
-            .Where((CardModel c) => c != this && c is not Infection)
+            .Where((CardModel c) => c != this && c is not Infection && !CardTraits.IsPure(c))
             .ToList();
         if (candidates.Count > 0)
         {

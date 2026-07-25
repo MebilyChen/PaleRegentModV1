@@ -1,9 +1,15 @@
-﻿using BaseLib.Abstracts;
+﻿using System.Threading.Tasks;
+using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using PaleRegentModV1.PaleRegentModV1Code.Character;
 using PaleRegentModV1.PaleRegentModV1Code.Extensions;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -42,4 +48,32 @@ public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity ra
     /// 带纯粹的牌不受感染/变形类效果影响（具体判定在各效果处检查此标记）。
     /// </summary>
     public virtual bool IsPure => false;
+
+    /// <summary>
+    /// 【模具】特质标记（机制文档：名词表·模具）。
+    /// 带模具的牌被消耗时计数，战斗结束后按【本场消耗同名此牌数/100】概率
+    /// 获得对应的“模具·[卡牌名]”遗物（见 Traits/MouldHelper）。
+    /// 带模具的牌：君王佣卫/有翼佣卫牌/虚空化模。
+    /// 未升级与升级同名牌合并计数（按类型聚合，不会产生两个遗物）。
+    /// </summary>
+    public virtual bool IsMould => false;
+
+    /// <summary>
+    /// 统一生成钩子：任何牌在战斗中被生成时触发（card == this 表示是自己刚被生成）。
+    /// 【失心诅咒 LostDestiny】：若生成者（或牌主）拥有 LostDestinyPower，
+    /// 给这张新生成的牌附加【失心】（X 费牌无法附加，自动跳过）。
+    /// 子类如果重写此方法（FailedVessel/PureVessel/VoidGivenFocus 等），
+    /// 请务必先调用 await base.AfterCardGeneratedForCombat(card, creator)。
+    /// </summary>
+    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
+    {
+        await base.AfterCardGeneratedForCombat(card, creator);
+        if (card != this) return;
+
+        Creature? creature = creator?.Creature ?? Owner?.Creature;
+        if (creature?.GetPower<LostDestinyPower>() != null && CardTraits.CanApplyLost(this))
+        {
+            CardTraits.ApplyLost(this);
+        }
+    }
 }

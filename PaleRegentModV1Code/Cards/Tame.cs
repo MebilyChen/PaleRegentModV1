@@ -11,11 +11,12 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【驯化】技能牌（机制文档：造物流终端）。
-/// 2 灵魂 技能：消耗你手牌中所有的【虚空】状态牌：
-/// ≥5 张 → 将 1 张【虚空化神】加入手牌；
-/// ≥2 张 → 将 1 张【虚空化形】加入手牌。消耗。
-/// 升级后：生成升级版（虚空化神+/虚空化形+）。
+/// 【驯化】技能牌（机制文档：卡牌表 C#28，20260725 批次改版）。
+/// 2 灵魂 技能：消耗你所有牌堆（手牌/抽牌堆/弃牌堆）中全部的【虚空】状态牌：
+/// ≥5 张 → 获得【虚空化神】；
+/// ≥2 张 → 获得【虚空化形】；
+/// 否则 → 获得【失败实验】。消耗。
+/// 升级后：生成升级版（虚空化神+/虚空化形+/失败实验+）。
 /// </summary>
 public class Tame() : PaleRegentModV1Card(2,
     CardType.Skill, CardRarity.Rare,
@@ -31,9 +32,10 @@ public class Tame() : PaleRegentModV1Card(2,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 消耗手牌中所有的【虚空】状态牌
-        List<CardModel> voids = CardPile
-            .GetCards(Owner, PileType.Hand)
+        // 消耗所有牌堆（手牌/抽牌堆/弃牌堆）中全部的【虚空】状态牌（表格 G32）
+        List<CardModel> voids = CardPile.GetCards(Owner, PileType.Hand)
+            .Concat(CardPile.GetCards(Owner, PileType.Draw))
+            .Concat(CardPile.GetCards(Owner, PileType.Discard))
             .Where(c => c is TheVoidStatus)
             .ToList();
 
@@ -42,7 +44,8 @@ public class Tame() : PaleRegentModV1Card(2,
             await CardCmd.Exhaust(choiceContext, v);
         }
 
-        CardModel made = null;
+        // ≥5 化神；≥2 化形；否则失败实验（表格 G32：三档必得其一）
+        CardModel made;
         if (voids.Count >= GodThreshold)
         {
             made = Owner.Creature.CombatState.CreateCard<VoidGivenFocus>(Owner);
@@ -50,6 +53,10 @@ public class Tame() : PaleRegentModV1Card(2,
         else if (voids.Count >= FormThreshold)
         {
             made = Owner.Creature.CombatState.CreateCard<VoidGivenForm>(Owner);
+        }
+        else
+        {
+            made = Owner.Creature.CombatState.CreateCard<FailedExperiment>(Owner);
         }
 
         if (made != null)

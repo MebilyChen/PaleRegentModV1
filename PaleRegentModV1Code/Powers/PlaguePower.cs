@@ -25,17 +25,15 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 ///   避免额外挂 StrengthPower 带来的回合结束同步移除问题）；
 /// - 每次攻击后：AfterDamageGiven 触发 [层数] 段独立随机 3 点攻击伤害
 ///   （不带 Unpowered，吃力量/瘟疫加成），_resolving 防止段伤递归触发自身；
-/// - 嘲讽卡【集火号令】通过 FocusTarget 静态字段占位实现：本回合内瘟疫的
-///   随机攻击全部集中在该目标上（回合结束清空）；
+/// - 【旧日仇敌】（AncientEnemyPower，由集火敕令施加）：场上存在带该
+///   标记的存活生物时，瘟疫的随机攻击全部集中在该目标上
+///   （20260725 批次：已删除旧的 FocusTarget 静态字段占位实现）；
 /// - 【疫佑】：玩家侧任意生物持有 PlagueWardPower 时，随机目标排除玩家侧。
 /// </summary>
 public class PlaguePower : PaleRegentModV1Power
 {
     /// <summary>每段随机攻击的基础伤害。</summary>
     private const decimal DamagePerHit = 3m;
-
-    /// <summary>嘲讽占位：本回合瘟疫随机攻击集中的目标（null = 正常随机）。</summary>
-    public static Creature? FocusTarget;
 
     /// <summary>防止随机段伤本身再次触发瘟疫（递归保护）。</summary>
     private bool _resolving;
@@ -74,10 +72,11 @@ public class PlaguePower : PaleRegentModV1Power
             int hits = (int)Amount;
             for (int i = 0; i < hits; i++)
             {
-                // 每一段攻击都重新随机一个存活生物；嘲讽期间集中在 FocusTarget 上
-                Creature? extraTarget = FocusTarget is { IsAlive: true }
-                    ? FocusTarget
-                    : PickRandomAliveCreature(combatState);
+                // 每一段攻击都重新随机一个存活生物；
+                // 场上存在【旧日仇敌】标记时，集中在该目标上
+                Creature? focus = combatState.Creatures
+                    .FirstOrDefault(c => c.IsAlive && c.HasPower<AncientEnemyPower>());
+                Creature? extraTarget = focus ?? PickRandomAliveCreature(combatState);
                 if (extraTarget == null)
                 {
                     break;
@@ -99,7 +98,6 @@ public class PlaguePower : PaleRegentModV1Power
         {
             return;
         }
-        FocusTarget = null;
         await PowerCmd.Remove(this);
     }
 

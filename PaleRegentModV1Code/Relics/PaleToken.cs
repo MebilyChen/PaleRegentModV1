@@ -2,7 +2,10 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Rooms;
+using PaleRegentModV1.PaleRegentModV1Code.Patches;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Relics;
 
@@ -47,6 +50,10 @@ public class PaleToken : PaleRegentModV1Relic
             return;
         }
 
+        // 20260725：玩家回合开始，清零【异色】的本回合虚空获得计数。
+        // 苍白信物/国王之魂是本角色必带初始遗物，因此是可靠的回合开始挂点。
+        VoidPowerListener.ResetTurnGain();
+
         // 本回合"少恢复"的量 = 虚空数量 - 恢复补偿，最低为 0
         int reduction = VoidResource.Get(player) - RecoveryBonus;
         if (reduction <= 0)
@@ -57,5 +64,15 @@ public class PaleToken : PaleRegentModV1Relic
         Flash();
         // PlayerCmd.LoseEnergy 内部会 Clamp 到 0，不会扣成负数
         await PlayerCmd.LoseEnergy(reduction, player);
+    }
+
+    /// <summary>
+    /// 20260725：战斗结束时结算【模具】遗物（名词表 N#9）。
+    /// 挂在初始遗物上是因为苍白信物/国王之魂必存在且二选一，
+    /// 不会重复结算。
+    /// </summary>
+    public override async Task AfterCombatEnd(CombatRoom room)
+    {
+        await MouldHelper.RollMouldRelics(Owner, room);
     }
 }

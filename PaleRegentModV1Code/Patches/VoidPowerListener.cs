@@ -34,6 +34,20 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
 {
     public static VoidPowerListener Instance { get; } = new VoidPowerListener();
 
+    /// <summary>
+    /// 本回合获得的虚空总量（只统计正增量）。
+    /// 供【异色 OffColor】读取段数；每个玩家回合开始时由
+    /// PaleToken.AfterEnergyReset 调用 ResetTurnGain() 清零。
+    /// 20260725 批次新增（表格卡牌 C#10 异色）。
+    /// </summary>
+    public static int VoidGainedThisTurn { get; private set; }
+
+    /// <summary>清零本回合虚空获得计数（玩家回合开始时调用）。</summary>
+    public static void ResetTurnGain()
+    {
+        VoidGainedThisTurn = 0;
+    }
+
     public static void Init()
     {
         SecondaryResourceHook.RegisterGlobalListener(Instance);
@@ -57,6 +71,12 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
         if (context.NewAmount == context.OldAmount)
         {
             return;
+        }
+
+        // 累计本回合获得的虚空（只计正增量，花费/损失不扣回）
+        if (context.NewAmount > context.OldAmount)
+        {
+            VoidGainedThisTurn += (int)(context.NewAmount - context.OldAmount);
         }
 
         await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);

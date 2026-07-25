@@ -10,16 +10,17 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【誓卫】能力牌（机制文档：瘟疫流附属防御向）。
-/// 3 灵魂 能力：每回合你第一次失去生命时，获得 10 点格挡
-/// （Power 按层数给格挡，卡牌施加 10 层）。
-/// 升级后：13 点格挡（施加 13 层）。
+/// 3 灵魂 能力：每回合你第一次失去生命时，获得 3 点格挡
+/// （Power 按层数给格挡，卡牌施加 3 层）。
+/// 升级后：5 点格挡（施加 5 层）。
+/// 20260725 批次：数值按表格 G42/H42 从 10/13 调为 3/5。
 /// </summary>
 public class BulwarkOath() : PaleRegentModV1Card(3,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    private const int BaseStacks = 10;
-    private const int UpgradedStacks = 13;
+    private const int BaseStacks = 3;
+    private const int UpgradedStacks = 5;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<BulwarkOathPower>(BaseStacks)];

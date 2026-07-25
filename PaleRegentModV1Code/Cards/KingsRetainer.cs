@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【国王佣卫】生成牌（表格设计：造物流，"佣卫工厂"每回合生成）。
 /// 0 灵魂 1 虚空 攻击：对随机敌人造成 5 点伤害。消耗。升级后 8 伤。
 /// 造物牌：受【驾驭 Harness】加成（HarnessPower.ModifyDamageAdditive 自动生效）。
-/// （表格关键词含"模具"，模具体系未实现，暂不接。）
+/// 20260725：已接入【模具】体系（IsMould，见 MouldHelper / 名词表 N#9）。
 /// </summary>
 public class KingsRetainer : PaleRegentModV1Card
 {
@@ -30,6 +30,9 @@ public class KingsRetainer : PaleRegentModV1Card
     }
 
     public override bool IsCreationCard => true;
+
+    /// <summary>模具牌标记（战斗结束按消耗数概率成为遗物，见名词表 N#9）。</summary>
+    public override bool IsMould => true;
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

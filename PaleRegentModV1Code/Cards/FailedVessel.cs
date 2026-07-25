@@ -25,6 +25,7 @@ public class FailedVessel() : PaleRegentModV1Card(0,
     /// </summary>
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
+        await base.AfterCardGeneratedForCombat(card, creator); // 基类统一处理失心诅咒（LostDestiny）
         if (card == this)
         {
             await CurseTraitHelper.Summon<Shame>(Owner);

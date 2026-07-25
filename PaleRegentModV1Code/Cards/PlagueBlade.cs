@@ -12,9 +12,10 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【疫刃】攻击牌（机制文档：瘟疫流）。
-/// 1 灵魂 攻击：造成 5 点伤害；消耗手牌中所有【感染】，每消耗 1 张伤害 +5。
-/// 升级后：8 点伤害，每张 +6。
+/// 【疫刃】攻击牌（机制文档：卡牌表 C#29，20260725 批次改版）。
+/// 1 灵魂 攻击：消耗手牌中全部【感染】；造成 5 点伤害，
+/// 消耗牌堆中每有 1 张【感染】，伤害 +3（含本次刚吞下的）。
+/// 升级后：8 点伤害，每张 +5（表格 G33/H33/P33/Q33）。
 /// </summary>
 public class PlagueBlade() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Uncommon,
@@ -22,10 +23,9 @@ public class PlagueBlade() : PaleRegentModV1Card(1,
 {
     private const int BaseDamage = 5;
     private const int UpgradeDamageBonus = 3;
-    private const int BaseDamagePerInfection = 5;
 
-    /// <summary>升级后每张感染额外伤害（+1 → 6）。</summary>
-    private int _perInfectionBonus;
+    /// <summary>每张已消耗感染的额外伤害（基础 3，升级 5）。</summary>
+    private int _damagePerInfection = 3;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
@@ -43,8 +43,11 @@ public class PlagueBlade() : PaleRegentModV1Card(1,
             await CardCmd.Exhaust(choiceContext, infection);
         }
 
+        // 20260725 批次：改为按"消耗牌堆中的感染数"计伤（含本次刚吞的）
+        int exhaustedInfections = CardPile.GetCards(Owner, PileType.Exhaust)
+            .Count(c => c is Infection);
         decimal damage = DynamicVars.Damage.BaseValue +
-            infections.Count * (BaseDamagePerInfection + _perInfectionBonus);
+            exhaustedInfections * _damagePerInfection;
         await DamageCmd.Attack(damage)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
@@ -55,6 +58,6 @@ public class PlagueBlade() : PaleRegentModV1Card(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
-        _perInfectionBonus = 1;
+        _damagePerInfection = 5;
     }
 }

@@ -17,8 +17,9 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
 /// 【化神】buff（由卡牌【化神】施加，持续到战斗结束）。
-/// 效果：你的每个回合开始时，获得 [层数] 点虚空，然后选择一张手牌附加【失心】。
-/// 层数由卡牌施加：基础 1，升级 2。
+/// 效果：你的每个回合开始时，获得 [层数] 点虚空，然后选择 [层数] 张手牌附加【失心】。
+/// 层数由卡牌施加：基础 1（虚空+1，选 1 张），升级 2（虚空+2，选 2 张）。
+/// 20260725 批次：选牌张数与层数联动（表格 H10/Q10：升级后选 2 张）。
 ///
 /// 说明：
 /// - StackType = Single：不叠层，重复打【化神】不会翻倍触发。
@@ -55,7 +56,7 @@ public class ApotheosisPower : PaleRegentModV1Power
         await VoidResource.Gain(Owner.Player!, Amount);
         await VoidResource.SyncPower(choiceContext, Owner.Player, null);
 
-        // 2. 若手牌中有可失心的牌，弹出选牌界面选 1 张附加【失心】
+        // 2. 若手牌中有可失心的牌，弹出选牌界面选 [层数] 张附加【失心】（基础 1，升级 2）
         //    （BeforeSideTurnStart 在抽牌前，手牌可能为空——为空则跳过）
         //    CardPile.GetCards：原版提供的静态工具，按牌堆类型取卡牌列表
         bool anySelectable = CardPile.GetCards(Owner.Player, PileType.Hand)
@@ -65,10 +66,11 @@ public class ApotheosisPower : PaleRegentModV1Power
             return;
         }
 
+        int selectCount = (int)Amount; // 选牌张数 = 层数（基础 1，升级 2）
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner.Player,
-            new CardSelectorPrefs(SelectCardPrompt, 1),
+            new CardSelectorPrefs(SelectCardPrompt, selectCount),
             CardTraits.CanApplyLost,
             this);
 

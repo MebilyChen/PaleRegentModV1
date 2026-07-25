@@ -51,6 +51,7 @@ public static class CardTraits
     {
         public bool IsLost;              // 是否有【失心】
         public bool IsPale;              // 是否有【苍白】
+        public bool IsPureApplied;       // 是否被战斗中附加了【纯粹】（灵魂护佑等）
         public int OriginalEnergyCost;   // 附加特质前的灵魂费（用于苍白还原）
         public int OriginalVoidCost;     // 附加特质前的虚空费（用于还原）
         public bool CostSnapshotTaken;   // 是否已经记录过原始费用快照
@@ -69,6 +70,22 @@ public static class CardTraits
     /// <summary>这张牌当前是否有【苍白】。</summary>
     public static bool IsPale(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) && s!.IsPale;
+
+    /// <summary>
+    /// 这张牌当前是否有【纯粹】（机制文档：名词表·纯粹）。
+    /// 两个来源：1) 卡牌类自带（PaleRegentModV1Card.IsPure 重写为 true，如虚空化形/化神/纯粹容器）；
+    ///          2) 战斗中被附加（灵魂护佑等，走 ApplyPure 的 TraitState）。
+    /// 判定用途：带纯粹的牌不会被感染（Infection 的疑虑变形）等效果影响。
+    /// </summary>
+    public static bool IsPure(CardModel card) =>
+        (card as Cards.PaleRegentModV1Card)?.IsPure == true ||
+        (States.TryGetValue(card, out TraitState? s) && s!.IsPureApplied);
+
+    /// <summary>给一张牌附加【纯粹】（战斗内，跟随卡牌实例）。</summary>
+    public static void ApplyPure(CardModel card)
+    {
+        States.GetOrCreate(card).IsPureApplied = true;
+    }
 
     /// <summary>读取这张牌当前的虚空费（没有则为 0；X 费返回 0，请另行判断 CostsX）。</summary>
     public static int GetVoidCost(CardModel card)

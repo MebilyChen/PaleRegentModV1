@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Cards;
+using PaleRegentModV1.PaleRegentModV1Code.Relics;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
@@ -32,6 +33,11 @@ public class HarnessPower : PaleRegentModV1Power
             return 0m;
         }
         if (!props.IsPoweredAttack())
+        {
+            return 0m;
+        }
+        // 模具遗物自动打出的牌不吃 Harness 加成（表格 N#9：去除 Harness 临时效果）
+        if (MouldRelic.MouldAutoPlayFlag)
         {
             return 0m;
         }
