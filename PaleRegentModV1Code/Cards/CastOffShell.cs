@@ -40,8 +40,8 @@ public class CastOffShell() : PaleRegentModV1Card(0,
                 amount, Owner.Creature, this);
         }
 
-        // 结束你的回合
-        await PlayerCmd.EndTurn(Owner, false, (Func<Task>)null);
+        // 结束你的回合（EndTurn 返回 void，不能 await）
+        PlayerCmd.EndTurn(Owner, false, (Func<Task>)null);
     }
 
     protected override void OnUpgrade()

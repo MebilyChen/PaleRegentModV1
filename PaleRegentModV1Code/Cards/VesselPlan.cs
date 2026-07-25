@@ -35,7 +35,7 @@ public class VesselPlan : PaleRegentModV1Card
 
         // 升级后：标记 Power 生成升级版【容器+】
         if (IsUpgraded &&
-            Owner.Creature.Powers.GetPower<VesselPlanPower>() is VesselPlanPower plan)
+            Owner.Creature.GetPower<VesselPlanPower>() is VesselPlanPower plan)
         {
             plan.MakeUpgraded = true;
         }

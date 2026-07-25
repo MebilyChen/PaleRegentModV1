@@ -56,9 +56,9 @@ public class Infection : PaleRegentModV1Card
         List<CardModel> candidates = CardPile.GetCards(Owner, PileType.Hand)
             .Where((CardModel c) => c != this && c is not Infection)
             .ToList();
-        if (candidates.Count > 0 && Owner.Player != null)
+        if (candidates.Count > 0)
         {
-            CardModel target = Owner.Player.RunState.Rng.CombatTargets.NextItem(candidates);
+            CardModel target = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
             await CardCmd.TransformTo<Infection>(target);
             await NotifyGenerated(Owner.Creature, 1);
         }
