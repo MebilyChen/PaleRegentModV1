@@ -1,5 +1,6 @@
 using System;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Models;
 using PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Relics;
