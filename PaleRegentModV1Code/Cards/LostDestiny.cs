@@ -38,7 +38,7 @@ public class LostDestiny : PaleRegentModV1Card
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<LostDestinyPower>(1)];
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<LostDestinyPower>((int?)null)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

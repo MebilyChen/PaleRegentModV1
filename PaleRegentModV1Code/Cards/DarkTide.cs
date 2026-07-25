@@ -21,14 +21,13 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 且每次虚空 +1。然后为手牌任意张牌添加【失心】。
 ///
 /// 实现说明：
-/// - 稀有度：表格 L8=Ancient（先古）。无法确认游戏 CardRarity 枚举是否含 Ancient，
-///   为保证编译暂用 CardRarity.Rare；若游戏内验证存在 Ancient 枚举再改回。
+/// - 稀有度：表格 L8=Ancient（先古）。已在原版源码 CardRarity.cs 确认枚举含 Ancient。
 /// - "先古升级"（初始牌升级为此卡）的官方关联 API 未知，
 ///   目前作为独立卡牌实现，进入卡池方式待游戏内验证后调整。
 /// - "任意张"选牌：以当前手牌数为选择上限（可少选）。
 /// </summary>
 public class DarkTide() : PaleRegentModV1Card(0,
-    CardType.Attack, CardRarity.Rare, // TODO: 表格要求 Ancient，待验证枚举后改回
+    CardType.Attack, CardRarity.Ancient, // 表格 L8：先古（原版枚举已确认）
     TargetType.AllEnemies)
 {
     /// <summary>基础伤害（每次）。</summary>
@@ -66,7 +65,7 @@ public class DarkTide() : PaleRegentModV1Card(0,
         await VoidResource.SyncPower(choiceContext, cardPlay.Player, this);
 
         // 2. 为手牌任意张牌添加【失心】（上限 = 手牌数，可少选）
-        List<CardModel> hand = CardPile.GetCards(Owner, PileType.Hand);
+        List<CardModel> hand = CardPile.GetCards(Owner, PileType.Hand).ToList();
         int max = hand.Count(c => c != this && CardTraits.CanApplyLost(c));
         if (max <= 0)
         {
@@ -75,7 +74,7 @@ public class DarkTide() : PaleRegentModV1Card(0,
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, max),
+            new CardSelectorPrefs(SelectionScreenPrompt, 0, max), // 0~max张可少选（原版 Purity 同款重载）
             (CardModel c) => c != this && CardTraits.CanApplyLost(c),
             this);
         foreach (CardModel card in selected)

@@ -28,7 +28,7 @@ public class Embrace() : PaleRegentModV1Card(1,
     /// <summary>抽牌数。</summary>
     private const int DrawCount = 1;
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<Infection>(false),
          HoverTipFactory.FromPower<PlaguePower>((int?)null)];
 

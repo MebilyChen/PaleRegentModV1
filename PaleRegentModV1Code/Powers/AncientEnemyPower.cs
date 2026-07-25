@@ -31,7 +31,8 @@ public class AncientEnemyPower : PaleRegentModV1Power
     public override PowerStackType StackType => PowerStackType.Counter;
 
     /// <summary>
-    /// 持有者一方的回合结束时层数 -1，减到 0 自动移除（Decrement 内部处理）。
+    /// 持有者一方的回合结束时层数 -1，减到 0 自动移除
+    /// （TickDownDuration 与原版 VulnerablePower 同款写法，内部处理回合时序规则）。
     /// </summary>
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
@@ -40,6 +41,6 @@ public class AncientEnemyPower : PaleRegentModV1Power
             return;
         }
 
-        await PowerCmd.Decrement(choiceContext, this, 1);
+        await PowerCmd.TickDownDuration(this);
     }
 }

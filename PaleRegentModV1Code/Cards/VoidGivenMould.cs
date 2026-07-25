@@ -44,7 +44,7 @@ public class VoidGivenMould : PaleRegentModV1Card
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<VoidGivenMouldPower>(BaseBonus)];
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<VoidGivenMouldPower>((int?)null)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

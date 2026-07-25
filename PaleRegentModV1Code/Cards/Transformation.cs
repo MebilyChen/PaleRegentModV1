@@ -28,7 +28,7 @@ public class Transformation() : PaleRegentModV1Card(4,
         [CardKeyword.Ethereal];
 
     /// <summary>悬停预览：生成的弃壳牌。</summary>
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<CastOffShell>(false)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
