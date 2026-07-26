@@ -33,6 +33,9 @@ public class VesselPlan : PaleRegentModV1Card
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<VesselPlanPower>(VesselPerTurn)];
+    
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

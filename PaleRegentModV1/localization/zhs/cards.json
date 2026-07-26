@@ -82,7 +82,7 @@
 	"PALEREGENTMODV1-PLAGUE_WARD.title": "疫佑",
 	"PALEREGENTMODV1-PLAGUE_WARD.description": "[gold]瘟疫[/gold]效果的随机攻击不再命中你和你的队友。",
 	"PALEREGENTMODV1-FOCUS_FIRE_EDICT.title": "集火号令",
-	"PALEREGENTMODV1-FOCUS_FIRE_EDICT.description": "施加{PlaguePower}层[gold]瘟疫[/gold]。施加{AncientEnemyPower}层[gold]旧日仇敌[/gold]。",
+	"PALEREGENTMODV1-FOCUS_FIRE_EDICT.description": "造成1点伤害。施加{PlaguePower}层[gold]瘟疫[/gold]。施加{AncientEnemyPower}层[gold]旧日仇敌[/gold]。",
 	"PALEREGENTMODV1-DREAM_VEIL.title": "入梦帷幕",
 	"PALEREGENTMODV1-DREAM_VEIL.description": "为所有友方添加{DreamPower}层入梦，为你额外添加1层白根。",
 	"PALEREGENTMODV1-SEALING_EDICT.title": "封印之令",
