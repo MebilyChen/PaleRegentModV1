@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
@@ -28,7 +29,7 @@ public class VoidConversion() : PaleRegentModV1Card(0,
     // 灵魂 X 费：打出时消耗当前全部灵魂作为 X
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.VoidCounter];
+        [HoverTipFactory.FromPower<VoidPower>((int?)null) ];
 
     protected override bool HasEnergyCostX => true;
 

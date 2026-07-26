@@ -44,7 +44,7 @@ public class Apotheosis : PaleRegentModV1Card
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<ApotheosisPower>((int?)null),
          ModHoverTips.Lost,
-         ModHoverTips.VoidCounter];
+         HoverTipFactory.FromPower<VoidPower>((int?)null) ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

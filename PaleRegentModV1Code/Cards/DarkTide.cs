@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
@@ -40,7 +41,7 @@ public class DarkTide() : PaleRegentModV1Card(0,
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [ModHoverTips.Lost,
-         ModHoverTips.VoidCounter];
+            HoverTipFactory.FromPower<VoidPower>((int?)null) ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];

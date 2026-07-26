@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -42,7 +43,7 @@ public class Rollback : PaleRegentModV1Card
     // 打出后消耗（防止一场战斗里反复无限转换）
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.VoidCounter];
+        [HoverTipFactory.FromPower<VoidPower>((int?)null) ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

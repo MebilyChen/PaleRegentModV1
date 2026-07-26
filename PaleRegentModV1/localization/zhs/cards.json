@@ -46,7 +46,7 @@
 	"PALEREGENTMODV1-VOID_GIVEN_FOCUS.description": "对所有敌人造成{Damage:diff()}点伤害，并对其施加{VoidTouchPower}层[gold]虚空之触[/gold]。选择手牌中的一张牌，将其转化为[gold]虚空[/gold]状态牌。此牌生成时：将你所有的【愚行】加入手牌（若没有则生成一张）。",
 	"PALEREGENTMODV1-VOID_GIVEN_FOCUS.selectionScreenPrompt": "选择一张牌转化为【虚空】状态牌。",
 	"PALEREGENTMODV1-INFECTION.title": "感染",
-	"PALEREGENTMODV1-INFECTION.description": "花费1点[gold]虚空[/gold]。[gold]保留[/gold]。若回合结束时仍在手牌：随机一张其他手牌变为【感染】，并将你所有的【疑虑】加入手牌（若没有则生成一张）。",
+	"PALEREGENTMODV1-INFECTION.description": "若回合结束时仍在手牌：随机一张其他手牌变为【感染】，并将你所有的【疑虑】加入手牌（若没有则生成一张）。",
 	"PALEREGENTMODV1-VESSEL.title": "容器",
 	"PALEREGENTMODV1-VESSEL.description": "对一个敌人施加{PureSealPower}层[gold]纯粹封印[/gold]。[gold]消耗[/gold]手牌中所有的状态牌：若不少于3张，将一张【纯粹容器】置入弃牌堆；否则将一张【失败容器】置入弃牌堆。",
 	"PALEREGENTMODV1-FAILED_VESSEL.title": "失败容器",

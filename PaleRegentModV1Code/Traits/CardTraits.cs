@@ -188,7 +188,7 @@ public static class CardTraits
     }
 
     /// <summary>
-    /// 规则："虚空费大于 0 的卡牌自动获得【消耗】。"
+    /// 规则："虚空费大于等于 0 的卡牌自动获得【消耗】。"
     /// 每次特质变化后调用，保证 Exhaust 关键词与虚空费同步。
     /// 注意：如果这张牌本来（CanonicalKeywords）就带消耗，不要移除它——
     /// 用 TraitState 无法区分，这里采用保守策略：只增不减，
@@ -196,10 +196,10 @@ public static class CardTraits
     /// </summary>
     private static void SyncExhaustKeyword(CardModel card)
     {
-        if (GetVoidCost(card) > 0)
+        if (GetVoidCost(card) >= 0) //20260726 虚空费大于【等于】 0 的卡牌自动获得【消耗】。
             card.AddKeyword(CardKeyword.Exhaust);
         // 苍白清零虚空费后：若原虚空费为 0（即消耗是我们加的），移除
-        else if (States.TryGetValue(card, out TraitState? s) && s!.OriginalVoidCost == 0)
+        else if (States.TryGetValue(card, out TraitState? s) && s!.OriginalVoidCost == 0) 
             card.RemoveKeyword(CardKeyword.Exhaust);
     }
 
