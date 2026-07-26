@@ -12,11 +12,11 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【弃壳】技能牌（表格设计：蓄灵载体）。
-/// X 灵魂 技能：结束你的回合；获得 X 层【蓄灵】（下回合开始时获得 X 灵魂）。消耗。
+/// X 灵魂 技能：结束你的回合；获得 X 层【蓄灵】（下回合开始时获得 X 灵魂）。保留。
 /// 升级后：蓄灵 X+1。
 /// </summary>
 public class CastOffShell() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Common,
+    CardType.Skill, CardRarity.Token,
     TargetType.Self)
 {
     // 灵魂 X 费：打出时消耗当前全部灵魂作为 X（与【染色】同款写法）
@@ -28,9 +28,10 @@ public class CastOffShell() : PaleRegentModV1Card(0,
 
     /// <summary>升级后蓄灵额外 +1。</summary>
     private int _soulBonus;
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Exhaust];
+    
+    //不再消耗
+    //public override IEnumerable<CardKeyword> CanonicalKeywords =>
+       // [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 

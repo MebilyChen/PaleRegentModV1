@@ -61,6 +61,6 @@
 	"PALEREGENTMODV1-PLAGUE_WARD_POWER.description": "你和友方不再受到[gold]瘟疫[/gold]的伤害。",
 	"PALEREGENTMODV1-PLAGUE_WARD_POWER.smartDescription": "你和友方不再受到[gold]瘟疫[/gold]的伤害。",
 	"PALEREGENTMODV1-SOUL_NEXT_TURN_POWER.title": "蓄灵",
-	"PALEREGENTMODV1-SOUL_NEXT_TURN_POWER.description": "下回合开始时，获得{Amount}点灵魂。",
+	"PALEREGENTMODV1-SOUL_NEXT_TURN_POWER.description": "下回合开始时，获得灵魂。",
 	"PALEREGENTMODV1-SOUL_NEXT_TURN_POWER.smartDescription": "下回合开始时，获得{Amount}点灵魂。"
 }
