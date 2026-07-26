@@ -29,7 +29,7 @@ public static class ModHoverTips
         new LocString(Table, $"PALEREGENTMODV1-{key}.description"));
 
     /// <summary>【虚空】能量计数器词条（名词表#18：回合开始按虚空数量扣灵魂，跨回合保留）。</summary>
-    public static IHoverTip VoidCounter => Static("VOID_COUNTER");
+    public static IHoverTip VoidCounter => Static("VOID_COUNTER"); //没有ICON，最好还是引用POWER
 
     /// <summary>【失心 Lost】词条（名词表#1：灵魂转虚空费、重放1、取消苍白）。</summary>
     public static IHoverTip Lost => Static("LOST");
@@ -48,4 +48,7 @@ public static class ModHoverTips
 
     /// <summary>【感染】特质规则词条（名词表#8：回合结束留在手牌时变化随机手牌为感染并触发疑虑）。</summary>
     public static IHoverTip InfectionRule => Static("INFECTION_RULE");
+    public static IHoverTip FollyRule => Static("Folly_RULE");
+    public static IHoverTip RegretRule => Static("REGRET_RULE");
+    public static IHoverTip ShameRule => Static("SHAME_RULE");
 }

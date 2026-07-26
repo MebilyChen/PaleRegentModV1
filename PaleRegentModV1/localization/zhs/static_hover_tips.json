@@ -10,7 +10,14 @@
 	"PALEREGENTMODV1-MOULD.title": "模具",
 	"PALEREGENTMODV1-MOULD.description": "有一定概率获得该牌制成的遗物奖励。",
 	"PALEREGENTMODV1-HARNESS.title": "驾驭",
-	"PALEREGENTMODV1-HARNESS.description": "你的造物造成的伤害与获得的格挡提高等同于驾驭的数值。",
+	"PALEREGENTMODV1-HARNESS.description": "你的造物造成的伤害与获得的格挡提高该数值。",
+	"PALEREGENTMODV1-FOLLY_RULE.title": "愚行",
+	"PALEREGENTMODV1-FOLLY_RULE.description": "此牌生成时，无论何处，将你所有的[red]愚行[/red]添加至你的手牌。若没有则生成一张。",
+	"PALEREGENTMODV1-SHAME_RULE.title": "羞愧",
+	"PALEREGENTMODV1-SHAME_RULE.description": "此牌生成时，无论何处，将你所有的[red]羞愧[/red]添加至你的手牌。若没有则生成一张。",
+	"PALEREGENTMODV1-REGRET_RULE.title": "悔恨",
+	"PALEREGENTMODV1-REGRET_RULE.description": "此牌生成时，无论何处，将你所有的[red]悔恨[/red]添加至你的手牌。若没有则生成一张。",
 	"PALEREGENTMODV1-INFECTION_RULE.title": "感染",
-	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[gold]疑虑[/gold]效果，若没有则生成1张。"
+	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[red]疑虑[/red]效果，若没有则生成1张。"
+
 }

@@ -50,7 +50,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
     private static CharacterModel RegentBase =>
         ModelDb.Character<Regent>();
 
-    public override int StartingHp =>
+    public override int StartingHp => 
         RegentBase.StartingHp;
 
     //public override IEnumerable<CardModel> StartingDeck =>

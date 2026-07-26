@@ -34,10 +34,9 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Pure,
+        [ModHoverTips.Pure,ModHoverTips.FollyRule,
          HoverTipFactory.FromPower<VoidTouchPower>((int?)null),
-         HoverTipFactory.FromCard<TheVoidStatus>(false),
-         HoverTipFactory.FromCard<Folly>(false)];
+         HoverTipFactory.FromCard<TheVoidStatus>(false)];
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;

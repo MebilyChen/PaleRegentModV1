@@ -106,5 +106,7 @@
 	"PALEREGENTMODV1-EMBRACE.description": "抽1张牌。若抽到【感染】，为你添加1层[gold]瘟疫[/gold]。随机打出你抽牌堆中的1张攻击牌。",
 	"PALEREGENTMODV1-SOUL_WARD.title": "灵魂护佑",
 	"PALEREGENTMODV1-SOUL_WARD.description": "抽{Draw:diff()}张牌，选择一张牌施加[gold]纯粹[/gold]。",
-	"PALEREGENTMODV1-SOUL_WARD.selectionScreenPrompt": "选择一张牌施加[gold]纯粹[/gold]。"
+	"PALEREGENTMODV1-SOUL_WARD.selectionScreenPrompt": "选择一张牌施加[gold]纯粹[/gold]。",
+	"PALEREGENTMODV1-SOUL_GUARD_RETURN.title": "灵魂粒子墙",
+	"PALEREGENTMODV1-SOUL_GUARD_RETURN.description": "获得{Block:diff()}点格挡。返回你的手牌。"
 }
