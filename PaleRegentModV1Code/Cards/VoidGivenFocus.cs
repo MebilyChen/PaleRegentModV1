@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +31,13 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
     private const int UpgradeDamageBonus = 5;
     private const int BaseTouch = 10;
     private const int UpgradeTouchBonus = 5;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.Pure,
+         HoverTipFactory.FromPower<VoidTouchPower>((int?)null),
+         HoverTipFactory.FromCard<TheVoidStatus>(false),
+         HoverTipFactory.FromCard<Folly>(false)];
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;

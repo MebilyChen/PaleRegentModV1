@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +25,10 @@ public class SealingEdict() : PaleRegentModV1Card(2,
     private const int BaseBlock = 5;
     private const int UpgradeBlockBonus = 5;
     private const int BaseSeal = 1;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<PureSealPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new BlockVar(BaseBlock, ValueProp.Move), new PowerVar<PureSealPower>(BaseSeal)];

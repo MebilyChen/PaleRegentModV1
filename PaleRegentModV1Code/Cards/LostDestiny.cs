@@ -38,8 +38,10 @@ public class LostDestiny : PaleRegentModV1Card
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<LostDestinyPower>(1)];
 
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<LostDestinyPower>((int?)null)];
+        [HoverTipFactory.FromPower<LostDestinyPower>((int?)null),
+         ModHoverTips.Lost];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

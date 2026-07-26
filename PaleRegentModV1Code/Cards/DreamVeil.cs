@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ public class DreamVeil : PaleRegentModV1Card
         TargetType.Self)
     {
     }
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<DreamPower>((int?)null),
+         HoverTipFactory.FromPower<WhiteRootPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<DreamPower>(BaseDreamAmount)];

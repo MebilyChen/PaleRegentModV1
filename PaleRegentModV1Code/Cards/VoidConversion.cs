@@ -1,3 +1,5 @@
+using MegaCrit.Sts2.Core.HoverTips;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -24,6 +26,10 @@ public class VoidConversion() : PaleRegentModV1Card(0,
     TargetType.Self)
 {
     // 灵魂 X 费：打出时消耗当前全部灵魂作为 X
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.VoidCounter];
+
     protected override bool HasEnergyCostX => true;
 
     /// <summary>额外虚空获得量（升级后 +1）。</summary>

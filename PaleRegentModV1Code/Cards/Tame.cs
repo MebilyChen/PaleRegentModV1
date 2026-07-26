@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ public class Tame() : PaleRegentModV1Card(2,
 {
     private const int GodThreshold = 5;
     private const int FormThreshold = 2;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<VoidGivenFocus>(IsUpgraded),
+         HoverTipFactory.FromCard<VoidGivenForm>(IsUpgraded),
+         HoverTipFactory.FromCard<FailedExperiment>(IsUpgraded),
+         HoverTipFactory.FromCard<TheVoidStatus>(false)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];

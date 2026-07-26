@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,6 +22,10 @@ public class BulwarkOath() : PaleRegentModV1Card(3,
 {
     private const int BaseStacks = 3;
     private const int UpgradedStacks = 5;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<BulwarkOathPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<BulwarkOathPower>(BaseStacks)];

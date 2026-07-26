@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -26,6 +27,10 @@ public class SoulWard() : PaleRegentModV1Card(1,
     /// <summary>基础抽牌数（升级后 3）。</summary>
     private const int BaseDraw = 2;
     private const int UpgradedDraw = 3;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.Pure];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DynamicVar("Draw", BaseDraw)];

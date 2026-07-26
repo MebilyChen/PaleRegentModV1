@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -46,6 +47,10 @@ public class VoidFinisher : PaleRegentModV1Card
     }
 
     // 虚空费>0（X 费）自动带消耗
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.VoidCounter];
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
 

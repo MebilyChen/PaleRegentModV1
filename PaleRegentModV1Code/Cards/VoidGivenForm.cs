@@ -1,3 +1,5 @@
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -23,6 +25,11 @@ public class VoidGivenForm() : PaleRegentModV1Card(0,
     private const int UpgradeDamageBonus = 5;
     private const int BaseTouch = 3;
     private const int UpgradeTouchBonus = 2;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.Pure,
+         HoverTipFactory.FromPower<VoidTouchPower>((int?)null)];
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ public class FocusFireEdict() : PaleRegentModV1Card(1,
     private const int BaseDamage = 1;
     private const int BasePlague = 1;
     private const int BaseAncientEnemy = 1;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<PlaguePower>((int?)null),
+         HoverTipFactory.FromPower<AncientEnemyPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move), new PowerVar<PlaguePower>(BasePlague),

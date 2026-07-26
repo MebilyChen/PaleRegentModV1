@@ -1,3 +1,4 @@
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -29,9 +30,10 @@ public class Transformation() : PaleRegentModV1Card(4,
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Ethereal];
 
-    /// <summary>悬停预览：生成的弃壳牌。</summary>
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromCard<CastOffShell>(false)];
+        [HoverTipFactory.FromCard<CastOffShell>(IsUpgraded),
+         HoverTipFactory.FromPower<SoulNextTurnPower>((int?)null)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -36,6 +37,10 @@ public class PerfectBlock() : PaleRegentModV1Card(4,
     private const int BasePlating = 3;
     /// <summary>升级后覆甲增加量（3→5）。</summary>
     private const int UpgradePlatingBonus = 2;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<PlatingPower>((int?)null)];
 
     public override bool GainsBlock => true;
 

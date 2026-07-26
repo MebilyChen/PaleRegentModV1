@@ -2,11 +2,15 @@
 	"PALEREGENTMODV1-VOID_COUNTER.title": "虚空",
 	"PALEREGENTMODV1-VOID_COUNTER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。虚空在回合结束时不会清空。",
 	"PALEREGENTMODV1-LOST.title": "失心",
-	"PALEREGENTMODV1-LOST.description": "该牌不再消耗灵魂，改为消耗虚空（灵魂+虚空合并为虚空费用）。获得重放1。与苍白互斥。",
+	"PALEREGENTMODV1-LOST.description": "该牌的灵魂转化为虚空费用。获得重放1。取消[blue]苍白[/blue]。",
 	"PALEREGENTMODV1-PALE.title": "苍白",
 	"PALEREGENTMODV1-PALE.description": "移除该牌的失心与虚空费用。获得虚无。",
 	"PALEREGENTMODV1-PURE.title": "纯粹",
-	"PALEREGENTMODV1-PURE.description": "该牌不会被变形或变质（不会变为感染）。",
+	"PALEREGENTMODV1-PURE.description": "战斗中无法被变化。",
 	"PALEREGENTMODV1-MOULD.title": "模具",
-	"PALEREGENTMODV1-MOULD.description": "有一定概率获得该牌制成的遗物奖励。"
+	"PALEREGENTMODV1-MOULD.description": "有一定概率获得该牌制成的遗物奖励。",
+	"PALEREGENTMODV1-HARNESS.title": "驾驭",
+	"PALEREGENTMODV1-HARNESS.description": "你的造物造成的伤害与获得的格挡提高等同于驾驭的数值。",
+	"PALEREGENTMODV1-INFECTION_RULE.title": "感染",
+	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[gold]疑虑[/gold]效果，若没有则生成1张。"
 }

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,10 @@ public class CastOffShell() : PaleRegentModV1Card(0,
     TargetType.Self)
 {
     // 灵魂 X 费：打出时消耗当前全部灵魂作为 X（与【染色】同款写法）
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<SoulNextTurnPower>((int?)null)];
+
     protected override bool HasEnergyCostX => true;
 
     /// <summary>升级后蓄灵额外 +1。</summary>

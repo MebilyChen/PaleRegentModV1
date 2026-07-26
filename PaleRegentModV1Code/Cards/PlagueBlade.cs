@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ public class PlagueBlade() : PaleRegentModV1Card(1,
 
     /// <summary>每张已消耗感染的额外伤害（基础 3，升级 5）。</summary>
     private int _damagePerInfection = 3;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<Infection>(false)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];

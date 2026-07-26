@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,10 @@ public class PathOfPain() : PaleRegentModV1Card(3,
     TargetType.AllEnemies)
 {
     private const int BaseAmount = 5;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<PathOfPainPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<PathOfPainPower>(BaseAmount)];

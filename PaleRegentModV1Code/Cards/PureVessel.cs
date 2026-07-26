@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,13 @@ public class PureVessel() : PaleRegentModV1Card(0,
 
     /// <summary>每消耗一张状态牌的伤害加成（基础 5，升级 7）。</summary>
     private int _bonusPerStatus = BonusPerStatus;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [ModHoverTips.Pure,
+         HoverTipFactory.FromPower<PureSealPower>((int?)null),
+         HoverTipFactory.FromPower<VoidGuardPower>((int?)null),
+         HoverTipFactory.FromCard<Regret>(false)];
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;

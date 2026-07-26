@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ public class NoCostTooGreat() : PaleRegentModV1Card(0,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<Vessel>(IsUpgraded),
+         HoverTipFactory.FromCard<Shame>(false)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

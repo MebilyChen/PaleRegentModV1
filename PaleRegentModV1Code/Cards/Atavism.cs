@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -26,6 +27,10 @@ public class Atavism() : PaleRegentModV1Card(6,
 {
     /// <summary>施加的返祖层数（= 每打出一张牌回复的灵魂数）。</summary>
     private const int PowerStacks = 1;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<AtavismPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 

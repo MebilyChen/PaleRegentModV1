@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,6 +22,10 @@ public class FailedExperiment() : PaleRegentModV1Card(0,
     private const int BaseDamage = 9;
     private const int UpgradeDamageBonus = 6;
     private const int TouchAmount = 1;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<VoidTouchPower>((int?)null)];
 
     public override bool IsCreationCard => true;
 

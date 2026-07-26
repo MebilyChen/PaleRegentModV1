@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -24,6 +25,11 @@ public class PlagueWard : PaleRegentModV1Card
     {
         CardTraits.SetVoidCost(this, BaseVoidCost);
     }
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<PlagueWardPower>((int?)null),
+         HoverTipFactory.FromPower<PlaguePower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 

@@ -1,3 +1,5 @@
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +27,11 @@ public class PlagueHarvest() : PaleRegentModV1Card(1,
     /// <summary>升级后每张感染额外虚空/抽牌。</summary>
     private int _voidBonus;
     private int _drawBonus;
+
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<Infection>(false),
+         ModHoverTips.VoidCounter];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 

@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -23,6 +24,10 @@ public class FailedVessel() : PaleRegentModV1Card(0,
     /// <summary>
     /// Shame 特质（君王之剑式）：此牌生成时，将你所有的 Shame 加入手牌（若没有则生成一张）。
     /// </summary>
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<Shame>(false)];
+
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
         await base.AfterCardGeneratedForCombat(card, creator); // 基类统一处理失心诅咒（LostDestiny）

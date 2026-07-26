@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -39,6 +40,12 @@ public class Apotheosis : PaleRegentModV1Card
     }
 
     // 虚空费>0 自动带消耗（能力牌本身不进弃牌堆，此处主要用于卡面关键词展示）
+    /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<ApotheosisPower>((int?)null),
+         ModHoverTips.Lost,
+         ModHoverTips.VoidCounter];
+
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
 
