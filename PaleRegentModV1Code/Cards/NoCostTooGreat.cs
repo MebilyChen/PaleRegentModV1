@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【不惜代价】技能牌（机制文档：造物流 "No Cost Too Great"）。
 /// 0 灵魂 Rare 技能：
 /// 生成 1 张【容器】加入手牌；将 1 张【羞愧】加入你的手牌；
-/// 本场战斗每打出一次，此牌费用增加 1；结束你的回合。
+/// 本场战斗每打出一次，此牌费用增加 1.
 /// 升级后：生成【容器+】。
 /// </summary>
 public class NoCostTooGreat() : PaleRegentModV1Card(0,
@@ -49,8 +49,8 @@ public class NoCostTooGreat() : PaleRegentModV1Card(0,
         // 本场战斗每打出一次，费用 +1
         EnergyCost.AddThisCombat(1, false);
 
-        // 结束你的回合
-        PlayerCmd.EndTurn(Owner, false, (Func<Task>)null);
+        // 结束你的回合 :20260726 不再结束回合
+        // PlayerCmd.EndTurn(Owner, false, (Func<Task>)null);
     }
 
     protected override void OnUpgrade()

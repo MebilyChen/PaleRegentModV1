@@ -48,7 +48,8 @@ public static class ModHoverTips
 
     /// <summary>【感染】特质规则词条（名词表#8：回合结束留在手牌时变化随机手牌为感染并触发疑虑）。</summary>
     public static IHoverTip InfectionRule => Static("INFECTION_RULE");
-    public static IHoverTip FollyRule => Static("Folly_RULE");
+    public static IHoverTip FollyRule => Static("FOLLY_RULE");
     public static IHoverTip RegretRule => Static("REGRET_RULE");
     public static IHoverTip ShameRule => Static("SHAME_RULE");
+    public static IHoverTip PrescienceRule => Static("PRESCIENCE_RULE");
 }

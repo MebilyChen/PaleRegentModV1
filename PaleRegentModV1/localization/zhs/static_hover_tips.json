@@ -18,6 +18,8 @@
 	"PALEREGENTMODV1-REGRET_RULE.title": "悔恨",
 	"PALEREGENTMODV1-REGRET_RULE.description": "此牌生成时，无论何处，将你所有的[red]悔恨[/red]添加至你的手牌。若没有则生成一张。",
 	"PALEREGENTMODV1-INFECTION_RULE.title": "感染",
-	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[red]疑虑[/red]效果，若没有则生成1张。"
+	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[red]疑虑[/red]效果，若没有则生成1张。",
+	"PALEREGENTMODV1-PRESCIENCE_RULE.title": "预知",
+	"PALEREGENTMODV1-PRESCIENCE_RULE.description": "按顺序预览你的抽牌堆。"
 
 }

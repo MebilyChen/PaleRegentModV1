@@ -27,7 +27,7 @@
 	"PALEREGENTMODV1-FINISHING_MOVE.title": "终结技",
 	"PALEREGENTMODV1-FINISHING_MOVE.description": "对所有敌人造成{Damage:diff()}点伤害。",
 	"PALEREGENTMODV1-RECYCLE.title": "再利用",
-	"PALEREGENTMODV1-RECYCLE.description": "将手牌中的全部状态牌转化为[gold]{IfUpgraded:show:]集中+|]集中}[/gold]。",
+	"PALEREGENTMODV1-RECYCLE.description": "将手牌中的全部状态牌转化为[gold]{IfUpgraded:show:]集中+|集中}[/gold]。",
 	"PALEREGENTMODV1-SOUL_SPELL.title": "灵魂法术",
 	"PALEREGENTMODV1-SOUL_SPELL.description": "造成{Damage:diff()}点伤害。选择手牌中的一张牌，为其附加[gold]苍白[/gold]。",
 	"PALEREGENTMODV1-SOUL_SPELL.selectionScreenPrompt": "选择一张牌附加[gold]苍白[/gold]。",
@@ -60,7 +60,7 @@
 	"PALEREGENTMODV1-VOID_EXPERIMENT.title": "虚空实验",
 	"PALEREGENTMODV1-VOID_EXPERIMENT.description": "花费X点[gold]虚空[/gold]：若X不小于3，将一张[gold]{IfUpgraded:show:虚空化形+|虚空化形}[/gold]置入手牌；否则将一张[gold]{IfUpgraded:show:失败实验+|失败实验[/gold]置入手牌。",
 	"PALEREGENTMODV1-NO_COST_TOO_GREAT.title": "不惜代价",
-	"PALEREGENTMODV1-NO_COST_TOO_GREAT.description": "将一张[gold]{IfUpgraded:show:容器+|容器}[/gold]置入手牌。将一张[red]羞愧[/red]加入你的手牌。本场战斗中每打出此牌，其费用增加1。结束你的回合。",
+	"PALEREGENTMODV1-NO_COST_TOO_GREAT.description": "将一张[gold]{IfUpgraded:show:容器+|容器}[/gold]置入手牌。将一张[red]羞愧[/red]加入你的手牌。本场战斗中每打出此牌，其费用增加1。",
 	"PALEREGENTMODV1-VESSEL_PLAN.title": "容器计划",
 	"PALEREGENTMODV1-VESSEL_PLAN.description": "在你的回合开始时，将{VesselPlanPower}张[gold]{IfUpgraded:show:容器+|容器}[/gold]置入手牌。",
 	"PALEREGENTMODV1-REFINEMENT.title": "精益求精",
@@ -108,5 +108,11 @@
 	"PALEREGENTMODV1-SOUL_WARD.description": "抽{Draw:diff()}张牌，选择一张牌施加[gold]纯粹[/gold]。",
 	"PALEREGENTMODV1-SOUL_WARD.selectionScreenPrompt": "选择一张牌施加[gold]纯粹[/gold]。",
 	"PALEREGENTMODV1-SOUL_GUARD_RETURN.title": "灵魂粒子墙",
-	"PALEREGENTMODV1-SOUL_GUARD_RETURN.description": "获得{Block:diff()}点格挡。返回你的手牌。"
+	"PALEREGENTMODV1-SOUL_GUARD_RETURN.description": "获得{Block:diff()}点格挡。返回你的手牌。",
+	"PALEREGENTMODV1-AWAIT_DRAWPILE.title": "等待",
+	"PALEREGENTMODV1-AWAIT_DRAWPILE.description": "抽{IfUpgraded:show:2|1}张牌。获得{Block:diff()}点格挡。选择手牌中1张牌放入抽牌堆顶部。",
+	"PALEREGENTMODV1-AWAIT_DRAWPILE.selectionScreenPrompt": "选择一张牌放入抽牌堆顶部。",
+	"PALEREGENTMODV1-PRESCIENCE.title": "先见之明",
+	"PALEREGENTMODV1-PRESCIENCE.description": "[gold]预知[/gold]{PreviewAmount}张牌。选择其中{TakeAmount}张牌放入手牌。",
+	"PALEREGENTMODV1-PRESCIENCE.selectionScreenPrompt": "选择{PreviewAmount}张牌加入手牌。"
 }

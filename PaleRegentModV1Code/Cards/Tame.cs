@@ -31,7 +31,8 @@ public class Tame() : PaleRegentModV1Card(2,
         [HoverTipFactory.FromCard<VoidGivenFocus>(IsUpgraded),
          HoverTipFactory.FromCard<VoidGivenForm>(IsUpgraded),
          HoverTipFactory.FromCard<FailedExperiment>(IsUpgraded),
-         HoverTipFactory.FromCard<TheVoidStatus>(false)];
+         //HoverTipFactory.FromCard<TheVoidStatus>(false)
+        ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Exhaust];
