@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【入梦帷幕】技能牌（机制文档：入梦、白根）。
-/// 2 灵魂 技能：对场上所有生物施加 5 层【入梦】，自己获得 1 层【白根】。
+/// 2 灵魂 技能：对场上所有友方施加 5 层【入梦】，自己获得 1 层【白根】。
 /// 升级后：改为 10 层入梦。
 /// </summary>
 public class DreamVeil : PaleRegentModV1Card
@@ -39,15 +39,30 @@ public class DreamVeil : PaleRegentModV1Card
         decimal amount = DynamicVars["DreamPower"].BaseValue;
 
         // 自己
-        await PowerCmd.Apply<DreamPower>(choiceContext, Owner.Creature,
-            amount, Owner.Creature, this);
-
-        // 所有敌人
-        foreach (var enemy in Owner.Creature.CombatState.HittableEnemies.ToList())
+        // await PowerCmd.Apply<DreamPower>(choiceContext, Owner.Creature,
+        // amount, Owner.Creature, this);
+        
+        // 所有友方 包括自己
+        foreach (var player in CombatState.Players)
         {
-            await PowerCmd.Apply<DreamPower>(choiceContext, enemy,
-                amount, Owner.Creature, this);
+            // 通常不应给已死亡的队友添加能力
+            if (!player.Creature.IsAlive)
+                continue;
+
+            await PowerCmd.Apply<DreamPower>(
+                choiceContext,
+                player.Creature, // 每位玩家是能力目标
+                amount,
+                Owner.Creature,  // 你是能力施加者
+                this);
         }
+        
+        // 所有敌人
+        //foreach (var enemy in Owner.Creature.CombatState.HittableEnemies.ToList())
+        //{
+        //await PowerCmd.Apply<DreamPower>(choiceContext, enemy,
+        //amount, Owner.Creature, this);
+        //}
 
         // 自己获得 1 层白根
         await PowerCmd.Apply<WhiteRootPower>(choiceContext, Owner.Creature,
