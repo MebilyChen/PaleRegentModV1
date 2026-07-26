@@ -33,7 +33,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 public class PlaguePower : PaleRegentModV1Power
 {
     /// <summary>每段随机攻击的基础伤害。</summary>
-    private const decimal DamagePerHit = 3m;
+    private const decimal DamagePerHit = 2m;
 
     /// <summary>防止随机段伤本身再次触发瘟疫（递归保护）。</summary>
     private bool _resolving;

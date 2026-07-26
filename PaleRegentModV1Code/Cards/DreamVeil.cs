@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 public class DreamVeil : PaleRegentModV1Card
 {
-    private const int BaseDreamAmount = 5;
+    private const int BaseDreamAmount = 3;
     private const int WhiteRootAmount = 1;
 
     public DreamVeil() : base(2,
@@ -85,6 +85,6 @@ public class DreamVeil : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        DynamicVars["DreamPower"].UpgradeValueBy(5m);
+        DynamicVars["DreamPower"].UpgradeValueBy(2m);
     }
 }
