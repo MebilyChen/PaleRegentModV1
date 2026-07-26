@@ -90,7 +90,7 @@
 	"PALEREGENTMODV1-PATH_OF_PAIN.title": "苦痛试炼",
 	"PALEREGENTMODV1-PATH_OF_PAIN.description": "对所有敌人施加{PathOfPainPower}层[gold]苦痛之路[/gold]。",
 	"PALEREGENTMODV1-BULWARK_OATH.title": "誓卫",
-	"PALEREGENTMODV1-BULWARK_OATH.description": "每回合你第一次失去生命时，获得{BulwarkOathPower}点[gold]格挡[/gold]。",
+	"PALEREGENTMODV1-BULWARK_OATH.description": "你失去生命时，获得{BulwarkOathPower}点[gold]格挡[/gold]。",
 	"PALEREGENTMODV1-DARK_TIDE.title": "黑暗潮汐",
 	"PALEREGENTMODV1-DARK_TIDE.description": "面前每有一个敌人：对所有敌人造成{Damage:diff()}点伤害，且[gold]虚空[/gold]+1。选择手牌中的任意张牌，为其附加[gold]失心[/gold]。",
 	"PALEREGENTMODV1-DARK_TIDE.selectionScreenPrompt": "选择任意张牌附加[gold]失心[/gold]。",

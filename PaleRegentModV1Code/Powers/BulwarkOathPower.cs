@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
 /// 【誓卫】buff（占位卡"誓卫"施加，机制文档：瘟疫流附属防御向）。
-/// 效果：每回合你第一次失去生命时，获得 [层数] 点格挡。
+/// 效果：失去生命时，获得 [层数] 点格挡。
 ///
 /// 占位说明：数值取层数（卡牌施加 10 层 = +10 格挡），
 /// 想改成固定数值可在这里写死。
@@ -32,7 +32,7 @@ public class BulwarkOathPower : PaleRegentModV1Power
         {
             return;
         }
-        _triggeredThisTurn = true;
+        //_triggeredThisTurn = true; //移除第一次的限制
         Flash();
         await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, cardPlay: null);
     }

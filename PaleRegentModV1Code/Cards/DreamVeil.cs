@@ -63,6 +63,20 @@ public class DreamVeil : PaleRegentModV1Card
         //await PowerCmd.Apply<DreamPower>(choiceContext, enemy,
         //amount, Owner.Creature, this);
         //}
+        
+        // 所有友方不包括自己
+        /*foreach (var player in CombatState.Players)
+        {
+            if (player == Owner || !player.Creature.IsAlive)
+                continue;
+
+            await PowerCmd.Apply<DreamPower>(
+                choiceContext,
+                player.Creature,
+                amount,
+                Owner.Creature,
+                this);
+        }*/
 
         // 自己获得 1 层白根
         await PowerCmd.Apply<WhiteRootPower>(choiceContext, Owner.Creature,
