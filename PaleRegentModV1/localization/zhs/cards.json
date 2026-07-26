@@ -64,7 +64,7 @@
 	"PALEREGENTMODV1-VESSEL_PLAN.title": "容器计划",
 	"PALEREGENTMODV1-VESSEL_PLAN.description": "在你的回合开始时，将{VesselPlanPower}张【{IfUpgraded:show:容器+|容器}】置入手牌。",
 	"PALEREGENTMODV1-REFINEMENT.title": "精益求精",
-	"PALEREGENTMODV1-REFINEMENT.description": "抽1张牌。获得{HarnessPower}层[gold]驾驭[/gold]（你的造物牌造成的伤害与获得的格挡提高）。",
+	"PALEREGENTMODV1-REFINEMENT.description": "抽1张牌。获得{HarnessPower}层[gold]驾驭[/gold]。",
 	"PALEREGENTMODV1-TAME.title": "驯化",
 	"PALEREGENTMODV1-TAME.description": "[gold]消耗[/gold]你所有牌堆中全部的[gold]虚空[/gold]状态牌：不少于5张时获得【{IfUpgraded:show:虚空化神+|虚空化神}】，不少于2张时获得【{IfUpgraded:show:虚空化形+|虚空化形}】，否则获得【{IfUpgraded:show:失败实验+|失败实验}】。",
 	"PALEREGENTMODV1-CAST_OFF_SHELL.title": "弃壳",
