@@ -54,6 +54,8 @@ public static class CardTraits
         public bool IsPureApplied;       // 是否被战斗中附加了【纯粹】（灵魂护佑等）
         public int OriginalEnergyCost;   // 附加特质前的灵魂费（用于苍白还原）
         public int OriginalVoidCost;     // 附加特质前的虚空费（用于还原）
+        public bool OriginalHasVoidCost; // 附加特质前是否登记过虚空费条目（区分“虚空0”与“无虚空费”）//20260726
+        public bool OriginalVoidCostsX;  // 附加特质前虚空费是否为 X 费（苍白还原时保留 X 属性）//20260726
         public bool CostSnapshotTaken;   // 是否已经记录过原始费用快照
     }
 
@@ -95,6 +97,17 @@ public static class CardTraits
         return cost.Amount;
     }
 
+    /// <summary>
+    /// 这张牌是否“登记过虚空费条目”（即卡面上会显示虚空费，哪怕是 0 或 X）。//20260726
+    /// 用于区分两类牌：
+    ///   - 普通牌：从未登记虚空费，SecondaryCosts().Get 返回 null，卡面无虚空费显示；
+    ///   - 虚空牌：登记过虚空费（含虚空 0 / 虚空 X），卡面显示虚空费。
+    /// 规则“虚空费大于等于 0 的卡牌自动获得【消耗】”中的“虚空费≥ 0”
+    /// 就是指本方法返回 true 的牌（登记过就算，无虚空费条目的普通牌不算）。
+    /// </summary>
+    public static bool HasVoidCost(CardModel card) =>
+        card.SecondaryCosts().Get(VoidResource.Id) != null;
+
     /// <summary>这张牌能否附加【失心】：X 费牌（灵魂X或虚空X）无效。</summary>
     public static bool CanApplyLost(CardModel card)
     {
@@ -129,11 +142,11 @@ public static class CardTraits
         int newVoidCost = currentVoid + currentEnergy;
 
         card.EnergyCost.SetCustomBaseCost(0);                       // 灵魂费清零
-        card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);    // 并入虚空费
+        card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);    // 并入虚空费（即使 0 也登记条目，成为虚空牌）//20260726
         card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
 
         s.IsLost = true;
-        SyncExhaustKeyword(card); // 虚空费>0 自动获得【消耗】
+        SyncExhaustKeyword(card); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
         return true;
     }
 
@@ -157,22 +170,30 @@ public static class CardTraits
         }
 
         // 清空虚空费（苍白 = 不再欠虚空）
+        // 注意：这里用 Clear 而不是 Set(0)，把虚空费条目整个移除，
+        // 卡面不再显示虚空费 → 不再命中“虚空费≥0 自动消耗”规则 //20260726
         card.SecondaryCosts().Clear(VoidResource.Id);
 
         // 自动获得【虚无】
         card.AddKeyword(CardKeyword.Ethereal);
 
         s.IsPale = true;
-        SyncExhaustKeyword(card); // 虚空费清零后应移除自动【消耗】
+        SyncExhaustKeyword(card); // 虚空费条目已移除，应同步移除自动【消耗】 //20260726
     }
 
     /// <summary>内部：移除苍白状态（供 ApplyLost 里互斥切换时调用）。</summary>
     private static void RemovePale(CardModel card, TraitState s)
     {
         card.RemoveKeyword(CardKeyword.Ethereal);
-        // 恢复原虚空费（苍白清掉的部分）
-        if (s.OriginalVoidCost > 0)
-            card.SecondaryCosts().Set(VoidResource.Id, s.OriginalVoidCost);
+        // 恢复原虚空费条目（苍白 Clear 掉的部分）：
+        // 只要原本登记过虚空费条目就恢复（含虚空 0 / 虚空 X），保持“虚空牌”身份 //20260726
+        if (s.OriginalHasVoidCost)
+        {
+            if (s.OriginalVoidCostsX)
+                card.SecondaryCosts().Set(VoidResource.Id, SecondaryResourceCost.X(1)); // 还原 X 费 //20260726
+            else
+                card.SecondaryCosts().Set(VoidResource.Id, s.OriginalVoidCost);
+        }
         s.IsPale = false;
     }
 
@@ -184,22 +205,30 @@ public static class CardTraits
         if (s.CostSnapshotTaken) return;
         s.OriginalEnergyCost = card.EnergyCost.GetWithModifiers(CostModifiers.None);
         s.OriginalVoidCost = GetVoidCost(card);
+        s.OriginalHasVoidCost = HasVoidCost(card); //20260726 记录原本是否登记过虚空费条目
+        SecondaryResourceCost? vc = card.SecondaryCosts().Get(VoidResource.Id);
+        s.OriginalVoidCostsX = vc != null && vc.CostsX; //20260726 记录原虚空费是否为 X 费
         s.CostSnapshotTaken = true;
     }
 
     /// <summary>
-    /// 规则："虚空费大于 0 的卡牌自动获得【消耗】。"
+    /// 规则："虚空费大于等于 0 的卡牌自动获得【消耗】。" //20260726 规则由“大于0”改为“大于等于0”
+    /// 这里的“虚空费 ≥ 0”指的是“卡面上登记/显示了虚空费条目”的牌（HasVoidCost），
+    /// 即：虚空 0、虚空 X 也算虚空牌，自动带【消耗】；
+    /// 而“卡面上根本没有虚空费”的普通牌（Get 返回 null）不受本规则影响。
     /// 每次特质变化后调用，保证 Exhaust 关键词与虚空费同步。
     /// 注意：如果这张牌本来（CanonicalKeywords）就带消耗，不要移除它——
     /// 用 TraitState 无法区分，这里采用保守策略：只增不减，
-    /// 除非是失心/苍白流程中我们自己加上去的。
+    /// 除非是失心/苍白流程中我们自己加上去的（判据：快照时已登记虚空费条目）。
     /// </summary>
     private static void SyncExhaustKeyword(CardModel card)
     {
-        if (GetVoidCost(card) > 0)
+        // 登记过虚空费条目（含虚空 0 / 虚空 X）→ 自动【消耗】 //20260726
+        if (HasVoidCost(card))
             card.AddKeyword(CardKeyword.Exhaust);
-        // 苍白清零虚空费后：若原虚空费为 0（即消耗是我们加的），移除
-        else if (States.TryGetValue(card, out TraitState? s) && s!.OriginalVoidCost == 0)
+        // 苍白移除虚空费条目后：若原本就没有虚空费条目（即消耗是失心流程里我们加的），移除
+        // 若原本就登记过虚空费（OriginalHasVoidCost），说明【消耗】可能是牌自带的，保守起见不动
+        else if (States.TryGetValue(card, out TraitState? s) && !s!.OriginalHasVoidCost)
             card.RemoveKeyword(CardKeyword.Exhaust);
     }
 
