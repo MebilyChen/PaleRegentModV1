@@ -113,6 +113,6 @@
 	"PALEREGENTMODV1-AWAIT_DRAWPILE.description": "抽{IfUpgraded:show:2|1}张牌。获得{Block:diff()}点格挡。选择手牌中1张牌放入抽牌堆顶部。",
 	"PALEREGENTMODV1-AWAIT_DRAWPILE.selectionScreenPrompt": "选择一张牌放入抽牌堆顶部。",
 	"PALEREGENTMODV1-PRESCIENCE.title": "先见之明",
-	"PALEREGENTMODV1-PRESCIENCE.description": "[gold]预知[/gold]{PreviewAmount}张牌。选择其中{TakeAmount}张牌放入手牌。",
+	"PALEREGENTMODV1-PRESCIENCE.description": "[gold]预知[/gold]{PreviewAmount}。选择其中{TakeAmount}张牌放入手牌。",
 	"PALEREGENTMODV1-PRESCIENCE.selectionScreenPrompt": "选择{PreviewAmount}张牌加入手牌。"
 }

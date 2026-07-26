@@ -21,7 +21,7 @@ public class SoulGuardReturn() : PaleRegentModV1Card(1,
     TargetType.Self)
 {
     /// <summary>基础格挡。</summary>
-    private const int BaseBlock = 3;
+    private const int BaseBlock = 5;
     /// <summary>升级后格挡增加量。</summary>
     private const int UpgradeBlockBonus = 3;
 

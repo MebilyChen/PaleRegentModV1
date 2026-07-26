@@ -41,25 +41,19 @@ public class Prescience() : PaleRegentModV1Card(2,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int previewAmount =
-            DynamicVars["PreviewAmount"].IntValue;
+            (int)DynamicVars["PreviewAmount"].BaseValue;
 
         int takeAmount =
-            DynamicVars["TakeAmount"].IntValue;
-        
-        await CardPileCmd.Draw(
-            choiceContext,
-            DynamicVars["Draw"].IntValue,
-            Owner);
+            (int)DynamicVars["TakeAmount"].BaseValue;
 
-        IReadOnlyList<CardModel> takenCards =
-            await ScryTraitHelper.PreviewTopAndTake(
-                choiceContext,
-                Owner,
-                previewAmount,
-                takeAmount,
-                new CardSelectorPrefs(
-                    SelectionScreenPrompt,
-                    takeAmount));
+        await ScryTraitHelper.PreviewTopAndTake(
+            choiceContext,
+            Owner,
+            previewAmount,
+            takeAmount,
+            new CardSelectorPrefs(
+                SelectionScreenPrompt,
+                takeAmount));
 
         // 后续需要对被选择的牌生效时，可以使用 chosen。
         // if (chosen != null)
