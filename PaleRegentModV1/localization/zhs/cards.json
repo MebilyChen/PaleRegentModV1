@@ -103,7 +103,7 @@
 	"PALEREGENTMODV1-LOST_DESTINY.title": "失心诅咒",
 	"PALEREGENTMODV1-LOST_DESTINY.description": "你生成的牌获得[gold]失心[/gold]。",
 	"PALEREGENTMODV1-EMBRACE.title": "拥抱瘟疫",
-	"PALEREGENTMODV1-EMBRACE.description": "抽1张牌。若抽到【感染】，为你添加1层[gold]瘟疫[/gold]。随机打出你抽牌堆中的1张攻击牌。",
+	"PALEREGENTMODV1-EMBRACE.description": "抽1张牌。若抽到[gold]感染[/gold]，为你添加1层[gold]瘟疫[/gold]。随机打出你抽牌堆中的1张攻击牌。",
 	"PALEREGENTMODV1-SOUL_WARD.title": "灵魂护佑",
 	"PALEREGENTMODV1-SOUL_WARD.description": "抽{Draw:diff()}张牌，选择一张牌施加[gold]纯粹[/gold]。",
 	"PALEREGENTMODV1-SOUL_WARD.selectionScreenPrompt": "选择一张牌施加[gold]纯粹[/gold]。",

@@ -13,62 +13,163 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
-/// 【苦痛之路】debuff（机制文档：新增负面效果，一般为 5 层）。
-/// 效果（表格设计版）：本回合内持有者累计造成 ≥ [层数] 点伤害时立即解除；
-/// 在“意图为攻击”的回合结束时（玩家 = 本回合造成过伤害），若效果仍存在，
-/// 受到等同于自己当前生命值的伤害（可被格挡/缓冲）；
-/// 未解除时效果持续到后续回合（不自动移除），伤害计数每回合重置。
+/// 【苦痛之路】debuff。
 ///
-/// 实现说明：
-/// - AfterDamageGiven 累计持有者本回合实际造成的伤害，达标立即 Remove；
-/// - AfterSideTurnEnd：本回合造成过伤害（= 攻击回合）且效果仍在 →
-///   按当前生命值打一刀（不带 Unblockable，可被格挡），效果保留；
-///   非攻击回合不触发自伤，效果同样保留，伤害计数清零。
+/// Amount 表示本回合还需要造成多少点伤害。
+///
+/// 例如初始为 5 层：
+/// 造成 3 点伤害后显示为 2 层；
+/// 再造成 2 点伤害后立即移除。
+///
+/// 如果本回合造成过伤害，但回合结束时仍未清空层数，
+/// 持有者受到等同于当前生命值的伤害。
+///
+/// 如果效果仍存在，则在持有者下一回合开始时，
+/// 恢复到本回合开始前的层数。
 /// </summary>
 public class PathOfPainPower : PaleRegentModV1Power
 {
     public override PowerType Type => PowerType.Debuff;
+
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    /// <summary>本回合持有者累计造成的伤害。</summary>
-    private decimal _damageDealtThisTurn;
+    /// <summary>
+    /// 本回合已经从 Amount 中扣除的层数。
+    /// 下一回合开始时用于恢复。
+    /// </summary>
+    private int _amountReducedThisTurn;
 
-    /// <summary>本回合持有者是否造成过伤害（判定“意图为攻击的回合”）。</summary>
+    /// <summary>
+    /// 持有者本回合是否造成过实际伤害。
+    /// </summary>
     private bool _attackedThisTurn;
 
-    /// <summary>累计持有者造成的伤害；达标立即解除。</summary>
-    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
+    /// <summary>
+    /// 持有者造成伤害后，减少对应的显示层数。
+    /// </summary>
+    public override async Task AfterDamageGiven(
+        PlayerChoiceContext choiceContext,
+        Creature? dealer,
+        DamageResult result,
+        ValueProp props,
+        Creature target,
+        CardModel? cardSource)
     {
+        // 只处理 Power 持有者对其他目标造成的伤害事件。
         if (dealer != Owner || target == Owner)
         {
             return;
         }
-        _attackedThisTurn = true;
-        _damageDealtThisTurn += result.TotalDamage;
-        if (_damageDealtThisTurn >= Amount)
-        {
-            // 达标：立即解除苦痛之路
-            Flash();
-            await PowerCmd.Remove(this);
-        }
-    }
 
-    /// <summary>持有者一方回合结束：攻击回合未达标 → 自伤；效果保留到下回合。</summary>
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
-    {
-        if (!participants.Contains(Owner))
+        /*
+         * 只要进入了伤害结算，就视为本回合攻击过。
+         *
+         * 即使最终伤害为 0，例如：
+         * - 被格挡完全抵消；
+         * - 被某些效果减伤到 0；
+         *
+         * 回合结束时仍然会触发苦痛之路的惩罚。
+         */
+        _attackedThisTurn = true;
+
+        int damage = decimal.ToInt32(result.TotalDamage);
+
+        /*
+         * 0 点伤害算攻击过，但不减少层数。
+         */
+        if (damage <= 0)
         {
             return;
         }
-        if (_attackedThisTurn && _damageDealtThisTurn < Amount && Owner.IsAlive)
+
+        // 本次伤害足以清空剩余层数，立即移除。
+        if (damage >= Amount)
         {
-            // 攻击了却未走完苦痛之路：受到等同当前生命值的伤害（可被格挡）
             Flash();
-            await CreatureCmd.Damage(choiceContext, Owner, Owner.CurrentHp, ValueProp.Unpowered, null, cardPlay: null);
+            await PowerCmd.Remove(this);
+            return;
         }
-        // 效果不自动移除，每回合重置计数
-        _damageDealtThisTurn = 0m;
+
+        // 记录本回合减少的层数，下回合开始时恢复。
+        _amountReducedThisTurn += damage;
+
+        Flash();
+        SetAmount(Amount - damage);
+    }
+
+    /// <summary>
+    /// 持有者一方回合结束。
+    ///
+    /// 如果本回合造成过伤害，但 Power 仍未被清除，
+    /// 则受到等同于当前生命值的伤害。
+    /// </summary>
+    public override async Task AfterSideTurnEnd(
+        PlayerChoiceContext choiceContext,
+        CombatSide side,
+        IEnumerable<Creature> participants)
+    {
+        // 只处理持有者所在阵营的回合结束。
+        if (side != Owner.Side || !participants.Contains(Owner))
+        {
+            return;
+        }
+
+        if (_attackedThisTurn && Owner.IsAlive)
+        {
+            Flash();
+
+            await CreatureCmd.Damage(
+                choiceContext,
+                Owner,
+                Owner.CurrentHp,
+                ValueProp.Unpowered,
+                null,
+                cardPlay: null
+            );
+        }
+
+        /*
+         * 此处只重置攻击标记。
+         *
+         * 不要清空 _amountReducedThisTurn，
+         * 因为下一回合开始时还需要用它恢复层数。
+         */
         _attackedThisTurn = false;
-        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 持有者下一回合开始时，恢复上一回合减少的层数。
+    /// </summary>
+    public override Task AfterSideTurnStart(
+        CombatSide side,
+        IReadOnlyList<Creature> participants,
+        ICombatState combatState)
+    {
+        // 只处理持有者所在阵营的回合开始。
+        if (side != Owner.Side || !participants.Contains(Owner))
+        {
+            return Task.CompletedTask;
+        }
+
+        if (_amountReducedThisTurn > 0)
+        {
+            /*
+             * 例如：
+             *
+             * 初始为 5 层；
+             * 上回合造成 3 点伤害；
+             * 当前 Amount 为 2；
+             * _amountReducedThisTurn 为 3；
+             *
+             * 恢复后：2 + 3 = 5。
+             */
+            SetAmount(Amount + _amountReducedThisTurn);
+        }
+
+        // 开始新一回合的统计。
+        _amountReducedThisTurn = 0;
+        _attackedThisTurn = false;
+
+        return Task.CompletedTask;
     }
 }
