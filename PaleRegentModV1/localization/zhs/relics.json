@@ -28,5 +28,18 @@
 	"PALEREGENTMODV1-FIRST_LIGHT.flavor": "「于是黎明重临。」",
 	"PALEREGENTMODV1-VOID_HEART.title": "虚空之心",
 	"PALEREGENTMODV1-VOID_HEART.description": "每回合开始时，获得等同于灵魂上限的[gold]虚空[/gold]。",
-	"PALEREGENTMODV1-VOID_HEART.flavor": "「无梦，亦无王。」"
+	"PALEREGENTMODV1-VOID_HEART.flavor": "「无梦，亦无王。」",
+	"PALEREGENTMODV1-KINGS_BRAND.title": "国王印记",
+	"PALEREGENTMODV1-KINGS_BRAND.description": "每回合开始时，你的一个随机造物会回到你的手牌。",
+	"PALEREGENTMODV1-KINGS_BRAND.flavor": "烙印无言。",
+	"PALEREGENTMODV1-MONARCH_WINGS.title": "王者之翼",
+	"PALEREGENTMODV1-MONARCH_WINGS.description": "战斗开始时，预知5，选择1张牌加入手牌。",
+	"PALEREGENTMODV1-MONARCH_WINGS.flavor": "托起凌驾于命运之上的意志。",
+	"PALEREGENTMODV1-MONARCH_WINGS.selectionScreenPrompt": "选择1张牌加入手牌",
+	"PALEREGENTMODV1-SEAL_OF_BINDING.title": "缚丝封印",
+	"PALEREGENTMODV1-SEAL_OF_BINDING.description": "战斗开始时对所有敌人施加一层[gold]纯粹封印[/gold]。",
+	"PALEREGENTMODV1-SEAL_OF_BINDING.flavor": "苍白之丝一旦收紧，便不再容许任何挣脱。",
+	"PALEREGENTMODV1-SOUL_TOTEM.title": "偶像图腾",
+	"PALEREGENTMODV1-SOUL_TOTEM.description": "每场战斗你的灵魂第一次降为0时，获得1点灵魂。",
+	"PALEREGENTMODV1-SOUL_TOTEM.flavor": "最后一声回响。"
 }
