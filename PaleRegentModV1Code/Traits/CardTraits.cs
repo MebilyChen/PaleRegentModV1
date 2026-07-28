@@ -126,6 +126,10 @@ public static class CardTraits
     /// </summary>
     public static bool ApplyLost(CardModel card)
     {
+        // 防御：canonical（规范/不可变）实例禁止修改费用/关键词，否则游戏启动时
+        // ModelDb 注册卡牌会抛 CanonicalModelException 直接崩溃（20260728 启动崩溃修复）。
+        // "自带失心"请勿在构造器里调用本方法，改在 PaleRegentModV1Card.HasInnateLost 声明。
+        if (card.IsCanonical) return false;
         if (!CanApplyLost(card)) return false;
 
         TraitState s = States.GetOrCreate(card);
@@ -156,6 +160,8 @@ public static class CardTraits
     /// </summary>
     public static void ApplyPale(CardModel card)
     {
+        // 防御：同 ApplyLost，canonical 实例不可修改（20260728 启动崩溃修复）
+        if (card.IsCanonical) return;
         TraitState s = States.GetOrCreate(card);
         if (s.IsPale) return;
 

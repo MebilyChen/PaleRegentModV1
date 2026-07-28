@@ -25,8 +25,13 @@ public class ShowYourWorth : PaleRegentModV1Card
         CardType.Skill, CardRarity.Uncommon,
         TargetType.Self)
     {
-        AddKeyword(CardKeyword.Exhaust);
     }
+
+    /// <summary>
+    /// 消耗关键词（20260728 修复：构造器里 AddKeyword 运行在 canonical 实例上
+    /// 会抛 CanonicalModelException 导致启动崩溃，改用 CanonicalKeywords 声明）。
+    /// </summary>
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

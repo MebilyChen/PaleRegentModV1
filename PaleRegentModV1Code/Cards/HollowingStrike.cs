@@ -31,8 +31,10 @@ public class HollowingStrike : PaleRegentModV1Card
         TargetType.AnyEnemy)
     {
         CardTraits.SetVoidCost(this, VoidCost);
-        CardTraits.ApplyLost(this);
     }
+
+    /// <summary>自带失心（20260728 修复：禁止构造器 ApplyLost，改由基类在入战时施加）。</summary>
+    public override bool HasInnateLost => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];

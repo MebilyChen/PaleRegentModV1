@@ -51,6 +51,32 @@ public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity ra
     public virtual bool IsPure => false;
 
     /// <summary>
+    /// 【自带失心】标记（20260728 启动崩溃修复）。
+    /// 失心重击/失心冲锋/蚀心一击/虚蚀重击等"卡面自带失心"的牌重写为 true。
+    /// 不要在构造器里调 CardTraits.ApplyLost(this)！构造器运行在 canonical（不可变）
+    /// 实例上，SetCustomBaseCost/BaseReplayCount/AddKeyword 都会抛 CanonicalModelException
+    /// 导致游戏启动崩溃。基类会在两个时机自动对"可变实例"施加失心：
+    ///   1. BeforeCombatStart：每场战斗开始，卡组克隆进抽牌堆后（覆盖常规入战）；
+    ///   2. AfterCardGeneratedForCombat：战斗中被生成时（覆盖复制/生成的新牌）。
+    /// 注意：卡牌库/奖励界面展示的 canonical 卡面仍显示原灵魂费（如失心重击显示
+    /// 2 灵魂），进入战斗后才变为 0 灵魂+虚空费；描述文本已写明"失心"供玩家理解。
+    /// </summary>
+    public virtual bool HasInnateLost => false;
+
+    /// <summary>
+    /// 每场战斗开始时（卡组牌已克隆进抽牌堆，此时 this 是可变的战斗实例）：
+    /// 自带失心的牌在这里施加失心。子类重写时请先 await base.BeforeCombatStart()。
+    /// </summary>
+    public override async Task BeforeCombatStart()
+    {
+        await base.BeforeCombatStart();
+        if (HasInnateLost && IsMutable && CardTraits.CanApplyLost(this))
+        {
+            CardTraits.ApplyLost(this);
+        }
+    }
+
+    /// <summary>
     /// 【模具】特质标记（机制文档：名词表·模具）。
     /// 带模具的牌被消耗时计数，战斗结束后按【本场消耗同名此牌数/100】概率
     /// 获得对应的“模具·[卡牌名]”遗物（见 Traits/MouldHelper）。
@@ -70,6 +96,12 @@ public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity ra
     {
         await base.AfterCardGeneratedForCombat(card, creator);
         if (card != this) return;
+
+        // 自带失心的牌：战斗中被生成（复制/发现等）时也自动施加失心（20260728）
+        if (HasInnateLost && CardTraits.CanApplyLost(this))
+        {
+            CardTraits.ApplyLost(this);
+        }
 
         Creature? creature = creator?.Creature ?? Owner?.Creature;
         if (creature?.GetPower<LostDestinyPower>() != null && CardTraits.CanApplyLost(this))

@@ -34,15 +34,31 @@ public class HeartlessCharge : PaleRegentModV1Card
         TargetType.AnyEnemy)
     {
         CardTraits.SetVoidCost(this, VoidCost);
-        // 自带失心（写法同 HeartlessBlow）
-        CardTraits.ApplyLost(this);
     }
+
+    /// <summary>自带失心（20260728 修复：禁止构造器 ApplyLost，改由基类在入战时施加）。</summary>
+    public override bool HasInnateLost => true;
 
     /// <summary>自身进入战斗时自动挂上动量 5 附魔（原版 Momentum）。</summary>
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
         await base.AfterCardEnteredCombat(card);
         if (card == this && Enchantment == null)
+        {
+            CardCmd.Enchant<Momentum>(this, MomentumAmount);
+        }
+    }
+
+    /// <summary>
+    /// 战斗开始时也检查一次动量附魔（20260728 备注：战斗开始时卡组牌通过
+    /// PopulateCombatState 克隆进抽牌堆，不触发 AfterCardEnteredCombat，
+    /// 故补充此钩子确保开局卡组里的本牌也能挂上动量；Enchantment==null 防重复）。
+    /// 基类 BeforeCombatStart 会先施加自带失心。
+    /// </summary>
+    public override async Task BeforeCombatStart()
+    {
+        await base.BeforeCombatStart();
+        if (IsMutable && Enchantment == null)
         {
             CardCmd.Enchant<Momentum>(this, MomentumAmount);
         }

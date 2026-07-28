@@ -25,9 +25,14 @@ public class HeartlessBlow : PaleRegentModV1Card
         CardType.Attack, CardRarity.Common,
         TargetType.AnyEnemy)
     {
-        // 自带失心：灵魂费并入虚空费、获得重放 1（见 CardTraits.ApplyLost）
-        CardTraits.ApplyLost(this);
     }
+
+    /// <summary>
+    /// 自带失心：灵魂费并入虚空费、获得重放 1（见 CardTraits.ApplyLost）。
+    /// 20260728 修复：不能在构造器里 ApplyLost（canonical 实例会抛
+    /// CanonicalModelException 导致启动崩溃），改由基类在进入战斗时施加。
+    /// </summary>
+    public override bool HasInnateLost => true;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ModHoverTips.Lost];
 
