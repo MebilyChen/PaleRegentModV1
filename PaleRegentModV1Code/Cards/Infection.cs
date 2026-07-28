@@ -90,6 +90,9 @@ public class Infection : PaleRegentModV1Card
     /// </summary>
     public static async Task NotifyGenerated(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner, int count)
     {
+        // 20260727：全局感染生成计数（病态辐射 C#70 等卡牌的统计口径）
+        Patches.CombatCounters.NotifyInfectionGenerated(count);
+
         PlagueSpreadPower? spread = owner.GetPower<PlagueSpreadPower>();
         if (spread == null)
         {

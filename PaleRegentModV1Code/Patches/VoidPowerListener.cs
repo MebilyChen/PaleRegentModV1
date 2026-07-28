@@ -76,7 +76,10 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
         // 累计本回合获得的虚空（只计正增量，花费/损失不扣回）
         if (context.NewAmount > context.OldAmount)
         {
-            VoidGainedThisTurn += (int)(context.NewAmount - context.OldAmount);
+            int gained = (int)(context.NewAmount - context.OldAmount);
+            VoidGainedThisTurn += gained;
+            // 20260727 批次：战斗级统计埋点（灵魂双刃 C#57 / 虚空回声 C#64 / 共鸣一击 C#63）
+            CombatCounters.NotifyVoidGain(gained);
         }
 
         await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);
@@ -95,6 +98,9 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
         {
             return;
         }
+
+        // 20260727 批次：虚空资源按战斗重置，此时同步清零战斗级计数器
+        CombatCounters.ResetCombat();
 
         await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);
     }

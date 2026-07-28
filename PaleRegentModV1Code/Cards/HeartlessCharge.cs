@@ -1,0 +1,73 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Enchantments;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
+
+namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
+
+/// <summary>
+/// 【失心冲锋】攻击牌（表 C#90，0727 新增）。
+/// 1 灵魂 + 1 虚空：造成 18 点伤害。动量 5（原版 Momentum 附魔：每次打出
+/// 后本场战斗伤害 +5）。失心。
+/// 升级后：25 点伤害。
+/// 备注：按原版 Momentum 附魔语义实现（amount=5），即每次打出后后续
+/// 伤害累加 5；在进入战斗时自动挂附魔。
+/// </summary>
+public class HeartlessCharge : PaleRegentModV1Card
+{
+    private const int BaseDamage = 18;
+    private const int UpgradeDamageBonus = 7;
+    private const int VoidCost = 1;
+    private const int MomentumAmount = 5;
+
+    public HeartlessCharge() : base(1,
+        CardType.Attack, CardRarity.Uncommon,
+        TargetType.AnyEnemy)
+    {
+        CardTraits.SetVoidCost(this, VoidCost);
+        // 自带失心（写法同 HeartlessBlow）
+        CardTraits.ApplyLost(this);
+    }
+
+    /// <summary>自身进入战斗时自动挂上动量 5 附魔（原版 Momentum）。</summary>
+    public override async Task AfterCardEnteredCombat(CardModel card)
+    {
+        await base.AfterCardEnteredCombat(card);
+        if (card == this && Enchantment == null)
+        {
+            CardCmd.Enchant<Momentum>(this, MomentumAmount);
+        }
+    }
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [new DamageVar(BaseDamage, ValueProp.Move)];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        new IHoverTip[] { ModHoverTips.Lost }
+            .Concat(HoverTipFactory.FromEnchantment<Momentum>(MomentumAmount));
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .FromCard(this, cardPlay)
+            .Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+    }
+}

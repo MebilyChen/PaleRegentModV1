@@ -53,6 +53,8 @@ public class PaleToken : PaleRegentModV1Relic
         // 20260725：玩家回合开始，清零【异色】的本回合虚空获得计数。
         // 苍白信物/国王之魂是本角色必带初始遗物，因此是可靠的回合开始挂点。
         VoidPowerListener.ResetTurnGain();
+        // 20260727：同步清零回合级灵魂获得计数（共鸣一击 C#63）。
+        CombatCounters.ResetTurn();
 
         // 本回合"少恢复"的量 = 虚空数量 - 恢复补偿，最低为 0
         int reduction = VoidResource.Get(player) - RecoveryBonus;

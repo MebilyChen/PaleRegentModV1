@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 /// <summary>
-/// 【瘟疫】debuff（机制文档：新增负面效果，表格设计版）。
+/// 【瘟疫】buff（机制文档：正面效果；20260727 批次由负面效果改为正面效果）。
 /// 效果：本回合内，增加 [层数] 的力量；本回合的每次攻击将额外对随机生物
 /// 造成 [层数] 次 3 点基础攻击（随机对象包括自己、队友、敌人和召唤物；
 /// 基础攻击计入力量增长，即每段 3 点吃持有者的伤害加成）。
@@ -38,7 +38,9 @@ public class PlaguePower : PaleRegentModV1Power
     /// <summary>防止随机段伤本身再次触发瘟疫（递归保护）。</summary>
     private bool _resolving;
 
-    public override PowerType Type => PowerType.Debuff;
+    // 20260727：效果表第 2 条分类调整为“正面效果”，Debuff → Buff
+    // （图标边框/驱散判定等会随 PowerType 自动切换）。
+    public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
     /// <summary>力量增益部分：持有者造成的攻击伤害 +Amount（加法修正，等效力量）。</summary>
