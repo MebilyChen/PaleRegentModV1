@@ -35,7 +35,7 @@
   "PALEREGENTMODV1-SOUL_BLOCK.description": "获得{Block:diff()}点[gold]格挡[/gold]。将1张牌从你的弃牌堆放回手牌。",
   "PALEREGENTMODV1-SOUL_BLOCK.selectionScreenPrompt": "选择一张牌加入手牌。",
   "PALEREGENTMODV1-KINGS_RETAINER.title": "国王佣卫",
-  "PALEREGENTMODV1-KINGS_RETAINER.description": "对随机敌人造成{CalculatedBlock:diff()}点伤害。[gold]模具[/gold]。",
+  "PALEREGENTMODV1-KINGS_RETAINER.description": "对随机敌人造成{Damage:diff()}点伤害。[gold]模具[/gold]。",
   "PALEREGENTMODV1-WINGED_RETAINER_CARD.title": "有翼佣卫",
   "PALEREGENTMODV1-WINGED_RETAINER_CARD.description": "获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。[gold]模具[/gold]。",
   "PALEREGENTMODV1-FAILED_EXPERIMENT.title": "失败实验",
