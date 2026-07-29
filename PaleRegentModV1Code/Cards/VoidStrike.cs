@@ -72,10 +72,11 @@ public class VoidStrike() : PaleRegentModV1Card(1,
 
         // 3. 从手牌选择牌附加【失心】（基础 1 张，升级后至多 2 张）
         //    filter：过滤掉不能失心的牌（X 费牌）和自己
+        int minTargets = IsUpgraded ? 0 : 1;
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, _lostTargets),
+            new CardSelectorPrefs(SelectionScreenPrompt, minTargets, _lostTargets),
             (CardModel c) => c != this && CardTraits.CanApplyLost(c),
             this);
 

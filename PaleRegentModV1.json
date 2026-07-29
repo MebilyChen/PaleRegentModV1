@@ -1,9 +1,9 @@
 ﻿{
-  "id": "PaleRegentModV1",
+  "id": "PaleRegent",
   "name": "苍白之王|Pale Regent",
   "author": "mietan",
-  "description": "Regent Pale King Skin. Slay the Spire 2 character mod created from a template for use with BaseLib",
-  "version": "v0.0.1",
+  "description": "Pale King: Slay the Spire 2 character mod created from a template for use with BaseLib",
+  "version": "v1.0.0",
   "min_game_version": "0.107.0",
   "has_pck": true,
   "has_dll": true,
