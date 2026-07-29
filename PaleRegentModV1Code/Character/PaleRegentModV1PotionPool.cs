@@ -20,9 +20,9 @@ public class PaleRegentModV1PotionPool : CustomPotionPoolModel
     public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/paleregent_energy_icon.png".ImagePath();
 
-    protected override IEnumerable<PotionModel> GenerateAllPotions()
-    {
+    // protected override IEnumerable<PotionModel> GenerateAllPotions()
+    // {
         // 合并原版 Regent 药水池全部内容；自制药水由 [Pool] 特性自动注入，不要重复加。
-        return ModelDb.PotionPool<RegentPotionPool>().AllPotions;
-    }
+        // return ModelDb.PotionPool<RegentPotionPool>().AllPotions;
+        // }
 }

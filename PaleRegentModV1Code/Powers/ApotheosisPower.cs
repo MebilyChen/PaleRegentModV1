@@ -12,6 +12,8 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
+using MegaCrit.Sts2.Core.Entities.Players;
+
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
@@ -40,36 +42,44 @@ public class ApotheosisPower : PaleRegentModV1Power
     public override PowerStackType StackType => PowerStackType.Single;
 
     /// <summary>
-    /// 挂点：一方回合开始之前（有 choiceContext，可以做选牌交互）。
-    /// side == CombatSide.Player 且 participants 包含持有者 = 玩家自己的回合。
+    /// 玩家回合开始：能量恢复并完成抽牌后触发。
+    /// 此时可以选择本回合刚抽到的手牌。
     /// </summary>
-    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterPlayerTurnStart(
+        PlayerChoiceContext choiceContext,
+        Player player)
     {
-        if (side != CombatSide.Player || !participants.Contains(Owner))
+        // 只处理该 Power 持有者自己的回合
+        if (player != Owner.Player)
         {
             return;
         }
 
         Flash();
 
-        // 1. 获得虚空并同步展示层（Owner.Player 在玩家回合必非空，用 ! 消除 CS8604）
-        await VoidResource.Gain(Owner.Player!, Amount);
-        await VoidResource.SyncPower(choiceContext, Owner.Player, null);
+        // 1. 获得虚空并同步展示层
+        await VoidResource.Gain(player, Amount);
+        await VoidResource.SyncPower(choiceContext, player, null);
 
-        // 2. 若手牌中有可失心的牌，弹出选牌界面选 [层数] 张附加【失心】（基础 1，升级 2）
-        //    （BeforeSideTurnStart 在抽牌前，手牌可能为空——为空则跳过）
-        //    CardPile.GetCards：原版提供的静态工具，按牌堆类型取卡牌列表
-        bool anySelectable = CardPile.GetCards(Owner.Player, PileType.Hand)
-            .Any(CardTraits.CanApplyLost);
-        if (!anySelectable)
+        // 2. 获取当前手牌中可以附加【失心】的牌
+        List<CardModel> selectableCards = CardPile
+            .GetCards(player, PileType.Hand)
+            .Where(CardTraits.CanApplyLost)
+            .ToList();
+
+        if (selectableCards.Count == 0)
         {
             return;
         }
 
-        int selectCount = (int)Amount; // 选牌张数 = 层数（基础 1，升级 2）
+        // 避免升级后要求选 2 张，但手中实际只有 1 张可选，导致选牌无法完成
+        int selectCount = System.Math.Min(
+            (int)Amount,
+            selectableCards.Count);
+
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
-            Owner.Player,
+            player,
             new CardSelectorPrefs(SelectCardPrompt, selectCount),
             CardTraits.CanApplyLost,
             this);
@@ -79,6 +89,7 @@ public class ApotheosisPower : PaleRegentModV1Power
             CardTraits.ApplyLost(card);
         }
     }
+
 
     /// <summary>
     /// 选牌界面顶部的提示文案。

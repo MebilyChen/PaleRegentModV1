@@ -31,10 +31,10 @@ public class PaleRegentModV1RelicPool : CustomRelicPoolModel
     public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
     public override string TextEnergyIconPath => "charui/paleregent_energy_icon.png".ImagePath();
 
-    protected override IEnumerable<RelicModel> GenerateAllRelics()
-    {
+    //protected override IEnumerable<RelicModel> GenerateAllRelics()
+    //{
         // 借用原版 Regent 遗物池的完整内容（AllRelics 有缓存，取一次很便宜）。
         // 注意：不要在这里手动加我们自己的遗物，[Pool] 特性已自动注入，重复加会双倍出现。
-        return ModelDb.RelicPool<RegentRelicPool>().AllRelics;
-    }
+        //return ModelDb.RelicPool<RegentRelicPool>().AllRelics;
+    //}
 }

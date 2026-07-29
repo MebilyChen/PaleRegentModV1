@@ -24,6 +24,9 @@ public class ConfluenceOfPain() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {
+    public override CardMultiplayerConstraint MultiplayerConstraint
+        => CardMultiplayerConstraint.MultiplayerOnly;
+    
     private const int BaseDamage = 12;
     private const int UpgradeDamageBonus = 5;
 

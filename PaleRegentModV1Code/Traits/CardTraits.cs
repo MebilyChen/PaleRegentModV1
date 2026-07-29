@@ -100,6 +100,7 @@ public static class CardTraits
     public static void ApplyPure(CardModel card)
     {
         States.GetOrCreate(card).IsPureApplied = true;
+        CardTraitUi.Refresh(card);
     }
 
     /// <summary>读取这张牌当前的虚空费（没有则为 0；X 费返回 0，请另行判断 CostsX）。</summary>
@@ -163,6 +164,8 @@ public static class CardTraits
         card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
 
         s.IsLost = true;
+        CardTraitUi.Refresh(card);
+      
         SyncExhaustKeyword(card, s); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
         return true;
     }
@@ -208,6 +211,7 @@ public static class CardTraits
         card.AddKeyword(CardKeyword.Ethereal);
 
         s.IsPale = true;
+        CardTraitUi.Refresh(card);
         // 20260729 变更：苍白不再"顺带添加消耗"，也不做旧版 SyncExhaustKeyword 的
         // 保守增删——消耗的移除已在上面按 ExhaustAddedByLost 精确处理。
     }

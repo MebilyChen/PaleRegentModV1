@@ -13,8 +13,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【拥抱瘟疫】（表格 C#13，20260725 新增）。
-/// 1 灵魂 技能/Uncommon：抽 1 张牌。抽到【感染】时，为你添加 1 层【瘟疫】。
-/// 随机打出你抽牌堆里的 1 张攻击牌。
+/// 1 灵魂 技能/Uncommon：抽 1 张牌。抽到【感染】时，为你添加 1 层【瘟疫】
+/// ，并随机打出你抽牌堆里的 1 张攻击牌。
 /// 升级：费用 1 → 0。
 ///
 /// 实现说明：
@@ -50,17 +50,17 @@ public class Embrace() : PaleRegentModV1Card(1,
                 await PowerCmd.Apply<PlaguePower>(
                     choiceContext, cardPlay.Player.Creature, 1,
                     cardPlay.Player.Creature, this);
+                
+                // 3. 随机打出抽牌堆里的 1 张攻击牌
+                List<CardModel> attacks = CardPile.GetCards(Owner, PileType.Draw)
+                    .Where(c => c.Type == CardType.Attack)
+                    .ToList();
+                if (attacks.Count > 0)
+                {
+                    CardModel pick = Owner.RunState.Rng.CombatTargets.NextItem(attacks);
+                    await CardCmd.AutoPlay(choiceContext, pick, (Creature?)null, (AutoPlayType)1, false, false);
+                }
             }
-        }
-
-        // 3. 随机打出抽牌堆里的 1 张攻击牌
-        List<CardModel> attacks = CardPile.GetCards(Owner, PileType.Draw)
-            .Where(c => c.Type == CardType.Attack)
-            .ToList();
-        if (attacks.Count > 0)
-        {
-            CardModel pick = Owner.RunState.Rng.CombatTargets.NextItem(attacks);
-            await CardCmd.AutoPlay(choiceContext, pick, (Creature?)null, (AutoPlayType)1, false, false);
         }
     }
 

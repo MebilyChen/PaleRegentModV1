@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
+using BaseLib.Patches.UI;
 using BaseLib.Utils;
+using Godot;
 using PaleRegentModV1.PaleRegentModV1Code.Character;
 using PaleRegentModV1.PaleRegentModV1Code.Extensions;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
@@ -11,6 +13,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -22,7 +25,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 [Pool(typeof(PaleRegentModV1CardPool))]
 public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity rarity, TargetType target) :
-    CustomCardModel(cost, type, rarity, target)
+    CustomCardModel(cost, type, rarity, target),
+    ICustomUiModel
 {
     //Image size:
     //Normal art: 1000x760 (Using 500x380 should also work, it will simply be scaled.)
@@ -108,5 +112,13 @@ public abstract class PaleRegentModV1Card(int cost, CardType type, CardRarity ra
         {
             CardTraits.ApplyLost(this);
         }
+    }
+    /// <summary>
+    /// 在原卡牌界面上叠加 Pure、Pale、Lost 装饰。
+    /// 不替换原本的卡框。
+    /// </summary>
+    public void CreateCustomUi(Control root)
+    {
+        CardTraitOverlay.Create(root, this);
     }
 }

@@ -17,6 +17,9 @@ public class SharedDreamCard() : PaleRegentModV1Card(4,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
+    public override CardMultiplayerConstraint MultiplayerConstraint
+        => CardMultiplayerConstraint.MultiplayerOnly;
+    
     private const int BaseAmount = 1;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

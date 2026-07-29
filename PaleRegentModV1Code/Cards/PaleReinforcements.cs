@@ -22,6 +22,9 @@ public class PaleReinforcements() : PaleRegentModV1Card(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
+    public override CardMultiplayerConstraint MultiplayerConstraint
+        => CardMultiplayerConstraint.MultiplayerOnly;
+    
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded),
          HoverTipFactory.FromCard<WingedRetainerCard>(IsUpgraded),

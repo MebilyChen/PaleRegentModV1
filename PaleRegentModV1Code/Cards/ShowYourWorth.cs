@@ -26,7 +26,9 @@ public class ShowYourWorth : PaleRegentModV1Card
         TargetType.Self)
     {
     }
-
+    public override CardMultiplayerConstraint MultiplayerConstraint
+        => CardMultiplayerConstraint.MultiplayerOnly;
+    
     /// <summary>
     /// 消耗关键词（20260728 修复：构造器里 AddKeyword 运行在 canonical 实例上
     /// 会抛 CanonicalModelException 导致启动崩溃，改用 CanonicalKeywords 声明）。
