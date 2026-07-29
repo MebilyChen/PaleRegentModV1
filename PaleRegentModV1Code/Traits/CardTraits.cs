@@ -9,18 +9,24 @@ using STS2RitsuLib.Utils;
 namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 /// <summary>
-/// 【失心】【苍白】两个自定义卡牌特质的实现。
+/// 【失心】【苍白】【纯粹】自定义卡牌特质的实现。
 ///
-/// ============ 机制说明（对应设计文档） ============
+/// ============ 机制说明（对应设计文档，20260729 需求变更） ============
 /// 【失心】（Lost）：
 ///   - 取消这张牌的灵魂耗能，把灵魂费 1:1 转换并入虚空费。
 ///     例：1灵魂0虚空 → 0灵魂1虚空；2灵魂2虚空 → 0灵魂4虚空。
 ///   - 对 X 费牌无效（X 费牌无法附加失心）。
 ///   - 自动获得【重放1】（BaseReplayCount = 1，打出后额外重放一次）。
 ///   - 与【苍白】互斥：附加失心会移除苍白。
-/// 【苍白】（Pale）：
-///   - 取消【失心】（恢复原本的灵魂费），并清空这张牌的虚空费。
-///   - 自动获得【虚无】（Ethereal，回合结束未打出则消耗）。
+/// 【苍白】（Pale）：（20260729 变更：不再是"同时添加消耗和虚无"）
+///   1. 取消【失心】，以及受失心影响而添加的"灵魂并入虚空消费"和【消耗】。
+///      注意：如果这张牌没有失心就有【消耗】（自带/其他来源），不移除消耗。
+///   2. 取消卡牌的虚空消耗（移除虚空费条目）。
+///   3. 添加【虚无】。
+/// 【纯粹】（Pure）：（20260729 变更：从"免疫感染转化"扩展为通用规则）
+///   - 战斗中无法被变化，例如被变化为其他牌。
+///     （免疫"感染"转化实现为不会被随机选中，见 Infection.OnTurnEndInHand 的过滤；
+///      通用"无法被变化"由 Patches/PureTransformGuard 拦截 CardCmd.Transform 实现。）
 ///
 /// ============ 实现思路（给未来的你/维护者） ============
 /// STS2 原版的 CardKeyword 是枚举，mod 无法往里加新枚举值，
@@ -33,13 +39,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 ///      - 灵魂费用 CardModel.EnergyCost.SetCustomBaseCost(int)（永久基础费）。
 ///      - 虚空费用 RitsuLib 的 card.SecondaryCosts().Set(VoidResource.Id, n)。
 ///   3. 关键词（重放/虚无/消耗）走原版 API：BaseReplayCount、AddKeyword/RemoveKeyword。
-///   4. 卡牌描述里的动态提示：本地化文本无法动态改，先在卡牌描述
-///      （cards.json）里写明规则；将来可以用 Enchantment/描述后缀系统美化。
+///   4. 牌面显示与 HoverTips（20260729 新增）：
+///      失心/苍白会以"[gold]失心[/gold]。/[gold]苍白[/gold]。"的形式显示在牌面描述里，
+///      并在悬停词条中追加失心/苍白词条（哪怕消耗/虚无/重放本身也会显示）。
+///      实现见 Patches/TraitCardTextPatch（Harmony patch CardModel.GetDescriptionForPile
+///      与 CardModel.HoverTips getter）。
 ///
 /// ============ 修改指南 ============
 /// - 想改"失心的灵魂→虚空换算比例"：改 ApplyLost 里的 newVoidCost 计算。
 /// - 想改"失心送的重放层数"：改 LostReplayCount 常量。
-/// - 想给特质加图标/描述后缀：需要研究 STS2 的 Enchantment 系统（后续批次）。
+/// - 想改牌面显示文字/词条：见 Patches/TraitCardTextPatch 与 static_hover_tips.json。
 /// </summary>
 public static class CardTraits
 {
@@ -57,6 +66,7 @@ public static class CardTraits
         public bool OriginalHasVoidCost; // 附加特质前是否登记过虚空费条目（区分“虚空0”与“无虚空费”）//20260726
         public bool OriginalVoidCostsX;  // 附加特质前虚空费是否为 X 费（苍白还原时保留 X 属性）//20260726
         public bool CostSnapshotTaken;   // 是否已经记录过原始费用快照
+        public bool ExhaustAddedByLost;  // 【消耗】是否是失心流程加上去的（20260729：苍白只移除失心加的消耗）
     }
 
     /// <summary>卡牌实例 → 特质数据 的弱引用表。</summary>
@@ -77,7 +87,10 @@ public static class CardTraits
     /// 这张牌当前是否有【纯粹】（机制文档：名词表·纯粹）。
     /// 两个来源：1) 卡牌类自带（PaleRegentModV1Card.IsPure 重写为 true，如虚空化形/化神/纯粹容器）；
     ///          2) 战斗中被附加（灵魂护佑等，走 ApplyPure 的 TraitState）。
-    /// 判定用途：带纯粹的牌不会被感染（Infection 的疑虑变形）等效果影响。
+    /// 判定用途（20260729 变更）：带纯粹的牌"战斗中无法被变化"——
+    ///   1) 感染的随机转化不会选中它（Infection.OnTurnEndInHand 过滤）；
+    ///   2) 任何 CardCmd.Transform / TransformTo / TransformToRandom 都无法把它变为其他牌
+    ///      （Patches/PureTransformGuard 全局拦截）。
     /// </summary>
     public static bool IsPure(CardModel card) =>
         (card as Cards.PaleRegentModV1Card)?.IsPure == true ||
@@ -150,13 +163,17 @@ public static class CardTraits
         card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
 
         s.IsLost = true;
-        SyncExhaustKeyword(card); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
+        SyncExhaustKeyword(card, s); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
         return true;
     }
 
     /// <summary>
-    /// 给一张牌附加【苍白】。
-    /// 效果：取消失心（恢复灵魂费）；清空虚空费；获得【虚无】。
+    /// 给一张牌附加【苍白】。（20260729 需求变更）
+    /// 效果：
+    ///   1. 取消【失心】，及受其影响而添加的"灵魂并入虚空消费"和【消耗】；
+    ///      如果这张牌没有失心就有【消耗】（牌自带/其他来源），不移除消耗。
+    ///   2. 取消卡牌的虚空消耗（移除虚空费条目）。
+    ///   3. 添加【虚无】。
     /// </summary>
     public static void ApplyPale(CardModel card)
     {
@@ -167,24 +184,32 @@ public static class CardTraits
 
         EnsureCostSnapshot(card, s);
 
-        // 取消失心：恢复原灵魂费
+        // 1) 取消失心：恢复原灵魂费、收回重放，并移除"失心加上去的消耗"
         if (s.IsLost)
         {
             card.EnergyCost.SetCustomBaseCost(s.OriginalEnergyCost);
             card.BaseReplayCount = 0; // 收回失心送的重放
             s.IsLost = false;
         }
+        // 只移除"失心流程加上去的消耗"；牌本来就有的消耗保持不动（20260729 变更）
+        // 注：即使这张牌当前没有失心（例如失心曾被其他途径取消），只要消耗是失心加的也一并清理。
+        if (s.ExhaustAddedByLost)
+        {
+            card.RemoveKeyword(CardKeyword.Exhaust);
+            s.ExhaustAddedByLost = false;
+        }
 
-        // 清空虚空费（苍白 = 不再欠虚空）
+        // 2) 取消卡牌的虚空消耗
         // 注意：这里用 Clear 而不是 Set(0)，把虚空费条目整个移除，
         // 卡面不再显示虚空费 → 不再命中“虚空费≥0 自动消耗”规则 //20260726
         card.SecondaryCosts().Clear(VoidResource.Id);
 
-        // 自动获得【虚无】
+        // 3) 添加【虚无】
         card.AddKeyword(CardKeyword.Ethereal);
 
         s.IsPale = true;
-        SyncExhaustKeyword(card); // 虚空费条目已移除，应同步移除自动【消耗】 //20260726
+        // 20260729 变更：苍白不再"顺带添加消耗"，也不做旧版 SyncExhaustKeyword 的
+        // 保守增删——消耗的移除已在上面按 ExhaustAddedByLost 精确处理。
     }
 
     /// <summary>内部：移除苍白状态（供 ApplyLost 里互斥切换时调用）。</summary>
@@ -199,6 +224,7 @@ public static class CardTraits
                 card.SecondaryCosts().Set(VoidResource.Id, SecondaryResourceCost.X(1)); // 还原 X 费 //20260726
             else
                 card.SecondaryCosts().Set(VoidResource.Id, s.OriginalVoidCost);
+            SyncExhaustKeyword(card, s); // 重新成为虚空牌 → 自动【消耗】
         }
         s.IsPale = false;
     }
@@ -222,20 +248,19 @@ public static class CardTraits
     /// 这里的“虚空费 ≥ 0”指的是“卡面上登记/显示了虚空费条目”的牌（HasVoidCost），
     /// 即：虚空 0、虚空 X 也算虚空牌，自动带【消耗】；
     /// 而“卡面上根本没有虚空费”的普通牌（Get 返回 null）不受本规则影响。
-    /// 每次特质变化后调用，保证 Exhaust 关键词与虚空费同步。
-    /// 注意：如果这张牌本来（CanonicalKeywords）就带消耗，不要移除它——
-    /// 用 TraitState 无法区分，这里采用保守策略：只增不减，
-    /// 除非是失心/苍白流程中我们自己加上去的（判据：快照时已登记虚空费条目）。
+    /// 20260729 变更：加消耗时记录 ExhaustAddedByLost（此前牌上没有消耗才算我们加的），
+    /// 供苍白按"消耗是否失心所加"精确移除；不再在这里做移除。
     /// </summary>
-    private static void SyncExhaustKeyword(CardModel card)
+    private static void SyncExhaustKeyword(CardModel card, TraitState s)
     {
+        if (!HasVoidCost(card)) return;
         // 登记过虚空费条目（含虚空 0 / 虚空 X）→ 自动【消耗】 //20260726
-        if (HasVoidCost(card))
+        if (!card.Keywords.Contains(CardKeyword.Exhaust))
+        {
             card.AddKeyword(CardKeyword.Exhaust);
-        // 苍白移除虚空费条目后：若原本就没有虚空费条目（即消耗是失心流程里我们加的），移除
-        // 若原本就登记过虚空费（OriginalHasVoidCost），说明【消耗】可能是牌自带的，保守起见不动
-        else if (States.TryGetValue(card, out TraitState? s) && !s!.OriginalHasVoidCost)
-            card.RemoveKeyword(CardKeyword.Exhaust);
+            s.ExhaustAddedByLost = true; // 这次消耗是失心/虚空费流程加的（20260729）
+        }
+        // 牌上已有消耗（自带或其他来源）→ 不动，也不标记为失心所加
     }
 
     /// <summary>
