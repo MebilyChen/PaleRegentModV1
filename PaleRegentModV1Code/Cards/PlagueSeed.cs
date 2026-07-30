@@ -7,13 +7,14 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【疫种】技能牌（机制文档：瘟疫流）。
-/// 0 灵魂 技能：将 2 张【感染】加入手牌，获得 1 点灵魂。
-/// 升级后：获得 2 点灵魂。
+/// 0 灵魂 技能：将 2 张【感染】加入手牌，获得 1 点虚空。
+/// 升级后：获得 2 点虚空。
 /// （感染生成走 Infection.NotifyGenerated 统一入口，触发疫蔓。）
 /// </summary>
 public class PlagueSeed() : PaleRegentModV1Card(0,
@@ -23,12 +24,13 @@ public class PlagueSeed() : PaleRegentModV1Card(0,
     private const int BaseInfections = 2;
     private const int BaseEnergyGain = 1;
 
-    /// <summary>升级后额外灵魂。</summary>
+    /// <summary>升级后额外虚空。</summary>
     private int _energyBonus;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromCard<Infection>(false)];
+        [HoverTipFactory.FromCard<Infection>(false),
+            ModHoverTips.VoidCounter];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
@@ -36,8 +38,11 @@ public class PlagueSeed() : PaleRegentModV1Card(0,
     {
         await CardPileCmd.AddToCombatAndPreview<Infection>(Owner.Creature, PileType.Hand, BaseInfections, Owner);
         await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
-
-        await PlayerCmd.GainEnergy(BaseEnergyGain + _energyBonus, cardPlay.Player);
+        
+        await VoidResource.Gain(Owner, BaseEnergyGain + _energyBonus);
+        await VoidResource.SyncPower(choiceContext, Owner, this);
+        
+        //await PlayerCmd.GainEnergy(BaseEnergyGain + _energyBonus, cardPlay.Player);
     }
 
     protected override void OnUpgrade()

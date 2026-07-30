@@ -14,8 +14,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【容器】生成牌（表格设计：造物流，"容器计划"每回合生成 / 不惜代价 / 容器药水）。
 /// 0 灵魂 技能：对一个敌人施加 1 层【纯粹封印】；
-/// 消耗手牌中所有状态牌：少于 3 张 → 孕育出【失败容器】，
-/// 3 张及以上 → 孕育出【纯粹容器】。消耗。
+/// 消耗手牌中所有状态牌：少于 2 张 → 孕育出【失败容器】，
+/// 2 张及以上 → 孕育出【纯粹容器】。消耗。
 /// 升级后：施加 2 层纯粹封印。
 ///
 /// 实现说明：孕育结果以新卡形式加入弃牌堆，本卡照常消耗。
@@ -25,7 +25,7 @@ public class Vessel() : PaleRegentModV1Card(0,
     TargetType.AnyEnemy)
 {
     private const int BaseSeal = 1;
-    private const int PureThreshold = 3;
+    private const int PureThreshold = 2;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

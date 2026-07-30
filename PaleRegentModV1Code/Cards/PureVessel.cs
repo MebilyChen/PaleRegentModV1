@@ -20,7 +20,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 0 灵魂 攻击（单体）：消耗你所有牌堆（手牌/抽牌堆/弃牌堆）中的状态牌，
 /// 每消耗 1 张，此牌伤害 +5；造成 20 点基础伤害；
 /// 对目标施加 2 层【纯粹封印】；你获得 1 层【虚空护卫】。
-/// 纯粹。消耗。Regret（生成时召回 Regret）。
+/// 纯粹。Regret（生成时召回 Regret）。
 /// 升级后：每张状态牌 +7 伤害。
 /// </summary>
 public class PureVessel() : PaleRegentModV1Card(0,
@@ -58,8 +58,8 @@ public class PureVessel() : PaleRegentModV1Card(0,
         }
     }
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Exhaust];
+    //public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        //[CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];

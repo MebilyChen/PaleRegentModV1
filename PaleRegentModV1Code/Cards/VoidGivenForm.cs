@@ -21,7 +21,7 @@ public class VoidGivenForm() : PaleRegentModV1Card(0,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
-    private const int BaseDamage = 10;
+    private const int BaseDamage = 15;
     private const int UpgradeDamageBonus = 5;
     private const int BaseTouch = 3;
     private const int UpgradeTouchBonus = 2;

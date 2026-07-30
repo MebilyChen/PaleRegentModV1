@@ -18,7 +18,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 升级后：每张获得 2 点虚空并抽 2 张牌。
 /// </summary>
 public class PlagueHarvest() : PaleRegentModV1Card(1,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
     private const int BaseVoidPerInfection = 1;

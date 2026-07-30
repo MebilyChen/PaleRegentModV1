@@ -18,7 +18,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 升级后：5 张。
 /// </summary>
 public class PaleReclamation() : PaleRegentModV1Card(2,
-    CardType.Skill, CardRarity.Rare,
+    CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
     private int _reclaimCount = 3;

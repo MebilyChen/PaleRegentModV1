@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 升级后：每张获得 2 点虚空并抽 2 张牌。
 /// </summary>
 public class VoidReclamation() : PaleRegentModV1Card(0,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
     /// <summary>每消耗 1 张虚空状态牌获得的虚空/抽牌数（升级后 2）。</summary>

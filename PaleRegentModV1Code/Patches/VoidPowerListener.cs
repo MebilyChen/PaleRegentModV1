@@ -16,7 +16,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 /// 结算时自动完成的，不会经过我们的 OnPlay 代码——
 /// 一部分卡忘了调、药水/遗物等其它消耗途径也调不到，导致图标层数滞留。
 ///
-/// 修复方案（参考 HornetMod 的 SilkPowerListener）：
+/// 修复方案（参考 ）：
 /// 实现 ISecondaryResourceHookListener 并注册为进程级监听器。
 /// RitsuLib 在虚空资源发生任何数量变化（Gain/Spend/Lose/Set/Reset）后
 /// 都会回调 AfterSecondaryResourceChanged，我们在这里统一把 VoidPower

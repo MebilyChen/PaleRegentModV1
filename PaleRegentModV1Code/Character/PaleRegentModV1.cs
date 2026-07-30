@@ -15,6 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Character;
 public class PaleRegentModV1 : PlaceholderCharacterModel
 {
     public const string CharacterId = "PaleRegent";
+    public override Color MapDrawingColor => Colors.White;
     
     public static readonly Color Color = new("ffffff");
 

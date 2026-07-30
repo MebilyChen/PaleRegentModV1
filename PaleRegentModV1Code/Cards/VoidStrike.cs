@@ -44,7 +44,10 @@ public class VoidStrike() : PaleRegentModV1Card(1,
     private const int VoidGain = 1;
     /// <summary>可附加失心的手牌数（升级后 2）。</summary>
     private int _lostTargets = 1;
-
+    
+    // 带 Strike 标签：与"对打击牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Strike };
+    
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [ModHoverTips.Lost,

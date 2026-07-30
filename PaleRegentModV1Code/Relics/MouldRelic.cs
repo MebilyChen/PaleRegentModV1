@@ -53,7 +53,7 @@ public abstract class MouldRelic : PaleRegentModV1Relic
         Flash();
     }
 
-    /// <summary>你的每回合开始：生成并打出对应的牌（钩子签名同 modstudy HornetMaterialVault）。</summary>
+    /// <summary>你的每回合开始：生成并打出对应的牌（钩子签名同 modstudy）。</summary>
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         if (player != Owner)

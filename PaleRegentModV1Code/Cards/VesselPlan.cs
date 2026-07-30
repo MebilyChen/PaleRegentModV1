@@ -19,11 +19,11 @@ public class VesselPlan : PaleRegentModV1Card
 {
     private const int VesselPerTurn = 1;
 
-    public VesselPlan() : base(3,
-        CardType.Power, CardRarity.Rare,
+    public VesselPlan() : base(2,
+        CardType.Power, CardRarity.Uncommon,
         TargetType.Self)
     {
-        CardTraits.SetVoidCost(this, 3);
+        CardTraits.SetVoidCost(this, 2);
     }
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>

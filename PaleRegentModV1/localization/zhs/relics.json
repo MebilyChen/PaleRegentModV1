@@ -24,7 +24,7 @@
 	"PALEREGENTMODV1-SOUL_SIPHON.description": "你每花费1点灵魂，获得1点[gold]虚空[/gold]。",
 	"PALEREGENTMODV1-SOUL_SIPHON.flavor": "所有被献出的灵魂，终将坠入同一处深渊。",
 	"PALEREGENTMODV1-FIRST_LIGHT.title": "第一道光",
-	"PALEREGENTMODV1-FIRST_LIGHT.description": "每回合开始时恢复的灵魂不再受[gold]虚空[/gold]影响。",
+	"PALEREGENTMODV1-FIRST_LIGHT.description": "灵魂上限[blue]+1[/blue]。每回合开始时恢复的灵魂不再受[gold]虚空[/gold]影响。",
 	"PALEREGENTMODV1-FIRST_LIGHT.flavor": "「于是黎明重临。」",
 	"PALEREGENTMODV1-VOID_HEART.title": "虚空之心",
 	"PALEREGENTMODV1-VOID_HEART.description": "每回合开始时，获得等同于灵魂上限的[gold]虚空[/gold]。",

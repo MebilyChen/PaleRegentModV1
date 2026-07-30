@@ -23,7 +23,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 机制要点：
 /// - 不选牌：直接遍历手牌中 CardType.Status 的牌全部转化（表格："全部状态牌"）。
 /// - CardCmd.TransformTo&lt;Focus&gt;：战斗内变形；升级后再 CardCmd.Upgrade 变为集中+
-///   （写法参考 modstudy HornetDeepElegy/ArchitectPower）。
+///   （写法参考 modstudy）。
 ///
 /// 修改指南：
 /// - 想改转化目标：把 TransformTo&lt;Focus&gt; 的泛型参数换成别的卡牌类。

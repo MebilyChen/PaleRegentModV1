@@ -18,8 +18,8 @@ public class PlagueburstCard() : PaleRegentModV1Card(3,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    private const int BaseDamage = 5;
-    private const int UpgradeDamageBonus = 3;
+    private const int BaseDamage = 3;
+    private const int UpgradeDamageBonus = 2;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<Infection>(false)];

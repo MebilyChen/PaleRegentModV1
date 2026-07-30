@@ -17,11 +17,11 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 public class HollowEchoCard : PaleRegentModV1Card
 {
-    private const int BaseVoidCost = 7;
+    private const int BaseVoidCost = 4;
     private const int UpgradedVoidCost = 5;
 
     public HollowEchoCard() : base(0,
-        CardType.Power, CardRarity.Rare,
+        CardType.Power, CardRarity.Uncommon,
         TargetType.Self)
     {
         CardTraits.SetVoidCost(this, BaseVoidCost);

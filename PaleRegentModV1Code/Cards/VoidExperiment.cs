@@ -15,16 +15,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【虚空实验】技能牌（机制文档：造物流）。
-/// 0 灵魂 + X 虚空：X ≥ 3 → 将 1 张【虚空化形】加入手牌；
+/// 0 灵魂 + X 虚空：X ≥ 2 → 将 1 张【虚空化形】加入手牌；
 /// 否则 → 将 1 张【失败实验】加入手牌。消耗。
 /// 升级后：生成的牌为升级版（虚空化形+/失败实验+）。
 /// </summary>
 public class VoidExperiment : PaleRegentModV1Card
 {
-    private const int SuccessThreshold = 3;
+    private const int SuccessThreshold = 2;
 
     public VoidExperiment() : base(0,
-        CardType.Skill, CardRarity.Uncommon,
+        CardType.Skill, CardRarity.Common,
         TargetType.Self)
     {
         CardTraits.SetVoidCostX(this);

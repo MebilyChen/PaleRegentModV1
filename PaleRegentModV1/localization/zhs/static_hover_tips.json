@@ -2,7 +2,7 @@
 	"PALEREGENTMODV1-VOID_COUNTER.title": "虚空",
 	"PALEREGENTMODV1-VOID_COUNTER.description": "在你的回合开始时，失去等同于当前虚空数量的灵魂。虚空在回合结束时不会清空。",
 	"PALEREGENTMODV1-LOST.title": "失心",
-	"PALEREGENTMODV1-LOST.description": "该牌的灵魂转化为虚空费用。获得重放1。取消[blue]苍白[/blue]。",
+	"PALEREGENTMODV1-LOST.description": "该牌的灵魂转化为虚空费用。获得重放1。取消[blue]苍白[/blue]。打出时将一张[gold]虚空[/gold]置入手牌。",
 	"PALEREGENTMODV1-PALE.title": "苍白",
 	"PALEREGENTMODV1-PALE.description": "取消该牌的[blue]失心[/blue]及其附带的消耗，并取消虚空费用。获得虚无。",
 	"PALEREGENTMODV1-PURE.title": "纯粹",

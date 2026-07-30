@@ -11,13 +11,13 @@ using PaleRegentModV1.PaleRegentModV1Code.Traits;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【化神】稀有能力牌（虚空流的核心终端）。
-/// 0 灵魂 + 7 虚空：获得【化神】buff——
+/// 【化神】uncommon能力牌（虚空流的核心终端）。
+/// 0 灵魂 + 4 虚空：获得【化神】buff——
 /// 每回合开始获得 1 点虚空（升级后 2 点），并选择一张手牌附加【失心】。
 ///
 /// 机制要点：
 /// - 虚空费在构造器里用 CardTraits.SetVoidCost 声明，
-///   打出时由 RitsuLib 的副资源支付系统自动扣除 7 点虚空（不够打不出）。
+///   打出时由 RitsuLib 的副资源支付系统自动扣除 4点虚空（不够打不出）。
 /// - 规则"虚空费>0 的卡自动带【消耗】"——能力牌打出后本身就移出战斗，
 ///   但仍在 CanonicalKeywords 声明 Exhaust 以保持卡面提示一致。
 ///
@@ -28,10 +28,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 public class Apotheosis : PaleRegentModV1Card
 {
     /// <summary>打出所需虚空费。</summary>
-    private const int VoidCost = 7;
+    private const int VoidCost = 4;
 
     public Apotheosis() : base(0,
-        CardType.Power, CardRarity.Rare,
+        CardType.Power, CardRarity.Uncommon,
         TargetType.Self)
     {
         // 声明虚空费：打出时额外消耗 7 点虚空

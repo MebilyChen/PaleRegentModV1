@@ -27,10 +27,10 @@ public class EliteRecall : PaleRegentModV1Card
     private const int VoidCost = 2;
 
     /// <summary>放回张数（升级后 4，占位口径，见类注释）。</summary>
-    private int _recallCount = 3;
+    private int _recallCount = 2;
 
     public EliteRecall() : base(2,
-        CardType.Skill, CardRarity.Uncommon,
+        CardType.Skill, CardRarity.Common,
         TargetType.Self)
     {
         CardTraits.SetVoidCost(this, VoidCost);
@@ -78,6 +78,6 @@ public class EliteRecall : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        _recallCount = 4;
+        _recallCount = 3;
     }
 }

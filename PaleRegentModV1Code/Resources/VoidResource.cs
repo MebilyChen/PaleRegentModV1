@@ -87,7 +87,7 @@ public static class VoidResource
         // ---- 卡牌费用显示 UI（修复：虚空费不显示在卡牌上）----
         // 之前只注册了战斗计数器（RegisterCombatUi），没有注册卡牌费用 UI，
         // 所以带虚空费的卡牌上看不到费用图标/数字。
-        // 参考 HornetMod SilkResource.Register() 的 silk_card_cost 注册：
+        // 参考 .Register() 的 _cost 注册：
         // NSecondaryResourceCardCostUi 会自动读取卡牌的 SecondaryCosts 并渲染费用，
         // 没有虚空费的卡不会显示任何内容。
         registry.RegisterCardUi<NSecondaryResourceCardCostUi>("void_card_cost", (NCard parent) =>

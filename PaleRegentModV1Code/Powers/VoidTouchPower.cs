@@ -22,7 +22,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 ///   持有者作为攻击方时对伤害做 -Amount 修正（等效于负力量，且随本 Power
 ///   消失自动解除，省去"归还力量"的麻烦）。
 /// - 回合结束伤害：AfterSideTurnEnd 里对 Owner 造成 Amount 点伤害，
-///   ValueProp 不带 Unblockable，因此可以被格挡；随后 Remove 自身。
+///   ValueProp 不带 Unblockable，因此可以被格挡；每回合减少1层 （原效果：Remove 自身)。
 ///
 /// 修改指南：
 /// - 想让它变成"不可被格挡"：把 ValueProp.Unpowered 改为
@@ -50,7 +50,7 @@ public class VoidTouchPower : PaleRegentModV1Power
     }
 
     /// <summary>
-    /// 持有者一方的回合结束时：失去层数点生命（可被格挡），然后整个效果消失。
+    /// 持有者一方的回合结束时：失去层数点生命（可被格挡），~~然后整个效果消失~~。
     /// </summary>
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
@@ -64,6 +64,7 @@ public class VoidTouchPower : PaleRegentModV1Power
             // 不带 Unblockable：可被格挡；Unpowered：不吃力量/易伤等加成
             await CreatureCmd.Damage(choiceContext, Owner, Amount, ValueProp.Unpowered, null, cardPlay: null);
         }
-        await PowerCmd.Remove(this);
+        //await PowerCmd.Remove(this);
+        await PowerCmd.Decrement(this);
     }
 }

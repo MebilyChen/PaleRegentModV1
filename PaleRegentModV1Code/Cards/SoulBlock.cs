@@ -42,7 +42,7 @@ public class SoulBlock() : PaleRegentModV1Card(1,
         // 1. 获得格挡
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // 2. 从弃牌堆选 1 张牌放回手牌（写法参考 modstudy HornetAscendantGrip）
+        // 2. 从弃牌堆选 1 张牌放回手牌（写法参考 modstudy）
         CardPile discard = PileTypeExtensions.GetPile(PileType.Discard, Owner);
         if (discard.Cards.Any())
         {
