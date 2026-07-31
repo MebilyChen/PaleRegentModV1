@@ -51,7 +51,7 @@ public static class MouldHelper
     public const int RelicCombats = 1;
 
     /// <summary>每消耗 1 张的成功概率（百分比）。</summary>
-    public const int ChancePerExhaustPercent = 1;
+    public const int ChancePerExhaustPercent = 50;
 
     /// <summary>
     /// 调试用：true 时只要本场消耗过该模具牌就必定掉落（概率视为 100%）。

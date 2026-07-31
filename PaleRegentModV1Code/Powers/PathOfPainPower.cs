@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BaseLib.Hooks;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -27,8 +29,19 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 /// 如果效果仍存在，则在持有者下一回合开始时，
 /// 恢复到本回合开始前的层数。
 /// </summary>
-public class PathOfPainPower : PaleRegentModV1Power
+public class PathOfPainPower :
+    PaleRegentModV1Power,
+    IHealthBarForecastSource
 {
+    /// <summary>
+    /// 苦痛之路在血条上的颜色。
+    ///
+    /// 使用接近纯黑、略带一点冷色的颜色，
+    /// 防止和完全空掉的血条区域融为一体。
+    /// </summary>
+    private static readonly Color HealthBarForecastColor =
+        new("050508");
+
     public override PowerType Type => PowerType.Debuff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -43,6 +56,95 @@ public class PathOfPainPower : PaleRegentModV1Power
     /// 持有者本回合是否造成过实际伤害。
     /// </summary>
     private bool _attackedThisTurn;
+
+    /// <summary>
+    /// 在持有者的血条上显示苦痛之路的黑色预览段。
+    ///
+    /// BaseLib 会自动读取实现了
+    /// IHealthBarForecastSource 的 Power，
+    /// 因此不需要手动注册，也不需要创建自定义 Node。
+    /// </summary>
+    public IEnumerable<HealthBarForecastSegment>
+        GetHealthBarForecastSegments(
+            HealthBarForecastContext context)
+    {
+        /*
+         * 正常情况下，BaseLib 只会把这个 Power
+         * 作为 Owner 身上的血条来源进行读取。
+         *
+         * 这里仍然检查一次，防止错误显示到其他生物血条上。
+         */
+        if (context.Creature != Owner || Amount <= 0)
+        {
+            yield break;
+        }
+
+        yield return new HealthBarForecastSegment(
+            /*
+             * 黑条代表当前剩余的苦痛层数。
+             *
+             * SetAmount() 改变 Amount 后，
+             * BaseLib 下一次刷新血条时会自动更新长度。
+             */
+            Amount: Amount,
+
+            /*
+             * Color 还会作为默认的预览条染色。
+             */
+            Color: HealthBarForecastColor,
+
+            /*
+             * FromRight 表示从当前生命值的右侧向左延伸，
+             * 使用类似中毒的显示方向。
+             *
+             * BaseLib 会先为原作中毒保留空间，
+             * 再绘制这个自定义段。
+             *
+             * 因此结果是：
+             *
+             * 正常生命 | 苦痛 | 中毒
+             * 0000       触触触   毒毒毒
+             */
+            Direction: HealthBarForecastDirection.FromRight,
+
+            /*
+             * Order 只影响多个自定义 FromRight 效果之间的顺序。
+             *
+             * 数值越低，越靠近当前生命值的右侧，
+             * 也就是越靠近中毒区域。
+             */
+            Order: 0,
+
+            /*
+             * 不使用自定义 Shader，
+             * 直接使用颜色染色原作风格的九宫格血条纹理。
+             */
+            OverlayMaterial: null,
+
+            /*
+             * 明确设置黑色视觉染色。
+             */
+            OverlaySelfModulate: HealthBarForecastColor,
+
+            /*
+             * 该参数主要作用于 FromLeft，
+             * FromRight 下保持默认即可。
+             */
+            LeftOriginLayout:
+                HealthBarForecastLeftOriginLayout.Chained,
+
+            LeftExclusiveZGroup: 0,
+
+            /*
+             * 即使 Amount 大于当前生命值，
+             * 也不把生命数字染成黑色。
+             *
+             * 苦痛之路并不是像毒一样无条件立即结算的伤害，
+             * 它还取决于本回合是否攻击以及是否清空层数。
+             */
+            AffectsHpLabel: false
+        );
+    }
 
     /// <summary>
     /// 持有者造成伤害后，减少对应的显示层数。

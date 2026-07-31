@@ -91,7 +91,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
             return icon;
         }
     }
-    public override string PlaceholderID => "regent";
+    //public override string PlaceholderID => "regent";
     private const string ModRoot = "res://PaleRegentModV1";
     
     // Menu UI
