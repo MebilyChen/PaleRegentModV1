@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【集火敕令】攻击牌（机制文档：卡牌表 C#34）。
-/// 1 灵魂 攻击：造成 1 点伤害，施加 1 层【瘟疫】，施加 1 层【旧日仇敌】。
+/// 1 灵魂 攻击：造成 1 点伤害，对自身施加 1 层【瘟疫】，对目标施加 1 层【旧日仇敌】。
 /// 升级后：施加 2 层瘟疫（旧日仇敌仍为 1 层）。
 /// 20260725 批次：集火改用独立的 AncientEnemyPower，不再用 PlaguePower.FocusTarget 静态字段。
 /// 备注：表格 G38 牌面文案未写"造成 1 点伤害"，但 P38 效果说明有 1 点伤害，代码保留 1 伤。
@@ -44,7 +44,7 @@ public class FocusFireEdict() : PaleRegentModV1Card(1,
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<PlaguePower>(choiceContext, cardPlay.Target,
+        await PowerCmd.Apply<PlaguePower>(choiceContext, cardPlay.Player.Creature,
             DynamicVars["PlaguePower"].BaseValue, Owner.Creature, this);
         // 施加【旧日仇敌】：瘟疫的随机攻击集中到该目标，持续 1 回合
         await PowerCmd.Apply<AncientEnemyPower>(choiceContext, cardPlay.Target,

@@ -9,13 +9,9 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【连连看】
-///
-/// 本回合内，每连续打出 1 张同名牌，
-/// 对所有敌人造成 {ChainResonancePower} 点伤害。
-///
-/// 本场战斗内，该效果每触发一次，
-/// 伤害 +{ChainResonancePowerAdd}。
+/// 【连锁引信】
+/// 本回合内，每当你连续打出同名牌时，对所有敌人造成伤害。
+/// 本场战斗内，该效果每触发一次，伤害永久提高。
 /// </summary>
 public class ChainMatch() : PaleRegentModV1Card(
     1,
@@ -23,61 +19,63 @@ public class ChainMatch() : PaleRegentModV1Card(
     CardRarity.Uncommon,
     TargetType.Self)
 {
-    private const string DamageKey = "ChainResonancePower";
-    private const string DamageAddKey = "ChainResonancePowerAdd";
-
     private const int BaseDamage = 3;
-    private const int BaseDamageAdd = 1;
+    private const int DamagePerTrigger = 1;
 
     private const int UpgradeDamageBonus = 2;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<ChainResonancePower>(BaseDamage),
-        new DynamicVar(DamageAddKey, BaseDamageAdd)
+        new DynamicVar("ChainResonancePowerAdd", DamagePerTrigger)
     ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        decimal baseDamage = DynamicVars[DamageKey].BaseValue;
-        decimal damageAdd = DynamicVars[DamageAddKey].BaseValue;
+        decimal initialDamage =
+            DynamicVars["ChainResonancePower"].BaseValue;
+
+        decimal damageAdd =
+            DynamicVars["ChainResonancePowerAdd"].BaseValue;
 
         ChainResonancePower? power =
             Owner.Creature.GetPower<ChainResonancePower>();
 
-        if (power == null)
+        // Power 不存在时创建。
+        if (power is null)
         {
-            // 第一次使用：创建 Power，并把 Amount 初始化为基础伤害。
             await PowerCmd.Apply<ChainResonancePower>(
                 choiceContext,
                 Owner.Creature,
-                baseDamage,
+                initialDamage,
                 Owner.Creature,
                 this);
 
-            power = Owner.Creature.GetPower<ChainResonancePower>();
+            power =
+                Owner.Creature.GetPower<ChainResonancePower>();
         }
-        else if (power.Amount < baseDamage)
+        else
         {
-            // 已经积累的伤害不能被重置。
-            // 但如果使用了初始伤害更高的版本，则提高到该最低值。
-            await PowerCmd.ModifyAmount(
+            // Power 已存在时，在现有 Amount 上增加本回合临时伤害。
+            // 这部分会在回合结束时自动扣除。
+            await power.AddTemporaryDamageForTurn(
                 choiceContext,
-                power,
-                baseDamage - power.Amount,
-                Owner.Creature,
+                initialDamage,
                 this);
         }
 
-        // 仅启用本回合，不重置当前累计伤害。
-        power?.ActivateForTurn(baseDamage, damageAdd);
+        // 启用本回合监听。
+        // 不会重置 Amount，也不会清除临时伤害。
+        power?.ActivateForTurn(
+            initialDamage,
+            damageAdd);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars[DamageKey]
+        DynamicVars["ChainResonancePower"]
             .UpgradeValueBy(UpgradeDamageBonus);
     }
 }

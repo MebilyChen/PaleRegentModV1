@@ -32,7 +32,7 @@ public class ChainReactionCard() : PaleRegentModV1Card(3,
     private const string DamageAddKey = "ChainResonancePowerAdd";
 
     private const int BaseDamage = 5;
-    private const int BaseDamageAdd = 2;
+    private const int BaseDamageAdd = 0; // 固定 0：连锁反应不提供“每次触发+N”
 
     private const int UpgradeDamageBonus = 2;
 
@@ -47,14 +47,14 @@ public class ChainReactionCard() : PaleRegentModV1Card(3,
         CardPlay cardPlay)
     {
         decimal baseDamage = DynamicVars[DamageKey].BaseValue;
-        decimal damageAdd = DynamicVars[DamageAddKey].BaseValue;
+        decimal damageAdd = DynamicVars[DamageAddKey].BaseValue; // 恒为 0
 
         ChainResonancePower? power =
             Owner.Creature.GetPower<ChainResonancePower>();
 
         if (power == null)
         {
-            // 第一次使用：创建 Power，并把 Amount 初始化为基础伤害。
+            // 第一次打出：创建 Power，Amount 初始化为 baseDamage。
             await PowerCmd.Apply<ChainResonancePower>(
                 choiceContext,
                 Owner.Creature,
@@ -64,21 +64,21 @@ public class ChainReactionCard() : PaleRegentModV1Card(3,
 
             power = Owner.Creature.GetPower<ChainResonancePower>();
         }
-        else if (power.Amount < baseDamage)
+        else
         {
-            // 已经积累的伤害不能被重置。
-            // 但如果这次使用的版本初始伤害更高，则提高到该最低值。
+            // 再次打出：普通能力牌叠层，直接在已有 Amount 上再 +baseDamage，
+            // 不做“只在低于下限时才补”的判断。
             await PowerCmd.ModifyAmount(
                 choiceContext,
                 power,
-                baseDamage - power.Amount,
+                baseDamage,
                 Owner.Creature,
                 this);
         }
 
-        // 必须调用 ActivateForCombat，否则 Power 虽然挂载、Amount 也正确，
-        // 但 _activeForCombat 一直是 false，连锁效果永远不会真正触发。
-        power?.ActivateForCombat(baseDamage, 0);
+        // 必须调用 ActivateForCombat，否则连锁触发逻辑不会真正生效。
+        // damageAdd 恒为 0，所以不会附带“每次连锁触发额外+N”的效果。
+        power?.ActivateForCombat(baseDamage, damageAdd);
     }
 
     protected override void OnUpgrade()
