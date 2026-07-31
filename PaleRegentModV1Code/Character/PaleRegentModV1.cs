@@ -91,7 +91,24 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
             return icon;
         }
     }
-    //public override string PlaceholderID => "regent";
+    /*
+     * 【重要 · 请勿再注释掉这一行】
+     *
+     * PlaceholderCharacterModel 依赖 PlaceholderID 来决定
+     * 用哪个原版角色作为资源"底座"。
+     *
+     * BaseLib 会先把这个原版角色的全套资源槽位取出来，
+     * 再用下面的 Custom*Path / Custom*TexturePath 逐项替换。
+     *
+     * 一旦这一行被注释掉，PlaceholderID 返回基类默认值，
+     * BaseLib 找不到底座角色 ->
+     * 所有 Custom*Path 没有可挂载的目标 ->
+     * 立绘、选人界面、商店、休息处的皮肤全部失效，
+     * 而且不会抛出任何异常，日志里也不会有 ERROR。
+     *
+     * 2026-07-31 皮肤消失的事故就是由此引起（提交 c7101ea）。
+     */
+    public override string PlaceholderID => "regent";
     private const string ModRoot = "res://PaleRegentModV1";
     
     // Menu UI
