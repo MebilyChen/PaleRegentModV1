@@ -67,6 +67,10 @@ public static class CardTraits
         public bool OriginalVoidCostsX;  // 附加特质前虚空费是否为 X 费（苍白还原时保留 X 属性）//20260726
         public bool CostSnapshotTaken;   // 是否已经记录过原始费用快照
         public bool ExhaustAddedByLost;  // 【消耗】是否是失心流程加上去的（20260729：苍白只移除失心加的消耗）
+        public bool OriginalEnergyCostsX; // 附加特质前灵魂费是否为 X 费 //20260801
+        public bool LostConvertedToVoidX; // 失心是否把这张牌转成了“0灵魂 / X虚空” //20260801
+        public int LastVoidSpent;         // 最近一次打出时实际支付的虚空量（失心X牌的 X 取值）//20260801
+        public bool VoidCostClearedByPale; // 虚空费是否已被苍白清除（用于抵御 Permanent 层回灌）//20260801
     }
 
     /// <summary>卡牌实例 → 特质数据 的弱引用表。</summary>
@@ -82,6 +86,34 @@ public static class CardTraits
     /// <summary>这张牌当前是否有【苍白】。</summary>
     public static bool IsPale(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) && s!.IsPale;
+
+    /// <summary>
+    /// 这张牌是否处于“失心，且失心把它转成了 0灵魂 / X虚空”的状态。//20260801
+    ///
+    /// 用途：这类牌卡牌效果里的 X 不能再取原版的
+    /// <c>EnergyCost.CapturedXValue</c>（那是灵魂侧的值，失心后恒为 0），
+    /// 必须取“本次实际支付的虚空量”。
+    /// 由 Patches/LostEnergyCostPatch 在 CardModel.ResolveEnergyXValue 的
+    /// Postfix 中调用，把 X 改写为 <see cref="GetLastVoidSpent"/>。
+    /// </summary>
+    public static bool IsLostEnergyX(CardModel card) =>
+        States.TryGetValue(card, out TraitState? s) && s!.IsLost && s.LostConvertedToVoidX;
+
+    /// <summary>
+    /// 记录“这张牌本次打出实际支付了多少虚空”。//20260801
+    /// 由 Patches/VoidPowerListener 在 RitsuLib 的副资源支付回调里调用。
+    /// 只对已经建立过特质数据的牌记录，避免给普通牌白建状态对象。
+    /// </summary>
+    public static void RecordVoidSpent(CardModel card, int amount)
+    {
+        if (card == null) return;
+        if (!States.TryGetValue(card, out TraitState? s)) return;
+        s!.LastVoidSpent = amount;
+    }
+
+    /// <summary>读取最近一次打出时支付的虚空量（没有记录则为 0）。//20260801</summary>
+    public static int GetLastVoidSpent(CardModel card) =>
+        States.TryGetValue(card, out TraitState? s) ? s!.LastVoidSpent : 0;
 
     /// <summary>
     /// 这张牌当前是否有【纯粹】（机制文档：名词表·纯粹）。
@@ -136,6 +168,29 @@ public static class CardTraits
         return !card.IsCanonical;
     }
 
+    /// <summary>
+    /// 这张牌能否附加【苍白】。//20260801
+    ///
+    /// 需求澄清：虚空 X 费的牌 **也应该能被加苍白**。
+    /// 苍白的效果是“取消虚空消耗 + 添加虚无”，而取消虚空消耗走的是
+    /// <c>SecondaryCosts().Clear(VoidResource.Id)</c>，它对固定费和 X 费都成立，
+    /// 因此虚空 X 牌在机制上没有任何需要排除的理由。
+    ///
+    /// 唯一真正不能动的是 canonical（规范）实例：修改它会抛
+    /// CanonicalModelException 导致游戏崩溃（参见 ApplyLost 头部注释）。
+    ///
+    /// 提供本方法的目的是给“施加苍白的卡”做选牌过滤用，
+    /// 让过滤条件有唯一的可维护来源，避免各张牌各自写不一致的判定。
+    /// </summary>
+    public static bool CanApplyPale(CardModel card)
+    {
+        if (card == null) return false;
+        if (card.IsCanonical) return false;
+        // 已经是苍白的牌再加一次没有意义，不作为合法选择目标
+        if (IsPale(card)) return false;
+        return true;
+    }
+
     // ---------------- 附加/移除 ----------------
 
     /// <summary>
@@ -166,13 +221,20 @@ public static class CardTraits
 
         card.EnergyCost.SetCustomBaseCost(0);                       // 灵魂费清零
         card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);    // 并入虚空费（即使 0 也登记条目，成为虚空牌）//20260726*/
-        // 换算规则：
-// 1. 固定灵魂费 + 固定虚空费：正常相加。
-// 2. 灵魂费或虚空费只要任意一项为 X，统一转化为 0 灵魂、X 虚空。
-//    例如：X灵魂1虚空 → 0灵魂X虚空。
-//          2灵魂X虚空 → 0灵魂X虚空。
-//          X灵魂X虚空 → 0灵魂X虚空。
-        int currentEnergy = card.EnergyCost.GetWithModifiers(CostModifiers.None);
+        // ============ 换算规则 ============
+        // 1. 固定灵魂费 + 固定虚空费：正常相加。
+        // 2. 灵魂费或虚空费只要任意一项为 X，统一转化为 0 灵魂、X 虚空。
+        //    例如：X灵魂1虚空 → 0灵魂X虚空；2灵魂X虚空 → 0灵魂X虚空；
+        //          X灵魂X虚空 → 0灵魂X虚空。
+        //
+        // 【重要】2026-08-01 修正：这里读取当前灵魂费必须用 CostModifiers.All，
+        // 不能用 CostModifiers.None。
+        //   - None 只拿到 _base（纸面基础费），不含任何修正；
+        //   - 而「王者之踢」这类“每次抽到降低1点能量”的牌，减费是
+        //     EnergyCost.AddThisCombat(-1) 存在 _localModifiers 层，_base 恒为纸面 4。
+        // 用 None 会把 4 费当作当前费用并入虚空，玩家攒下的减费进度全部作废。
+        // All = Local | Global，对应的就是卡面上玩家看到的那个数字。
+        int currentEnergy = card.EnergyCost.GetWithModifiers(CostModifiers.All);
 
         SecondaryResourceCost? currentVoidCost =
             card.SecondaryCosts().Get(VoidResource.Id);
@@ -183,8 +245,20 @@ public static class CardTraits
 
         int currentVoid = GetVoidCost(card);
 
-// 取消灵魂费用
-        card.EnergyCost.SetCustomBaseCost(0);
+        // 【重要】2026-08-01 修正：这里 **不再** 调用 SetCustomBaseCost(0)。
+        //
+        // 旧实现用 SetCustomBaseCost(0) 直接改写 _base 来“取消灵魂耗能”，有两个致命缺陷：
+        //   1. 对“灵魂 X”的牌根本无效。CardEnergyCost.CostsX 是构造时定死的只读属性，
+        //      改 _base 改不了它；卡面 NCard 永远走 CostsX → 显示 "X" 分支，
+        //      就会出现“灵魂X虚空0 附加失心后显示成 灵魂X虚空X”的 bug。
+        //   2. 改写 _base 会和 local modifier 体系相互干扰（见上方 currentEnergy 注释），
+        //      苍白还原时必然把费用写回纸面数值，抛弃玩家的减费进度。
+        //
+        // 现在的做法：失心完全不碰 _base、也不碰 _localModifiers，
+        // 卡牌原本的费用体系保持原样；“灵魂费为 0”这件事由
+        // Patches/LostEnergyCostPatch 在所有读取入口（GetWithModifiers /
+        // GetAmountToSpend / GetResolved / 卡面文字）统一裁决。
+        // 这样苍白只需把 IsLost 标记清掉，费用自然回到“原 _base + 全部 local 修正”。
 
         if (convertsToVoidX)
         {
@@ -192,12 +266,16 @@ public static class CardTraits
             card.SecondaryCosts().Set(
                 VoidResource.Id,
                 SecondaryResourceCost.X(1));
+            // 标记：本牌现在是“0灵魂 / X虚空”，牌效里的 X 要取虚空支付量
+            // （而不是灵魂侧的 CapturedXValue）。见 IsLostEnergyX / GetLastVoidSpent。//20260801
+            s.LostConvertedToVoidX = true;
         }
         else
         {
             // 普通固定费用仍然按照 1:1 相加
             int newVoidCost = currentVoid + currentEnergy;
             card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);
+            s.LostConvertedToVoidX = false;
         }
 
         card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
@@ -227,12 +305,26 @@ public static class CardTraits
 
         EnsureCostSnapshot(card, s);
 
-        // 1) 取消失心：恢复原灵魂费、收回重放，并移除"失心加上去的消耗"
+        // 1) 取消失心：恢复灵魂费、收回重放，并移除"失心加上去的消耗"
         if (s.IsLost)
         {
-            card.EnergyCost.SetCustomBaseCost(s.OriginalEnergyCost);
+            // 【重要】2026-08-01 修正：这里 **不再** 调用
+            // SetCustomBaseCost(s.OriginalEnergyCost) 来“还原灵魂费”。
+            //
+            // 旧实现把快照里的数字写回 _base，而快照取的是
+            // GetWithModifiers(CostModifiers.None) = 纸面基础费。
+            // 对「王者之踢」这类“每次抽到降低1点能量”的牌（减费存在
+            // _localModifiers 层，_base 恒为纸面 4），还原结果就是回到 4 费，
+            // 玩家攒下的减费进度全部作废——这就是“失心后能量变回最大值”的根因。
+            //
+            // 现在失心全程不会修改 _base（见 ApplyLost 里的说明），
+            // 灵魂费为 0 只是 Patches/LostEnergyCostPatch 在读取端的裁决结果。
+            // 所以只要把 IsLost 标记清掉，补丁自然不再介入，
+            // 费用立即回到“原 _base + 全部 local/global 修正”，
+            // 王者之踢累积的每一层 -1 都一字不差地保留。
             card.BaseReplayCount = 0; // 收回失心送的重放
             s.IsLost = false;
+            s.LostConvertedToVoidX = false; // X 转化标记一并清掉 //20260801
         }
         // 只移除"失心流程加上去的消耗"；牌本来就有的消耗保持不动（20260729 变更）
         // 注：即使这张牌当前没有失心（例如失心曾被其他途径取消），只要消耗是失心加的也一并清理。
@@ -245,7 +337,16 @@ public static class CardTraits
         // 2) 取消卡牌的虚空消耗
         // 注意：这里用 Clear 而不是 Set(0)，把虚空费条目整个移除，
         // 卡面不再显示虚空费 → 不再命中“虚空费≥0 自动消耗”规则 //20260726
+        //
+        // 20260801：虚空 X 费的牌（虚空必杀 / 回溯 / 虚空实验）把 X 费写在
+        // **构造器**里（CardTraits.SetVoidCostX），属于 RitsuLib 的 Permanent 层。
+        // RitsuLib 在卡牌降级/克隆/重建实例时会用 ResetPermanentLayersFrom
+        // 把 canonical 的 Permanent 层重新灌回来，所以单靠这一次 Clear 会被回灌推翻，
+        // 玩家看到的现象就是“虚空X 牌加不上苍白”。
+        // 因此这里额外打上 VoidCostClearedByPale 标记，
+        // 由 EnforcePaleVoidCostCleared 在后续读取/刷新时反复保证它保持被清除。
         card.SecondaryCosts().Clear(VoidResource.Id);
+        s.VoidCostClearedByPale = true;
 
         // 3) 添加【虚无】
         card.AddKeyword(CardKeyword.Ethereal);
@@ -260,6 +361,9 @@ public static class CardTraits
     private static void RemovePale(CardModel card, TraitState s)
     {
         card.RemoveKeyword(CardKeyword.Ethereal);
+        // 先除“苍白已清除虚空费”标记，否则下面刚还原的虚空费
+        // 会立即被 EnforcePaleVoidCostCleared 又清掉 //20260801
+        s.VoidCostClearedByPale = false;
         // 恢复原虚空费条目（苍白 Clear 掉的部分）：
         // 只要原本登记过虚空费条目就恢复（含虚空 0 / 虚空 X），保持“虚空牌”身份 //20260726
         if (s.OriginalHasVoidCost)
@@ -270,16 +374,31 @@ public static class CardTraits
                 card.SecondaryCosts().Set(VoidResource.Id, s.OriginalVoidCost);
             SyncExhaustKeyword(card, s); // 重新成为虚空牌 → 自动【消耗】
         }
+        else
+        {
+            // 原本没有虚空费条目，苍白 Clear 后也无需恢复 //20260801
+            s.LostConvertedToVoidX = false;
+        }
         s.IsPale = false;
     }
 
     // ---------------- 内部工具 ----------------
 
-    /// <summary>第一次修改费用前，把原始费用记下来（用于日后还原）。</summary>
+    /// <summary>
+    /// 第一次修改费用前，把原始费用记下来。
+    ///
+    /// 【重要】2026-08-01 修正：OriginalEnergyCost 改用 CostModifiers.All。
+    /// 旧实现用 None（只拿 _base 纸面基础费），导致「王者之踢」这类
+    /// 把减费放在 _localModifiers 层的牌快照恒为纸面最大值。
+    ///
+    /// 注意：修正后本字段 **已不再用于还原灵魂费**（失心/苍白都不再写 _base），
+    /// 保留它仅供调试、日志与可能的展示需求使用。
+    /// </summary>
     private static void EnsureCostSnapshot(CardModel card, TraitState s)
     {
         if (s.CostSnapshotTaken) return;
-        s.OriginalEnergyCost = card.EnergyCost.GetWithModifiers(CostModifiers.None);
+        s.OriginalEnergyCost = card.EnergyCost.GetWithModifiers(CostModifiers.All);
+        s.OriginalEnergyCostsX = card.EnergyCost.CostsX; //20260801 记录原灵魂费是否为 X 费
         s.OriginalVoidCost = GetVoidCost(card);
         s.OriginalHasVoidCost = HasVoidCost(card); //20260726 记录原本是否登记过虚空费条目
         SecondaryResourceCost? vc = card.SecondaryCosts().Get(VoidResource.Id);
@@ -316,6 +435,49 @@ public static class CardTraits
     public static void SetVoidCost(CardModel card, int amount)
     {
         card.SecondaryCosts().Set(VoidResource.Id, amount);
+    }
+
+    /// <summary>
+    /// 确保【苍白】牌的虚空费保持被清除。//20260801
+    ///
+    /// ============ 为什么需要反复清除 ============
+    /// 虚空 X 费的牌（虚空必杀 / 回溯 / 虚空实验）把 X 费写在 **构造器** 里：
+    ///   <c>CardTraits.SetVoidCostX(this, 1)</c>
+    /// 在 RitsuLib 里这属于 Permanent（永久）层。而 RitsuLib 内部会在
+    /// 卡牌降级、克隆、重建实例等时机调用 <c>ResetPermanentLayersFrom</c>，
+    /// 把 canonical（规范实例）的 Permanent 层重新灌回到当前实例上。
+    ///
+    /// 因此苍白里那一句 <c>SecondaryCosts().Clear(VoidResource.Id)</c>
+    /// 只能管住一时：一旦发生回灌，X 虚空费就又回来了。
+    /// 而卡面虚空费是由 RitsuLib 的 NSecondaryResourceCardCostUi
+    /// **自动读取 SecondaryCosts 渲染** 的（见 Resources/VoidResource.cs），
+    /// 所以回灌之后卡面会重新显示“虚空 X”，
+    /// 玩家的直观感受就是“虚空X 的牌无法被加上苍白”。
+    ///
+    /// ============ 本方法的做法 ============
+    /// 不去和构造器/回灌机制抢“谁先写”，而是把“苍白已经清除过虚空费”
+    /// 这个事实记在 <c>VoidCostClearedByPale</c> 标记里（标记挂在卡牌实例的
+    /// 特质数据上，不会被 RitsuLib 的费用层回灌影响），
+    /// 然后在每一个“可能看到回灌结果”的时机调用本方法把它再清一次：
+    ///   1. Patches/VoidPowerListener.ModifySecondaryResourceCostLate（费用裁决）
+    ///   2. Traits/CardTraitUi.Refresh（卡面显示）
+    ///
+    /// 这样无论回灌发生多少次，玩家看到的和实际结算的都是“无虚空费”。
+    ///
+    /// 注：本方法幂等，且对非苍白牌 / canonical 牌 / 本来就没虚空费的牌
+    /// 都会直接返回，可以安心在高频路径（卡面刷新/费用查询）里调用。
+    /// </summary>
+    public static void EnforcePaleVoidCostCleared(CardModel? card)
+    {
+        if (card == null) return;
+        // canonical 实例不得修改，否则抛 CanonicalModelException
+        if (card.IsCanonical) return;
+        // 没建过特质数据的牌直接跳过，不给普通牌白建状态对象
+        if (!States.TryGetValue(card, out TraitState? s)) return;
+        if (!s!.IsPale || !s.VoidCostClearedByPale) return;
+        // 只有确实又出现了虚空费条目才重新 Clear，避开无意义的写入与事件颤动
+        if (card.SecondaryCosts().Get(VoidResource.Id) == null) return;
+        card.SecondaryCosts().Clear(VoidResource.Id);
     }
 
     /// <summary>给"虚空 X 费"的卡声明费用（打出时消耗全部虚空作为 X）。</summary>
