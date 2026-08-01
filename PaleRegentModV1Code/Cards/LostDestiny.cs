@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【失心诅咒】（表格 C#12，20260725 新增）。
-/// 0 灵魂 4 虚空 能力/Rare：你生成的牌获得【失心】。
+/// 0 灵魂 3 虚空 能力/Rare：你生成的牌获得【失心】。
 /// 升级：虚空费 4 → 2。
 ///
 /// 实现说明：
@@ -25,7 +25,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 public class LostDestiny : PaleRegentModV1Card
 {
     /// <summary>基础虚空费（升级后 2）。</summary>
-    private const int BaseVoidCost = 4;
+    private const int BaseVoidCost = 3;
     private const int UpgradedVoidCost = 2;
 
     public LostDestiny() : base(0,

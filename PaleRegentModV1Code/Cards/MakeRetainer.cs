@@ -12,14 +12,14 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【佣卫工厂】能力牌（机制文档：造物流）。
-/// 1 灵魂 3 虚空 能力：每回合开始时，将 1 张【国王佣卫】加入手牌。
+/// 1 灵魂 2 虚空 能力：每回合开始时，将 1 张【国王佣卫】加入手牌。
 /// 升级后：改为生成【国王佣卫+】。
 /// 注：类名仍为 MakeRetainer，卡牌标题改为"佣卫工厂"。
 /// </summary>
 public class MakeRetainer : PaleRegentModV1Card
 {
-    /// <summary>虚空费（表格：2灵魂+4虚空）。</summary>
-    private const int VoidCost = 3;
+    /// <summary>虚空费（表格：1灵魂+2虚空）。</summary>
+    private const int VoidCost = 2;
     /// <summary>每回合生成张数。</summary>
     private const int ForgePerTurn = 1;
 

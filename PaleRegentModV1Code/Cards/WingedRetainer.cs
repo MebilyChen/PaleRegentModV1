@@ -12,14 +12,14 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【有翼卫群】能力牌（机制文档：造物流）。
-/// 2 灵魂 2 虚空 能力：每回合开始时，将 1 张【有翼佣卫】（格挡造物牌）加入手牌。
+/// 2 灵魂 1 虚空 能力：每回合开始时，将 1 张【有翼佣卫】（格挡造物牌）加入手牌。
 /// 升级后：改为生成【有翼佣卫+】。
 /// 注：类名仍为 WingedRetainer，卡牌标题改为"有翼卫群"。
 /// </summary>
 public class WingedRetainer : PaleRegentModV1Card
 {
-    /// <summary>虚空费（表格：2灵魂+2虚空）。</summary>
-    private const int VoidCost = 2;
+    /// <summary>虚空费（表格：2灵魂+1虚空）。</summary>
+    private const int VoidCost = 1;
     /// <summary>每回合生成张数。</summary>
     private const int ForgePerTurn = 1;
 
