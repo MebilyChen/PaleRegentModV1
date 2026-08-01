@@ -18,13 +18,11 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 /// 苍白时再 <c>SetCustomBaseCost(原灵魂费)</c> 写回去。这带来两个无法回避的缺陷：
 ///
 /// 1. X 费牌的灵魂费改不掉。
-///    原版 <see cref="CardEnergyCost.CostsX"/> 是构造函数里定死的 **只读** 属性，
-///    并且 <see cref="CardEnergyCost.GetWithModifiers"/> 在 CostsX 为真时会
-///    直接 return _base、完全跳过所有修正。所以对"灵魂 X"的牌：
-///      - SetCustomBaseCost(0) 毫无效果（本来 Canonical 就是 0）；
-///      - 卡面 <see cref="NCard"/> 永远走 <c>CostsX → 显示 "X"</c> 分支；
-///      - 结果就是"灵魂X虚空0 附加失心后显示成 灵魂X虚空X"，
-///        而不是需求要求的"灵魂0虚空X"。
+///    原版 <see cref="CardEnergyCost.CostsX"/> 是构造函数里定死的 **只读** 属性。
+///    所以对"灵魂 X"的牌，卡面 <see cref="NCard"/> 永远走
+///    <c>CostsX → 显示 "X"</c> 这个硬编码分支，
+///    结果就是"灵魂X虚空0 附加失心后显示成 灵魂X虚空X"，
+///    而不是需求要求的"灵魂0虚空X"。
 ///
 /// 2. 能量会变化的牌，费用进度会被抹掉。
 ///    原版「王者之踢」的"每次抽到降低1点能量"实现为
@@ -50,49 +48,71 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 ///     王者之踢累积的 -1 一层都不会丢（修复问题 2）；
 ///   - 灵魂X 牌失心后卡面显示 0 灵魂、X 虚空，效果的 X 也取虚空支付量（修复问题 1）。
 ///
+/// ============ 【重要】Harmony 注册方式的坑（20260801 二次修复） ============
+/// MainFile 用的是 <c>harmony.PatchAll()</c>，它只会处理
+/// **类型上带有 [HarmonyPatch] 特性** 的类，然后才去扫描该类里的补丁方法。
+/// 初版把所有 [HarmonyPatch] 都写在方法上、类上什么都没写，
+/// 于是整个类被 PatchAll 直接跳过，四个补丁一个都没生效——
+/// 表现就是"普通失心的 2灵魂0虚空 变成了 2灵魂2虚空"
+/// （虚空 +2 是 ApplyLost 直接写的，生效了；灵魂归零靠补丁，没生效）。
+///
+/// 因为本补丁涉及三个不同的目标类（CardEnergyCost / CardModel / NCard），
+/// 无法共用一个类级 [HarmonyPatch(typeof(X))]，
+/// 所以按目标拆成三个独立的顶层静态类，每个类上都写全类级特性。
+/// 写法与仓库既有的 LostExhaustVoidPatch / TraitCardTextPatch 保持一致。
+///
 /// ============ 维护提示 ============
 /// - CardEnergyCost 没有公开的"反查所属卡牌"入口，只有私有字段 _card，
 ///   所以这里用 AccessTools 缓存一个 FieldInfo 反射读取；
-///   若日后原版重命名该字段，_cardField 会为 null，补丁会安全地整体失效
+///   若日后原版重命名该字段，CardField 会为 null，补丁会安全地整体失效
 ///   （只是失心的灵魂费不再归零，不会崩游戏）。
-/// - 想改"失心后灵魂费变成几"，只改 <see cref="LostEnergyCost"/> 常量即可。
+/// - 想改"失心后灵魂费变成几"，只改 <see cref="LostEnergyCostShared.LostEnergyCost"/> 常量即可。
 /// </summary>
-internal static class LostEnergyCostPatch
+internal static class LostEnergyCostShared
 {
     /// <summary>失心之后这张牌的灵魂费固定为多少（需求：取消灵魂耗能 → 0）。</summary>
-    private const int LostEnergyCost = 0;
+    internal const int LostEnergyCost = 0;
 
     /// <summary>CardEnergyCost 私有字段 _card，用于从费用对象反查所属卡牌。</summary>
     private static readonly FieldInfo? CardField =
         AccessTools.Field(typeof(CardEnergyCost), "_card");
 
     /// <summary>NCard 私有字段 _energyLabel，用于改写卡面灵魂费文字。</summary>
-    private static readonly FieldInfo? EnergyLabelField =
+    internal static readonly FieldInfo? EnergyLabelField =
         AccessTools.Field(typeof(NCard), "_energyLabel");
 
     /// <summary>
     /// 从 CardEnergyCost 反查所属 CardModel，并判断它当前是否带【失心】。
     /// 拿不到字段（原版改名）或不是失心牌都返回 false，让原版逻辑原样通过。
     /// </summary>
-    private static bool IsLostCost(CardEnergyCost cost, out CardModel? card)
+    internal static bool IsLostCost(CardEnergyCost cost)
     {
-        card = CardField?.GetValue(cost) as CardModel;
+        CardModel? card = CardField?.GetValue(cost) as CardModel;
         return card != null && CardTraits.IsLost(card);
     }
+}
 
-    // ---------------- 费用读取端 ----------------
-
+/// <summary>
+/// 失心牌的灵魂费读取裁决：GetWithModifiers / GetAmountToSpend / GetResolved
+/// 三个入口一律汇报 0。//20260801
+///
+/// 类级特性只指定 typeof(CardEnergyCost)，具体方法名写在各补丁方法上，
+/// 与 TraitCardTextPatch 的写法一致（这样 PatchAll 才会扫描本类）。
+/// </summary>
+[HarmonyPatch(typeof(CardEnergyCost))]
+internal static class LostEnergyCostPatch
+{
     /// <summary>
     /// 卡面显示与各类费用查询的统一入口。
     /// 失心牌一律汇报 0 灵魂费（含 X 费牌，X 费牌原版这里会直接 return _base）。
     /// </summary>
-    [HarmonyPatch(typeof(CardEnergyCost), nameof(CardEnergyCost.GetWithModifiers))]
     [HarmonyPostfix]
+    [HarmonyPatch(nameof(CardEnergyCost.GetWithModifiers))]
     private static void GetWithModifiersPostfix(CardEnergyCost __instance, ref int __result)
     {
-        if (IsLostCost(__instance, out _))
+        if (LostEnergyCostShared.IsLostCost(__instance))
         {
-            __result = LostEnergyCost;
+            __result = LostEnergyCostShared.LostEnergyCost;
         }
     }
 
@@ -103,67 +123,71 @@ internal static class LostEnergyCostPatch
     ///   2. 对原本是灵魂X的牌，原版 SpendEnergy 会把 CapturedXValue 记为 0，
     ///      避免"X 传的还是灵魂的值"——真正的 X 由 ResolveEnergyXValue 补丁给出。
     /// </summary>
-    [HarmonyPatch(typeof(CardEnergyCost), nameof(CardEnergyCost.GetAmountToSpend))]
     [HarmonyPostfix]
+    [HarmonyPatch(nameof(CardEnergyCost.GetAmountToSpend))]
     private static void GetAmountToSpendPostfix(CardEnergyCost __instance, ref int __result)
     {
-        if (IsLostCost(__instance, out _))
+        if (LostEnergyCostShared.IsLostCost(__instance))
         {
-            __result = LostEnergyCost;
+            __result = LostEnergyCostShared.LostEnergyCost;
         }
     }
 
     /// <summary>
-    /// 打出之后"回看这张牌花了多少费"的入口（如威吓头盔一类效果）。
+    /// 打出之后"回看这张牌花了多少费"的入口。
     /// 失心牌花的是虚空、不是灵魂，所以灵魂侧一律汇报 0。
     /// </summary>
-    [HarmonyPatch(typeof(CardEnergyCost), nameof(CardEnergyCost.GetResolved))]
     [HarmonyPostfix]
+    [HarmonyPatch(nameof(CardEnergyCost.GetResolved))]
     private static void GetResolvedPostfix(CardEnergyCost __instance, ref int __result)
     {
-        if (IsLostCost(__instance, out _))
+        if (LostEnergyCostShared.IsLostCost(__instance))
         {
-            __result = LostEnergyCost;
+            __result = LostEnergyCostShared.LostEnergyCost;
         }
     }
+}
 
-    // ---------------- X 值解析 ----------------
-
-    /// <summary>
-    /// 【失心】把"灵魂X"整张牌转成"0灵魂 / X虚空"之后，
-    /// 卡牌效果里的 X 必须取 **本次实际支付的虚空量**，
-    /// 而不是原版的 <c>EnergyCost.CapturedXValue</c>（那是灵魂侧的值，现在恒为 0）。
-    ///
-    /// 虚空支付量由 <see cref="VoidPowerListener"/> 在
-    /// AfterSecondaryResourceSpent 回调里记入 CardTraits，见
-    /// <see cref="CardTraits.GetLastVoidSpent"/>。
-    /// </summary>
-    [HarmonyPatch(typeof(CardModel), nameof(CardModel.ResolveEnergyXValue))]
+/// <summary>
+/// 【失心】把"灵魂X"整张牌转成"0灵魂 / X虚空"之后，
+/// 卡牌效果里的 X 必须取 **本次实际支付的虚空量**，
+/// 而不是原版的 <c>EnergyCost.CapturedXValue</c>（那是灵魂侧的值，现在恒为 0）。
+///
+/// 虚空支付量由 <see cref="VoidPowerListener"/> 在
+/// AfterSecondaryResourceSpent 回调里记入 CardTraits，见
+/// <see cref="CardTraits.GetLastVoidSpent"/>。
+/// </summary>
+[HarmonyPatch(typeof(CardModel), nameof(CardModel.ResolveEnergyXValue))]
+internal static class LostEnergyXValuePatch
+{
     [HarmonyPostfix]
-    private static void ResolveEnergyXValuePostfix(CardModel __instance, ref int __result)
+    private static void Postfix(CardModel __instance, ref int __result)
     {
         if (CardTraits.IsLostEnergyX(__instance))
         {
             __result = CardTraits.GetLastVoidSpent(__instance);
         }
     }
+}
 
-    // ---------------- 卡面文字 ----------------
-
-    /// <summary>
-    /// 卡面灵魂费文字的兜底改写。
-    ///
-    /// 原版 <c>NCard.UpdateEnergyCostVisuals</c> 对 CostsX 的牌是硬编码
-    /// <c>_energyLabel.SetTextAutoSize("X")</c>，根本不会去读
-    /// GetWithModifiers，所以上面的 GetWithModifiers 补丁救不到卡面。
-    /// 这里在原版画完之后，把失心牌的灵魂费文字强行改回 "0"。
-    ///
-    /// 注：非 X 费的失心牌走的是 GetWithModifiers 分支，已经显示 0，
-    /// 这里重复写一次 "0" 也是幂等的，不额外判断以保持逻辑简单。
-    /// </summary>
-    [HarmonyPatch(typeof(NCard), "UpdateEnergyCostVisuals")]
+/// <summary>
+/// 卡面灵魂费文字的兜底改写。
+///
+/// 原版 <c>NCard.UpdateEnergyCostVisuals</c> 对 CostsX 的牌是硬编码
+/// <c>_energyLabel.SetTextAutoSize("X")</c>，根本不会去读
+/// GetWithModifiers，所以费用补丁救不到卡面。
+/// 这里在原版画完之后，把失心牌的灵魂费文字强行改回 "0"。
+///
+/// 注：非 X 费的失心牌走的是 GetWithModifiers 分支，已经显示 0，
+/// 这里重复写一次 "0" 也是幂等的，不额外判断以保持逻辑简单。
+///
+/// UpdateEnergyCostVisuals 是私有方法，所以类级特性用字符串方法名。
+/// </summary>
+[HarmonyPatch(typeof(NCard), "UpdateEnergyCostVisuals")]
+internal static class LostEnergyCostVisualsPatch
+{
     [HarmonyPostfix]
-    private static void UpdateEnergyCostVisualsPostfix(NCard __instance)
+    private static void Postfix(NCard __instance)
     {
         CardModel? model = __instance.Model;
         if (model == null || !CardTraits.IsLost(model))
@@ -177,9 +201,9 @@ internal static class LostEnergyCostPatch
             return;
         }
 
-        if (EnergyLabelField?.GetValue(__instance) is MegaLabel label)
+        if (LostEnergyCostShared.EnergyLabelField?.GetValue(__instance) is MegaLabel label)
         {
-            label.SetTextAutoSize(LostEnergyCost.ToString());
+            label.SetTextAutoSize(LostEnergyCostShared.LostEnergyCost.ToString());
         }
     }
 }
