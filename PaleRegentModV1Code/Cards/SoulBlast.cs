@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【灵魂轰击】攻击牌（表 C#83，0727 新增）。
-/// 4 灵魂：造成 30 点伤害。打出后，你所有的【灵魂轰击】本场战斗伤害 +5。
+/// 3 灵魂：造成 30 点伤害。打出后，你所有的【灵魂轰击】本场战斗伤害 +5。
 /// 升级后：35 点伤害，每次 +7。
 /// 备注（不改表格原文）：表格未写明加伤范围，参考原版 Claw 按"本场战斗、
 /// 全部同名牌（含各牌堆）"实现；如需跨战斗永久加伤请告知。
@@ -24,7 +24,7 @@ public class SoulBlast : PaleRegentModV1Card
     private const int BaseDamage = 30;
     private const int UpgradeDamageBonus = 5;
 
-    public SoulBlast() : base(4,
+    public SoulBlast() : base(3,
         CardType.Attack, CardRarity.Rare,
         TargetType.AnyEnemy)
     {

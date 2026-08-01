@@ -16,7 +16,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 ///   - 取消这张牌的灵魂耗能，把灵魂费 1:1 转换并入虚空费。
 ///     例：1灵魂0虚空 → 0灵魂1虚空；2灵魂2虚空 → 0灵魂4虚空。
 ///   - x统一计为x（x灵魂1虚空，转化为0灵魂x虚空)。优化前：对 X 费牌无效（X 费牌无法附加失心）。
-///   - 自动获得【重放1】（BaseReplayCount = 1，打出后额外重放一次）。
+///   - 自动获得当前统一的【失心重放层数】（默认重放1，可由其他能力提高）。
 ///   - 与【苍白】互斥：附加失心会移除苍白。
 /// 【苍白】（Pale）：（20260729 变更：不再是"同时添加消耗和虚无"）
 ///   1. 取消【失心】，以及受失心影响而添加的"灵魂并入虚空消费"和【消耗】。
@@ -47,14 +47,18 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 ///
 /// ============ 修改指南 ============
 /// - 想改"失心的灵魂→虚空换算比例"：改 ApplyLost 里的 newVoidCost 计算。
-/// - 想改"失心送的重放层数"：改 LostReplayCount 常量。
+/// - 想提高"失心送的重放层数"：调用 AddLostReplayCount；直接设置则调用 SetLostReplayCount。
 /// - 想改牌面显示文字/词条：见 Patches/TraitCardTextPatch 与 static_hover_tips.json。
 /// </summary>
 public static class CardTraits
 {
-    /// <summary>失心自动附带的重放层数（重放1）。</summary>
-    private const int LostReplayCount = 1;
-
+    /// <summary>
+    /// 当前【失心】统一提供的重放层数。
+    /// 默认重放1；其他能力通过 AddLostReplayCount / SetLostReplayCount 修改。
+    /// 已经失心和之后新获得失心的牌都读取这一份数值。
+    /// </summary>
+    public static int LostReplayCount { get; private set; } = 2;
+    
     /// <summary>挂在卡牌实例上的特质数据。</summary>
     private sealed class TraitState
     {
@@ -70,14 +74,25 @@ public static class CardTraits
         public bool OriginalEnergyCostsX; // 附加特质前灵魂费是否为 X 费 //20260801
         public bool LostConvertedToVoidX; // 失心是否把这张牌转成了“0灵魂 / X虚空” //20260801
         public int LastVoidSpent;         // 最近一次打出时实际支付的虚空量（失心X牌的 X 取值）//20260801
+        /// <summary>
+        /// 当前已经实际加到这张牌上的失心重放层数。
+        /// 只是用于计算差值，不是第二套规则值。
+        /// </summary>
+        public int AppliedLostReplayCount;
     }
 
     /// <summary>卡牌实例 → 特质数据 的弱引用表。</summary>
     private static readonly AttachedState<CardModel, TraitState> States =
         new(() => new TraitState());
 
-    // ---------------- 查询 ----------------
+    /// <summary>
+    /// 当前仍存活的失心卡牌弱引用。
+    /// 仅用于统一层数变化时刷新存量牌，不阻止卡牌实例被回收。
+    /// </summary>
+    private static readonly List<WeakReference<CardModel>> TrackedLostCards = new();
 
+    // ---------------- 查询 ----------------
+    
     /// <summary>这张牌当前是否有【失心】。</summary>
     public static bool IsLost(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) && s!.IsLost;
@@ -109,10 +124,127 @@ public static class CardTraits
         if (!States.TryGetValue(card, out TraitState? s)) return;
         s!.LastVoidSpent = amount;
     }
-
     /// <summary>读取最近一次打出时支付的虚空量（没有记录则为 0）。//20260801</summary>
     public static int GetLastVoidSpent(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) ? s!.LastVoidSpent : 0;
+
+    /// <summary>
+    /// 把一张失心牌实际获得的重放层数同步到当前统一的 LostReplayCount。
+    /// 只调整失心贡献的部分，不覆盖卡牌自带或其他机制添加的重放。
+    /// </summary>
+    public static void SyncLostReplayCount(CardModel card)
+    {
+        if (card == null) return;
+        if (!States.TryGetValue(card, out TraitState? s)) return;
+        if (!s!.IsLost) return;
+
+        int delta = LostReplayCount - s.AppliedLostReplayCount;
+        if (delta == 0) return;
+
+        card.BaseReplayCount = Math.Max(0, card.BaseReplayCount + delta);
+        s.AppliedLostReplayCount = LostReplayCount;
+        CardTraitUi.Refresh(card);
+    }
+
+    /// <summary>
+    /// 提高唯一的失心重放层数，并立即刷新全部存量失心牌。
+    /// 其他能力通常调用 CardTraits.AddLostReplayCount(1)。
+    /// </summary>
+    public static void AddLostReplayCount(int amount = 1)
+    {
+        if (amount <= 0) return;
+
+        LostReplayCount += amount;
+        SyncAllTrackedLostCards();
+    }
+
+    /// <summary>
+    /// 直接设置唯一的失心重放层数，并立即刷新全部存量失心牌。
+    /// 最低为 1。
+    /// </summary>
+    public static void SetLostReplayCount(int amount)
+    {
+        amount = Math.Max(2, amount);
+        if (LostReplayCount == amount) return;
+
+        LostReplayCount = amount;
+        SyncAllTrackedLostCards();
+    }
+
+    /// <summary>
+    /// 将失心重放层数重置为基础值 1。
+    /// 应由战斗开始或结束的生命周期钩子调用，避免跨战斗保留加成。
+    /// </summary>
+    public static void ResetLostReplayCount()
+    {
+        SetLostReplayCount(2);
+    }
+    
+    /// <summary>
+    /// 将失心文案中的重放层数占位符替换为当前统一数值。
+    /// </summary>
+    public static string FormatLostDescription(string template)
+    {
+        if (string.IsNullOrEmpty(template))
+            return template;
+
+        return template.Replace(
+            "{LostReplayCount}",
+            LostReplayCount.ToString());
+    }
+
+    /// <summary>登记一张失心牌，避免重复登记。</summary>
+    private static void TrackLostCard(CardModel card)
+    {
+        for (int i = TrackedLostCards.Count - 1; i >= 0; i--)
+        {
+            if (!TrackedLostCards[i].TryGetTarget(out CardModel? existing) || existing == null)
+            {
+                TrackedLostCards.RemoveAt(i);
+                continue;
+            }
+
+            if (ReferenceEquals(existing, card))
+                return;
+        }
+
+        TrackedLostCards.Add(new WeakReference<CardModel>(card));
+    }
+
+    /// <summary>失心被移除时取消登记。</summary>
+    private static void UntrackLostCard(CardModel card)
+    {
+        for (int i = TrackedLostCards.Count - 1; i >= 0; i--)
+        {
+            if (!TrackedLostCards[i].TryGetTarget(out CardModel? existing) ||
+                existing == null ||
+                ReferenceEquals(existing, card))
+            {
+                TrackedLostCards.RemoveAt(i);
+            }
+        }
+    }
+
+    /// <summary>统一层数变化后刷新所有仍然有效的存量失心牌。</summary>
+    private static void SyncAllTrackedLostCards()
+    {
+        for (int i = TrackedLostCards.Count - 1; i >= 0; i--)
+        {
+            if (!TrackedLostCards[i].TryGetTarget(out CardModel? card) || card == null)
+            {
+                TrackedLostCards.RemoveAt(i);
+                continue;
+            }
+
+            if (!IsLost(card))
+            {
+                TrackedLostCards.RemoveAt(i);
+                continue;
+            }
+
+            SyncLostReplayCount(card);
+        }
+    }
 
     /// <summary>
     /// 这张牌当前是否有【纯粹】（机制文档：名词表·纯粹）。
@@ -220,7 +352,7 @@ public static class CardTraits
 
     /// <summary>
     /// 给一张牌附加【失心】。
-    /// 效果：灵魂费清零并 1:1 并入虚空费；获得重放1；取消苍白。
+    /// 效果：灵魂费清零并 1:1 并入虚空费；获得当前统一的失心重放层数；取消苍白。
     /// 返回 false 表示这张牌不能附加（X 费牌）。
     /// </summary>
     public static bool ApplyLost(CardModel card)
@@ -232,7 +364,13 @@ public static class CardTraits
         if (!CanApplyLost(card)) return false;
 
         TraitState s = States.GetOrCreate(card);
-        if (s.IsLost) return true; // 已经失心，无需重复处理
+        if (s.IsLost)
+        {
+            // 已经失心时不重复换算费用，只校准到当前统一重放层数。
+            TrackLostCard(card);
+            SyncLostReplayCount(card);
+            return true;
+        }
 
         // 若带苍白，先按"取消苍白"还原（苍白会清虚空费，需要先恢复）
         if (s.IsPale) RemovePale(card, s);
@@ -303,11 +441,13 @@ public static class CardTraits
             s.LostConvertedToVoidX = false;
         }
 
-        card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
-
+        // 失心重放只读取唯一的统一字段 LostReplayCount。
+        // AppliedLostReplayCount 只记录本牌已应用多少，用于以后按差值同步。
         s.IsLost = true;
-        CardTraitUi.Refresh(card);
-      
+        s.AppliedLostReplayCount = 0;
+        TrackLostCard(card);
+        SyncLostReplayCount(card);
+
         SyncExhaustKeyword(card, s); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
         return true;
         
@@ -352,9 +492,17 @@ public static class CardTraits
             // 所以只要把 IsLost 标记清掉，补丁自然不再介入，
             // 费用立即回到“原 _base + 全部 local/global 修正”，
             // 王者之踢累积的每一层 -1 都一字不差地保留。
-            card.BaseReplayCount = 0; // 收回失心送的重放
+            
+            // 只收回本牌当前实际由失心添加的重放，
+            // 不影响卡牌自带或其他机制添加的重放。
+            card.BaseReplayCount = Math.Max(
+                0,
+                card.BaseReplayCount - s.AppliedLostReplayCount);
+
+            s.AppliedLostReplayCount = 0;
             s.IsLost = false;
             s.LostConvertedToVoidX = false; // X 转化标记一并清掉 //20260801
+            UntrackLostCard(card);
         }
         // 只移除"失心流程加上去的消耗"；牌本来就有的消耗保持不动（20260729 变更）
         // 注：即使这张牌当前没有失心（例如失心曾被其他途径取消），只要消耗是失心加的也一并清理。

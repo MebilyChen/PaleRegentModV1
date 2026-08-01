@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【失心诅咒】（表格 C#12，20260725 新增）。
 /// 0 灵魂 3 虚空 能力/Rare：你生成的牌获得【失心】。
-/// 升级：虚空费 4 → 2。
+/// 升级：虚空费 3 → 2。
 ///
 /// 实现说明：
 /// - 打出后施加 LostDestinyPower（标记型 Buff）。
@@ -21,6 +21,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 ///   任何生成入战斗的本 Mod 卡牌在生成时校验持有者是否有该 Power，
 ///   若可失心（CardTraits.CanApplyLost）则自动附加【失心】。
 /// - 能力牌打出后移出战斗（Power 卡默认行为，由 CardType.Power 处理）。
+/// - 失心添加的重放层数 +1。
 /// </summary>
 public class LostDestiny : PaleRegentModV1Card
 {
@@ -48,11 +49,15 @@ public class LostDestiny : PaleRegentModV1Card
         await PowerCmd.Apply<LostDestinyPower>(
             choiceContext, cardPlay.Player.Creature, 1,
             cardPlay.Player.Creature, this);
+
+        // 提高唯一的“失心重放层数”字段。
+        // 接口会立即刷新存量失心牌；之后新获得失心的牌也会读取新值。
+        CardTraits.AddLostReplayCount(1);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级：虚空费 4 → 2
+        // 升级：虚空费 3 → 2
         CardTraits.SetVoidCost(this, UpgradedVoidCost);
     }
 }

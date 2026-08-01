@@ -31,8 +31,27 @@ public static class ModHoverTips
     /// <summary>【虚空】能量计数器词条（名词表#18：回合开始按虚空数量扣灵魂，跨回合保留）。</summary>
     public static IHoverTip VoidCounter => Static("VOID_COUNTER"); //没有ICON，最好还是引用POWER
 
-    /// <summary>【失心 Lost】词条（名词表#1：灵魂转虚空费、重放1、取消苍白）。</summary>
-    public static IHoverTip Lost => Static("LOST");
+    /// <summary>【失心 Lost】词条（重放层数读取 CardTraits.LostReplayCount）。</summary>
+    public static IHoverTip Lost
+    {
+        get
+        {
+            LocString title = new(
+                Table,
+                "PALEREGENTMODV1-LOST.title");
+
+            LocString description = new(
+                Table,
+                "PALEREGENTMODV1-LOST.description");
+
+            // 把 JSON 中的 {LostReplayCount} 替换成当前统一的失心重放层数。
+            description.Add(
+                "LostReplayCount",
+                CardTraits.LostReplayCount);
+
+            return new HoverTip(title, description);
+        }
+    }
 
     /// <summary>【苍白 Pale】词条（名词表#3：移除失心与虚空费，获得虚无）。</summary>
     public static IHoverTip Pale => Static("PALE");

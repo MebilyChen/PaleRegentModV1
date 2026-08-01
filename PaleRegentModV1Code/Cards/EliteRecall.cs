@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【召回精锐】技能牌（表 C#55，0727 新增）。
-/// 2 灵魂 + 2 虚空：将消耗牌堆中 3 张驾驭点数最高的"俑卫"牌放回手牌
+/// 1 灵魂 + 1 虚空：将消耗牌堆中 3 张驾驭点数最高的"俑卫"牌放回手牌
 /// （点数相同则随机取）。
 /// 备注（不改表格原文）：表格升级效果一栏写"升级后放回手牌"，与基础效果
 /// 相同，疑似笔误；暂按"升级后改为放回 4 张"实现占位，请在表格里确认后
@@ -24,12 +24,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 public class EliteRecall : PaleRegentModV1Card
 {
-    private const int VoidCost = 2;
+    private const int VoidCost = 1;
 
     /// <summary>放回张数（升级后 4，占位口径，见类注释）。</summary>
     private int _recallCount = 2;
 
-    public EliteRecall() : base(2,
+    public EliteRecall() : base(1,
         CardType.Skill, CardRarity.Common,
         TargetType.Self)
     {
