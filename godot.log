@@ -39,15 +39,16 @@ FMOD Sound System: Successfully initialized
    at Godot.Bridge.CSharpInstanceBridge.Call(IntPtr godotObjectGCHandle, godot_string_name* method, godot_variant** args, Int32 argCount, godot_variant_call_error* refCallError, godot_variant* ret)
 
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\ModConfig 27 0.2.3 2026-04-19T09-54Z UHgZfAG6o\ModConfig\ModConfig.json
+[INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV0.2\PaleRegentModV1\PaleRegentModV1.json
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV1\PaleRegentModV1.json
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\paleRegent\paleRegent.json
-[INFO] Looking for mods to load from Steam Workshop mod 3747602295 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295 (size 58645266, last modified 1785500359)
+[INFO] Looking for mods to load from Steam Workshop mod 3747602295 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295 (size 58699622, last modified 1785567866)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295\mod_manifest.json
-[INFO] Looking for mods to load from Steam Workshop mod 3747589529 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529 (size 53622596, last modified 1784298081)
+[INFO] Looking for mods to load from Steam Workshop mod 3747589529 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529 (size 53570324, last modified 1785511418)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.json
 [INFO] Looking for mods to load from Steam Workshop mod 3737335127 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127 (size 1169027, last modified 1785491622)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.json
-[INFO] Looking for mods to load from Steam Workshop mod 3750485606 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606 (size 59858, last modified 1783786237)
+[INFO] Looking for mods to load from Steam Workshop mod 3750485606 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606 (size 60916, last modified 1785535900)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606\mod_manifest.json
 [INFO] Looking for mods to load from Steam Workshop mod 3747605109 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109 (size 103586, last modified 1782625644)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109\mod_manifest.json
@@ -57,66 +58,7 @@ FMOD Sound System: Successfully initialized
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3755203926\CardSkinLoader.json
 [INFO] Looking for mods to load from Steam Workshop mod 3747513223 in D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223 (size 349703, last modified 1784688994)
 [INFO] Found mod manifest file D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223\Sts2SkinManager.json
-[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=6070, windowFocused=True]
-[INFO] === Godot OS Debug Information ===
-Timestamp: 07/31/2026 21:26:30
-OS: Windows
-OS Version: 10.0.19045
-Distribution Name: Windows
-Device Model: 20TQA000CD
-Is Debug Build: False
-Is Sandboxed: False
-Executable Path: D:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2/SlayTheSpire2.exe
-Data Directory: C:/Users/chenz/AppData/Roaming
-User Data Directory: C:/Users/chenz/AppData/Roaming/SlayTheSpire2
-Command Line Args: 
-User Command Line Args: 
-OS Locale: zh_CN
-OS Language: zh
-Game Locale: zh_CN
-Is UserFS Persistent: True
-Is Stdout Verbose: False
-Is Low Processor Usage Mode: False
-Architecture: x86_64
-Engine Version: 4.5.1-m.14 (custom_build)
-Is Editor: False
-Release Version: v0.110.1
-Release Commit: db5d3552
-Release Date: 07/31/2026 08:18:29
-Processor Count: 12
-Processor Name: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-Main assembly hash: -959015736
-Rendering device name: NVIDIA Quadro P620
-  Graphics adapter 0: NVIDIA Quadro P620
-  version: 32.0.15.0
-  Graphics adapter 1: Intel(R) UHD Graphics
-  version: 31.0.101.0
-  Graphics adapter 2: Intel(R) UHD Graphics
-  version: 31.0.101.0
-  Graphics adapter 3: Microsoft Basic Render Driver
-  version: 10.0.19041.0
-Screen info (primary 0):
-  Index 0: Size: (3840, 2160) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
-  Index 1: Size: (2430, 4320) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
-Video Memory Used: 0.0B
-Memory Info:
-  physical: 31.8GB
-  free: 6.8GB
-  available: 63.8GB
-  stack: 8.0MB
-  Static Memory Usage: 0.0B
-  Static Memory Peak Usage: 0.0B
-Disk Info:
-  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 9.5GB Total Free: 9.5GB Total Size: 500.0GB
-  Index 1: Name: D:\ Type: Fixed Format: NTFS Available: 302.6GB Total Free: 302.6GB Total Size: 1.4TB
-  Index 2: Name: E:\ Type: Fixed Format: NTFS Available: 0.9TB Total Free: 0.9TB Total Size: 1.8TB
-Important Environment Variables:
-  PATH: C:\Python314\Scripts\;C:\Python314\;C:\Program Files\PlasticSCM5\server;C:\Program Files\PlasticSCM5\client;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\libnvvp;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Python39\Scripts\;C:\Python39\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;D:\Program Files\IBM\SPSS\Statistics\24\JRE\bin;C:\Program Files\Common Files\Autodesk Shared\;D:\Program Files\MATLAB\R2020b\runtime\win64;D:\Program Files\MATLAB\R2020b\bin;C:\ProgramData\chocolatey\bin;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\dotnet\;D:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\lib\x64;D:\Program Files\Git\cmd;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Program Files (x86)\Rational\common;C:\Maven\apache-maven-3.8.6\bin;%JAVA_HOME%\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.4.0\;C:\Program Files (x86)\ZeroTier\One\;D:\Program Files\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;D:\Users\chenz\AppData\Local\Programs\Microsoft VS Code\bin;%USERPROFILE%\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64;%USERPROFILE%\.dotnet\tools;D:\Program Files\JetBrains\PyCharm Community Edition 2021.2\bin;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;%USERPROFILE%\AppData\Local\Pandoc\;%USERPROFILE%\AppData\Roaming\Programs\Zero Install;%USERPROFILE%\AppData\Roaming\npm;
-  GODOT_ROOT_DIR: 
-  HOME: 
-  DYLD_LIBRARY_PATH: 
-  LD_LIBRARY_PATH: 
-
+[INFO] MuteInBackground: FocusIn received [tween=False, msSinceFocusOut=6607, windowFocused=True]
 [INFO] Skipping loading mod CustomSkeletonLoader, it is set to disabled in settings
 [INFO] Skipping loading mod paleRegent, it is set to disabled in settings
 [INFO] Mods have been re-sorted because we detected a change or dependency order was broken. New sorting order:
@@ -130,6 +72,7 @@ Important Environment Variables:
 [INFO]   7: Card Skin Loader (CardSkinLoader)
 [INFO]   8: Hornet / 大黄蜂 (HornetMod)
 [INFO]   9: 苍白之王|Pale Regent (PaleRegentModV1)
+[INFO]   10: 苍白之王|Pale Regent (PaleRegentModV1)
 [WARN] Mod Sts2SkinManager does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747513223\Sts2SkinManager.dll
 [INFO] Calling initializer method of type Sts2SkinManager.MainFile for Sts2SkinManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -138,6 +81,7 @@ Important Environment Variables:
 [INFO] [Sts2SkinManager] base character roster (5): [defect, ironclad, necrobinder, regent, silent]
 [INFO] [Sts2SkinManager] dll-skin rescue: no existing assignments to check.
 [INFO] [Sts2SkinManager]   [user-skip] PaleRegentModV1 (in _dll_skin_skipped) — leaving auto-mount intact.
+[WARN] [Sts2SkinManager] duplicate pck name 'PaleRegentModV1' at D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV0.2\PaleRegentModV1\PaleRegentModV1.pck (first seen at D:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2\mods\PaleRegentModV1\PaleRegentModV1.pck) — skipping duplicate.
 [INFO] [Sts2SkinManager]   [user-skip] paleRegent (in _dll_skin_skipped) — leaving auto-mount intact.
 [INFO] [Sts2SkinManager]   [user-skip] regentSkin (in _dll_skin_skipped) — leaving auto-mount intact.
 [INFO] [Sts2SkinManager] skipped 2 custom-character mod(s) — not in base roster, leaving auto-mount intact:
@@ -169,84 +113,17 @@ Important Environment Variables:
 [WARN] Mod LoadOrderManager does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747605109\LoadOrderManager.dll
 [INFO] No ModInitializerAttribute detected. Calling Harmony.PatchAll for LoadOrderManager, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null
-[LoadOrderManager] [2026-07-31 21:26:33.735] [INFO] Initialize called.
-[LoadOrderManager] [2026-07-31 21:26:33.739] [INFO] Log file: C:/Users/chenz/AppData/Roaming/SlayTheSpire2\LoadOrderManager\load_order_manager.log
-[LoadOrderManager] [2026-07-31 21:26:33.747] [INFO] Startup diagnostics context: runtimeUserId=76561198188651006, pathUserId=76561198188651006, settingsPath=user://steam/76561198188651006/settings.save, currentTop=Sts2SkinManager::2 > ModConfig::1 > LoadOrderManager::2 > AutoModSubscriber::2 > MultiplayerModSync::2 > STS2-RitsuLib::2 > BaseLib::2 > CardSkinLoader::2
-[LoadOrderManager] [2026-07-31 21:26:33.750] [INFO] Startup diagnostics: no previous apply snapshot for current user.
-[LoadOrderManager] [2026-07-31 21:26:33.756] [INFO] Harmony patches applied.
-[LoadOrderManager] [2026-07-31 21:26:33.757] [INFO] Loaded.
+[LoadOrderManager] [2026-08-01 16:36:54.934] [INFO] Initialize called.
+[LoadOrderManager] [2026-08-01 16:36:54.944] [INFO] Log file: C:/Users/chenz/AppData/Roaming/SlayTheSpire2\LoadOrderManager\load_order_manager.log
+[LoadOrderManager] [2026-08-01 16:36:54.961] [INFO] Startup diagnostics context: runtimeUserId=76561198188651006, pathUserId=76561198188651006, settingsPath=user://steam/76561198188651006/settings.save, currentTop=Sts2SkinManager::2 > ModConfig::1 > LoadOrderManager::2 > AutoModSubscriber::2 > MultiplayerModSync::2 > STS2-RitsuLib::2 > BaseLib::2 > CardSkinLoader::2
+[LoadOrderManager] [2026-08-01 16:36:54.965] [INFO] Startup diagnostics: no previous apply snapshot for current user.
+[LoadOrderManager] [2026-08-01 16:36:54.981] [INFO] Harmony patches applied.
+[LoadOrderManager] [2026-08-01 16:36:54.982] [INFO] Loaded.
 [INFO] Finished mod initialization for 'Load Order Manager / 模组加载顺序管理' (LoadOrderManager).
-[WARN] Mod AutoModSubscriber does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3750485606\AutoModSubscriber.dll
-[INFO] No ModInitializerAttribute detected. Calling Harmony.PatchAll for AutoModSubscriber, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+[INFO] Calling initializer method of type AutoModSubscriber.ModuleInit for AutoModSubscriber, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 [AutoModSubscriber] ModuleInit.Initialize() called
-[AutoModSubscriber] ModuleInit failed: HarmonyLib.HarmonyException: Patching exception in method null
- ---> System.ArgumentException: Undefined target method for patch method static System.Void AutoModSubscriber.Protocol.HostInitialInfoSidecarPatch::Postfix(MegaCrit.Sts2.Core.Multiplayer.Messages.Lobby.InitialGameInfoMessage& __result)
-   at HarmonyLib.PatchClassProcessor.PatchWithAttributes(MethodBase& lastOriginal, Boolean unpatch)
-   at HarmonyLib.PatchClassProcessor.Patch()
-   --- End of inner exception stack trace ---
-   at HarmonyLib.PatchClassProcessor.ReportException(Exception exception, MethodBase original)
-   at HarmonyLib.PatchClassProcessor.Patch()
-   at HarmonyLib.Harmony.<PatchAll>b__10_1(Type type)
-   at HarmonyLib.CollectionExtensions.Do[T](IEnumerable`1 sequence, Action`1 action)
-   at HarmonyLib.CollectionExtensions.DoIf[T](IEnumerable`1 sequence, Func`2 condition, Action`1 action)
-   at HarmonyLib.Harmony.PatchAll(Assembly assembly)
-   at AutoModSubscriber.ModuleInit.Initialize()
-[ERROR] Exception caught while trying to run PatchAll on assembly AutoModSubscriber, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null:
-HarmonyLib.HarmonyException: Patching exception in method null
- ---> System.ArgumentException: Undefined target method for patch method static System.Void AutoModSubscriber.Protocol.HostInitialInfoSidecarPatch::Postfix(MegaCrit.Sts2.Core.Multiplayer.Messages.Lobby.InitialGameInfoMessage& __result)
-   at HarmonyLib.PatchClassProcessor.PatchWithAttributes(MethodBase& lastOriginal, Boolean unpatch)
-   at HarmonyLib.PatchClassProcessor.Patch()
-   --- End of inner exception stack trace ---
-   at HarmonyLib.PatchClassProcessor.ReportException(Exception exception, MethodBase original)
-   at HarmonyLib.PatchClassProcessor.Patch()
-   at HarmonyLib.Harmony.<PatchAll>b__10_1(Type type)
-   at HarmonyLib.CollectionExtensions.Do[T](IEnumerable`1 sequence, Action`1 action)
-   at HarmonyLib.CollectionExtensions.DoIf[T](IEnumerable`1 sequence, Func`2 condition, Action`1 action)
-   at HarmonyLib.Harmony.PatchAll(Assembly assembly)
-   at MegaCrit.Sts2.Core.Modding.ModManager.TryLoadMod_Patch1(Mod mod)
-   at MegaCrit.Sts2.Core.Modding.ModManager.TryLoadMod_Patch1(Mod mod)
-   at MegaCrit.Sts2.Core.Modding.ModManager.Initialize(IModManagerFileIo fileIo, ModSettings settings, SemanticVersion gameVersion)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
-   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
-   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
-   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
-   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-   at MegaCrit.Sts2.Core.Modding.ModManager.CheckSteamBranchSupport()
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
-   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
-   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
-   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
-   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
-   at System.Threading.Tasks.TaskCompletionSource`1.TrySetResult(TResult result)
-   at System.Threading.Tasks.TaskCompletionSource`1.SetResult(TResult result)
-   at MegaCrit.Sts2.Core.Multiplayer.Transport.Steam.SteamCallResult`1.OnCallResult(T result, Boolean ioError)
-   at Steamworks.CallResult`1.OnRunCallResult(IntPtr pvParam, Boolean bFailed, UInt64 hSteamAPICall_)
-   at Steamworks.CallbackDispatcher.RunFrame(Boolean isGameServer)
-   at Steamworks.SteamAPI.RunCallbacks()
-   at MegaCrit.Sts2.Core.Platform.Steam.SteamInitializer.RunCallbacksAsync(Node node)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
-   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
-   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
-   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
-   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetResult(TResult result)
-   at MegaCrit.Sts2.Core.Nodes.GodotExtensions.NodeUtil.AwaitProcessFrame(Node node, CancellationToken ct)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
-   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
-   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
-   at Godot.SignalAwaiter.SignalCallback(IntPtr awaiterGCHandlePtr, godot_variant** args, Int32 argCount, godot_bool* outAwaiterIsNull)
-
+[AutoModSubscriber] Harmony initialization complete: 3/3 patch class(es) applied
 [INFO] Finished mod initialization for 'Auto Mod Subscriber' (AutoModSubscriber).
 [WARN] Mod MultiplayerModSync does not declare min game version. Assuming that it is supported.
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3762348066\MultiplayerModSync.dll
@@ -318,10 +195,10 @@ HarmonyLib.HarmonyException: Patching exception in method null
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747602295\STS2-RitsuLib.dll
 [INFO] Calling initializer method of type STS2RitsuLib.Loader.Bootstrap for STS2-RitsuLib.Loader, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 [INFO] [RitsuLib.Loader] Host version label=v0.110.1 numeric=0.110.1; picked variant 0.110.0.
-[INFO] Associated assembly STS2-RitsuLib, Version=0.5.2.0, Culture=neutral, PublicKeyToken=null with mod STS2-RitsuLib
+[INFO] Associated assembly STS2-RitsuLib, Version=0.5.3.0, Culture=neutral, PublicKeyToken=null with mod STS2-RitsuLib
 [INFO] [com.ritsukage.sts2-RitsuLib] Framework ID: com.ritsukage.sts2-RitsuLib
 [INFO] [com.ritsukage.sts2-RitsuLib] Framework Name: RitsuLib
-[INFO] [com.ritsukage.sts2-RitsuLib] Version: 0.5.2 [compat branch: 0.110.0]
+[INFO] [com.ritsukage.sts2-RitsuLib] Version: 0.5.3 [compat branch: 0.110.0]
 [INFO] [com.ritsukage.sts2-RitsuLib] Initializing shared framework...
 [INFO] [com.ritsukage.sts2-RitsuLib] [HarmonyInitSetterCompat] Installed on 2 reflection importer entry point(s).
 [INFO] [com.ritsukage.sts2-RitsuLib] [Config] Debug compatibility master is enabled. Sub-flags (only when master on): LocTable=True, UnlockEpoch=True, AncientArchitect=True. Mod Steam cloud mirror: disabled. Config file: user://steam/76561198188651006/mod_data/com.ritsukage.sts2-RitsuLib/settings.json
@@ -383,7 +260,7 @@ HarmonyLib.HarmonyException: Patching exception in method null
 [INFO] [BaseLib] Registered config for mod CardSkinLoader
 [INFO] [CardSkinLoader] Loaded 0 card skin packs with 0 active card overrides.
 [INFO] Finished mod initialization for 'Card Skin Loader' (CardSkinLoader).
-[WARN] Mod HornetMod declares version 1.2.11(beta) which is not a valid Semantic Version
+[WARN] Mod HornetMod declares version 1.2.12(beta) which is not a valid Semantic Version
 [INFO] Loading assembly DLL D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.dll
 [INFO] Loading Godot PCK D:\Program Files (x86)\Steam\steamapps\workshop\content\2868840\3747589529\HornetMod.pck
 [INFO] Calling initializer method of type HornetMod.Entry for HornetMod, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -412,39 +289,79 @@ HarmonyLib.HarmonyException: Patching exception in method null
 [INFO] [com.ritsukage.sts2-RitsuLib] [NodeAttachment] Registered PALE_REGENT_MOD_V1_NODEATTACHMENT_VOID_COMBAT_COUNTER: MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi -> STS2RitsuLib.Combat.SecondaryResources.NSecondaryResourceCounter (Order=0, Source=factory)
 [INFO] [com.ritsukage.sts2-RitsuLib] [NodeAttachment] Registered PALE_REGENT_MOD_V1_NODEATTACHMENT_VOID_CARD_COST: MegaCrit.Sts2.Core.Nodes.Cards.NCard -> STS2RitsuLib.Combat.SecondaryResources.NSecondaryResourceCardCostUi (Order=0, Source=factory)
 [INFO] Finished mod initialization for '苍白之王|Pale Regent' (PaleRegentModV1).
+[ERROR] Tried to load mod with id PaleRegentModV1, but a mod is already loaded with that name!
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at MegaCrit.Sts2.Core.Modding.ModManager.CheckSteamBranchSupport()
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Threading.Tasks.TaskCompletionSource`1.TrySetResult(TResult result)
+   at System.Threading.Tasks.TaskCompletionSource`1.SetResult(TResult result)
+   at MegaCrit.Sts2.Core.Multiplayer.Transport.Steam.SteamCallResult`1.OnCallResult(T result, Boolean ioError)
+   at Steamworks.CallResult`1.OnRunCallResult(IntPtr pvParam, Boolean bFailed, UInt64 hSteamAPICall_)
+   at Steamworks.CallbackDispatcher.RunFrame(Boolean isGameServer)
+   at Steamworks.SteamAPI.RunCallbacks()
+   at MegaCrit.Sts2.Core.Platform.Steam.SteamInitializer.RunCallbacksAsync(Node node)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunCallback(ContextCallback callback, Object state, Task& currentTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetResult(TResult result)
+   at MegaCrit.Sts2.Core.Nodes.GodotExtensions.NodeUtil.AwaitProcessFrame(Node node, CancellationToken ct)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at Godot.SignalAwaiter.SignalCallback(IntPtr awaiterGCHandlePtr, godot_variant** args, Int32 argCount, godot_bool* outAwaiterIsNull)
+
 [INFO] [com.ritsukage.sts2-RitsuLib] 
 === RitsuLib Mod Debug Information ===
 Host Version: v0.110.1
-RitsuLib Version: 0.5.2 [compat branch: 0.110.0]
+RitsuLib Version: 0.5.3 [compat branch: 0.110.0]
 BaseLib: v3.4.3
 Loaded Mods: 10
-Registered Mods: 12
+Registered Mods: 13
 Mod List:
   * STS2 Skin Manager [Sts2SkinManager] (0.27.1)
   * 皮皮配置: ModConfig [ModConfig] (0.2.3)
   * Load Order Manager / 模组加载顺序管理 [LoadOrderManager] (0.3.0)
-  * Auto Mod Subscriber [AutoModSubscriber] (0.1.2)
+  * Auto Mod Subscriber [AutoModSubscriber] (0.1.3)
   * Multiplayer Mod Sync / 联机模组同步 [MultiplayerModSync] (0.2.3)
-  * RitsuLib [STS2-RitsuLib] (0.5.2)
+  * RitsuLib [STS2-RitsuLib] (0.5.3)
   * BaseLib (v3.4.3)
   * Card Skin Loader [CardSkinLoader] (0.1.0)
-  * Hornet / 大黄蜂 [HornetMod] (1.2.11(beta))
+  * Hornet / 大黄蜂 [HornetMod] (1.2.12(beta))
   * 苍白之王|Pale Regent [PaleRegentModV1] (v1.0.0)
 Common Incompatible Mods:
   * 皮皮配置: ModConfig [ModConfig] (0.2.3) state=Loaded source=ModsDirectory
 
-[INFO]  --- RUNNING MODDED! --- Loaded 10 mods (12 total)
+[INFO]  --- RUNNING MODDED! --- Loaded 10 mods (13 total)
 [WARN] Asset not cached: res://scenes/debug/dev_console.tscn
 [INFO] Syncing cloud save files to the local save directory
 [WARN] Asset not cached: res://scenes/cards/card.tscn
 [WARN] Asset not cached: res://scenes/cards/holders/grid_card_holder.tscn
 [INFO] [com.ritsukage.sts2-RitsuLib] [UpdateCheck] Automatic scheduler started: essential initialization starting.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check requested.
-[INFO] AtlasManager: Loaded ui_atlas with 102 sprites
-[INFO] AtlasManager: Loaded compressed with 45 sprites
-[WARN] [com.ritsukage.sts2-RitsuLib] [ModelDb] ReflectionHelper.ModTypes was already cached before LocManager.Initialize (7319 types). Clearing the cache so post-mod-load scans include all loaded mod types; another mod likely accessed ReflectionHelper.ModTypes before mod loading completed.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Starting Auto check. SteamInitialized=True.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Steamworks Workshop binding initialized.
+[INFO] AtlasManager: Loaded ui_atlas with 102 sprites
+[INFO] AtlasManager: Loaded compressed with 45 sprites
+[WARN] [com.ritsukage.sts2-RitsuLib] [ModelDb] ReflectionHelper.ModTypes was already cached before LocManager.Initialize (7321 types). Clearing the cache so post-mod-load scans include all loaded mod types; another mod likely accessed ReflectionHelper.ModTypes before mod loading completed.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scanning subscribed Workshop items. Reported=8, Returned=8.
 [INFO] [HornetMod] [Content] Registered card: HornetAberrantCurse (id=HORNET_MOD_CARD_HORNET_ABERRANT_CURSE) -> HornetCardPool
 [INFO] [HornetMod] [Content] Registered card: HornetArcClaw (id=HORNET_MOD_CARD_HORNET_ARC_CLAW) -> HornetCardPool
@@ -618,7 +535,7 @@ Common Incompatible Mods:
 [INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Applying 19 dynamic patch(es)...
 [INFO] [com.ritsukage.sts2-RitsuLib] [Patcher - content registry] Dynamic patch application complete: 19/19 succeeded
 [INFO] [com.ritsukage.sts2-RitsuLib] [Content] Dynamic character starter patching initialized for 10 character type(s).
-[INFO] [BaseLib] Starting custom enum generation for 7319 modded types
+[INFO] [BaseLib] Starting custom enum generation for 7321 modded types
 [INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Entities.Cards.TargetType with starting value 10 | IsFlag: False | Half-Size: 16
 [INFO] [BaseLib] Generated KeyGenerator for enum MegaCrit.Sts2.Core.Rewards.RewardType with starting value 7 | IsFlag: False | Half-Size: 16
 [INFO] [BaseLib] Registering CustomReward deserializer for BaseLib.Common.Rewards.CardTransformReward
@@ -649,11 +566,11 @@ Common Incompatible Mods:
 [INFO] [Sentry.NET] Shutting down because event reporting is disabled.
 [INFO] [Sentry.NET] Shutting down
 [INFO] [BaseLib] Adding 0 custom acts to act list.
-[INFO] [BaseLib] Result: ACT.OVERGROWTH (54055206),ACT.UNDERDOCKS (16734812),ACT.HIVE (16395588),ACT.GLORY (13342565)
+[INFO] [BaseLib] Result: ACT.OVERGROWTH (297423),ACT.UNDERDOCKS (2676810),ACT.HIVE (24091296),ACT.GLORY (15495072)
 [INFO] AtlasManager: Loaded controller_atlas with 112 sprites
 [INFO] [com.ritsukage.sts2-RitsuLib] [Content] Character timeline: CHARACTER.HORNET_MOD_CHARACTER_HORNET_CHARACTER RequiresEpochAndTimeline=False
 [INFO] SteamStatsManager: User stats received
-[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 327584413945
+[INFO] SteamStatsManager: Global stats received (found=True), architect damage = 328672901222
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Refreshed Workshop details for 8/8 subscribed item(s).
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Using Workshop update scope 'steam:public-beta:host:v0.110.1' (public-beta).
 [INFO] Applying display settings...
@@ -661,20 +578,84 @@ Common Incompatible Mods:
   ASPECT_RATIO: (SixteenByNine)
   TARGET_DISPLAY: (0)
   WINDOW_SIZE: (3840, 2019)
-  POSITION: (0, 65)
+  POSITION: (0, 51)
 [INFO] [Display] Min size: (64, 64) Max size: (16384, 16384)
-[INFO] [Display] Attempting WINDOWED mode on Display 1 of 2 at position (0, 65)
-[INFO] [Display] SUCCESS: (3840, 2019) Windowed mode in Display 0: Position (0, 65) ((0, 65))
+[INFO] [Display] Attempting WINDOWED mode on Display 1 of 2 at position (0, 51)
+[INFO] [Display] SUCCESS: (3840, 2019) Windowed mode in Display 0: Position (0, 51) ((0, 51))
 [INFO] Window changed! New size: (3840, 2019)
-[INFO] [Display] New size: (3840, 2019) position: (0, 65)
+[INFO] [Display] New size: (3840, 2019) position: (0, 51)
 [INFO] VSync: Adaptive
 [INFO] [Sts2SkinManager] [Sts2SkinManager] RitsuLib settings integration active (1 entry: overlayAnchor).
+[INFO] === Godot OS Debug Information ===
+Timestamp: 08/01/2026 16:36:48
+OS: Windows
+OS Version: 10.0.19045
+Distribution Name: Windows
+Device Model: 20TQA000CD
+Is Debug Build: False
+Is Sandboxed: False
+Executable Path: D:/Program Files (x86)/Steam/steamapps/common/Slay the Spire 2/SlayTheSpire2.exe
+Data Directory: C:/Users/chenz/AppData/Roaming
+User Data Directory: C:/Users/chenz/AppData/Roaming/SlayTheSpire2
+Command Line Args: 
+User Command Line Args: 
+OS Locale: zh_CN
+OS Language: zh
+Game Locale: zh_CN
+Is UserFS Persistent: True
+Is Stdout Verbose: False
+Is Low Processor Usage Mode: False
+Architecture: x86_64
+Engine Version: 4.5.1-m.14 (custom_build)
+Is Editor: False
+Release Version: v0.110.1
+Release Commit: db5d3552
+Release Date: 07/31/2026 08:18:29
+Processor Count: 12
+Processor Name: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Main assembly hash: -959015736
+Rendering device name: NVIDIA Quadro P620
+  Graphics adapter 0: NVIDIA Quadro P620
+  version: 32.0.15.0
+  Graphics adapter 1: Intel(R) UHD Graphics
+  version: 31.0.101.0
+  Graphics adapter 2: Intel(R) UHD Graphics
+  version: 31.0.101.0
+  Graphics adapter 3: Microsoft Basic Render Driver
+  version: 10.0.19041.0
+Screen info (primary 0):
+  Index 0: Size: (3840, 2160) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
+  Index 1: Size: (2430, 4320) Orientation: Landscape Scale: 1 DPI: 216 Refresh Rate: 60
+Video Memory Used: 0.0B
+Memory Info:
+  physical: 31.8GB
+  free: 7.0GB
+  available: 63.8GB
+  stack: 8.0MB
+  Static Memory Usage: 0.0B
+  Static Memory Peak Usage: 0.0B
+Disk Info:
+  Index 0: Name: C:\ Type: Fixed Format: NTFS Available: 9.6GB Total Free: 9.6GB Total Size: 500.0GB
+  Index 1: Name: D:\ Type: Fixed Format: NTFS Available: 302.6GB Total Free: 302.6GB Total Size: 1.4TB
+  Index 2: Name: E:\ Type: Fixed Format: NTFS Available: 0.9TB Total Free: 0.9TB Total Size: 1.8TB
+Important Environment Variables:
+  PATH: C:\Python314\Scripts\;C:\Python314\;C:\Program Files\PlasticSCM5\server;C:\Program Files\PlasticSCM5\client;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\libnvvp;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Python39\Scripts\;C:\Python39\;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;D:\Program Files\IBM\SPSS\Statistics\24\JRE\bin;C:\Program Files\Common Files\Autodesk Shared\;D:\Program Files\MATLAB\R2020b\runtime\win64;D:\Program Files\MATLAB\R2020b\bin;C:\ProgramData\chocolatey\bin;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\dotnet\;D:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\lib\x64;D:\Program Files\Git\cmd;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Program Files (x86)\Rational\common;C:\Maven\apache-maven-3.8.6\bin;%JAVA_HOME%\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.4.0\;C:\Program Files (x86)\ZeroTier\One\;D:\Program Files\nodejs\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;D:\Users\chenz\AppData\Local\Programs\Microsoft VS Code\bin;%USERPROFILE%\AppData\Local\GitHubDesktop\bin;C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64;%USERPROFILE%\.dotnet\tools;D:\Program Files\JetBrains\PyCharm Community Edition 2021.2\bin;D:\HololensAssemblyCheck\DepthStream\opencv430\opencv\build\x64\vc15\bin;%USERPROFILE%\AppData\Local\Pandoc\;%USERPROFILE%\AppData\Roaming\Programs\Zero Install;%USERPROFILE%\AppData\Roaming\npm;
+  GODOT_ROOT_DIR: 
+  HOME: 
+  DYLD_LIBRARY_PATH: 
+  LD_LIBRARY_PATH: 
+
 [INFO] Preloading 'MainMenuEssentials' assets... count=7 vfx=0
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Scan complete. Scope=steam:public-beta:host:v0.110.1, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto check result: Available=True, Inspected=8, NeedsUpdate=0, Triggered=0, AlreadyQueued=0, Failed=0, Error=<none>.
 [INFO] [com.ritsukage.sts2-RitsuLib] [SteamWorkshopUpdate] Auto update check found no Workshop item updates. Inspected=8.
 [INFO] [com.ritsukage.sts2-RitsuLib] [UpdateCheck] RitsuLib external update check skipped: loaded from Steam Workshop.
-[INFO] Preloading 'MainMenuEssentials' Complete: assets=7 time_elapsed=1,069ms
+[INFO] [Sts2SkinManager] dll-skin: 3 skipped mod(s) (silenced from prompts): [paleRegent, PaleRegentModV1, regentSkin]
+[INFO] [Sts2SkinManager] dll-skin: suppressing auto-suggest for custom-character mod 'HornetMod' (patched [MegaCrit.Sts2.Core.Models.CharacterModel, MegaCrit.Sts2.Core.Nodes.Screens.Shops.NMerchantCharacter]). Its pck adds a non-base character; the byte-frequency suggester would mis-attribute references to a base character.
+[INFO] [Sts2SkinManager] dll-skin forensic: 2 mod(s) with DLL+pck but no recognized skin signal:
+[INFO] [Sts2SkinManager]   [unclassified] ModConfig — no character-id hint found. To manage, add '"ModConfig": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"ModConfig"' to _dll_skin_skipped.
+[INFO] [Sts2SkinManager]   [unclassified] CustomSkeletonLoader — no character-id hint found. To manage, add '"CustomSkeletonLoader": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"CustomSkeletonLoader"' to _dll_skin_skipped.
+[INFO] Preloading 'MainMenuEssentials' Complete: assets=7 time_elapsed=1,884ms
 [INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
 [INFO] [com.ritsukage.sts2-RitsuLib] [RitsuLib-ModSettings] Loaded translations: language='zhs', fallback='eng', entries=767, local=767, fallbackEntries=0, sources=2 (local=1, fallback=1)
 [INFO] [com.ritsukage.sts2-RitsuLib] [RitsuLib-ModSettings] Subscribed to locale change notifications
@@ -682,7 +663,7 @@ Common Incompatible Mods:
 [WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
 [WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
 [INFO] [BaseLib] More than 8 selection options, enabling character select scroll
-[INFO] [Startup] Time to main menu (Godot ticks): 21176ms
+[INFO] [Startup] Time to main menu (Godot ticks): 31698ms
 [INFO] [BaseLib] Adding custom save data to SerializableRun.
 [INFO] [BaseLib] Added 0 new properties to SerializableRun
 [INFO] [BaseLib] Adding custom save data to SerializableCard.
@@ -696,8 +677,8 @@ Common Incompatible Mods:
 [INFO] [BaseLib] Adding custom save data to SerializableReward.
 [INFO] [BaseLib] Added 0 new properties to SerializableReward
 [WARN] Asset not cached: res://PaleRegentModV1\images\charui\character_icon_paleregent.png
-[INFO] [Startup] Time to main menu: 21,487ms
-[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=549.3MB, Objects=9,079, Resources=778, Nodes=1,746, CachedAssets=14
+[INFO] [Startup] Time to main menu: 32,104ms
+[INFO] [Startup] Resource stats (main menu loaded (essential)): StaticMem=0B, VRAM=581.3MB, Objects=9,081, Resources=779, Nodes=1,746, CachedAssets=14
 [INFO] AtlasManager: Loaded epoch_atlas with 57 sprites
 [INFO] AtlasManager: Loaded relic_atlas with 346 sprites
 [INFO] AtlasManager: Loaded relic_outline_atlas with 346 sprites
@@ -827,7 +808,7 @@ Common Incompatible Mods:
 [INFO] [HornetMod] [HornetAudio] 已切换到 FMOD event 模式
 [INFO] Unloading 7 missed cache assets
 [INFO] Preloading 'Common' assets... count=705 vfx=94
-[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=549.3MB, Objects=9,134, Resources=789, Nodes=1,746, CachedAssets=5
+[INFO] [Startup] Resource stats (main menu loaded (complete)): StaticMem=0B, VRAM=581.3MB, Objects=9,134, Resources=789, Nodes=1,746, CachedAssets=5
 [INFO] [Sts2SkinManager] SkinSelectorOverlay attached (OptionButton) to CharacterSelectScreen
 [INFO] [Sts2SkinManager] preview panel attached
 [INFO] [Sts2SkinManager] tab panel attached (card=0, mixed=0)
@@ -835,249 +816,468 @@ Common Incompatible Mods:
 [INFO] [com.ritsukage.sts2-RitsuLib] [Telemetry] Registered applicant 'com.ritsukage.sts2-RitsuLib' -> https://ritsulib-telemetry.ritsukage.com/v1/ingest (3 request(s)).
 [INFO] [com.ritsukage.sts2-RitsuLib] 
 === RitsuLib Startup Audit: launch to main menu ===
-  harmonyPatchAllTypeLoadGuard: 0.7 ms
-  harmonyInitSetterCompat: 11.9 ms
-  settingsStore: 624.3 ms
-  debugLogViewer: 18.5 ms
-  modSettingsBootstrap: 33.0 ms
-  telemetryBootstrap: 1.4 ms
+  harmonyPatchAllTypeLoadGuard: 1.8 ms
+  harmonyInitSetterCompat: 25.3 ms
+  settingsStore: 1377.0 ms
+  debugLogViewer: 49.4 ms
+  modSettingsBootstrap: 79.0 ms
+  telemetryBootstrap: 3.0 ms
   mobileSteamRuntime: 0.1 ms
-  imageResourceLoader: 1.2 ms
-  godotNodeFactories: 1.7 ms
-  modTypeDiscoveryBuiltIns: 0.6 ms
-  secondaryResourceLocalization: 1.4 ms
-  secondaryResourceCloneBridge: 1.0 ms
-  frameworkBuiltIns: 0.2 ms (inclusive 6.2 ms)
-  registerPatches: 63.6 ms
-  patchAll.Core(411): 993.6 ms
-  patchAll.SettingsUi(7): 39.1 ms
-  patchAll.ContentAssets(115): 160.7 ms
-  patchAll.CharacterAssets(52): 158.9 ms
-  patchAll.ContentRegistry(24): 44.7 ms
-  patchAll.Persistence(3): 4.6 ms
-  patchAll.Unlocks(22): 48.1 ms
-  patchAll: 1.3 ms (inclusive 1450.9 ms)
-  runtimeServices: 22.3 ms
-  modTypeDiscovery.runOnce: 439.7 ms
-  flushDeferredContentPacks: 0.6 ms
-  modelDb.validateCollisions: 13.2 ms
-  modelDb.injectDynamicModels: 2.7 ms
+  imageResourceLoader: 2.8 ms
+  godotNodeFactories: 4.2 ms
+  modTypeDiscoveryBuiltIns: 1.4 ms
+  secondaryResourceLocalization: 3.1 ms
+  secondaryResourceCloneBridge: 2.1 ms
+  frameworkBuiltIns: 0.4 ms (inclusive 14.0 ms)
+  registerPatches: 151.0 ms
+  patchAll.Core(411): 2103.2 ms
+  patchAll.SettingsUi(7): 77.3 ms
+  patchAll.ContentAssets(115): 353.3 ms
+  patchAll.CharacterAssets(52): 406.3 ms
+  patchAll.ContentRegistry(24): 108.5 ms
+  patchAll.Persistence(3): 12.2 ms
+  patchAll.Unlocks(22): 116.3 ms
+  patchAll: 2.5 ms (inclusive 3179.4 ms)
+  runtimeServices: 48.9 ms
+  modTypeDiscovery.runOnce: 479.7 ms
+  flushDeferredContentPacks: 0.7 ms
+  modelDb.validateCollisions: 24.5 ms
+  modelDb.injectDynamicModels: 3.8 ms
   modelDb.warmResolvedCaches: 4.1 ms
-  modelDb.validateBaseLibDynamicEnums: 30.0 ms
+  modelDb.validateBaseLibDynamicEnums: 44.6 ms
   modelDb.warmResolvedCaches: 0.0 ms
-  runtimeDetourCompatibilityScan: 4.1 ms
+  runtimeDetourCompatibilityScan: 5.0 ms
   ---
-  RitsuLib exclusive self-time total: 2727.2 ms
+  RitsuLib exclusive self-time total: 5491.3 ms
 [WARN] [com.ritsukage.sts2-RitsuLib] [RuntimeReflectionMirrorSource] Partially enumerated assembly 'Steamworks.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null': recovered 500 of 502 type(s); skipped unloadable types. Could not load type 'OptionValue' from assembly 'Steamworks.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' because it contains an object field at offset 0 that is incorrectly aligned or overlapped by a non-object field.
 [INFO] [com.ritsukage.sts2-RitsuLib] [Persistence] [runtime_reflection_spine_profile_auto] Using default values: File not found
-[INFO] [Sts2SkinManager] dll-skin: 3 skipped mod(s) (silenced from prompts): [paleRegent, PaleRegentModV1, regentSkin]
-[INFO] [Sts2SkinManager] dll-skin: suppressing auto-suggest for custom-character mod 'HornetMod' (patched [MegaCrit.Sts2.Core.Models.CharacterModel, MegaCrit.Sts2.Core.Nodes.Screens.Shops.NMerchantCharacter]). Its pck adds a non-base character; the byte-frequency suggester would mis-attribute references to a base character.
-[INFO] [Sts2SkinManager] dll-skin forensic: 2 mod(s) with DLL+pck but no recognized skin signal:
-[INFO] [Sts2SkinManager]   [unclassified] ModConfig — no character-id hint found. To manage, add '"ModConfig": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"ModConfig"' to _dll_skin_skipped.
-[INFO] [Sts2SkinManager]   [unclassified] CustomSkeletonLoader — no character-id hint found. To manage, add '"CustomSkeletonLoader": "<character>"' under _dll_skin_assignments in skin_choices.json. To silence, add '"CustomSkeletonLoader"' to _dll_skin_skipped.
-WARNING: 'res://PaleRegentModV1/animations/character_select/paleregent/characterselect_paleregent_skel_data.tres': In external resource #0, invalid UID: 'uid://dv2o1waarrxej' - using text path instead: 'res://PaleRegentModV1/animations/character_select/paleregent/characterselect_paleregent.atlas'.
-   at: open (core/io/resource_format_binary.cpp:1109)
-WARNING: 'res://PaleRegentModV1/animations/character_select/paleregent/characterselect_paleregent_skel_data.tres': In external resource #1, invalid UID: 'uid://cy7spntxy6len' - using text path instead: 'res://PaleRegentModV1/animations/character_select/paleregent/characterselect_paleregent.skel'.
-   at: open (core/io/resource_format_binary.cpp:1109)
-[INFO] Wrote 54647 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 54647 bytes to modded/profile1/saves/current_run.save in steam remote store
+[INFO] Wrote 65892 bytes to path=user://steam/76561198188651006/modded/profile1/saves/current_run.save save_dir=user://steam/76561198188651006
+[INFO] Wrote 65892 bytes to modded/profile1/saves/current_run.save in steam remote store
 [INFO] Continuing run with character: CHARACTER.PALEREGENTMODV1-PALE_REGENT_MOD_V1
 [WARN] [com.ritsukage.sts2-RitsuLib] [Audio] FMOD event was not found in GUID mappings or loaded Studio events. operation=PlayOneShot; path=event:/sfx/ui/wipe_regent; guidMapEventCount=46; loadedBankCount=6; loadedEventDescriptionCount=621; banksStillLoading=False
 cannot find sfx path: event:/sfx/ui/wipe_regent
-[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' assets... count=38 vfx=80
-[INFO] Preloading 'Common' Complete: assets=799 time_elapsed=12,333ms
-WARNING: 'res://PaleRegentModV1/animations/merchant/paleregent/paleregent_merchant_skel_data.tres': In external resource #0, invalid UID: 'uid://donb2guyij76t' - using text path instead: 'res://PaleRegentModV1/animations/merchant/paleregent/paleregent_shop.atlas'.
-   at: open (core/io/resource_format_binary.cpp:1109)
-WARNING: 'res://PaleRegentModV1/animations/merchant/paleregent/paleregent_merchant_skel_data.tres': In external resource #1, invalid UID: 'uid://c4ohg27na2uv3' - using text path instead: 'res://PaleRegentModV1/animations/merchant/paleregent/paleregent_merchant.skel'.
-   at: open (core/io/resource_format_binary.cpp:1109)
-[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' Complete: assets=44 time_elapsed=7,926ms
-[WARN] Asset not cached: res://animations/map/ceremonial_beast_boss/ceremonial_beast_boss_node_skel_data.tres
-[INFO] Preloading 'Act=OVERGROWTH' assets... count=6 vfx=0
-[INFO] Preloading 'Act=OVERGROWTH' Complete: assets=6 time_elapsed=36ms
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' assets... count=38 vfx=73
+[INFO] Preloading 'Common' Complete: assets=799 time_elapsed=11,710ms
+[INFO] Preloading 'characters=PALEREGENTMODV1-PALE_REGENT_MOD_V1' Complete: assets=44 time_elapsed=7,106ms
+[INFO] Preloading 'Act=UNDERDOCKS' assets... count=8 vfx=0
+[INFO] Preloading 'Act=UNDERDOCKS' Complete: assets=8 time_elapsed=36ms
 [INFO] [sts2.piyixiajiuhenfen.modconfig] Mods tab injected into settings screen!
 [WARN] Asset not cached: res://themes/settings_screen_line_header.tres
 [WARN] Asset not cached: res://images/ui/reward_screen/reward_skip_button.png
 [WARN] Asset not cached: res://scenes/ui/selection_reticle.tscn
 [INFO] [BaseLib] Creating Control from resource CompressedTexture2D
-[INFO] Unloading 4 missed cache assets
+[INFO] Unloading 3 missed cache assets
 [INFO] Preloading 'Combat Room' assets... count=11 vfx=0
-[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=374ms
+[INFO] Preloading 'Combat Room' Complete: assets=11 time_elapsed=765ms
 [WARN] Asset not cached: res://themes/kreon_bold_shared.tres
-[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=NIBBITS_WEAK.
+[INFO] Creating NCombatRoom with mode=ActiveCombat encounter=TERROR_EEL_ELITE.
 [INFO] [BaseLib] Auto-converted 'res://PaleRegentModV1/scenes/creature_visuals/paleregent.tscn' from Node2D to NCreatureVisuals
 ERROR: Cannot get class ''.
    at: _instantiate_internal (core/object/class_db.cpp:547)
    C# backtrace (most recent call first):
-       [0] Godot.GodotObject Godot.NativeCalls.godot_icall_1_329(nint, nint, int)
-       [1] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
-       [2] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
-       [3] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
-       [4] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
-       [5] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
-       [6] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
-       [7] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [8] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [11] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [12] void System.Threading.Tasks.Task.RunContinuations(object)
-       [13] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [14] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
-       [15] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [16] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [19] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [20] void System.Threading.Tasks.Task.RunContinuations(object)
-       [21] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [22] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
-       [23] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [24] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [27] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
-       [28] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
 WARNING: Node EnergyVfxBack of type  cannot be created. A placeholder will be created instead.
    at: instantiate (scene/resources/packed_scene.cpp:277)
    C# backtrace (most recent call first):
-       [0] Godot.GodotObject Godot.NativeCalls.godot_icall_1_329(nint, nint, int)
-       [1] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
-       [2] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
-       [3] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
-       [4] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
-       [5] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
-       [6] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
-       [7] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [8] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [11] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [12] void System.Threading.Tasks.Task.RunContinuations(object)
-       [13] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [14] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
-       [15] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [16] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [19] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [20] void System.Threading.Tasks.Task.RunContinuations(object)
-       [21] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [22] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
-       [23] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [24] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [27] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
-       [28] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
 ERROR: Cannot get class ''.
    at: _instantiate_internal (core/object/class_db.cpp:547)
    C# backtrace (most recent call first):
-       [0] Godot.GodotObject Godot.NativeCalls.godot_icall_1_329(nint, nint, int)
-       [1] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
-       [2] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
-       [3] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
-       [4] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
-       [5] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
-       [6] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
-       [7] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [8] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [11] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [12] void System.Threading.Tasks.Task.RunContinuations(object)
-       [13] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [14] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
-       [15] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [16] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [19] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [20] void System.Threading.Tasks.Task.RunContinuations(object)
-       [21] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [22] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
-       [23] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [24] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [27] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
-       [28] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
 WARNING: Node EnergyVfxFront of type  cannot be created. A placeholder will be created instead.
    at: instantiate (scene/resources/packed_scene.cpp:277)
    C# backtrace (most recent call first):
-       [0] Godot.GodotObject Godot.NativeCalls.godot_icall_1_329(nint, nint, int)
-       [1] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
-       [2] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
-       [3] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
-       [4] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
-       [5] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
-       [6] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
-       [7] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [8] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [10] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [11] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [12] void System.Threading.Tasks.Task.RunContinuations(object)
-       [13] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [14] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
-       [15] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [16] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [18] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [19] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
-       [20] void System.Threading.Tasks.Task.RunContinuations(object)
-       [21] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
-       [22] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
-       [23] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
-       [24] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
-       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
-       [26] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
-       [27] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
-       [28] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
+       [0] Godot.Node <unknown>.Godot.PackedScene.Instantiate_Patch1(Godot.PackedScene, Godot.PackedScene+GenEditState)
+       [1] MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NEnergyCounter.Create_Patch2(MegaCrit.Sts2.Core.Entities.Players.Player)
+       [2] void <unknown>.MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi.Activate_Patch4(MegaCrit.Sts2.Core.Nodes.Combat.NCombatUi, MegaCrit.Sts2.Core.Combat.CombatState)
+       [3] void MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.OnCombatSetUp(MegaCrit.Sts2.Core.Combat.CombatState)
+       [4] void MegaCrit.Sts2.Core.Combat.CombatManager.SetUpCombat(MegaCrit.Sts2.Core.Combat.CombatState)
+       [5] void MegaCrit.Sts2.Core.Rooms.CombatRoom+<StartCombat>d__46.MoveNext()
+       [6] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [7] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [8] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [9] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [10] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [11] void System.Threading.Tasks.Task.RunContinuations(object)
+       [12] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [13] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomCombatAssets>d__14.MoveNext()
+       [14] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [15] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [16] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [17] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [18] void System.Threading.Tasks.AwaitTaskContinuation.RunCallback(System.Threading.ContextCallback, object, System.Threading.Tasks.Task&)
+       [19] void System.Threading.Tasks.Task.RunContinuations(object)
+       [20] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+       [21] void MegaCrit.Sts2.Core.Assets.PreloadManager+<LoadRoomAssets>d__18.MoveNext()
+       [22] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.ExecutionContextCallback(object)
+       [23] void System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext, System.Threading.ContextCallback, object)
+       [24] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext(System.Threading.Thread)
+       [25] void System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1+AsyncStateMachineBox`1.MoveNext()
+       [26] void Godot.GodotSynchronizationContext.ExecutePendingContinuations()
+       [27] void Godot.Bridge.ScriptManagerBridge.FrameCallback()
 [INFO] [BaseLib] Auto-converted 'res://PaleRegentModV1/scenes/combat/paleregent_energy_counter.tscn' from Control to NEnergyCounter
+[WARN] Asset not cached: res://images/powers/shriek_power.png
 [CardTraitOverlay] 后台同步已挂到 SceneTree.ProcessFrame。
-[INFO] DevConsole: card PALEREGENTMODV1-VOID_Given_FOCUS
-[WARN] Asset not cached: res://PaleRegentModV1\images\pure_overlay.png
-[WARN] Asset not cached: res://scenes/ui/card_hover_tip.tscn
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
 [INFO] [com.ritsukage.sts2-RitsuLib] [CardTargeting] BaseLib custom TargetType bridge resolved.
-[INFO] Player 1 playing card PALEREGENTMODV1-VOID_GIVEN_FOCUS (no target)
-[WARN] Asset not cached: res://PaleRegentModV1\images\powers\big\void_touch_power.png
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 1))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 1))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Monster TERROR_EEL performing move CRASH_MOVE
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card CLEANSE (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[WARN] Asset not cached: res://scenes/creature_visuals/osty.tscn
+[WARN] Asset not cached: res://images/powers/die_for_you_power.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
 [INFO] Player 1 chose cards [PALEREGENTMODV1-DEFEND]
-[INFO] [BaseLib] NGame.Quit(): saving all ModConfigs
-[INFO] NGame.Quit called
-[INFO] [Display] On exit, saving window size: (3840, 2019) display: 0 position: (0, 65)
-[INFO] Wrote 4752 bytes to path=user://steam/76561198188651006/settings.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 361 bytes to path=user://steam/76561198188651006/modded/profile1/saves/prefs.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 361 bytes to modded/profile1/saves/prefs.save in steam remote store
-[INFO] Wrote 284474 bytes to path=user://steam/76561198188651006/modded/profile1/saves/progress.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 284474 bytes to modded/profile1/saves/progress.save in steam remote store
-[INFO] Wrote 52 bytes to path=user://steam/76561198188651006/modded/profile.save save_dir=user://steam/76561198188651006
-[INFO] Wrote 52 bytes to modded/profile.save in steam remote store
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 骇鳗 (index 2))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[WARN] Asset not cached: res://PaleRegentModV1\images\powers\big\void_power.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 chose cards [PALEREGENTMODV1-STRIKE]
+[WARN] Asset not cached: res://PaleRegentModV1\images\lost_overlay.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 2))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card PALEREGENTMODV1-FOCUS (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Monster TERROR_EEL performing move THRASH_MOVE
+[WARN] Asset not cached: res://images/powers/vigor_power.png
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 骇鳗 (index 2))
+[INFO] Player 1 chose cards [PALEREGENTMODV1-STRIKE]
 [WARN] Warning: Packet writer is growing from 1024 bytes to 2048 bytes!
-[WARN] Warning: Packet writer is growing from 2048 bytes to 4096 bytes!
-[WARN] Warning: Packet writer is growing from 4096 bytes to 8192 bytes!
-[INFO] Steamworks: shutting down...
-[INFO] Steamworks shutdown succeeded!
-FMOD Sound System: System released
-WARNING: 919 RIDs of type "CanvasItem" were leaked.
-   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2678)
-ERROR: 1 RID allocations of type 'N26RendererEnvironmentStorage11EnvironmentE' were leaked at exit.
-ERROR: 6 shaders of type CanvasShaderRD were never freed
-   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
-ERROR: 25 RID allocations of type 'N10RendererRD16ParticlesStorage9ParticlesE' were leaked at exit.
-ERROR: 1 shaders of type ParticlesShaderRD were never freed
-   at: ~ShaderRD (servers/rendering/renderer_rd/shader_rd.cpp:1044)
-ERROR: 25 RID allocations of type 'N10RendererRD11MeshStorage4MeshE' were leaked at exit.
-ERROR: 82 RID allocations of type 'N10RendererRD15MaterialStorage8MaterialE' were leaked at exit.
-ERROR: 7 RID allocations of type 'N10RendererRD15MaterialStorage6ShaderE' were leaked at exit.
-ERROR: 351 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
-WARNING: 157 RIDs of type "UniformBuffer" were leaked.
-   at: _free_rids (servers/rendering/rendering_device.cpp:6981)
-WARNING: 698 RIDs of type "Texture" were leaked.
-   at: finalize (servers/rendering/rendering_device.cpp:7191)
-ERROR: 311 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.
-ERROR: 16 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
-ERROR: 4 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit.
-WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
-   at: cleanup (core/object/object.cpp:2514)
-ERROR: 388 resources still in use at exit (run with --verbose for details).
-   at: clear (core/io/resource.cpp:795)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 2))
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 2))
+[INFO] Player 1 playing card PALEREGENTMODV1-THE_VOID_STATUS (no target)
+[INFO] Monster TERROR_EEL performing move CRASH_MOVE
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card CLEANSE (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[WARN] Asset not cached: res://scenes/vfx/vfx_heal_osty.tscn
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 chose cards [PALEREGENTMODV1-DEFEND]
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-STRIKE (targeting 骇鳗 (index 2))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-DEFEND (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-THE_VOID_STATUS (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Monster TERROR_EEL performing move THRASH_MOVE
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\soul_chains.png
+[INFO] Player 1 playing card PALEREGENTMODV1-SOUL_CHAINS (no target)
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-VOID_STRIKE (targeting 骇鳗 (index 2))
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 chose cards [PALEREGENTMODV1-CURSEBOUND_AGONY]
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] Player 1 playing card PALEREGENTMODV1-CURSEBOUND_AGONY (no target)
+[WARN] Asset not cached: res://PaleRegentModV1\images\powers\big\path_of_pain_power.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] [PaleRegentModV1] Could not find big card image path: res://PaleRegentModV1\images\card_portraits\big\cursebound_agony.png
+[INFO] MuteInBackground: environment [displayServer=Windows, os=Windows]
+[INFO] MuteInBackground: FocusOut received [tween=False, windowFocused=False]
+[INFO] Limiting background FPS to 30
