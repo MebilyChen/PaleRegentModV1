@@ -37,7 +37,9 @@ public class PaleReclamation() : PaleRegentModV1Card(2,
         List<CardModel> selected = (await CardSelectCmd.FromCombatPile(
             choiceContext, exhaust, Owner,
             new CardSelectorPrefs(SelectionScreenPrompt, _reclaimCount),
-            (Func<CardModel, bool>)((CardModel _) => true))).ToList();
+            // 20260801：虚空X 费的牌不能附加苍白，在选牌阶段就过滤掉，
+            // 避免玩家选完之后静默失败。判定唯一来源：CardTraits.CanApplyPale。
+            (Func<CardModel, bool>)CardTraits.CanApplyPale)).ToList();
 
         foreach (CardModel c in selected)
         {

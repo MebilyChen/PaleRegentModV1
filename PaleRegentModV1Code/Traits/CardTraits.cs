@@ -70,7 +70,6 @@ public static class CardTraits
         public bool OriginalEnergyCostsX; // 附加特质前灵魂费是否为 X 费 //20260801
         public bool LostConvertedToVoidX; // 失心是否把这张牌转成了“0灵魂 / X虚空” //20260801
         public int LastVoidSpent;         // 最近一次打出时实际支付的虚空量（失心X牌的 X 取值）//20260801
-        public bool VoidCostClearedByPale; // 虚空费是否已被苍白清除（用于抵御 Permanent 层回灌）//20260801
     }
 
     /// <summary>卡牌实例 → 特质数据 的弱引用表。</summary>
@@ -169,18 +168,31 @@ public static class CardTraits
     }
 
     /// <summary>
-    /// 这张牌能否附加【苍白】。//20260801
+    /// 这张牌能否附加【苍白】。//20260801（新增规则）
     ///
-    /// 需求澄清：虚空 X 费的牌 **也应该能被加苍白**。
-    /// 苍白的效果是“取消虚空消耗 + 添加虚无”，而取消虚空消耗走的是
-    /// <c>SecondaryCosts().Clear(VoidResource.Id)</c>，它对固定费和 X 费都成立，
-    /// 因此虚空 X 牌在机制上没有任何需要排除的理由。
+    /// ============ 规则：虚空 X 费的牌【不能】被附加苍白 ============
+    /// 苍白的核心效果是“取消卡牌的虚空消耗”，实现方式是
+    /// <c>SecondaryCosts().Clear(VoidResource.Id)</c>。
+    /// 对固定虚空费的牌，这是一个明确的收益（少花几点虚空）；
+    /// 但对 **虚空 X 费** 的牌（虚空必杀 / 回溯 / 虚空实验等），
+    /// X 本身就是“玩家愿意投入多少虚空”，牌的效果强度完全由 X 决定。
+    /// 一旦把虚空费清掉，X 恒为 0，这张牌不但没有变强，反而直接变成废牌。
+    /// 因此从机制上禁止给虚空 X 牌附加苍白，避免出现“负收益的增益”。
     ///
-    /// 唯一真正不能动的是 canonical（规范）实例：修改它会抛
-    /// CanonicalModelException 导致游戏崩溃（参见 ApplyLost 头部注释）。
+    /// 注意本判定只看 **虚空侧** 是否为 X。灵魂 X 的牌不受限制：
+    /// 苍白不动灵魂费，灵魂 X 牌加苍白只是获得【虚无】，语义上没有矛盾。
     ///
-    /// 提供本方法的目的是给“施加苍白的卡”做选牌过滤用，
-    /// 让过滤条件有唯一的可维护来源，避免各张牌各自写不一致的判定。
+    /// ============ 其他前置条件 ============
+    /// canonical（规范）实例不能动：修改它会抛 CanonicalModelException
+    /// 导致游戏崩溃（参见 ApplyLost 头部注释）。
+    /// 已经是苍白的牌再加一次没有意义，也不作为合法选择目标。
+    ///
+    /// ============ 使用方式 ============
+    /// 本方法是“能否附加苍白”的 **唯一可维护来源**：
+    ///   1. <see cref="ApplyPale"/> 内部会强制校验，任何调用路径都无法绕过；
+    ///   2. 施加苍白的卡（苍白垂拱 / 苍白收复 / 纯粹之钉 / 灵魂咒印等）
+    ///      在选牌过滤里也应调用本方法，让虚空 X 牌在选牌界面就不可选，
+    ///      而不是选完之后静默失败。
     /// </summary>
     public static bool CanApplyPale(CardModel card)
     {
@@ -188,7 +200,20 @@ public static class CardTraits
         if (card.IsCanonical) return false;
         // 已经是苍白的牌再加一次没有意义，不作为合法选择目标
         if (IsPale(card)) return false;
+        // 虚空 X 费的牌禁止附加苍白（20260801 新增规则，理由见上方注释）
+        if (HasVoidCostX(card)) return false;
         return true;
+    }
+
+    /// <summary>
+    /// 这张牌的 **虚空费** 是否为 X 费。//20260801
+    /// 没有登记虚空费条目、或虚空费是固定数值，都返回 false。
+    /// </summary>
+    public static bool HasVoidCostX(CardModel card)
+    {
+        if (card == null) return false;
+        SecondaryResourceCost? vc = card.SecondaryCosts().Get(VoidResource.Id);
+        return vc?.CostsX == true;
     }
 
     // ---------------- 附加/移除 ----------------
@@ -295,13 +320,18 @@ public static class CardTraits
     ///      如果这张牌没有失心就有【消耗】（牌自带/其他来源），不移除消耗。
     ///   2. 取消卡牌的虚空消耗（移除虚空费条目）。
     ///   3. 添加【虚无】。
+    ///
+    /// 20260801：前置条件统一收拢到 <see cref="CanApplyPale"/>，
+    /// 其中包含新增规则“虚空 X 费的牌不能附加苍白”。
+    /// 返回值表示是否真的施加成功，方便调用方做提示或回退。
     /// </summary>
-    public static void ApplyPale(CardModel card)
+    public static bool ApplyPale(CardModel card)
     {
-        // 防御：同 ApplyLost，canonical 实例不可修改（20260728 启动崩溃修复）
-        if (card.IsCanonical) return;
+        // 防御：canonical 实例不可修改、虚空X 牌禁止附加、已苍白不重复施加。
+        // 这里统一走 CanApplyPale，保证任何调用路径（包括忘了做选牌过滤的牌）
+        // 都无法绕过虚空X 的限制。//20260801
+        if (!CanApplyPale(card)) return false;
         TraitState s = States.GetOrCreate(card);
-        if (s.IsPale) return;
 
         EnsureCostSnapshot(card, s);
 
@@ -338,15 +368,10 @@ public static class CardTraits
         // 注意：这里用 Clear 而不是 Set(0)，把虚空费条目整个移除，
         // 卡面不再显示虚空费 → 不再命中“虚空费≥0 自动消耗”规则 //20260726
         //
-        // 20260801：虚空 X 费的牌（虚空必杀 / 回溯 / 虚空实验）把 X 费写在
-        // **构造器**里（CardTraits.SetVoidCostX），属于 RitsuLib 的 Permanent 层。
-        // RitsuLib 在卡牌降级/克隆/重建实例时会用 ResetPermanentLayersFrom
-        // 把 canonical 的 Permanent 层重新灌回来，所以单靠这一次 Clear 会被回灌推翻，
-        // 玩家看到的现象就是“虚空X 牌加不上苍白”。
-        // 因此这里额外打上 VoidCostClearedByPale 标记，
-        // 由 EnforcePaleVoidCostCleared 在后续读取/刷新时反复保证它保持被清除。
+        // 这里不需要处理虚空X 的 Permanent 层回灌问题：
+        // 20260801 新规则已经在 CanApplyPale 里把虚空X 牌整体排除在外，
+        // 能走到这一步的一定是固定虚空费（或没有虚空费）的牌。
         card.SecondaryCosts().Clear(VoidResource.Id);
-        s.VoidCostClearedByPale = true;
 
         // 3) 添加【虚无】
         card.AddKeyword(CardKeyword.Ethereal);
@@ -355,15 +380,13 @@ public static class CardTraits
         CardTraitUi.Refresh(card);
         // 20260729 变更：苍白不再"顺带添加消耗"，也不做旧版 SyncExhaustKeyword 的
         // 保守增删——消耗的移除已在上面按 ExhaustAddedByLost 精确处理。
+        return true;
     }
 
     /// <summary>内部：移除苍白状态（供 ApplyLost 里互斥切换时调用）。</summary>
     private static void RemovePale(CardModel card, TraitState s)
     {
         card.RemoveKeyword(CardKeyword.Ethereal);
-        // 先除“苍白已清除虚空费”标记，否则下面刚还原的虚空费
-        // 会立即被 EnforcePaleVoidCostCleared 又清掉 //20260801
-        s.VoidCostClearedByPale = false;
         // 恢复原虚空费条目（苍白 Clear 掉的部分）：
         // 只要原本登记过虚空费条目就恢复（含虚空 0 / 虚空 X），保持“虚空牌”身份 //20260726
         if (s.OriginalHasVoidCost)
@@ -435,49 +458,6 @@ public static class CardTraits
     public static void SetVoidCost(CardModel card, int amount)
     {
         card.SecondaryCosts().Set(VoidResource.Id, amount);
-    }
-
-    /// <summary>
-    /// 确保【苍白】牌的虚空费保持被清除。//20260801
-    ///
-    /// ============ 为什么需要反复清除 ============
-    /// 虚空 X 费的牌（虚空必杀 / 回溯 / 虚空实验）把 X 费写在 **构造器** 里：
-    ///   <c>CardTraits.SetVoidCostX(this, 1)</c>
-    /// 在 RitsuLib 里这属于 Permanent（永久）层。而 RitsuLib 内部会在
-    /// 卡牌降级、克隆、重建实例等时机调用 <c>ResetPermanentLayersFrom</c>，
-    /// 把 canonical（规范实例）的 Permanent 层重新灌回到当前实例上。
-    ///
-    /// 因此苍白里那一句 <c>SecondaryCosts().Clear(VoidResource.Id)</c>
-    /// 只能管住一时：一旦发生回灌，X 虚空费就又回来了。
-    /// 而卡面虚空费是由 RitsuLib 的 NSecondaryResourceCardCostUi
-    /// **自动读取 SecondaryCosts 渲染** 的（见 Resources/VoidResource.cs），
-    /// 所以回灌之后卡面会重新显示“虚空 X”，
-    /// 玩家的直观感受就是“虚空X 的牌无法被加上苍白”。
-    ///
-    /// ============ 本方法的做法 ============
-    /// 不去和构造器/回灌机制抢“谁先写”，而是把“苍白已经清除过虚空费”
-    /// 这个事实记在 <c>VoidCostClearedByPale</c> 标记里（标记挂在卡牌实例的
-    /// 特质数据上，不会被 RitsuLib 的费用层回灌影响），
-    /// 然后在每一个“可能看到回灌结果”的时机调用本方法把它再清一次：
-    ///   1. Patches/VoidPowerListener.ModifySecondaryResourceCostLate（费用裁决）
-    ///   2. Traits/CardTraitUi.Refresh（卡面显示）
-    ///
-    /// 这样无论回灌发生多少次，玩家看到的和实际结算的都是“无虚空费”。
-    ///
-    /// 注：本方法幂等，且对非苍白牌 / canonical 牌 / 本来就没虚空费的牌
-    /// 都会直接返回，可以安心在高频路径（卡面刷新/费用查询）里调用。
-    /// </summary>
-    public static void EnforcePaleVoidCostCleared(CardModel? card)
-    {
-        if (card == null) return;
-        // canonical 实例不得修改，否则抛 CanonicalModelException
-        if (card.IsCanonical) return;
-        // 没建过特质数据的牌直接跳过，不给普通牌白建状态对象
-        if (!States.TryGetValue(card, out TraitState? s)) return;
-        if (!s!.IsPale || !s.VoidCostClearedByPale) return;
-        // 只有确实又出现了虚空费条目才重新 Clear，避开无意义的写入与事件颤动
-        if (card.SecondaryCosts().Get(VoidResource.Id) == null) return;
-        card.SecondaryCosts().Clear(VoidResource.Id);
     }
 
     /// <summary>给"虚空 X 费"的卡声明费用（打出时消耗全部虚空作为 X）。</summary>

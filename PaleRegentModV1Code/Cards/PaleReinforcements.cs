@@ -54,6 +54,8 @@ public class PaleReinforcements() : PaleRegentModV1Card(0,
         }
 
         // 添加苍白
+        // 20260801：佣卫牌本身不是虚空X 费，一定能附加成功；
+        // ApplyPale 内部也会走 CanApplyPale 校验，这里无需额外判定。
         CardTraits.ApplyPale(retainer);
 
         // 加入目标玩家手牌

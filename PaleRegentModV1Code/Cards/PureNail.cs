@@ -34,8 +34,11 @@ public class PureNail() : PaleRegentModV1Card(0,
 
         // 1) 全部手牌附加苍白，统计其中原本带失心的张数（苍白会取消失心）
         int lostCancelled = 0;
+        // 20260801：虚空X 费的牌不能附加苍白，这里直接用 CanApplyPale 筛掉。
+        // 本牌是“全体手牌”而非选牌，因此不存在选牌界面提示问题；
+        // 筛掉之后虚空X 牌也不会被计入下方“取消失心数”。
         List<CardModel> hand = CardPile.GetCards(Owner, PileType.Hand)
-            .Where(c => c != this)
+            .Where(c => c != this && CardTraits.CanApplyPale(c))
             .ToList();
         foreach (CardModel card in hand)
         {

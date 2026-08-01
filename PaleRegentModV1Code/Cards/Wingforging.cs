@@ -51,11 +51,13 @@ public class Wingforging() : PaleRegentModV1Card(1,
             DynamicVars["HarnessPower"].BaseValue, Owner.Creature, this);
 
         // 3) 选择 1 张手牌获得【苍白】（排除本卡；写法参考 SoulSpell）
+        // 20260801：虚空X 费的牌不能附加苍白，选牌阶段就过滤掉，
+        // 避免玩家选完之后静默失败。判定唯一来源：CardTraits.CanApplyPale。
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
             new CardSelectorPrefs(SelectionScreenPrompt, 1),
-            (CardModel c) => c != this,
+            (CardModel c) => c != this && CardTraits.CanApplyPale(c),
             this);
 
         foreach (CardModel card in selected)

@@ -30,15 +30,6 @@ public static class CardTraitUi
     {
         if (card == null) return;
 
-        // 【苍白】卡面兼容兜底：//20260801
-        // 虚空 X 费写在卡牌构造器里（RitsuLib 的 Permanent 层），
-        // RitsuLib 会在卡牌降级/克隆/重建实例时把它重新灌回来，
-        // 把苍白当时 Clear 掉的虚空费又恢复了；
-        // 而卡面虚空费是 RitsuLib 自动读 SecondaryCosts 渲染的，
-        // 于是玩家会看到“虚空X 牌加不上苍白”。
-        // 每次刷卡面时重新确保一次（幂等，非苍白牌直接返回）。
-        CardTraits.EnforcePaleVoidCostCleared(card);
-
         // 保证后台同步节点已安装：即便这次没找到 NCard
         // （例如卡牌还在牌库里、或者刚好正在重建），
         // 它进手牌时也会被同步节点自动补上卡框。
