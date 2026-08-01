@@ -10,15 +10,15 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【终结技】罕见攻击牌（高费大招）。
-/// 6 灵魂：对所有敌人造成 40 点伤害。
+/// 4 灵魂：对所有敌人造成 40 点伤害。
 ///
 /// 定位：巨额灵魂投入的清场大招；
-/// 与【失心】联动（失心后 0 灵魂 6 虚空 + 重放1，打两次 80 伤）是设计文档里的核心 combo。
+/// 与【失心】联动（失心后 0 灵魂 4 虚空 + 重放1，打两次 80 伤）是设计文档里的核心 combo。
 ///
 /// 修改指南：
 /// - 伤害：BaseDamage / UpgradeDamageBonus 常量。
 /// </summary>
-public class FinishingMove() : PaleRegentModV1Card(6,
+public class FinishingMove() : PaleRegentModV1Card(4,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {

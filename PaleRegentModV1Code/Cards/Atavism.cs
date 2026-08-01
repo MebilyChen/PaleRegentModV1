@@ -11,17 +11,17 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【返祖】稀有能力牌（后期引擎）。
-/// 6 灵魂：获得【返祖】buff——你每打出一张牌，回复 1 点灵魂。
+/// 4 灵魂：获得【返祖】buff——你每打出一张牌，回复 1 点灵魂。
 /// 升级后：费用 6→4（表格设计）。
 ///
-/// 定位：一次性投资 6 灵魂，之后每张牌都便宜 1 费，
+/// 定位：一次性投资 4 灵魂，之后每张牌都便宜 1 费，
 /// 与失心牌（0 灵魂费）联动时每张牌净赚 1 灵魂。
 ///
 /// 修改指南：
 /// - 每张牌回复量 = 施加的层数（PowerStacks 常量），改成 2 就是每张牌回 2。
 /// - 触发逻辑在 Powers/AtavismPower.cs 里改。
 /// </summary>
-public class Atavism() : PaleRegentModV1Card(6,
+public class Atavism() : PaleRegentModV1Card(4,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
