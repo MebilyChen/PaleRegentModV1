@@ -42,6 +42,8 @@ public class PerfectBlock() : PaleRegentModV1Card(4,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<PlatingPower>((int?)null)];
 
+    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
     public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

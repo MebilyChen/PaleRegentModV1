@@ -29,7 +29,13 @@ public class SealingEdict() : PaleRegentModV1Card(2,
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<PureSealPower>((int?)null)];
+    
+    // 声明"这张牌提供格挡"，游戏会据此显示格挡预览等 UI
+    public override bool GainsBlock => true;
 
+    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
+    
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new BlockVar(BaseBlock, ValueProp.Move), new PowerVar<PureSealPower>(BaseSeal)];
 

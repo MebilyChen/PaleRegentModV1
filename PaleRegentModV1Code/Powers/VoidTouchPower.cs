@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BaseLib.Hooks;
+using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -23,13 +25,48 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 ///   消失自动解除，省去"归还力量"的麻烦）。
 /// - 回合结束伤害：AfterSideTurnEnd 里对 Owner 造成 Amount 点伤害，
 ///   ValueProp 不带 Unblockable，因此可以被格挡；每回合减少1层 （原效果：Remove 自身)。
+/// - 血条展示：由本 Power 提供与当前 Amount 对应的深色预览段。
 ///
 /// 修改指南：
 /// - 想让它变成"不可被格挡"：把 ValueProp.Unpowered 改为
 ///   ValueProp.Unblockable | ValueProp.Unpowered。
 /// </summary>
-public class VoidTouchPower : PaleRegentModV1Power
+public class VoidTouchPower :
+    PaleRegentModV1Power,
+    IHealthBarForecastSource
 {
+    /// <summary>
+    /// 虚空之触在血条上的深色预览颜色。
+    /// </summary>
+    private static readonly Color HealthBarForecastColor =
+        new("050508");
+
+    /// <summary>
+    /// 在持有者血条上显示与当前层数等长的虚空之触预览段。
+    /// </summary>
+    public IEnumerable<HealthBarForecastSegment>
+        GetHealthBarForecastSegments(
+            HealthBarForecastContext context)
+    {
+        if (context.Creature != Owner || Amount <= 0)
+        {
+            yield break;
+        }
+
+        yield return new HealthBarForecastSegment(
+            Amount: Amount,
+            Color: HealthBarForecastColor,
+            Direction: HealthBarForecastDirection.FromRight,
+            Order: 0,
+            OverlayMaterial: null,
+            OverlaySelfModulate: HealthBarForecastColor,
+            LeftOriginLayout:
+                HealthBarForecastLeftOriginLayout.Chained,
+            LeftExclusiveZGroup: 0,
+            AffectsHpLabel: false
+        );
+    }
+
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
 

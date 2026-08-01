@@ -34,6 +34,8 @@ public class SoulBlock() : PaleRegentModV1Card(1,
 
     public override bool GainsBlock => true;
 
+    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new BlockVar(BaseBlock, ValueProp.Move)];
 

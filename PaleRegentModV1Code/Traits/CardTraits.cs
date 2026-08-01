@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 /// 【失心】（Lost）：
 ///   - 取消这张牌的灵魂耗能，把灵魂费 1:1 转换并入虚空费。
 ///     例：1灵魂0虚空 → 0灵魂1虚空；2灵魂2虚空 → 0灵魂4虚空。
-///   - 对 X 费牌无效（X 费牌无法附加失心）。
+///   - x统一计为x（x灵魂1虚空，转化为0灵魂x虚空)。优化前：对 X 费牌无效（X 费牌无法附加失心）。
 ///   - 自动获得【重放1】（BaseReplayCount = 1，打出后额外重放一次）。
 ///   - 与【苍白】互斥：附加失心会移除苍白。
 /// 【苍白】（Pale）：（20260729 变更：不再是"同时添加消耗和虚无"）
@@ -123,12 +123,17 @@ public static class CardTraits
         card.SecondaryCosts().Get(VoidResource.Id) != null;
 
     /// <summary>这张牌能否附加【失心】：X 费牌（灵魂X或虚空X）无效。</summary>
-    public static bool CanApplyLost(CardModel card)
+    /*public static bool CanApplyLost(CardModel card)
     {
         if (card.EnergyCost.CostsX) return false;
         SecondaryResourceCost? vc = card.SecondaryCosts().Get(VoidResource.Id);
         if (vc != null && vc.CostsX) return false;
         return true;
+    }*/
+    /// <summary>这张牌能否附加【失心】：包括固定费和 X 费牌。</summary>
+    public static bool CanApplyLost(CardModel card)
+    {
+        return !card.IsCanonical;
     }
 
     // ---------------- 附加/移除 ----------------
@@ -154,13 +159,47 @@ public static class CardTraits
 
         EnsureCostSnapshot(card, s);
 
-        // 换算：新虚空费 = 原虚空费 + 原灵魂费（1:1 转换）
+        /*// 换算：新虚空费 = 原虚空费 + 原灵魂费（1:1 转换）
         int currentEnergy = card.EnergyCost.GetWithModifiers(CostModifiers.None);
         int currentVoid = GetVoidCost(card);
         int newVoidCost = currentVoid + currentEnergy;
 
         card.EnergyCost.SetCustomBaseCost(0);                       // 灵魂费清零
-        card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);    // 并入虚空费（即使 0 也登记条目，成为虚空牌）//20260726
+        card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);    // 并入虚空费（即使 0 也登记条目，成为虚空牌）//20260726*/
+        // 换算规则：
+// 1. 固定灵魂费 + 固定虚空费：正常相加。
+// 2. 灵魂费或虚空费只要任意一项为 X，统一转化为 0 灵魂、X 虚空。
+//    例如：X灵魂1虚空 → 0灵魂X虚空。
+//          2灵魂X虚空 → 0灵魂X虚空。
+//          X灵魂X虚空 → 0灵魂X虚空。
+        int currentEnergy = card.EnergyCost.GetWithModifiers(CostModifiers.None);
+
+        SecondaryResourceCost? currentVoidCost =
+            card.SecondaryCosts().Get(VoidResource.Id);
+
+        bool energyCostsX = card.EnergyCost.CostsX;
+        bool voidCostsX = currentVoidCost?.CostsX == true;
+        bool convertsToVoidX = energyCostsX || voidCostsX;
+
+        int currentVoid = GetVoidCost(card);
+
+// 取消灵魂费用
+        card.EnergyCost.SetCustomBaseCost(0);
+
+        if (convertsToVoidX)
+        {
+            // X 统一计为 X，不叠加旁边的固定费用
+            card.SecondaryCosts().Set(
+                VoidResource.Id,
+                SecondaryResourceCost.X(1));
+        }
+        else
+        {
+            // 普通固定费用仍然按照 1:1 相加
+            int newVoidCost = currentVoid + currentEnergy;
+            card.SecondaryCosts().Set(VoidResource.Id, newVoidCost);
+        }
+
         card.BaseReplayCount = Math.Max(card.BaseReplayCount, LostReplayCount); // 重放1
 
         s.IsLost = true;
@@ -168,6 +207,7 @@ public static class CardTraits
       
         SyncExhaustKeyword(card, s); // 虚空费≥0（登记过虚空费条目）自动获得【消耗】 //20260726
         return true;
+        
     }
 
     /// <summary>

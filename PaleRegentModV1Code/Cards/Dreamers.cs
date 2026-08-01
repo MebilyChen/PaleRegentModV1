@@ -24,7 +24,8 @@ public class Dreamers() : PaleRegentModV1Card(1,
     private const int UpgradeDamageBonus = 3;
     private const int BaseBlock = 3;
     private const int DreamStacks = 3;
-
+    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
     /// <summary>【纯粹】特质：不受感染/变形类效果影响。</summary>
     public override bool IsPure => true;
 

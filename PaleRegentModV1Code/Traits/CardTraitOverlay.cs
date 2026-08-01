@@ -56,7 +56,7 @@ public static class CardTraitOverlay
     /// 【卡框偏小就调大，偏大就调小，只动这一个数字。】
     /// 扩张以卡面矩形中心为锚点，放大不会破坏已经对齐好的位置。
     /// </summary>
-    public static float OverlayScale = 0.4f;
+    public static float OverlayScale = 0.5f;
 
     /// <summary>在 OverlayScale 之后再叠加的像素级外扩（X = 左右各扩，Y = 上下各扩）。</summary>
     public static Vector2 OverlayPadding = Vector2.Zero;
