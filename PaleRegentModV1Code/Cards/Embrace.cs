@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【拥抱瘟疫】（表格 C#13，20260725 新增）。
-/// 1 灵魂 技能/Uncommon：抽 1 张牌。抽到【感染】时，为你添加 1 层【瘟疫】
+/// 1 灵魂 技能/Uncommon：将 1 张【感染】加入抽牌堆。抽 1 张牌。抽到【感染】时，为你添加 1 层【瘟疫】
 /// ，并随机打出你抽牌堆里的 1 张攻击牌。
 /// 升级：费用 1 → 0。
 ///
@@ -28,6 +28,7 @@ public class Embrace() : PaleRegentModV1Card(1,
 {
     /// <summary>抽牌数。</summary>
     private const int DrawCount = 1;
+    private const int BaseInfections = 1;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -36,6 +37,10 @@ public class Embrace() : PaleRegentModV1Card(1,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        //抽牌堆生成1张瘟疫
+        await CardPileCmd.AddToCombatAndPreview<Infection>(Owner.Creature, PileType.Draw, BaseInfections, Owner);
+        await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
+        
         // 1. 抽 1 张牌（抽牌前后对比手牌，判定是否抽到感染）
         HashSet<CardModel> before = CardPile.GetCards(Owner, PileType.Hand).ToHashSet();
         await CardPileCmd.Draw(choiceContext, DrawCount, cardPlay.Player);

@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【失心重击】攻击牌（表 C#68，0727 新增）。
-/// 1 灵魂：造成 12 点伤害。自带【失心】（灵魂费转虚空费 2、重放 1）。
+/// 1 灵魂：造成 12 点伤害。自带【失心】（灵魂费转虚空费 1、重放 2）。
 /// 升级后：18 点伤害。
 /// </summary>
 public class HeartlessBlow : PaleRegentModV1Card

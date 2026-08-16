@@ -34,7 +34,7 @@ public class RoyalMuster() : PaleRegentModV1Card(2,
     protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded), ModHoverTips.Harness];
+        [HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded), ModHoverTips.Harness, ModHoverTips.CreationRule];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -61,11 +61,11 @@ public class Vessel() : PaleRegentModV1Card(0,
         // 3. 按吞噬数量孕育结果，加入弃牌堆
         if (statuses.Count >= PureThreshold)
         {
-            await CardPileCmd.AddToCombatAndPreview<PureVessel>(Owner.Creature, PileType.Discard, 1, Owner);
+            await CardPileCmd.AddToCombatAndPreview<PureVessel>(Owner.Creature, PileType.Hand, 1, Owner);
         }
         else
         {
-            await CardPileCmd.AddToCombatAndPreview<FailedVessel>(Owner.Creature, PileType.Discard, 1, Owner);
+            await CardPileCmd.AddToCombatAndPreview<FailedVessel>(Owner.Creature, PileType.Hand, 1, Owner);
         }
     }
 

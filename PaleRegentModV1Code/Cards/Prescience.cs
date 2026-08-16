@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 技能牌。
-/// 2 灵魂：预知{IfUpgraded:show:5|3}张牌。选择其中{IfUpgraded:show:2|1}张牌放入手牌。
+/// 2 灵魂：预知{IfUpgraded:show:5|3}张牌。选择其中{IfUpgraded:show:2|1}张牌放入手牌，为其添加保留。
 ///
 /// </summary>
 public class Prescience() : PaleRegentModV1Card(2,

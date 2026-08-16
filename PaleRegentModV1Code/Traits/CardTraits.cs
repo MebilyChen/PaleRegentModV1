@@ -160,7 +160,7 @@ public static class CardTraits
 
     /// <summary>
     /// 直接设置唯一的失心重放层数，并立即刷新全部存量失心牌。
-    /// 最低为 1。
+    /// 最低为 2。
     /// </summary>
     public static void SetLostReplayCount(int amount)
     {

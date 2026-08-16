@@ -75,6 +75,12 @@ public static class ScryTraitHelper
             {
                 continue;
             }
+            
+            // 仅在该牌原本没有“保留”时添加，避免重复操作。
+            if (!card.Keywords.Contains(CardKeyword.Retain))
+            {
+                card.AddKeyword(CardKeyword.Retain);
+            }
 
             await CardPileCmd.Add(card, PileType.Hand);
             movedCards.Add(card);

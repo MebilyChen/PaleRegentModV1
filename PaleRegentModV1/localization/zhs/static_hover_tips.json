@@ -20,6 +20,8 @@
 	"PALEREGENTMODV1-INFECTION_RULE.title": "感染",
 	"PALEREGENTMODV1-INFECTION_RULE.description": "若回合结束时留在手牌，变化随机1张手牌为[gold]感染[/gold]，触发你所有的[red]疑虑[/red]效果，若没有则生成1张。",
 	"PALEREGENTMODV1-PRESCIENCE_RULE.title": "预知",
-	"PALEREGENTMODV1-PRESCIENCE_RULE.description": "按顺序预览你的抽牌堆。"
+	"PALEREGENTMODV1-PRESCIENCE_RULE.description": "按顺序预览你的抽牌堆。",
+	"PALEREGENTMODV1-CREATION_RULE.title": "造物",
+	"PALEREGENTMODV1-CREATION_RULE.description": "俑卫（国王俑卫、有翼俑卫）、虚空（虚空化形、虚空化神、失败实验）、容器（容器、纯粹容器）造物。"
 
 }

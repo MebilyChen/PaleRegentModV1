@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 技能牌。
-/// 1 灵魂：抽{IfUpgraded:show:2|1}张牌。获得{Block:diff()}点格挡。选择手牌中1张牌放入抽牌堆顶部。
+/// 1 灵魂：抽{IfUpgraded:show:2|1}张牌。获得{Block:diff()}点格挡。选择手牌中1张牌放入抽牌堆顶部，为其添加保留。
 ///
 /// </summary>
 public class AwaitDrawpile() : PaleRegentModV1Card(1,
@@ -70,6 +70,12 @@ public class AwaitDrawpile() : PaleRegentModV1Card(1,
 
         if (selected == null)
             return;
+        
+        // 仅在该牌原本没有“保留”时添加，避免重复操作。
+        if (!selected.Keywords.Contains(CardKeyword.Retain))
+        {
+            selected.AddKeyword(CardKeyword.Retain);
+        }
 
         // 按你的本地游戏版本补齐 CardPileCmd.Add 的参数。
         await CardPileCmd.Add(

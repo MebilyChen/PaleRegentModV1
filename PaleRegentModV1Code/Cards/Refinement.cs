@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【精益求精】
-/// 抽 1 张牌。将一张国王佣卫加入手牌。获得 3 层驾驭。
+/// 抽 1 张牌。将一张国王佣卫加入手牌。获得 3 驾驭。
 /// 升级后：获得 5 层驾驭，并生成升级版国王佣卫。
 /// </summary>
 public class Refinement() : PaleRegentModV1Card(
@@ -27,7 +27,7 @@ public class Refinement() : PaleRegentModV1Card(
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        ModHoverTips.Harness,
+        ModHoverTips.Harness, ModHoverTips.CreationRule,
         HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded),
         ModHoverTips.Mould
     ];

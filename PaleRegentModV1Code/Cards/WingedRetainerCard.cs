@@ -18,6 +18,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【有翼佣卫】生成牌。
 /// 0 灵魂、1 虚空。
 /// 获得 3 点格挡，升级后 6 点。
+/// 获得 1 驾驭。升级后获得 2 驾驭。
 /// 造物牌：额外获得等同于【驾驭】层数的格挡。
 /// 模具遗物自动打出时不获得驾驭加成。
 /// </summary>
@@ -30,6 +31,8 @@ public class WingedRetainerCard : PaleRegentModV1Card
 
     private const string CalculatedBlockKey = "CalculatedBlock";
     private const string CalculationBaseKey = "CalculationBase";
+    
+    private const int BaseHarness = 1;
     
 
     // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
@@ -46,7 +49,7 @@ public class WingedRetainerCard : PaleRegentModV1Card
     }
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Mould];
+        [ModHoverTips.Harness, ModHoverTips.CreationRule, ModHoverTips.Mould];
 
     public override bool IsCreationCard => true;
 
@@ -74,7 +77,8 @@ public class WingedRetainerCard : PaleRegentModV1Card
         new CalculationExtraVar(1m),
 
         new CalculatedVar(CalculatedBlockKey)
-            .WithMultiplier(GetHarnessAmount)
+            .WithMultiplier(GetHarnessAmount), 
+        new PowerVar<HarnessPower>(BaseHarness)
     ];
 
     /// <summary>
@@ -112,6 +116,13 @@ public class WingedRetainerCard : PaleRegentModV1Card
             block,
             ValueProp.Move,
             cardPlay);
+        
+        await PowerCmd.Apply<HarnessPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars["HarnessPower"].BaseValue,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
@@ -119,5 +130,7 @@ public class WingedRetainerCard : PaleRegentModV1Card
         // 3 → 6。
         DynamicVars[CalculationBaseKey]
             .UpgradeValueBy(UpgradeBlockBonus);
+        
+        DynamicVars["HarnessPower"].UpgradeValueBy(1m);
     }
 }

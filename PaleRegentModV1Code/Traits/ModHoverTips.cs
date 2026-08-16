@@ -71,4 +71,5 @@ public static class ModHoverTips
     public static IHoverTip RegretRule => Static("REGRET_RULE");
     public static IHoverTip ShameRule => Static("SHAME_RULE");
     public static IHoverTip PrescienceRule => Static("PRESCIENCE_RULE");
+    public static IHoverTip CreationRule => Static("CREATION_RULE");
 }

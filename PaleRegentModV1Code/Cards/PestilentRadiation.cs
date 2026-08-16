@@ -11,7 +11,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【病态辐射】攻击牌（表 C#70，0727 新增）。
-/// 0 灵魂：对随机敌人造成 3 点伤害，本场战斗每生成过 1 张【感染】，
+/// 0 灵魂：生成1张[gold]感染[/gold]。对随机敌人造成 3 点伤害，本场战斗每生成过 1 张【感染】，
 /// 额外攻击 1 次（即攻击次数 = 1 + 感染生成数）。
 /// 升级后：5 点伤害。
 /// 备注：感染生成数由 CombatCounters.InfectionGeneratedThisCombat 统计，
@@ -23,6 +23,7 @@ public class PestilentRadiation() : PaleRegentModV1Card(0,
 {
     private const int BaseDamage = 3;
     private const int UpgradeDamageBonus = 2;
+    private const int BaseInfections = 1;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
@@ -30,7 +31,10 @@ public class PestilentRadiation() : PaleRegentModV1Card(0,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int hits = 1 + CombatCounters.InfectionGeneratedThisCombat;
-
+        //生成1张
+        await CardPileCmd.AddToCombatAndPreview<Infection>(Owner.Creature, PileType.Hand, BaseInfections, Owner);
+        await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
+        
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hits)
             .FromCard(this, cardPlay)

@@ -11,7 +11,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【疫蔓】能力牌（机制文档：瘟疫流）。
-/// 1 灵魂 能力：每当你生成一张【感染】，对场上所有生物施加 1 层【瘟疫】。
+/// 1 灵魂 能力：每当你生成一张【感染】，对场上所有生物施加 1 层【瘟疫】。将 1 张【感染】加入手牌。
 /// 升级后：改为 3 层。
 /// </summary>
 public class PlagueSpread() : PaleRegentModV1Card(1,
@@ -19,6 +19,7 @@ public class PlagueSpread() : PaleRegentModV1Card(1,
     TargetType.Self)
 {
     private const int PlaguePerInfection = 1;
+    private const int BaseInfections = 1;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -33,6 +34,9 @@ public class PlagueSpread() : PaleRegentModV1Card(1,
     {
         await PowerCmd.Apply<PlagueSpreadPower>(choiceContext, Owner.Creature,
             DynamicVars["PlagueSpreadPower"].BaseValue, Owner.Creature, this);
+        //生成1张
+        await CardPileCmd.AddToCombatAndPreview<Infection>(Owner.Creature, PileType.Hand, BaseInfections, Owner);
+        await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
     }
 
     protected override void OnUpgrade()

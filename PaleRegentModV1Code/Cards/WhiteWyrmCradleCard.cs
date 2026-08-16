@@ -16,7 +16,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 升级后：每回合 3 层白根。
 /// </summary>
 public class WhiteWyrmCradleCard() : PaleRegentModV1Card(4,
-    CardType.Power, CardRarity.Rare,
+    CardType.Power, CardRarity.Ancient,
     TargetType.Self)
 {
     private const int BaseWhiteRoot = 2;

@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/vfx/energy/regent/regent_energy_vfx_back.tscn" id="1_vfxback"]
+[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/combat/paleregent_energy_vfx_back.tscn" id="1_vfxback"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_1.png" id="2_layer1"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_2.png" id="3_layer2"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_3.png" id="4_layer3"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_5.png" id="5_layer5"]
-[ext_resource type="PackedScene" path="res://scenes/vfx/energy/regent/regent_energy_vfx_front.tscn" id="6_vfxfront"]
+[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/combat/paleregent_energy_vfx_front.tscn" id="6_vfxfront"]
 
 [node name="PaleRegentEnergyCounter" type="Control"]
 layout_mode = 3
