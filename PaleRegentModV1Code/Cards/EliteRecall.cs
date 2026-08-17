@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【召回精锐】技能牌。
 /// 1 灵魂 + 1 虚空：从消耗牌堆中选择 2（升级后 3）张造物牌，添加苍白后放回手牌。
-/// 造物判定：KingsRetainer / WingedRetainerCard / PureVessel /
+/// 造物判定：KingsRetainer / WingedRetainerCard / PureVessel / Vessel /
 /// VoidGivenFocus / VoidGivenForm / FailedExperiment。
 /// </summary>
 public class EliteRecall : PaleRegentModV1Card
@@ -82,6 +82,7 @@ public class EliteRecall : PaleRegentModV1Card
         KingsRetainer or
         WingedRetainerCard or
         PureVessel or
+        Vessel or
         VoidGivenFocus or
         VoidGivenForm or
         FailedExperiment;

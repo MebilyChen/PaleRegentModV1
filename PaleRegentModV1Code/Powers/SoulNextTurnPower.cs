@@ -14,8 +14,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 /// 【蓄灵】buff（弃壳等卡施加，名词表 N#10）。
 /// 效果：能力存在期间，玩家生命值不会降至 0；下回合开始时获得 [层数] 点灵魂
 /// （能量），随后消失。
-/// 挂点用 AfterEnergyReset（能量重置之后再加，才不会被重置吞掉），
-/// 与 VoidPower / WhiteRootPower 一致。
+///
+/// 供灵挂在 AfterEnergyResetLate：先由普通 AfterEnergyReset 完成能量重置、
+/// 苍白信物/国王之魂按虚空扣减恢复量，再由蓄灵额外给予灵魂。因此虚空只影响
+/// “回合开始恢复”的灵魂，不影响蓄灵额外给予的灵魂。
 /// 20260727：持有【白沃姆摇篮】（WhiteWyrmCradlePower，C#97）时，
 /// 供灵后不再移除自身（蓄灵不消失，每回合持续供灵，且持续提供濒死保护）。
 /// </summary>
@@ -44,7 +46,7 @@ public class SoulNextTurnPower : PaleRegentModV1Power
         // 已经只剩 1 点生命时，阻止后续任何生命损失；否则最多损失到 1 点生命。
         if (Owner.CurrentHp <= 1)
         {
-            Flash(); // 图标闪烁提示触发
+            Flash();
             return 0m;
         }
 
@@ -52,7 +54,10 @@ public class SoulNextTurnPower : PaleRegentModV1Power
         return amount > maximumLoss ? maximumLoss : amount;
     }
 
-    public override async Task AfterEnergyReset(Player player)
+    /// <summary>
+    /// 在所有普通 AfterEnergyReset 处理完成后供灵，避免被虚空恢复扣减影响。
+    /// </summary>
+    public override async Task AfterEnergyResetLate(Player player)
     {
         if (player != Owner.Player)
         {

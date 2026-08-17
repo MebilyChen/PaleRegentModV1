@@ -2,9 +2,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 
@@ -12,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【染色】普通技能牌（攒虚空的主力手段，旧名：虚空转化）。
-/// X 灵魂：获得 X 点虚空。升级后：获得 X+1 点虚空。
+/// X 灵魂：获得 X 点虚空。升级后：获得 X+1 点虚空。为1张手牌添加[gold]失心[/gold]。
 ///
 /// 机制要点：
 /// - 灵魂 X 费：HasEnergyCostX = true，打出时消耗全部灵魂，
@@ -29,7 +32,7 @@ public class VoidConversion() : PaleRegentModV1Card(0,
     // 灵魂 X 费：打出时消耗当前全部灵魂作为 X
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<VoidPower>((int?)null) ];
+        [ModHoverTips.Lost, HoverTipFactory.FromPower<VoidPower>((int?)null) ];
 
     protected override bool HasEnergyCostX => true;
 
@@ -42,6 +45,19 @@ public class VoidConversion() : PaleRegentModV1Card(0,
     {
         // 读取本次支付的 X（= 打出时的灵魂数，已被扣除）
         int x = ResolveEnergyXValue();
+        // 从手牌选择牌附加【失心】
+        // filter：过滤掉不能失心的牌（X 费牌）和自己
+        IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
+            choiceContext,
+            Owner,
+            new CardSelectorPrefs(SelectionScreenPrompt, 1, 1),
+            (CardModel c) => c != this && CardTraits.CanApplyLost(c),
+            this);
+
+        foreach (CardModel card in selected)
+        {
+            CardTraits.ApplyLost(card);
+        }
         if (x + _voidBonus <= 0)
         {
             return;
