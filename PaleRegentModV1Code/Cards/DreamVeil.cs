@@ -8,6 +8,7 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -91,14 +92,13 @@ public class DreamVeil : PaleRegentModV1Card
     /// </summary>
     private async Task DoublePainPath(PlayerChoiceContext choiceContext, Creature target)
     {
-        // 若项目中“苦痛之路”的实际类名不同，请将 PainPathPower 替换为对应的能力类名。
-        var painPath = target.Powers.OfType<PainPathPower>().FirstOrDefault();
+        var painPath = target.Powers.OfType<PathOfPainPower>().FirstOrDefault();
         if (painPath is null || painPath.Amount <= 0m)
         {
             return;
         }
 
-        await PowerCmd.Apply<PainPathPower>(
+        await PowerCmd.Apply<PathOfPainPower>(
             choiceContext,
             target,
             painPath.Amount,
