@@ -16,7 +16,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 2 灵魂 技能：消耗你所有牌堆（手牌/抽牌堆/弃牌堆）中全部的【虚空】状态牌：
 /// ≥5 张 → 获得【虚空化神】；
 /// ≥2 张 → 获得【虚空化形】；
-/// 否则 → 获得【失败实验】。消耗。
+/// 否则 → 获得【失败实验】。
 /// 升级后：生成升级版（虚空化神+/虚空化形+/失败实验+）。
 /// </summary>
 public class Tame() : PaleRegentModV1Card(2,
@@ -34,8 +34,8 @@ public class Tame() : PaleRegentModV1Card(2,
          //HoverTipFactory.FromCard<TheVoidStatus>(false)
         ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Exhaust];
+    //public override IEnumerable<CardKeyword> CanonicalKeywords =>
+       // [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 

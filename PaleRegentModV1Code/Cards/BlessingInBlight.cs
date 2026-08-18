@@ -1,22 +1,25 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【祸中取福】技能牌（表 C#59，0727 新增）。
-/// 2 灵魂：获得 7 点格挡，战斗中你的牌堆里每有 1 张诅咒牌，恢复 1 点生命。
-/// 升级后：10 点格挡，每张诅咒恢复 2 点生命。
-/// 备注：诅咒牌统计范围 = 本场战斗的抽牌堆 + 手牌 + 弃牌堆 + 消耗堆（全牌堆）。
+/// 【祸中取福】技能牌。
+/// 获得格挡；战斗中全牌堆每有 1 张诅咒，恢复对应生命。
 /// </summary>
-public class BlessingInBlight() : PaleRegentModV1Card(2,
-    CardType.Skill, CardRarity.Uncommon,
+public class BlessingInBlight() : PaleRegentModV1Card(
+    2,
+    CardType.Skill,
+    CardRarity.Uncommon,
     TargetType.Self)
 {
     private const int BaseBlock = 7;
@@ -25,33 +28,89 @@ public class BlessingInBlight() : PaleRegentModV1Card(2,
     /// <summary>每张诅咒牌恢复的生命（升级后 2）。</summary>
     private int _healPerCurse = 1;
 
-    // 声明"这张牌提供格挡"，游戏会据此显示格挡预览等 UI
     public override bool GainsBlock => true;
 
-    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
     protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new BlockVar(BaseBlock, ValueProp.Move)];
+    [
+        new BlockVar(BaseBlock, ValueProp.Move),
+        new CurrentHealAmountVar()
+    ];
+
+    /// <summary>
+    /// 统计抽牌堆、手牌、弃牌堆与消耗堆中的全部诅咒牌。
+    /// card 无 Owner 时（例如无归属预览）返回 0。
+    /// </summary>
+    private static int GetCurseCount(CardModel? card)
+    {
+        if (card?.Owner == null)
+        {
+            return 0;
+        }
+
+        return CardPile
+            .GetCards(card.Owner, PileType.Draw, PileType.Hand, PileType.Discard, PileType.Exhaust)
+            .Count(c => c.Type == CardType.Curse);
+    }
+
+    /// <summary>
+    /// 牌面与实际结算共同使用的最终治疗量。
+    /// </summary>
+    private static int GetCurrentHealAmount(CardModel? card)
+    {
+        if (card is not BlessingInBlight blessingInBlight)
+        {
+            return 0;
+        }
+
+        return GetCurseCount(blessingInBlight) * blessingInBlight._healPerCurse;
+    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // 统计全战斗牌堆中的诅咒牌数量
-        int curseCount = CardPile
-            .GetCards(Owner, PileType.Draw, PileType.Hand, PileType.Discard, PileType.Exhaust)
-            .Count(c => c.Type == CardType.Curse);
-
-        if (curseCount > 0)
+        // 与牌面 {Amount} 使用同一个计算公式。
+        int healAmount = GetCurrentHealAmount(this);
+        if (healAmount > 0)
         {
-            await CreatureCmd.Heal(Owner.Creature, curseCount * _healPerCurse);
+            await CreatureCmd.Heal(Owner.Creature, healAmount);
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus);
-        _healPerCurse = 2;
+        DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus); // 7 -> 10
+        _healPerCurse = 2;                                      // 1 -> 2
+    }
+
+    /// <summary>
+    /// 为本地化中的 {Amount} 提供当前最终治疗量。
+    /// </summary>
+    private sealed class CurrentHealAmountVar : DynamicVar
+    {
+        public CurrentHealAmountVar() : base("Amount", 0m)
+        {
+        }
+
+        public override void UpdateCardPreview(
+            CardModel card,
+            CardPreviewMode previewMode,
+            Creature? target,
+            bool runGlobalHooks)
+        {
+            PreviewValue = GetCurrentHealAmount(card);
+        }
+
+        protected override decimal GetBaseValueForIConvertible()
+        {
+            return GetCurrentHealAmount(_owner as CardModel);
+        }
+
+        public override string ToString()
+        {
+            return GetCurrentHealAmount(_owner as CardModel).ToString();
+        }
     }
 }

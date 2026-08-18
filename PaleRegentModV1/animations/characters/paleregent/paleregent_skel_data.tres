@@ -1,4 +1,4 @@
-[gd_resource type="SpineSkeletonDataResource" load_steps=7 format=3]
+[gd_resource type="SpineSkeletonDataResource" load_steps=10 format=3]
 
 [ext_resource type="SpineAtlasResource" path="res://PaleRegentModV1/animations/characters/paleregent/paleregent.atlas" id="1_86jqo"]
 [ext_resource type="SpineSkeletonFileResource" path="res://PaleRegentModV1/animations/characters/paleregent/paleregent.skel" id="2_xr0sn"]
@@ -20,8 +20,22 @@ mix = 0.02
 from = "hurt"
 to = "die"
 
+[sub_resource type="SpineAnimationMix" id="SpineAnimationMix_lhl01"]
+from = "low_health_loop"
+to = "hurt"
+mix = 0.02
+
+[sub_resource type="SpineAnimationMix" id="SpineAnimationMix_lhl02"]
+from = "idle_loop"
+to = "low_health_loop"
+mix = 0.2
+
+[sub_resource type="SpineAnimationMix" id="SpineAnimationMix_lhl03"]
+from = "low_health_loop"
+to = "die"
+
 [resource]
 atlas_res = ExtResource("1_86jqo")
 skeleton_file_res = ExtResource("2_xr0sn")
 default_mix = 0.05
-animation_mixes = [SubResource("SpineAnimationMix_y55pg"), SubResource("SpineAnimationMix_qn61g"), SubResource("SpineAnimationMix_awe6h"), SubResource("SpineAnimationMix_mlkqa")]
+animation_mixes = [SubResource("SpineAnimationMix_y55pg"), SubResource("SpineAnimationMix_qn61g"), SubResource("SpineAnimationMix_awe6h"), SubResource("SpineAnimationMix_mlkqa"), SubResource("SpineAnimationMix_lhl01"), SubResource("SpineAnimationMix_lhl02"), SubResource("SpineAnimationMix_lhl03")]

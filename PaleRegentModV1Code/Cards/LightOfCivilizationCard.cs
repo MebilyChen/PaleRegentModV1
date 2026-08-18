@@ -10,14 +10,14 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【文明之光】能力牌（表 C#87，0727 新增）。
-/// 4 灵魂：获得能力【文明之光】——灵魂能量大于 0 且手牌为空时，抽 1 张牌。
-/// 升级后：抽 2 张牌。
+/// 4 灵魂：获得能力【文明之光】——灵魂能量大于 0 且手牌为空时，抽 3 张牌。
+/// 升级后：抽 5 张牌。
 /// </summary>
 public class LightOfCivilizationCard() : PaleRegentModV1Card(4,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
-    private const int BaseAmount = 1;
+    private const int BaseAmount = 3;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<LightOfCivilizationPower>(BaseAmount)];
@@ -31,6 +31,6 @@ public class LightOfCivilizationCard() : PaleRegentModV1Card(4,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["LightOfCivilizationPower"].UpgradeValueBy(1);
+        DynamicVars["LightOfCivilizationPower"].UpgradeValueBy(2);
     }
 }

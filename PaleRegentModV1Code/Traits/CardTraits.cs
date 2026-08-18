@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using STS2RitsuLib.Combat.SecondaryResources;
+using STS2RitsuLib.Models;
 using STS2RitsuLib.Utils;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
@@ -79,6 +80,28 @@ public static class CardTraits
         /// 只是用于计算差值，不是第二套规则值。
         /// </summary>
         public int AppliedLostReplayCount;
+
+        /// <summary>
+        /// 为卡牌克隆创建独立的特质状态副本。
+        /// AttachedState 本身不会自动复制到新的 CardModel 实例；
+        /// 必须复制该状态，避免新实例把已写入的失心重放再次加一遍。
+        /// </summary>
+        public TraitState Clone() => new()
+        {
+            IsLost = IsLost,
+            IsPale = IsPale,
+            IsPureApplied = IsPureApplied,
+            OriginalEnergyCost = OriginalEnergyCost,
+            OriginalVoidCost = OriginalVoidCost,
+            OriginalHasVoidCost = OriginalHasVoidCost,
+            OriginalVoidCostsX = OriginalVoidCostsX,
+            CostSnapshotTaken = CostSnapshotTaken,
+            ExhaustAddedByLost = ExhaustAddedByLost,
+            OriginalEnergyCostsX = OriginalEnergyCostsX,
+            LostConvertedToVoidX = LostConvertedToVoidX,
+            LastVoidSpent = LastVoidSpent,
+            AppliedLostReplayCount = AppliedLostReplayCount
+        };
     }
 
     /// <summary>卡牌实例 → 特质数据 的弱引用表。</summary>
@@ -100,6 +123,36 @@ public static class CardTraits
     /// <summary>这张牌当前是否有【苍白】。</summary>
     public static bool IsPale(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) && s!.IsPale;
+
+    /// <summary>
+    /// 在 CardModel 克隆完成后复制失心/苍白/纯粹状态。
+    /// 若不复制，目标卡虽保留 BaseReplayCount，却失去
+    /// AppliedLostReplayCount；随后再次 ApplyLost 会重复增加重放。
+    /// </summary>
+    internal static void CopyStateForClone(CardModel source, CardModel clone)
+    {
+        if (source == null || clone == null) return;
+        if (!States.TryGetValue(source, out TraitState? sourceState)) return;
+
+        TraitState cloneState = sourceState!.Clone();
+        States.Set(clone, cloneState);
+
+        if (cloneState.IsLost)
+        {
+            TrackLostCard(clone);
+        }
+    }
+
+    /// <summary>
+    /// 在模组初始化时调用一次。
+    /// RitsuLib 会在每次 AbstractModel.MutableClone 完成后，
+    /// 将源 CardModel 的 TraitState 复制到新 CardModel。
+    /// </summary>
+    public static void RegisterCloneStateSync()
+    {
+        ModelCloneRegistry.For("PaleRegentModV1")
+            .Register<CardModel>("card_traits_state", CopyStateForClone);
+    }
 
     /// <summary>
     /// 这张牌是否处于“失心，且失心把它转成了 0灵魂 / X虚空”的状态。//20260801

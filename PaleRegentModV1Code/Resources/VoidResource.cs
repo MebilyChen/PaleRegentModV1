@@ -55,13 +55,20 @@ public static class VoidResource
         Definition = registry.Register("void", def);
         Id = Definition.Id;
 
-        registry.AlwaysShowInCombatUiForCharacter<PaleRegentModV1.PaleRegentModV1Code.Character.PaleRegentModV1>(Definition.LocalId, -1000);
+        // 仅在 PaleRegent 角色的战斗中常显；其他角色保持隐藏。
+        registry.AlwaysShowInCombatUiForCharacter<
+            PaleRegentModV1.PaleRegentModV1Code.Character.PaleRegentModV1>(
+            Definition.LocalId,
+            -1000);
 
         registry.RegisterCombatUi<NSecondaryResourceCounter>("void_combat_counter", (NCombatUi parent) =>
         {
             // record 的 init-only 属性必须在对象初始化器里一次性赋值
             SecondaryResourceCounterStyle style = new SecondaryResourceCounterStyle
             {
+                // 根控件、图标和数字都使用同一尺寸，避免大图标从 48 像素根节点溢出。
+                CounterSize = new Vector2(100f, 100f),
+                IconSize = new Vector2(100f, 100f),
                 FontSize = 30,
                 OutlineSize = 12,
                 OutlineColor = Colors.Black,
@@ -75,12 +82,22 @@ public static class VoidResource
 
             NSecondaryResourceCounter counter = NSecondaryResourceCounter.Create(Definition, style);
 
-            Control energyNode = parent.GetNode<Control>("%EnergyCounterContainer");
-            counter.Position = energyNode.Position + new Vector2(150f, -50f);
+            // 固定锚定在战斗 UI 的左下角：不读取、不跟随任何星辉/能量节点。
+            // 位置以左下角为基准；Y 为负值时向上移动。
+            counter.AnchorLeft = 0f;
+            counter.AnchorTop = 1f;
+            counter.AnchorRight = 0f;
+            counter.AnchorBottom = 1f;
+            counter.OffsetLeft = 180f;
+            counter.OffsetTop = -200f;
+            counter.OffsetRight = 280f;
+            counter.OffsetBottom = -100f;
 
             return counter;
         }, (ctx) =>
         {
+            // Bind 会按 AlwaysShowInCombatUiForCharacter 的角色条件决定可见性。
+            // 不要在这里把 Visible 强制设为 true，否则其他角色也会显示。
             ctx.Node.Bind(ctx.Player, true);
         });
 
@@ -104,7 +121,7 @@ public static class VoidResource
 
             NSecondaryResourceCardCostUi node = NSecondaryResourceCardCostUi.Create(Id, style);
 
-            // 把费用图标放在能量费用图标正下方（与丝线费的摆放方式一致）
+            // 把费用图标放在能量费用图标正下方
             TextureRect energyIcon = parent.GetNode<TextureRect>("%EnergyIcon");
             node.Position = energyIcon.Position + new Vector2(0f, 48f);
 

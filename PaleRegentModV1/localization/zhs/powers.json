@@ -50,7 +50,7 @@
   "PALEREGENTMODV1-WINGED_FORGE_POWER.description": "在你的回合开始时，将1张[gold]{IfUpgraded:show:有翼佣卫+|有翼佣卫}[/gold]置入手牌。",
   "PALEREGENTMODV1-WINGED_FORGE_POWER.smartDescription": "在你的回合开始时，将{Amount}张[gold]{IfUpgraded:show:有翼佣卫+|有翼佣卫}[/gold]置入手牌。",
   "PALEREGENTMODV1-VESSEL_PLAN_POWER.title": "容器计划",
-  "PALEREGENTMODV1-VESSEL_PLAN_POWER.description": "在你的回合开始时，将1张[gold]{IfUpgraded:show:容器+|容器}[/gold]置入手牌",
+  "PALEREGENTMODV1-VESSEL_PLAN_POWER.description": "在你的回合开始时，将1张[gold]容器[/gold]置入手牌",
   "PALEREGENTMODV1-VESSEL_PLAN_POWER.smartDescription": "在你的回合开始时，将{Amount}张[gold]{IfUpgraded:show:容器+|容器}[/gold]置入手牌",
   "PALEREGENTMODV1-BULWARK_OATH_POWER.title": "誓卫",
   "PALEREGENTMODV1-BULWARK_OATH_POWER.description": "你失去生命时，获得1点[gold]格挡[/gold]。",
@@ -99,5 +99,5 @@
   "PALEREGENTMODV1-EMBERS_OF_MIGHT_POWER.smartDescription": "每当有1张牌被[gold]消耗[/gold]时，随机一名玩家获得[blue]{Amount}[/blue]点[gold]力量[/gold]。",
   "PALEREGENTMODV1-BORNIN_ABYSS_POWER.title": "生于深渊",
   "PALEREGENTMODV1-BORNIN_ABYSS_POWER.description": "每消耗1点虚空，对随机敌人造成层数点伤害。每获得1点虚空，获得层数点防御。",
-  "PALEREGENTMODV1-BORNIN_ABYSS_POWER.smartDescription": "每消耗1点虚空，对随机敌人造成{BorninAbyssPower}点伤害。每获得1点虚空，获得{BorninAbyssPower}点防御。"
+  "PALEREGENTMODV1-BORNIN_ABYSS_POWER.smartDescription": "每消耗1点虚空，对随机敌人造成{Amount}点伤害。每获得1点虚空，获得{Amount}点防御。"
 }

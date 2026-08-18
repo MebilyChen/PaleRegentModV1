@@ -50,22 +50,23 @@ public class PaleToken : PaleRegentModV1Relic
             return;
         }
 
-        // 20260725：玩家回合开始，清零【异色】的本回合虚空获得计数。
-        // 苍白信物/国王之魂是本角色必带初始遗物，因此是可靠的回合开始挂点。
+        // 回合级计数器：异色与共鸣一击仍按原规则在每回合开始清零。
         VoidPowerListener.ResetTurnGain();
-        // 20260727：同步清零回合级灵魂获得计数（共鸣一击 C#63）。
         CombatCounters.ResetTurn();
 
-        // 本回合"少恢复"的量 = 虚空数量 - 恢复补偿，最低为 0
+        // 引擎已经先执行 ResetEnergy：此时能量为本回合重置后的灵魂上限。
+        // 再按照当前虚空量扣除，得到本回合实际可用/恢复的灵魂。
         int reduction = VoidResource.Get(player) - RecoveryBonus;
-        if (reduction <= 0)
+        if (reduction > 0)
         {
-            return;
+            Flash();
+            await PlayerCmd.LoseEnergy(reduction, player);
         }
 
-        Flash();
-        // PlayerCmd.LoseEnergy 内部会 Clamp 到 0，不会扣成负数
-        await PlayerCmd.LoseEnergy(reduction, player);
+        // 关键新增：在扣除虚空限制后，记录本回合实际恢复到的灵魂点数。
+        // PlayerCombatState.Energy 是当前回合实际可用的灵魂数；取正数避免异常值入账。
+        int recoveredSoul = player.PlayerCombatState?.Energy ?? 0;
+        SoulBladesEnergyTracker.AddSoul(player, recoveredSoul);
     }
 
     /// <summary>

@@ -11,33 +11,44 @@ using PaleRegentModV1.PaleRegentModV1Code.Patches;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【共鸣一击】攻击牌（表 C#63，0727 新增）。
-/// 1 灵魂：造成 5 点伤害，本回合每生成 1 点虚空或灵魂，额外 +3 点伤害。
-/// 升级后：8 点伤害，每点 +4。
-/// 备注：本回合"生成的灵魂"统计的是回合内额外获得的灵魂（蓄灵发放、卡牌获能等，
-/// 通过 CombatCounters 埋点），回合开始的常规灵魂恢复不计入。
+/// 【共鸣一击】攻击牌。
+/// 1 灵魂：造成伤害；本回合每生成 1 点虚空或额外获得 1 点灵魂，伤害增加。
 /// </summary>
-public class ResonantStrike() : PaleRegentModV1Card(1,
-    CardType.Attack, CardRarity.Uncommon,
+public class ResonantStrike() : PaleRegentModV1Card(
+    1,
+    CardType.Attack,
+    CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
     private const int BaseDamage = 5;
     private const int UpgradeDamageBonus = 3;
+    private const int BonusPerResource = 3;
+    private const int UpgradeBonusPerResourceBonus = 1;
 
-    /// <summary>本回合每点虚空/灵魂的额外伤害（升级后 4）。</summary>
-    private int _bonusPerResource = 3;
-
+    /// <summary>
+    /// CalculatedDamage = CalculationBase + ExtraDamage × multiplier。
+    /// multiplier 每次显示牌面或结算时读取当前回合资源计数。
+    /// </summary>
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(BaseDamage, ValueProp.Move)];
+    [
+        new CalculationBaseVar(BaseDamage),
+        new ExtraDamageVar(BonusPerResource),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
+            (_, __) => GetResourceGainedThisTurn())
+    ];
+
+    private static int GetResourceGainedThisTurn()
+    {
+        return VoidPowerListener.VoidGainedThisTurn
+            + CombatCounters.SoulGainedThisTurn;
+    }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
-        int resourceGained = VoidPowerListener.VoidGainedThisTurn + CombatCounters.SoulGainedThisTurn;
-        decimal totalDamage = DynamicVars.Damage.BaseValue + resourceGained * _bonusPerResource;
-
-        await DamageCmd.Attack(totalDamage)
+        // 与牌面展示共用同一个动态变量，避免显示值和结算值不一致。
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
@@ -46,7 +57,7 @@ public class ResonantStrike() : PaleRegentModV1Card(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
-        _bonusPerResource = 4;
+        DynamicVars.CalculationBase.UpgradeValueBy(UpgradeDamageBonus);            // 5 -> 8
+        DynamicVars.ExtraDamage.UpgradeValueBy(UpgradeBonusPerResourceBonus);     // 3 -> 4
     }
 }
