@@ -12,25 +12,27 @@ using PaleRegentModV1.PaleRegentModV1Code.Traits;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【失心重击】攻击牌（表 C#68，0727 新增）。
-/// 1 灵魂：造成 12 点伤害。自带【失心】（灵魂费转虚空费 1、重放 2）。
-/// 升级后：18 点伤害。
+/// 【失心重击】攻击牌。
+/// 0 灵魂 + 2 虚空：造成 7 点伤害。自带【失心】并获得相应的重放效果。
+/// 升级后：12 点伤害。
 /// </summary>
 public class HeartlessBlow : PaleRegentModV1Card
 {
-    private const int BaseDamage = 12;
-    private const int UpgradeDamageBonus = 6;
+    private const int VoidCost = 2;
+    private const int BaseDamage = 7;
+    private const int UpgradeDamageBonus = 5;
 
-    public HeartlessBlow() : base(1,
+    public HeartlessBlow() : base(0,
         CardType.Attack, CardRarity.Common,
         TargetType.AnyEnemy)
     {
+        // 固定登记 2 点虚空费用。
+        CardTraits.SetVoidCost(this, VoidCost);
     }
 
     /// <summary>
-    /// 自带失心：灵魂费并入虚空费、获得重放 1（见 CardTraits.ApplyLost）。
-    /// 20260728 修复：不能在构造器里 ApplyLost（canonical 实例会抛
-    /// CanonicalModelException 导致启动崩溃），改由基类在进入战斗时施加。
+    /// 保留自带失心：此处灵魂费本来就是 0，因此失心不会额外增加虚空费；
+    /// 仍会保留失心提供的重放、消耗及对应词条表现。
     /// </summary>
     public override bool HasInnateLost => true;
 

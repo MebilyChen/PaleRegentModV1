@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【容器计划】能力牌（机制文档：造物流）。
-/// 3 灵魂 + 3 虚空 能力：你的每回合开始时，将 1 张【容器】加入手牌。
+/// 2 灵魂 + 2 虚空 能力：你的每回合开始时，将 1 张【容器】加入手牌。
 /// 升级后：生成【容器+】。
 /// </summary>
 public class VesselPlan : PaleRegentModV1Card
@@ -28,14 +28,17 @@ public class VesselPlan : PaleRegentModV1Card
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<VesselPlanPower>((int?)null),
-         HoverTipFactory.FromCard<Vessel>(IsUpgraded)];
+    [
+        HoverTipFactory.FromPower<VesselPlanPower>(
+            (int)DynamicVars["VesselPlanPower"].BaseValue),
+        HoverTipFactory.FromCard<Vessel>(IsUpgraded)
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<VesselPlanPower>(VesselPerTurn)];
     
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Retain];
+        IsUpgraded ? [CardKeyword.Retain] : [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://o6mdutuwjfj"
-path="res://.godot/imported/mod_image.png-4af9ee917d1ff809e8b66fc7ecedd780.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
 source_file="res://PaleRegentModV1/mod_image.png"
-dest_files=["res://.godot/imported/mod_image.png-4af9ee917d1ff809e8b66fc7ecedd780.ctex"]
 
 [params]
 

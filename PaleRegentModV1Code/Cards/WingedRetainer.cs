@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【有翼卫群】能力牌（机制文档：造物流）。
 /// 2 灵魂 0 虚空 能力：每回合开始时，将 1 张【有翼佣卫】（格挡造物牌）加入手牌。驾驭5。
-/// 升级后：改为生成【有翼佣卫+】。
+/// 升级后：改为生成【有翼佣卫+】。驾驭7。
 /// 注：类名仍为 WingedRetainer，卡牌标题改为"有翼卫群"。
 /// </summary>
 public class WingedRetainer : PaleRegentModV1Card
@@ -23,6 +23,7 @@ public class WingedRetainer : PaleRegentModV1Card
     /// <summary>每回合生成张数。</summary>
     private const int ForgePerTurn = 1;
     private const int BaseHarness = 5;
+    private const int UpgradeHarnessBonus = 2;
 
     public WingedRetainer() : base(2,
         CardType.Power, CardRarity.Uncommon,
@@ -35,7 +36,8 @@ public class WingedRetainer : PaleRegentModV1Card
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<WingedRetainerCard>(IsUpgraded),
          ModHoverTips.Mould,
-         ModHoverTips.Harness];
+         ModHoverTips.Harness,HoverTipFactory.FromPower<WingedForgePower>(
+             (int)DynamicVars["WingedForgePower"].BaseValue)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<WingedForgePower>(ForgePerTurn), new PowerVar<HarnessPower>(BaseHarness)];
@@ -62,6 +64,7 @@ public class WingedRetainer : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        // 升级：生成【有翼佣卫+】（层数不变，见 OnPlay 里的 MakeUpgraded）
+        // 升级：生成【有翼佣卫+】
+        DynamicVars["HarnessPower"].UpgradeValueBy(UpgradeHarnessBonus);
     }
 }

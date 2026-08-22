@@ -23,6 +23,7 @@ public class MakeRetainer : PaleRegentModV1Card
     /// <summary>每回合生成张数。</summary>
     private const int ForgePerTurn = 1;
     private const int BaseHarness = 5;
+    private const int UpgradeHarnessBonus = 2;
 
     public MakeRetainer() : base(1,
         CardType.Power, CardRarity.Uncommon,
@@ -35,7 +36,8 @@ public class MakeRetainer : PaleRegentModV1Card
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded),
          ModHoverTips.Mould,
-         ModHoverTips.Harness];
+         ModHoverTips.Harness,HoverTipFactory.FromPower<RetainerForgePower>(
+             (int)DynamicVars["RetainerForgePower"].BaseValue)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<RetainerForgePower>(ForgePerTurn), new PowerVar<HarnessPower>(BaseHarness)];
@@ -62,6 +64,7 @@ public class MakeRetainer : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        // 升级：生成【国王佣卫+】（层数不变，见 OnPlay 里的 MakeUpgraded）
+        // 升级：生成【国王佣卫+】
+        DynamicVars["HarnessPower"].UpgradeValueBy(UpgradeHarnessBonus);
     }
 }

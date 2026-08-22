@@ -38,6 +38,12 @@ public class PlaguePower : PaleRegentModV1Power
     /// <summary>防止随机段伤本身再次触发瘟疫（递归保护）。</summary>
     private bool _resolving;
 
+    /// <summary>
+    /// 当前是否正在结算由【瘟疫】触发的追加段伤。
+    /// 供其他能力识别伤害来源；不将段伤标为 Unpowered，以保留其力量加成。
+    /// </summary>
+    public bool IsResolvingExtraDamage => _resolving;
+
     // 20260727：效果表第 2 条分类调整为“正面效果”，Debuff → Buff
     // （图标边框/驱散判定等会随 PowerType 自动切换）。
     public override PowerType Type => PowerType.Buff;
@@ -53,7 +59,10 @@ public class PlaguePower : PaleRegentModV1Power
         return Amount;
     }
 
-    /// <summary>持有者每次造成攻击伤害后：额外进行 [层数] 次独立随机 3 点基础攻击。</summary>
+    /// <summary>
+    /// 持有者每次造成攻击伤害后：额外进行 [层数] 次独立随机 3 点基础攻击。
+    /// 结算期间 IsResolvingExtraDamage 为 true，供【疫血共鸣】等能力排除该来源。
+    /// </summary>
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
         if (dealer != Owner || _resolving)

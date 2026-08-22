@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
@@ -20,7 +22,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 public class KingsRetainer : PaleRegentModV1Card
 {
     /// <summary>虚空费（表格：0灵魂+1虚空）。</summary>
-    private const int VoidCost = 1;
+    private const int VoidCost = 0;
     private const int BaseDamage = 5;
     private const int UpgradeDamageBonus = 3;
     private const int BaseHarness = 1;
@@ -68,4 +70,10 @@ public class KingsRetainer : PaleRegentModV1Card
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
         DynamicVars["HarnessPower"].UpgradeValueBy(1m);
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

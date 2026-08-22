@@ -21,7 +21,7 @@ public class BorninAbyss : PaleRegentModV1Card
     private const int VoidCost = 1;
     private const int PowerAmount = 3;
 
-    public BorninAbyss() : base(3,
+    public BorninAbyss() : base(2,
         CardType.Power, CardRarity.Rare,
         TargetType.Self)
     {

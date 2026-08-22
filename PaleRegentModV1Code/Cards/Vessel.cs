@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
@@ -14,13 +15,13 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【容器】生成牌（表格设计：造物流，"容器计划"每回合生成 / 不惜代价 / 容器药水）。
-/// 0 灵魂 技能：对一个敌人施加 1 层【纯粹封印】；
+/// 1 灵魂 技能：对一个敌人施加 1 层【纯粹封印】；
 /// 消耗手牌中所有状态牌：少于 2 张 → 变为【失败容器】，
 /// 2 张及以上 → 变为【纯粹容器】。
 /// 变形后的牌回到手牌中。
-/// 升级后：施加 2 层纯粹封印，且变化得到升级版容器牌。
+/// 升级后：施加 2 层纯粹封印，且变化得到升级版容器牌。保留。
 /// </summary>
-public class Vessel() : PaleRegentModV1Card(0,
+public class Vessel() : PaleRegentModV1Card(1,
     CardType.Skill, CardRarity.Token,
     TargetType.AnyEnemy)
 {
@@ -39,6 +40,8 @@ public class Vessel() : PaleRegentModV1Card(0,
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<PureSealPower>(BaseSeal)];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        IsUpgraded ? [CardKeyword.Retain] : [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -116,5 +119,13 @@ public class Vessel() : PaleRegentModV1Card(0,
     {
         // 升级：2 层纯粹封印；变化结果的升级处理见 OnPlay。
         DynamicVars["PureSealPower"].UpgradeValueBy(1m);
+        // 升级后实际获得保留。
+        CardCmd.ApplyKeyword(this, [CardKeyword.Retain]);
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

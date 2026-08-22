@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【返祖】稀有能力牌（后期引擎）。
-/// 4 灵魂：获得【返祖】buff——你每打出一张牌，回复 1 点灵魂。每次获得虚空时，额外选择至多1张手牌添加失心。
+/// 4 灵魂：获得【返祖】buff——你每打出一张牌，回复 1 点灵魂。每次获得虚空时，额外选择至多1张手牌添加失心。结束你的回合
 ///
 /// 定位：一次性投资 4 灵魂，之后每张牌都便宜 1 费，
 /// 与失心牌（0 灵魂费）联动时每张牌净赚 1 灵魂。
@@ -37,6 +37,8 @@ public class Atavism() : PaleRegentModV1Card(4,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<AtavismPower>(choiceContext, cardPlay.Player.Creature, PowerStacks, cardPlay.Player.Creature, this);
+        // 结束你的回合（EndTurn 返回 void，不能 await）。
+        PlayerCmd.EndTurn(Owner, false, (Func<Task>)null);
     }
 
     protected override void OnUpgrade()

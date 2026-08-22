@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
+using BaseLib.Abstracts;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -34,12 +35,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 public class VoidStrike() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Basic,
-    TargetType.AnyEnemy)
+    TargetType.AnyEnemy), ITranscendenceCard
 {
     /// <summary>基础伤害。</summary>
     private const int BaseDamage = 3;
     /// <summary>升级后伤害增加量。</summary>
-    private const int UpgradeDamageBonus = 2;
+    private const int UpgradeDamageBonus = 3;
     /// <summary>打出后获得的虚空数量。</summary>
     private const int VoidGain = 1;
     /// <summary>可附加失心的手牌数（升级后 2）。</summary>
@@ -93,5 +94,10 @@ public class VoidStrike() : PaleRegentModV1Card(1,
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
         _lostTargets = 2;
+    }
+    
+    public CardModel GetTranscendenceTransformedCard()
+    {
+        return new DarkTide();
     }
 }

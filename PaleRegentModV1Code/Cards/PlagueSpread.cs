@@ -12,7 +12,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【疫蔓】能力牌（机制文档：瘟疫流）。
 /// 1 灵魂 能力：每当你生成一张【感染】，对场上所有生物施加 1 层【瘟疫】。将 1 张【感染】加入手牌。
-/// 升级后：改为 3 层。
+/// 升级后：改为 2 层。将 2 张【感染】加入手牌
 /// </summary>
 public class PlagueSpread() : PaleRegentModV1Card(1,
     CardType.Power, CardRarity.Uncommon,
@@ -20,6 +20,10 @@ public class PlagueSpread() : PaleRegentModV1Card(1,
 {
     private const int PlaguePerInfection = 1;
     private const int BaseInfections = 1;
+    private const int UpgradeInfectionsBonus = 1;
+
+    private int InfectionsToGenerate =>
+        BaseInfections + (IsUpgraded ? UpgradeInfectionsBonus : 0);
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
@@ -32,15 +36,28 @@ public class PlagueSpread() : PaleRegentModV1Card(1,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<PlagueSpreadPower>(choiceContext, Owner.Creature,
-            DynamicVars["PlagueSpreadPower"].BaseValue, Owner.Creature, this);
-        //生成1张
-        await CardPileCmd.AddToCombatAndPreview<Infection>(Owner.Creature, PileType.Hand, BaseInfections, Owner);
-        await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
+        // 未升级：每张感染施加 1 层瘟疫；升级后：每张感染施加 2 层瘟疫。
+        await PowerCmd.Apply<PlagueSpreadPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars["PlagueSpreadPower"].BaseValue,
+            Owner.Creature,
+            this);
+
+        // 未升级：生成 1 张感染；升级后：生成 2 张感染。
+        await CardPileCmd.AddToCombatAndPreview<Infection>(
+            Owner.Creature,
+            PileType.Hand,
+            InfectionsToGenerate,
+            Owner);
+
+        // 统计值必须与实际生成数量一致。
+        await Infection.NotifyGenerated(Owner.Creature, InfectionsToGenerate);
+        //await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["PlagueSpreadPower"].UpgradeValueBy(2m);
+        DynamicVars["PlagueSpreadPower"].UpgradeValueBy(1m);
     }
 }

@@ -17,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// </summary>
 public class PlagueWard : PaleRegentModV1Card
 {
-    private const int BaseVoidCost = 2;
+    private const int BaseVoidCost = 1;
     private const int BasePlague = 5;
 
     public PlagueWard() : base(2,
@@ -44,6 +44,6 @@ public class PlagueWard : PaleRegentModV1Card
     protected override void OnUpgrade()
     {
         EnergyCost.UpgradeBy(-1);
-        CardTraits.SetVoidCost(this, BaseVoidCost - 1);
+        //CardTraits.SetVoidCost(this, BaseVoidCost - 1);
     }
 }

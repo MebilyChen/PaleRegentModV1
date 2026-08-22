@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
@@ -39,6 +38,18 @@ public class CurseboundAgony() : PaleRegentModV1Card(
     /// <summary>统计手牌、抽牌、弃牌和消耗堆中的所有诅咒。</summary>
     private int GetCurseCount()
     {
+        // 图鉴、奖励预览等会使用 Canonical 卡牌；此时不能读取 Owner。
+        if (!IsMutable)
+        {
+            return 0;
+        }
+
+        // 运行时卡牌才允许访问 Owner。
+        if (Owner?.Deck == null)
+        {
+            return 0;
+        }
+
         return CardPile.GetCards(
                 Owner,
                 PileType.Hand,
@@ -49,18 +60,28 @@ public class CurseboundAgony() : PaleRegentModV1Card(
     }
 
     /// <summary>
-    /// 牌面与实际 PowerCmd.Apply 共用的最终层数。
-    /// ResolveEnergyXValue 会取当前 X 灵魂支付值；在手牌预览时则按当前可用 X 值显示。
+    /// 牌面 {Amount} 对应的“额外添加”层数：诅咒数量加上升级奖励。
+    /// 不包含本牌支付的 X 灵魂，避免将最终总层数误显示为额外层数。
     /// </summary>
-    private int GetAmount()
+    private int GetExtraAmount()
     {
-        return ResolveEnergyXValue() + GetCurseCount() + _upgradeBonus;
+        return GetCurseCount() + _upgradeBonus;
+    }
+
+    /// <summary>
+    /// 实际施加的总层数：支付的 X 灵魂加上额外层数。
+    /// 在牌组、图鉴和奖励等非战斗预览中，没有可支付的 X 值，因此 X 按 0 处理。
+    /// </summary>
+    private int GetTotalAmount()
+    {
+        int xValue = CombatState == null ? 0 : ResolveEnergyXValue();
+        return xValue + GetExtraAmount();
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int amount = GetAmount();
-        if (amount <= 0)
+        int totalAmount = GetTotalAmount();
+        if (totalAmount <= 0)
         {
             return;
         }
@@ -72,7 +93,7 @@ public class CurseboundAgony() : PaleRegentModV1Card(
             await PowerCmd.Apply<PathOfPainPower>(
                 choiceContext,
                 enemy,
-                amount,
+                totalAmount,
                 Owner.Creature,
                 this);
         }
@@ -83,7 +104,7 @@ public class CurseboundAgony() : PaleRegentModV1Card(
         _upgradeBonus = 1;
     }
 
-    /// <summary>为本地化中的 {Amount} 提供当前最终施加层数。</summary>
+    /// <summary>为本地化中的 {Amount} 提供“额外添加”的层数，而非实际总层数。</summary>
     private sealed class CurrentAmountVar : DynamicVar
     {
         public CurrentAmountVar() : base("Amount", 0m)
@@ -96,17 +117,17 @@ public class CurseboundAgony() : PaleRegentModV1Card(
             Creature? target,
             bool runGlobalHooks)
         {
-            PreviewValue = (card as CurseboundAgony)?.GetAmount() ?? 0;
+            PreviewValue = (card as CurseboundAgony)?.GetExtraAmount() ?? 0;
         }
 
         protected override decimal GetBaseValueForIConvertible()
         {
-            return (_owner as CurseboundAgony)?.GetAmount() ?? 0;
+            return (_owner as CurseboundAgony)?.GetExtraAmount() ?? 0;
         }
 
         public override string ToString()
         {
-            return ((_owner as CurseboundAgony)?.GetAmount() ?? 0).ToString();
+            return ((_owner as CurseboundAgony)?.GetExtraAmount() ?? 0).ToString();
         }
     }
 }

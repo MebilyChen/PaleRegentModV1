@@ -15,33 +15,36 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【王家集结】技能牌（表 C#96，0727 新增）。
-/// 2 灵魂：获得 13 点格挡，在手牌中生成 1 张【国王俑卫】，获得 10 点驾驭。
-/// 升级后：生成的国王俑卫已升级。
+/// 2 灵魂：获得 13 点格挡，在手牌中生成 1 张【国王俑卫】，获得 5 点驾驭。
+/// 升级后：获得 17 点格挡，生成 1 张【国王俑卫+】，获得 7 点驾驭。
 /// </summary>
 public class RoyalMuster() : PaleRegentModV1Card(2,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
     private const int BaseBlock = 13;
-    private const int HarnessGain = 10;
+    private const int UpgradeBlockBonus = 4;
+    private const int BaseHarnessGain = 5;
+    private const int UpgradeHarnessBonus = 2;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new BlockVar(BaseBlock, ValueProp.Move)];
-    // 声明"这张牌提供格挡"，游戏会据此显示格挡预览等 UI
+
+    // 声明“这张牌提供格挡”，游戏会据此显示格挡预览等 UI。
     public override bool GainsBlock => true;
 
-    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    // 带 Defend 标签：与“对防御牌生效”的效果联动（原版惯例）。
     protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
-    
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<KingsRetainer>(IsUpgraded), ModHoverTips.Harness, ModHoverTips.CreationRule];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 1. 格挡
+        // 1. 格挡：基础 13，升级后 17。
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        // 2. 手牌生成 1 张国王俑卫（升级后生成已升级版本，写法参考原版 Charge）
+        // 2. 手牌生成 1 张国王俑卫：升级后创建并升级为【国王俑卫+】。
         CardModel retainer = Owner.Creature.CombatState.CreateCard<KingsRetainer>(Owner);
         if (IsUpgraded)
         {
@@ -51,13 +54,16 @@ public class RoyalMuster() : PaleRegentModV1Card(2,
             await CardPileCmd.AddGeneratedCardToCombat(retainer, PileType.Hand, Owner),
             2.2f, CardPreviewStyle.HorizontalLayout);
 
-        // 3. 获得驾驭（HarnessPower，写法同 Wingforging）
+        // 3. 获得驾驭：基础 5，升级后 7。
+        int harnessGain = IsUpgraded
+            ? BaseHarnessGain + UpgradeHarnessBonus
+            : BaseHarnessGain;
         await PowerCmd.Apply<HarnessPower>(choiceContext, Owner.Creature,
-            HarnessGain, Owner.Creature, this);
+            harnessGain, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级效果：生成的国王俑卫已升级（见 OnPlay 中 IsUpgraded 传参）
+        DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus);
     }
 }

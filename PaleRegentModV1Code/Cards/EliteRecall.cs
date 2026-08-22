@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【召回精锐】技能牌。
-/// 1 灵魂 + 1 虚空：从消耗牌堆中选择 2（升级后 3）张造物牌，添加苍白后放回手牌。
+/// 1 灵魂 + 1 虚空：从消耗牌堆中选择至多 2（升级后 3）张造物牌，添加苍白后放回手牌。
 /// 造物判定：KingsRetainer / WingedRetainerCard / PureVessel / Vessel /
 /// VoidGivenFocus / VoidGivenForm / FailedExperiment。
 /// </summary>
@@ -55,7 +55,7 @@ public class EliteRecall : PaleRegentModV1Card
 
         // 牌数不足时，改为选择全部可选牌，避免要求玩家选择不存在的第 2/3 张。
         int selectionCount = System.Math.Min(_recallCount, eligibleCards.Count);
-        var prefs = new CardSelectorPrefs(SelectionScreenPrompt, selectionCount);
+        var prefs = new CardSelectorPrefs(SelectionScreenPrompt,0, selectionCount);
 
         IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromSimpleGrid(
             choiceContext,

@@ -41,6 +41,12 @@ public class SoulBlades : PaleRegentModV1Card
     /// </summary>
     private static int GetCurrentDamage(CardModel? card)
     {
+        // 图鉴、奖励预览等场景：使用固定基础伤害。
+        if (!card.IsMutable)
+        {
+            return 0;
+        }
+        
         if (card?.Owner == null)
         {
             return 0;

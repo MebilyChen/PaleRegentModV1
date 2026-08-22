@@ -28,7 +28,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 修改指南：
 /// - 想改转化目标：把 TransformTo&lt;Focus&gt; 的泛型参数换成别的卡牌类。
 /// </summary>
-public class Recycle() : PaleRegentModV1Card(2,
+public class Recycle() : PaleRegentModV1Card(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

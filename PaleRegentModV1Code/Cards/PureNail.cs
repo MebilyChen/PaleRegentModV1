@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -13,10 +15,9 @@ using PaleRegentModV1.PaleRegentModV1Code.Traits;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【纯粹之钉】攻击牌（表 C#82，0727 新增）。
-/// 0 灵魂：你的所有手牌获得【苍白】；每有 1 张牌因此被取消【失心】，
-/// 本次攻击次数 +1。造成 5 点伤害（次数 = 1 + 取消失心数）。
-/// 升级后：8 点伤害。
+/// 【纯粹之钉】攻击牌。
+/// 0 灵魂：选择手牌、抽牌堆、弃牌堆中的任意张牌附加【苍白】。
+/// 造成伤害。本牌每因苍白实际取消 1 次【失心】或虚空花费，攻击次数 +1。
 /// </summary>
 public class PureNail() : PaleRegentModV1Card(0,
     CardType.Attack, CardRarity.Rare,
@@ -32,27 +33,49 @@ public class PureNail() : PaleRegentModV1Card(0,
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
-        // 1) 全部手牌附加苍白，统计其中原本带失心的张数（苍白会取消失心）
-        int lostCancelled = 0;
-        // 20260801：虚空X 费的牌不能附加苍白，这里直接用 CanApplyPale 筛掉。
-        // 本牌是“全体手牌”而非选牌，因此不存在选牌界面提示问题；
-        // 筛掉之后虚空X 牌也不会被计入下方“取消失心数”。
-        List<CardModel> hand = CardPile.GetCards(Owner, PileType.Hand)
-            .Where(c => c != this && CardTraits.CanApplyPale(c))
+        // CanApplyPale 会排除规范实例、已有苍白的牌和虚空 X 费牌。
+        List<CardModel> candidates = CardPile.GetCards(Owner, PileType.Hand)
+            .Concat(CardPile.GetCards(Owner, PileType.Draw))
+            .Concat(CardPile.GetCards(Owner, PileType.Discard))
+            .Where(card => card != this && CardTraits.CanApplyPale(card))
+            .Distinct()
             .ToList();
-        foreach (CardModel card in hand)
+
+        IEnumerable<CardModel> selectedCards = await CardSelectCmd.FromSimpleGrid(
+            choiceContext,
+            candidates,
+            Owner,
+            new CardSelectorPrefs(SelectionScreenPrompt, 0, candidates.Count));
+
+        int cancelledEffectCount = 0;
+        foreach (CardModel card in selectedCards)
         {
+            // 先记录苍白施加前的状态。
+            // 仅固定且大于 0 的虚空费用算作可计数的“虚空花费”；
+            // 虚空 0 费不计入，虚空 X 费已由 CanApplyPale 排除。
             bool wasLost = CardTraits.IsLost(card);
-            CardTraits.ApplyPale(card);
+            bool hadCancellableVoidCost = CardTraits.GetVoidCost(card) > 0;
+
+            // 以返回值作为防御：即使今后选牌来源变化，也不统计未实际施加的苍白。
+            if (!CardTraits.ApplyPale(card))
+            {
+                continue;
+            }
+
+            // 再次读取状态，确保只统计苍白实际完成的取消，而不是仅按初始状态预估。
             if (wasLost && !CardTraits.IsLost(card))
             {
-                lostCancelled++;
+                cancelledEffectCount++;
+            }
+
+            if (hadCancellableVoidCost && !CardTraits.HasVoidCost(card))
+            {
+                cancelledEffectCount++;
             }
         }
 
-        // 2) 攻击：次数 = 1 + 取消失心数
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(1 + lostCancelled)
+            .WithHitCount(1 + cancelledEffectCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")

@@ -23,6 +23,7 @@ public class Dreamers() : PaleRegentModV1Card(1,
     private const int BaseDamage = 3;
     private const int UpgradeDamageBonus = 3;
     private const int BaseBlock = 3;
+    private const int UpgradeBlockBonus = 3;
     private const int DreamStacks = 3;
     // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
     protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
@@ -56,5 +57,6 @@ public class Dreamers() : PaleRegentModV1Card(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus);
     }
 }

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Relics;
@@ -133,4 +134,10 @@ public class WingedRetainerCard : PaleRegentModV1Card
         
         DynamicVars["HarnessPower"].UpgradeValueBy(1m);
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【疫触】攻击牌（机制文档：瘟疫流基础）。
 /// 1 灵魂 攻击：造成 6 点伤害，对自身施加 1 层【瘟疫】。
-/// 升级后：伤害 10。
+/// 升级后：伤害 10，对自身施加 2 层【瘟疫】。
 /// </summary>
 public class PlagueTouch() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Common,
@@ -22,6 +22,7 @@ public class PlagueTouch() : PaleRegentModV1Card(1,
 {
     private const int BaseDamage = 6;
     private const int UpgradeDamageBonus = 4;
+    private const int UpgradePlagueBonus = 1;
     private const int BasePlague = 1;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
@@ -46,5 +47,6 @@ public class PlagueTouch() : PaleRegentModV1Card(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        DynamicVars["PlaguePower"].UpgradeValueBy(UpgradePlagueBonus);
     }
 }

@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using PaleRegentModV1.PaleRegentModV1Code.Cards;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -27,7 +28,16 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        // 不是本 Power 所属玩家打出的卡，不触发。
         if (cardPlay.Player != Owner.Player)
+        {
+            return;
+        }
+
+        // 打出【返祖】本身不回复灵魂。
+        // 这样首次打出返祖时，刚施加的返祖 Power 不会立刻回 1 灵魂；
+        // 之后打出任意其他卡牌时仍会正常回复。
+        if (cardPlay.Card is Atavism)
         {
             return;
         }

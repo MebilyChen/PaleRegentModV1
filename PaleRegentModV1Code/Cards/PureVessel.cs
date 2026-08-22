@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
@@ -40,7 +41,8 @@ public class PureVessel() : PaleRegentModV1Card(0,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [ModHoverTips.Pure, ModHoverTips.RegretRule,
          HoverTipFactory.FromPower<PureSealPower>((int?)null),
-         HoverTipFactory.FromPower<VoidGuardPower>((int?)null)
+         HoverTipFactory.FromPower<VoidGuardPower>((int?)null),
+         HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Regret>(false)
          ];
 
     public override bool IsCreationCard => true;
@@ -100,4 +102,10 @@ public class PureVessel() : PaleRegentModV1Card(0,
     {
         _bonusPerStatus = UpgradedBonusPerStatus;
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

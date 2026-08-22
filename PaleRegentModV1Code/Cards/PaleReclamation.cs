@@ -18,10 +18,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 升级后：5 张。
 /// </summary>
 public class PaleReclamation() : PaleRegentModV1Card(2,
-    CardType.Skill, CardRarity.Uncommon,
+    CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
-    private int _reclaimCount = 3;
+    private int _reclaimCount = 1;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [ModHoverTips.Pale];
@@ -50,6 +50,6 @@ public class PaleReclamation() : PaleRegentModV1Card(2,
 
     protected override void OnUpgrade()
     {
-        _reclaimCount = 5;
+        _reclaimCount = 2;
     }
 }

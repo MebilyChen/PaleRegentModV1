@@ -13,7 +13,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 4 灵魂：获得能力【白沃姆摇篮】——你的【蓄灵】不再于触发后消失；
 /// 每回合开始获得 1 层【蓄灵】和 2 层【白根】；
 /// 受到未被格挡完的攻击伤害时，移除所有【蓄灵】。
-/// 升级后：每回合 3 层白根。
+/// 升级后：费-1
 /// </summary>
 public class WhiteWyrmCradleCard() : PaleRegentModV1Card(4,
     CardType.Power, CardRarity.Ancient,
@@ -33,6 +33,7 @@ public class WhiteWyrmCradleCard() : PaleRegentModV1Card(4,
 
     protected override void OnUpgrade()
     {
-        DynamicVars["WhiteWyrmCradlePower"].UpgradeValueBy(1);
+        //DynamicVars["WhiteWyrmCradlePower"].UpgradeValueBy(1);
+        EnergyCost.UpgradeBy(-1);
     }
 }

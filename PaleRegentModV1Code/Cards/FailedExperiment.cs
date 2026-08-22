@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 
@@ -12,10 +14,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【失败实验】生成牌（表格设计：造物流，"虚空实验"X&lt;3 时生成）。升级后 15 伤。
-/// 0 灵魂 攻击（全体）：对所有敌人造成 9 点伤害并施加 1 层【虚空之触】，
+/// 1 灵魂 攻击（全体）：对所有敌人造成 9 点伤害并施加 1 层【虚空之触】，
 /// 同时对自己施加 1 层【虚空之触】（失控的实验殃及自身）。消耗。
 /// </summary>
-public class FailedExperiment() : PaleRegentModV1Card(0,
+public class FailedExperiment() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
@@ -53,4 +55,10 @@ public class FailedExperiment() : PaleRegentModV1Card(0,
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

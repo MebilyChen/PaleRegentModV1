@@ -15,7 +15,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【封印之令】技能牌（机制文档：卡牌表 C#40）。
 /// 2 灵魂 技能：获得 5 点格挡，对目标敌人施加 1 层【纯粹封印】
 /// （层数回合内其每回合第一次攻击伤害置 0）。
-/// 升级后：格挡 10。
+/// 升级后：格挡 10。2 层【纯粹封印】
 /// 20260725 批次：灵魂费用 1→2（表格 I44 高亮）。
 /// </summary>
 public class SealingEdict() : PaleRegentModV1Card(2,
@@ -24,6 +24,7 @@ public class SealingEdict() : PaleRegentModV1Card(2,
 {
     private const int BaseBlock = 5;
     private const int UpgradeBlockBonus = 5;
+    private const int UpgradeSealBonus = 1;
     private const int BaseSeal = 1;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
@@ -50,5 +51,6 @@ public class SealingEdict() : PaleRegentModV1Card(2,
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus);
+        DynamicVars["PureSealPower"].UpgradeValueBy(UpgradeSealBonus);
     }
 }

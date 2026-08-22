@@ -44,6 +44,14 @@ public class BlessingInBlight() : PaleRegentModV1Card(
     /// </summary>
     private static int GetCurseCount(CardModel? card)
     {
+        // 图鉴中的 Canonical 卡牌没有 Owner，不能读取运行时牌组。
+        if (!card.IsMutable)
+        {
+            return 0;
+        }
+
+        // 只有真实的战斗/牌组实例才可以读取 Owner。
+        
         if (card?.Owner == null)
         {
             return 0;
@@ -59,6 +67,12 @@ public class BlessingInBlight() : PaleRegentModV1Card(
     /// </summary>
     private static int GetCurrentHealAmount(CardModel? card)
     {
+        // 图鉴中展示基础值，不能计算牌组内诅咒数量。
+        if (!card.IsMutable)
+        {
+            return 0;
+        }
+        
         if (card is not BlessingInBlight blessingInBlight)
         {
             return 0;

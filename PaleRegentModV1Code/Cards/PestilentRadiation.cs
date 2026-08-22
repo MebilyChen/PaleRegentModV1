@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【病态辐射】攻击牌。
-/// 生成 1 张【感染】，并随机攻击；攻击次数为 1 + 本场战斗此前生成的感染数。
+/// 生成 1(2) 张【感染】，并随机攻击；攻击次数为 1 + 本场战斗此前生成的感染数。
 /// </summary>
 public class PestilentRadiation() : PaleRegentModV1Card(
     0,
@@ -25,6 +25,7 @@ public class PestilentRadiation() : PaleRegentModV1Card(
     private const int BaseDamage = 3;
     private const int UpgradeDamageBonus = 2;
     private const int BaseInfections = 1;
+    private const int UpgradeInfectionsBonus = 1;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -43,16 +44,21 @@ public class PestilentRadiation() : PaleRegentModV1Card(
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 先取次数，保持原实现的结算语义。
+        // 先取次数，保持原实现的结算语义：本次生成感染前读取统计值。
         int hits = GetHitCount();
 
-        // 生成 1 张【感染】，并将本次生成计入战斗统计。
+        // 未升级：1 张；升级后：2 张。
+        int infectionsToGenerate = BaseInfections
+                                   + (IsUpgraded ? UpgradeInfectionsBonus : 0);
+
         await CardPileCmd.AddToCombatAndPreview<Infection>(
             Owner.Creature,
             PileType.Hand,
-            BaseInfections,
+            infectionsToGenerate,
             Owner);
-        await Infection.NotifyGenerated(Owner.Creature, BaseInfections);
+
+        // 统计必须与实际生成数量一致，否则后续攻击次数会少算。
+        await Infection.NotifyGenerated(Owner.Creature, infectionsToGenerate);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hits)

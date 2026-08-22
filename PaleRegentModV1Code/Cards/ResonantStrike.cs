@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Patches;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -36,7 +39,9 @@ public class ResonantStrike() : PaleRegentModV1Card(
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(
             (_, __) => GetResourceGainedThisTurn())
     ];
-
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.Static(StaticHoverTip.Energy), HoverTipFactory.FromPower<VoidPower>((int?)null)];
+    
     private static int GetResourceGainedThisTurn()
     {
         return VoidPowerListener.VoidGainedThisTurn

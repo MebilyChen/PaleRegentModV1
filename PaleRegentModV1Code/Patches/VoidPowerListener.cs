@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using PaleRegentModV1.PaleRegentModV1Code.Relics;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -8,28 +10,8 @@ using STS2RitsuLib.Combat.SecondaryResources;
 namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 
 /// <summary>
-/// 虚空资源全局监听器（修复：花费虚空后 VoidPower 图标不同步移除）。
-///
-/// 问题根因：
-/// 之前 VoidPower 的同步完全依赖各张卡在 OnPlay 里手动调用
-/// VoidResource.SyncPower(...)。但对于"固定虚空费"的卡（通过
-/// card.SecondaryCosts().Set(...) 声明费用），支付是 RitsuLib 在出牌
-/// 结算时自动完成的，不会经过我们的 OnPlay 代码——
-/// 一部分卡忘了调、药水/遗物等其它消耗途径也调不到，导致图标层数滞留。
-///
-/// 修复方案（参考 ）：
-/// 实现 ISecondaryResourceHookListener 并注册为进程级监听器。
-/// RitsuLib 在虚空资源发生任何数量变化（Gain/Spend/Lose/Set/Reset）后
-/// 都会回调 AfterSecondaryResourceChanged，我们在这里统一把 VoidPower
-/// 层数同步为最新资源值。各张卡里原有的手动 SyncPower 调用是幂等的，
-/// 保留也不会重复叠加，作为兜底。
-///
-/// 备忘：
-/// 1. ISecondaryResourceHookListener 的全部方法都有默认实现（C#8 DIM，
-///    已用 DLL 元数据核实），所以只需实现我们关心的两个回调。
-/// 2. 监听器上下文里没有 PlayerChoiceContext，参考 SilkPowerListener
-///    用 new ThrowingPlayerChoiceContext()。
-/// 3. 必须在 MainFile.Initialize 里调用 Init() 注册。
+/// 虚空资源全局监听器。
+/// 统一追踪虚空数量变动、维护本回合虚空获得统计，并在非虚空之心阶段同步 VoidPower 图标。
 /// </summary>
 internal sealed class VoidPowerListener : ISecondaryResourceHookListener
 {
@@ -39,7 +21,6 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
     /// 本回合获得的虚空总量（只统计正增量）。
     /// 供【异色 OffColor】读取段数；每个玩家回合开始时由
     /// PaleToken.AfterEnergyReset 调用 ResetTurnGain() 清零。
-    /// 20260725 批次新增（表格卡牌 C#10 异色）。
     /// </summary>
     public static int VoidGainedThisTurn { get; private set; }
 
@@ -56,7 +37,7 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
 
     public async Task AfterSecondaryResourceChanged(SecondaryResourceChangeContext context)
     {
-        // 只处理虚空资源，其它 mod 的次级资源直接放过
+        // 只处理虚空资源，其它 mod 的次级资源直接放过。
         if (context.Definition.Id != VoidResource.Id)
         {
             return;
@@ -68,44 +49,31 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
             return;
         }
 
-        // 数值没有实际变化就不同步，避免无意义的命令
+        // 数值没有实际变化就不同步，避免无意义的命令。
         if (context.NewAmount == context.OldAmount)
         {
             return;
         }
 
-        // 累计本回合获得的虚空（只计正增量，花费/损失不扣回）
+        // 累计本回合获得的虚空（只计正增量，花费/损失不扣回）。
         if (context.NewAmount > context.OldAmount)
         {
             int gained = (int)(context.NewAmount - context.OldAmount);
             VoidGainedThisTurn += gained;
-            // 20260727 批次：战斗级统计埋点（灵魂双刃 C#57 / 虚空回声 C#64 / 共鸣一击 C#63）
             CombatCounters.NotifyVoidGain(gained);
+        }
+
+        // 虚空之心代表终局形态：虚空资源继续存在，但不再用 VoidPower 图标展示。
+        if (player.Relics.Any(relic => relic is VoidHeart))
+        {
+            return;
         }
 
         await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);
     }
 
     /// <summary>
-    /// 记录“某张牌本次打出实际支付了多少虚空”。//20260801
-    ///
-    /// 为什么需要它：
-    /// 【失心】把“灵魂X”的牌转成“0灵魂 / X虚空”之后，卡牌效果里的 X
-    /// 不能再取原版的 <c>CardEnergyCost.CapturedXValue</c>——那是灵魂侧捕获的值，
-    /// 失心后灵魂支付量恒为 0，拿到的 X 也就不对了
-    /// （这就是“实际打出只有 2 点效果”那类现象的根因）。
-    /// 真正的 X 应该是 RitsuLib 在虚空侧实际扣掉的量，也就是本回调的
-    /// <c>context.Amount</c>。存进 CardTraits 后，由
-    /// Patches/LostEnergyCostPatch 在 CardModel.ResolveEnergyXValue 的 Postfix 中
-    /// 把 X 改写为这个值。
-    ///
-    /// 说明：
-    /// 1. 只处理虚空资源，其它 mod 的次级资源直接放过。
-    /// 2. context.Card 为 null 的情况（遗物/药水等非卡牌消耗）不需要记录。
-    /// 3. CardTraits.RecordVoidSpent 内部只对已建立特质数据的牌写入，
-    ///    不会给普通牌白白创建状态对象。
-    /// 4. 本回调不做任何异步动作，图标同步仍由
-    ///    AfterSecondaryResourceChanged 负责，职责不重叠。
+    /// 记录某张牌本次打出实际支付的虚空，供失心后的 X 费结算读取。
     /// </summary>
     public Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
@@ -125,7 +93,7 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
 
     public async Task AfterSecondaryResourceReset(SecondaryResourceChangeContext context)
     {
-        // 资源被内建策略重置（如战斗结束/回合开始策略）时也同步一次，保证图标清零
+        // 资源被内建策略重置（如战斗结束/回合开始策略）时也同步一次，保证图标清零。
         if (context.Definition.Id != VoidResource.Id)
         {
             return;
@@ -137,8 +105,14 @@ internal sealed class VoidPowerListener : ISecondaryResourceHookListener
             return;
         }
 
-        // 20260727 批次：虚空资源按战斗重置，此时同步清零战斗级计数器
+        // 虚空资源按战斗重置，此时同步清零战斗级计数器。
         CombatCounters.ResetCombat();
+
+        // 虚空之心阶段不显示 VoidPower 图标。
+        if (player.Relics.Any(relic => relic is VoidHeart))
+        {
+            return;
+        }
 
         await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);
     }

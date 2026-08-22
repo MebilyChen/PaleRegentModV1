@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
@@ -19,7 +20,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【虚空化神】生成牌（机制文档：造物流终端，"驯化"消耗 9 张虚空状态生成）。
 /// 0 灵魂 攻击（全体）：对所有敌人造成 35 点伤害并施加 10 层【虚空之触】；
-/// 然后选择一张手牌变为【虚空】状态牌（神性的代价）。
+/// 然后选择至少一张手牌变为【虚空】状态牌（神性的代价）。
 /// 纯粹。消耗。
 /// 升级后：40 伤，15 层虚空之触。
 /// </summary>
@@ -36,7 +37,8 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [ModHoverTips.Pure,ModHoverTips.FollyRule,
          HoverTipFactory.FromPower<VoidTouchPower>((int?)null),
-         HoverTipFactory.FromCard<TheVoidStatus>(false)];
+         HoverTipFactory.FromCard<TheVoidStatus>(false),
+         HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Folly>(false)];
 
     public override bool IsCreationCard => true;
     public override bool IsPure => true;
@@ -70,12 +72,18 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
         await PowerCmd.Apply<VoidTouchPower>(choiceContext, CombatState!.HittableEnemies,
             DynamicVars["VoidTouchPower"].BaseValue, Owner.Creature, this);
 
-        // 神性的代价：选择一张手牌变为【虚空】状态牌
+        // 神性的代价：至少选择一张手牌，最多可选择全部可选手牌，将其变为【虚空】状态牌。
+        int maxSelections = PileType.Hand.GetPile(Owner).Cards.Count(card => card != this);
+        if (maxSelections == 0)
+        {
+            return;
+        }
+
         IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
             choiceContext,
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 1),
-            (CardModel c) => c != this,
+            new CardSelectorPrefs(SelectionScreenPrompt, 1, maxSelections),
+            (CardModel card) => card != this,
             this);
         foreach (CardModel card in selected.ToList())
         {
@@ -88,4 +96,10 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
         DynamicVars["VoidTouchPower"].UpgradeValueBy(UpgradeTouchBonus);
     }
+    
+    //不进入奖励池
+    public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
+    public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
+    public override bool CanBeGeneratedByModifiers => false;
+    public override bool CanBeGeneratedInCombat => false;
 }

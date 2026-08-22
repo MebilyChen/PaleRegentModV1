@@ -12,8 +12,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【完美格挡】技能牌（机制文档：卡牌表 C#11，20260725 批次改版）。
-/// 4 灵魂：获得 10 点格挡；获得 3 点【覆甲】。
-/// 升级后：获得 15 点格挡；获得 5 点覆甲。
+/// 4 灵魂：获得 15 点格挡；获得 3 点【覆甲】。
+/// 升级后：获得 21 点格挡；获得 5 点覆甲。
 ///
 /// 20260725 批次修改（表格 S15 备注"复用游戏里【覆甲】能力"）：
 /// - 删除自定义的 EchoWardPower（回响守护），改用原版覆甲 PlatingPower：
@@ -30,9 +30,9 @@ public class PerfectBlock() : PaleRegentModV1Card(4,
     TargetType.Self)
 {
     /// <summary>打出时立即获得的格挡。</summary>
-    private const int BaseBlock = 10;
-    /// <summary>升级后即时格挡增加量（10→15）。</summary>
-    private const int UpgradeBlockBonus = 5;
+    private const int BaseBlock = 15;
+    /// <summary>升级后即时格挡增加量。</summary>
+    private const int UpgradeBlockBonus = 6;
     /// <summary>覆甲层数（基础 3，升级 5）。</summary>
     private const int BasePlating = 3;
     /// <summary>升级后覆甲增加量（3→5）。</summary>

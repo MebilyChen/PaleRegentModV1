@@ -48,7 +48,7 @@ public static class VoidResource
             locTable: "static_hover_tips",
             titleKey: "PALEREGENTMODV1-VOID_COUNTER.title",
             descriptionKey: "PALEREGENTMODV1-VOID_COUNTER.description",
-            smallIconPath: "res://PaleRegentModV1/images/charui/energy_void.png",
+            smallIconPath: "res://PaleRegentModV1/images/charui/star_icon.png",
             largeIconPath: "res://PaleRegentModV1/images/charui/energy_void.png"
         );
 

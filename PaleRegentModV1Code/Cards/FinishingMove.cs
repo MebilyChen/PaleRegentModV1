@@ -10,7 +10,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【终结技】罕见攻击牌（高费大招）。
-/// 4 灵魂：对所有敌人造成 40 点伤害。
+/// 4 灵魂：对所有敌人造成 20 点伤害 2次。
 ///
 /// 定位：巨额灵魂投入的清场大招；
 /// 与【失心】联动（失心后 0 灵魂 4 虚空 + 重放1，打两次 80 伤）是设计文档里的核心 combo。
@@ -22,19 +22,26 @@ public class FinishingMove() : PaleRegentModV1Card(4,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {
-    /// <summary>基础伤害。</summary>
-    private const int BaseDamage = 40;
-    /// <summary>升级后伤害增加量（40→48，表格设计）。</summary>
-    private const int UpgradeDamageBonus = 8;
+    /// <summary>未升级时的单次伤害。</summary>
+    private const int BaseDamage = 20;
+
+    /// <summary>升级后的单次伤害变化：20 → 12。</summary>
+    private const int UpgradeDamageChange = -8;
+
+    private const int BaseHitCount = 2;
+    private const int UpgradeHitCount = 4;
+
+    private int HitCount =>
+        IsUpgraded ? UpgradeHitCount : BaseHitCount;
+
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 对所有敌人造成伤害（TargetingAllOpponents = AoE，参考原版 Whirlwind）
-        // CombatState 在打出卡牌时必非空，用 ! 消除 CS8604
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(HitCount)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_giant_horizontal_slash")
@@ -43,6 +50,6 @@ public class FinishingMove() : PaleRegentModV1Card(4,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
+        DynamicVars.Damage.UpgradeValueBy(UpgradeDamageChange);
     }
 }

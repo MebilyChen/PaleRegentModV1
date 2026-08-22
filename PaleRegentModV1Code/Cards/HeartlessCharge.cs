@@ -18,7 +18,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// 【失心冲锋】攻击牌（表 C#90，0727 新增）。
 /// 1 灵魂 + 1 虚空：造成 18 点伤害。动量 5（原版 Momentum 附魔：每次打出
 /// 后本场战斗伤害 +5）。失心。
-/// 升级后：25 点伤害。
+/// 升级后：25 点伤害。动量 7
 /// 备注：按原版 Momentum 附魔语义实现（amount=5），即每次打出后后续
 /// 伤害累加 5；在进入战斗时自动挂附魔。
 /// </summary>
@@ -28,6 +28,10 @@ public class HeartlessCharge : PaleRegentModV1Card
     private const int UpgradeDamageBonus = 7;
     private const int VoidCost = 1;
     private const int MomentumAmount = 5;
+    private const int UpgradeMomentumAmount = 7;
+    
+    private int MomentumToApply =>
+        IsUpgraded ? UpgradeMomentumAmount : MomentumAmount;
 
     public HeartlessCharge() : base(1,
         CardType.Attack, CardRarity.Uncommon,
@@ -43,9 +47,10 @@ public class HeartlessCharge : PaleRegentModV1Card
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
         await base.AfterCardEnteredCombat(card);
+
         if (card == this && Enchantment == null)
         {
-            CardCmd.Enchant<Momentum>(this, MomentumAmount);
+            CardCmd.Enchant<Momentum>(this, MomentumToApply);
         }
     }
 
@@ -58,18 +63,21 @@ public class HeartlessCharge : PaleRegentModV1Card
     public override async Task BeforeCombatStart()
     {
         await base.BeforeCombatStart();
+
         if (IsMutable && Enchantment == null)
         {
-            CardCmd.Enchant<Momentum>(this, MomentumAmount);
+            CardCmd.Enchant<Momentum>(this, MomentumToApply);
         }
     }
+    
 
+    
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         new IHoverTip[] { ModHoverTips.Lost }
-            .Concat(HoverTipFactory.FromEnchantment<Momentum>(MomentumAmount));
+            .Concat(HoverTipFactory.FromEnchantment<Momentum>(MomentumToApply));
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -1,22 +1,36 @@
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Relics;
 
 /// <summary>
-/// 虚空之心（Void Heart）—— 事件/升级遗物占位（机制文档：欧洛巴斯之触升级线）。
-/// 效果（占位）：每回合开始时，获得等同于灵魂上限的虚空。
+/// 虚空之心（Void Heart）—— 欧洛巴斯之触将国王之魂替换后的终局遗物。
+/// 每回合开始时获得等同于灵魂上限的虚空。
 ///
-/// 注意：配合苍白信物的"按虚空扣灵魂"，这会让每回合灵魂几乎归零、
-/// 全部转成虚空——即"彻底虚空化"的终局形态占位。
-/// 欧洛巴斯之触的具体升级流程（事件/条件）后续再接。
+/// 虚空数值继续由 VoidResource 保存，但虚空之心持有者不再显示 VoidPower 图标；
+/// 这是因为国王之魂已被替换，VoidPower 不再作为该遗物机制的可视化状态。
 /// </summary>
 public class VoidHeart : PaleRegentModV1Relic
 {
     public override RelicRarity Rarity => RelicRarity.Event;
+
+    /// <summary>
+    /// 欧洛巴斯之触使用 RelicCmd.Replace 替换遗物时，新遗物也会触发此回调。
+    /// 这里清除国王之魂时期残留的 VoidPower，隐藏其图标但不修改 VoidResource 的数值。
+    /// </summary>
+    public override async Task AfterObtained()
+    {
+        await base.AfterObtained();
+
+        if (Owner.Creature != null)
+        {
+            await PowerCmd.Remove<VoidPower>(Owner.Creature);
+        }
+    }
 
     public override async Task AfterEnergyReset(Player player)
     {
@@ -24,8 +38,11 @@ public class VoidHeart : PaleRegentModV1Relic
         {
             return;
         }
+
         Flash();
         await VoidResource.Gain(player, player.PlayerCombatState?.MaxEnergy ?? 0);
-        await VoidResource.SyncPower(new ThrowingPlayerChoiceContext(), player, null);
+
+        // 刻意不调用 VoidResource.SyncPower：
+        // 虚空之心阶段不再显示 VoidPower 图标。
     }
 }
