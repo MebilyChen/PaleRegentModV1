@@ -26,6 +26,7 @@ public partial class MainFile : Node
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();
+        GD.Print("[EnergyParticleFix] Harmony patch suite installed.");
         CardTraits.RegisterCloneStateSync();
         
     }
