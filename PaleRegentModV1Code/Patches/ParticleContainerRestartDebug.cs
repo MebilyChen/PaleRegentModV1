@@ -46,6 +46,25 @@ public static class ParticleContainerRestartDebug
     private static readonly Dictionary<string, Texture2D> TextureCache =
         new Dictionary<string, Texture2D>(StringComparer.Ordinal);
 
+    // 每个能量特效容器应持有的粒子节点。
+    // 删除 .godot 后，缺少子场景时 Godot 会留下空占位节点；播放前需将其重建为 GpuParticles2D。
+    private static readonly Dictionary<string, string[]> ParticleNamesByContainer =
+        new Dictionary<string, string[]>(StringComparer.Ordinal)
+        {
+            ["EnergyVfxBack"] =
+            [
+                "vfx_common_glow",
+                "vfx_common_ray",
+            ],
+            ["EnergyVfxFront"] =
+            [
+                "vfx_common_ring_polar_a",
+                "vfx_starry_impact_small_stars",
+                "vfx_starry_impact_constellation_small_a",
+                "vfx_starry_impact_constellation_small_b",
+            ],
+        };
+
     // 注意：此 Shader 不处理黑底透明。
     // 它只将最终色调转为白色，并通过亮度保留渐变、星点和图案细节。
     private const string WhiteTintShaderCode = @"
@@ -88,6 +107,7 @@ void fragment()
         if (!IsEnergyCounterFx(__instance))
             return;
 
+        EnsureParticleNodes(__instance);
         AssignTexturesOpacityAndWhiteTint(__instance);
     }
 
@@ -99,6 +119,43 @@ void fragment()
         string containerName = container.Name.ToString();
         return containerName == "EnergyVfxBack"
             || containerName == "EnergyVfxFront";
+    }
+
+    private static void EnsureParticleNodes(NParticlesContainer container)
+    {
+        string containerName = container.Name.ToString();
+        if (!ParticleNamesByContainer.TryGetValue(containerName, out string[] particleNames))
+        {
+            return;
+        }
+
+        foreach (string particleName in particleNames)
+        {
+            Node existing = container.GetNodeOrNull<Node>(particleName);
+            if (existing is GpuParticles2D)
+            {
+                continue;
+            }
+
+            // 旧 PCK 或重新导入失败时，此处可能是空类型占位节点；移除后重建正确类型。
+            if (existing != null)
+            {
+                container.RemoveChild(existing);
+                existing.QueueFree();
+            }
+
+            var particles = new GpuParticles2D
+            {
+                Name = particleName,
+                Emitting = false,
+                OneShot = true,
+                Amount = 1,
+                Lifetime = 0.45d,
+            };
+
+            container.AddChild(particles);
+            GD.Print($"[EnergyParticleFix] rebuilt particle node: {containerName}/{particleName}");
+        }
     }
 
     private static void AssignTexturesOpacityAndWhiteTint(Node node)
