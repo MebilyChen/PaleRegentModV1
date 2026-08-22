@@ -21,6 +21,9 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
     // 不依赖回合开始 Hook，因此兼容当前项目 API。
     private int _lastVoidTriggerRound = int.MinValue;
 
+    // 记录正在结算的卡牌：同一张牌即使同时支付普通能量与虚空，也只触发一次。
+    private readonly HashSet<CardModel> _triggeredPaymentCards = [];
+
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -33,11 +36,10 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
             return;
         }
 
-        Flash();
-        await PlayerCmd.GainEnergy(Amount, card.Owner);
+        await TriggerForCardPayment(card);
     }
 
-    // 每次实际支付虚空时触发一次。
+    // 每次实际支付虚空时触发一次；若为同一张已因普通能量支付触发的牌，则跳过。
     public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
         if (context.Player != Owner.Player ||
@@ -46,8 +48,37 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
             return;
         }
 
+        if (context.Card is { } card)
+        {
+            await TriggerForCardPayment(card);
+            return;
+        }
+
+        // 非卡牌来源的虚空支付没有可用于合并的卡牌上下文，仍按一次支付触发一次。
         Flash();
         await PlayerCmd.GainEnergy(Amount, context.Player);
+    }
+
+    // 卡牌完整结算后移除去重标记，使该卡牌下次被打出时可再次触发。
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        if (cardPlay.Player == Owner.Player)
+        {
+            _triggeredPaymentCards.Remove(cardPlay.Card);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private async Task TriggerForCardPayment(CardModel card)
+    {
+        if (!_triggeredPaymentCards.Add(card))
+        {
+            return;
+        }
+
+        Flash();
+        await PlayerCmd.GainEnergy(Amount, card.Owner);
     }
 
     public Task AfterSecondaryResourceChanged(SecondaryResourceChangeContext context)
