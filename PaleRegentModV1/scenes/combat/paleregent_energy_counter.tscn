@@ -1,14 +1,11 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Script" path="res://src/Core/Nodes/Vfx/Utilities/NParticlesContainer.cs" id="1_particles"]
+[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/combat/paleregent_energy_vfx_back.tscn" id="1_vfxback"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_1.png" id="2_layer1"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_2.png" id="3_layer2"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_3.png" id="4_layer3"]
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_5.png" id="5_layer5"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_energy"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
+[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/combat/paleregent_energy_vfx_front.tscn" id="6_vfxfront"]
 
 [node name="PaleRegentEnergyCounter" type="Control"]
 layout_mode = 3
@@ -17,27 +14,9 @@ offset_right = 128.0
 offset_bottom = 128.0
 metadata/_edit_lock_ = true
 
-[node name="EnergyVfxBack" type="Node2D" parent="." node_paths=PackedStringArray("_particles")]
+[node name="EnergyVfxBack" parent="." instance=ExtResource("1_vfxback")]
 unique_name_in_owner = true
 position = Vector2(64, 64)
-script = ExtResource("1_particles")
-_particles = [NodePath("vfx_common_glow"), NodePath("vfx_common_ray")]
-
-[node name="vfx_common_glow" type="GPUParticles2D" parent="EnergyVfxBack"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
-
-[node name="vfx_common_ray" type="GPUParticles2D" parent="EnergyVfxBack"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -99,43 +78,9 @@ grow_vertical = 2
 texture = ExtResource("5_layer5")
 expand_mode = 1
 
-[node name="EnergyVfxFront" type="Node2D" parent="." node_paths=PackedStringArray("_particles")]
+[node name="EnergyVfxFront" parent="." instance=ExtResource("6_vfxfront")]
 unique_name_in_owner = true
 position = Vector2(64, 64)
-script = ExtResource("1_particles")
-_particles = [NodePath("vfx_common_ring_polar_a"), NodePath("vfx_starry_impact_small_stars"), NodePath("vfx_starry_impact_constellation_small_a"), NodePath("vfx_starry_impact_constellation_small_b")]
-
-[node name="vfx_common_ring_polar_a" type="GPUParticles2D" parent="EnergyVfxFront"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
-
-[node name="vfx_starry_impact_small_stars" type="GPUParticles2D" parent="EnergyVfxFront"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
-
-[node name="vfx_starry_impact_constellation_small_a" type="GPUParticles2D" parent="EnergyVfxFront"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
-
-[node name="vfx_starry_impact_constellation_small_b" type="GPUParticles2D" parent="EnergyVfxFront"]
-emitting = false
-amount = 1
-lifetime = 0.45
-one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_energy")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
