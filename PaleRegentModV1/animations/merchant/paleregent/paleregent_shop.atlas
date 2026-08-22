@@ -2,6 +2,8 @@ paleregent_shop.png
 size:2033,729
 filter:Linear,Linear
 scale:0.674
+bubble
+bounds:0,0,54,54
 anger
 bounds:872,2,46,50
 offsets:1,1,47,52

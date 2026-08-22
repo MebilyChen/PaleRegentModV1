@@ -18,13 +18,13 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 ///     例：1灵魂0虚空 → 0灵魂1虚空；2灵魂2虚空 → 0灵魂4虚空。
 ///   - x统一计为x（x灵魂1虚空，转化为0灵魂x虚空)。优化前：对 X 费牌无效（X 费牌无法附加失心）。
 ///   - 自动获得当前统一的【失心重放层数】（默认重放1，可由其他能力提高）。
-///   - 与【苍白】互斥：附加失心会移除苍白。
+///   - 同一张牌不能重复附加【失心】；附加失心时仍按原规则取消【苍白】。
 /// 【苍白】（Pale）：（20260729 变更：不再是"同时添加消耗和虚无"）
-///   1. 取消【失心】，以及受失心影响而添加的"灵魂并入虚空消费"和【消耗】。
-///      注意：如果这张牌没有失心就有【消耗】（自带/其他来源），不移除消耗。
-///   2. 取消卡牌的虚空消耗（移除虚空费条目）。
-///   3. 添加【虚无】。
+///   1. 取消【失心】及其添加的重放/消耗，再取消卡牌的虚空消耗（移除虚空费条目）。
+///   2. 添加【虚无】。
+///   - 同一张牌不能重复附加【苍白】；【纯粹】不影响附加苍白。
 /// 【纯粹】（Pure）：（20260729 变更：从"免疫感染转化"扩展为通用规则）
+///   - 同一张牌不能重复附加【纯粹】；失心与苍白不影响附加纯粹。
 ///   - 战斗中无法被变化，例如被变化为其他牌。
 ///     （免疫"感染"转化实现为不会被随机选中，见 Infection.OnTurnEndInHand 的过滤；
 ///      通用"无法被变化"由 Patches/PureTransformGuard 拦截 CardCmd.Transform 实现。）
@@ -312,11 +312,52 @@ public static class CardTraits
         (card as Cards.PaleRegentModV1Card)?.IsPure == true ||
         (States.TryGetValue(card, out TraitState? s) && s!.IsPureApplied);
 
-    /// <summary>给一张牌附加【纯粹】（战斗内，跟随卡牌实例）。</summary>
+    /// <summary>
+    /// 这张牌能否附加【纯粹】。
+    /// 仅禁止重复附加【纯粹】本身；失心与苍白不影响本判定。
+    /// </summary>
+    public static bool CanApplyPure(CardModel card) =>
+        card != null && !card.IsCanonical && !IsPure(card);
+
+    /// <summary>
+    /// 给一张牌附加【纯粹】（战斗内，跟随卡牌实例）。
+    /// 调用方应在选牌界面使用 <see cref="CanApplyPure"/> 预先过滤；此处也会二次校验，
+    /// 防止其他调用路径重复附加【纯粹】。
+    /// </summary>
     public static void ApplyPure(CardModel card)
     {
+        if (!CanApplyPure(card)) return;
         States.GetOrCreate(card).IsPureApplied = true;
         CardTraitUi.Refresh(card);
+    }
+
+    /// <summary>
+    /// 在“必须选择固定数量”的流程中自动补选候选不足的情况。
+    /// <paramref name="eligibleCards"/> 必须是已按对应 <c>CanApply*</c> 方法过滤后的候选；
+    /// 当剩余合法候选少于尚缺选择数时，自动将全部剩余合法候选加入已选列表，
+    /// 使选牌流程不会因不可能满足的数量要求而卡住。
+    /// </summary>
+    public static void AutoSelectRemainingEligibleCards(
+        IList<CardModel> selectedCards,
+        IEnumerable<CardModel> eligibleCards,
+        int requiredCount)
+    {
+        if (selectedCards == null || eligibleCards == null || requiredCount <= selectedCards.Count) return;
+
+        List<CardModel> remainingEligibleCards = new();
+        foreach (CardModel card in eligibleCards)
+        {
+            if (card != null && !selectedCards.Contains(card) && !remainingEligibleCards.Contains(card))
+                remainingEligibleCards.Add(card);
+        }
+
+        int missingCount = requiredCount - selectedCards.Count;
+        if (remainingEligibleCards.Count >= missingCount) return;
+
+        foreach (CardModel card in remainingEligibleCards)
+        {
+            selectedCards.Add(card);
+        }
     }
 
     /// <summary>读取这张牌当前的虚空费（没有则为 0；X 费返回 0，请另行判断 CostsX）。</summary>
@@ -346,10 +387,13 @@ public static class CardTraits
         if (vc != null && vc.CostsX) return false;
         return true;
     }*/
-    /// <summary>这张牌能否附加【失心】：包括固定费和 X 费牌。</summary>
+    /// <summary>
+    /// 这张牌能否附加【失心】：包括固定费和 X 费牌。
+    /// 仅禁止重复附加【失心】本身；苍白与纯粹不影响本判定。
+    /// </summary>
     public static bool CanApplyLost(CardModel card)
     {
-        return !card.IsCanonical;
+        return card != null && !card.IsCanonical && !IsLost(card);
     }
 
     /// <summary>
@@ -383,7 +427,8 @@ public static class CardTraits
     {
         if (card == null) return false;
         if (card.IsCanonical) return false;
-        // 已经是苍白的牌再加一次没有意义，不作为合法选择目标
+        // 已经是苍白的牌再加一次没有意义，不作为合法选择目标。
+        // 失心与纯粹不影响本判定：失心会在 ApplyPale 中按原规则被取消。
         if (IsPale(card)) return false;
         // 虚空 X 费的牌禁止附加苍白（20260801 新增规则，理由见上方注释）
         if (HasVoidCostX(card)) return false;
@@ -405,29 +450,19 @@ public static class CardTraits
 
     /// <summary>
     /// 给一张牌附加【失心】。
-    /// 效果：灵魂费清零并 1:1 并入虚空费；获得当前统一的失心重放层数；取消苍白。
-    /// 返回 false 表示这张牌不能附加（X 费牌）。
+    /// 效果：灵魂费清零并 1:1 并入虚空费；获得当前统一的失心重放层数。
+    /// 返回 false 表示这张牌不符合附加条件。
     /// </summary>
     public static bool ApplyLost(CardModel card)
     {
         // 防御：canonical（规范/不可变）实例禁止修改费用/关键词，否则游戏启动时
         // ModelDb 注册卡牌会抛 CanonicalModelException 直接崩溃（20260728 启动崩溃修复）。
         // "自带失心"请勿在构造器里调用本方法，改在 PaleRegentModV1Card.HasInnateLost 声明。
-        if (card.IsCanonical) return false;
         if (!CanApplyLost(card)) return false;
 
         TraitState s = States.GetOrCreate(card);
-        if (s.IsLost)
-        {
-            // 已经失心时不重复换算费用，只校准到当前统一重放层数。
-            TrackLostCard(card);
-            SyncLostReplayCount(card);
-            return true;
-        }
-
-        // 若带苍白，先按"取消苍白"还原（苍白会清虚空费，需要先恢复）
+        // 原有跨特质规则：失心可以覆盖苍白，先还原苍白清掉的虚空费。
         if (s.IsPale) RemovePale(card, s);
-
         EnsureCostSnapshot(card, s);
 
         /*// 换算：新虚空费 = 原虚空费 + 原灵魂费（1:1 转换）
@@ -508,14 +543,10 @@ public static class CardTraits
 
     /// <summary>
     /// 给一张牌附加【苍白】。（20260729 需求变更）
-    /// 效果：
-    ///   1. 取消【失心】，及受其影响而添加的"灵魂并入虚空消费"和【消耗】；
-    ///      如果这张牌没有失心就有【消耗】（牌自带/其他来源），不移除消耗。
-    ///   2. 取消卡牌的虚空消耗（移除虚空费条目）。
-    ///   3. 添加【虚无】。
+    /// 效果：取消【失心】及其添加的重放/消耗，再移除虚空费并添加【虚无】。
     ///
-    /// 20260801：前置条件统一收拢到 <see cref="CanApplyPale"/>，
-    /// 其中包含新增规则“虚空 X 费的牌不能附加苍白”。
+    /// 前置条件统一收拢到 <see cref="CanApplyPale"/>：虚空 X 费、canonical 实例，
+    /// 以及已具备【苍白】的牌均会被排除；失心与纯粹仍可参与原有交互。
     /// 返回值表示是否真的施加成功，方便调用方做提示或回退。
     /// </summary>
     public static bool ApplyPale(CardModel card)
@@ -528,44 +559,22 @@ public static class CardTraits
 
         EnsureCostSnapshot(card, s);
 
-        // 1) 取消失心：恢复灵魂费、收回重放，并移除"失心加上去的消耗"
+        // 1) 原有跨特质规则：苍白覆盖失心，恢复失心影响并收回其添加的重放/消耗。
         if (s.IsLost)
         {
-            // 【重要】2026-08-01 修正：这里 **不再** 调用
-            // SetCustomBaseCost(s.OriginalEnergyCost) 来“还原灵魂费”。
-            //
-            // 旧实现把快照里的数字写回 _base，而快照取的是
-            // GetWithModifiers(CostModifiers.None) = 纸面基础费。
-            // 对「王者之踢」这类“每次抽到降低1点能量”的牌（减费存在
-            // _localModifiers 层，_base 恒为纸面 4），还原结果就是回到 4 费，
-            // 玩家攒下的减费进度全部作废——这就是“失心后能量变回最大值”的根因。
-            //
-            // 现在失心全程不会修改 _base（见 ApplyLost 里的说明），
-            // 灵魂费为 0 只是 Patches/LostEnergyCostPatch 在读取端的裁决结果。
-            // 所以只要把 IsLost 标记清掉，补丁自然不再介入，
-            // 费用立即回到“原 _base + 全部 local/global 修正”，
-            // 王者之踢累积的每一层 -1 都一字不差地保留。
-            
-            // 只收回本牌当前实际由失心添加的重放，
-            // 不影响卡牌自带或其他机制添加的重放。
-            card.BaseReplayCount = Math.Max(
-                0,
-                card.BaseReplayCount - s.AppliedLostReplayCount);
-
+            card.BaseReplayCount = Math.Max(0, card.BaseReplayCount - s.AppliedLostReplayCount);
             s.AppliedLostReplayCount = 0;
             s.IsLost = false;
-            s.LostConvertedToVoidX = false; // X 转化标记一并清掉 //20260801
+            s.LostConvertedToVoidX = false;
             UntrackLostCard(card);
         }
-        // 只移除"失心流程加上去的消耗"；牌本来就有的消耗保持不动（20260729 变更）
-        // 注：即使这张牌当前没有失心（例如失心曾被其他途径取消），只要消耗是失心加的也一并清理。
         if (s.ExhaustAddedByLost)
         {
             card.RemoveKeyword(CardKeyword.Exhaust);
             s.ExhaustAddedByLost = false;
         }
 
-        // 2) 取消卡牌的虚空消耗
+        // 2) 取消卡牌的虚空消耗。
         // 注意：这里用 Clear 而不是 Set(0)，把虚空费条目整个移除，
         // 卡面不再显示虚空费 → 不再命中“虚空费≥0 自动消耗”规则 //20260726
         //
@@ -579,28 +588,24 @@ public static class CardTraits
 
         s.IsPale = true;
         CardTraitUi.Refresh(card);
-        // 20260729 变更：苍白不再"顺带添加消耗"，也不做旧版 SyncExhaustKeyword 的
-        // 保守增删——消耗的移除已在上面按 ExhaustAddedByLost 精确处理。
         return true;
     }
 
-    /// <summary>内部：移除苍白状态（供 ApplyLost 里互斥切换时调用）。</summary>
+    /// <summary>内部：移除苍白状态，供失心覆盖苍白时调用。</summary>
     private static void RemovePale(CardModel card, TraitState s)
     {
         card.RemoveKeyword(CardKeyword.Ethereal);
-        // 恢复原虚空费条目（苍白 Clear 掉的部分）：
-        // 只要原本登记过虚空费条目就恢复（含虚空 0 / 虚空 X），保持“虚空牌”身份 //20260726
+        // 恢复苍白清掉的原虚空费条目（含虚空 0 / 虚空 X）。
         if (s.OriginalHasVoidCost)
         {
             if (s.OriginalVoidCostsX)
-                card.SecondaryCosts().Set(VoidResource.Id, SecondaryResourceCost.X(1)); // 还原 X 费 //20260726
+                card.SecondaryCosts().Set(VoidResource.Id, SecondaryResourceCost.X(1));
             else
                 card.SecondaryCosts().Set(VoidResource.Id, s.OriginalVoidCost);
-            SyncExhaustKeyword(card, s); // 重新成为虚空牌 → 自动【消耗】
+            SyncExhaustKeyword(card, s);
         }
         else
         {
-            // 原本没有虚空费条目，苍白 Clear 后也无需恢复 //20260801
             s.LostConvertedToVoidX = false;
         }
         s.IsPale = false;
