@@ -174,8 +174,9 @@ void fragment()
                 continue;
             }
 
+            particles.Emitting = true;
             particles.Restart();
-            GD.Print($"[EnergyParticleFix] restarted repaired particle: {container.Name}/{particles.Name}");
+            GD.Print($"[EnergyParticleFix] emitted repaired particle: {container.Name}/{particles.Name}");
         }
     }
 
