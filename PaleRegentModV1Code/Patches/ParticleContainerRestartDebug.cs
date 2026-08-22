@@ -102,13 +102,20 @@ void fragment()
     private static ShaderMaterial _whiteTintMaterial;
 
     [HarmonyPrefix]
-    public static void Prefix(NParticlesContainer __instance)
+    public static bool Prefix(NParticlesContainer __instance)
     {
         if (!IsEnergyCounterFx(__instance))
-            return;
+        {
+            return true;
+        }
 
         EnsureParticleNodes(__instance);
         AssignTexturesOpacityAndWhiteTint(__instance);
+
+        // 重新导入失败后，NParticlesContainer 内部缓存的 _particles 仍可能指向旧的空占位节点。
+        // 不再调用原 Restart，改为直接重启刚修复后的真实 GpuParticles2D，避免错误缓存阻断动画。
+        RestartRepairedParticles(__instance);
+        return false;
     }
 
     private static bool IsEnergyCounterFx(NParticlesContainer container)
@@ -155,6 +162,20 @@ void fragment()
 
             container.AddChild(particles);
             GD.Print($"[EnergyParticleFix] rebuilt particle node: {containerName}/{particleName}");
+        }
+    }
+
+    private static void RestartRepairedParticles(NParticlesContainer container)
+    {
+        foreach (Node child in container.GetChildren())
+        {
+            if (child is not GpuParticles2D particles)
+            {
+                continue;
+            }
+
+            particles.Restart();
+            GD.Print($"[EnergyParticleFix] restarted repaired particle: {container.Name}/{particles.Name}");
         }
     }
 
