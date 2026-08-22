@@ -1,9 +1,9 @@
 [gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://src/Core/Nodes/Vfx/Utilities/NParticlesContainer.cs" id="1_qbb3t"]
-[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_common_ring_polar_a.tscn" id="2_45nvn"]
-[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_small_stars.tscn" id="3_7d24l"]
-[ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_constellation_small.tscn" id="4_8myuo"]
+[ext_resource type="PackedScene" uid="uid://0vk581j1pecs" path="res://scenes/vfx/common/vfx_common_ring_polar_a.tscn" id="2_45nvn"]
+[ext_resource type="PackedScene" uid="uid://b8ktw6gosbusf" path="res://scenes/vfx/starry_impact/vfx_starry_impact_small_stars.tscn" id="3_7d24l"]
+[ext_resource type="PackedScene" uid="uid://bwp01tds8rq7b" path="res://scenes/vfx/starry_impact/vfx_starry_impact_constellation_small.tscn" id="4_8myuo"]
 
 [sub_resource type="Curve" id="Curve_71x6u"]
 _data = [Vector2(0.396825, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
