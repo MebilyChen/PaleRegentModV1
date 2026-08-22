@@ -16,7 +16,7 @@
   "PALEREGENTMODV1-VOID_GIVEN_MOULD_POWER.smartDescription": "0[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]的卡牌伤害+{Amount}。",
   "PALEREGENTMODV1-ATAVISM_POWER.title": "返祖",
   "PALEREGENTMODV1-ATAVISM_POWER.description": "你每消耗一次[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]或[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]，获得{Amount}点[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。每回合第一次获得[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]时，额外选择至多{Amount}张手牌添加失心。",
-  "PALEREGENTMODV1-ATAVISM_POWER.smartDescription": "你每消耗一次[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]或[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]，获得{Amount}点[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。每回合第一次获得[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]时，额外选择至多{Amount}张手牌添加失心。",
+  "PALEREGENTMODV1-ATAVISM_POWER.smartDescription": "你每消耗一次[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]或[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]，获得{Amount}点[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。每回合第一次获得[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]时，额外选择至多{Amount}张手牌添加失心。",
   "PALEREGENTMODV1-ATAVISM_POWER.selectionScreenPrompt": "选择至多{Amount}张牌附加[gold]失心[/gold]。",
   "PALEREGENTMODV1-APOTHEOSIS_POWER.title": "化神",
   "PALEREGENTMODV1-APOTHEOSIS_POWER.description": "在你的回合开始时：[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]+{Amount}，并选择手牌中的{Amount}张牌附加[gold]失心[/gold]。",
