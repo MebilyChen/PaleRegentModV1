@@ -22,7 +22,7 @@
   "PALEREGENTMODV1-PERFECT_BLOCK.title": "完美格挡",
   "PALEREGENTMODV1-PERFECT_BLOCK.description": "获得{Block:diff()}点[gold]格挡[/gold]。获得{IfUpgraded:show:5|3}点[gold]覆甲[/gold]。",
   "PALEREGENTMODV1-ATAVISM.title": "返祖形态",
-  "PALEREGENTMODV1-ATAVISM.description": "你每打出一张牌，获得[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。每回合第一次获得[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]时，额外选择至多1张手牌添加[gold]失心[/gold]。\n结束你的回合",
+  "PALEREGENTMODV1-ATAVISM.description": "你每消耗一次[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]或[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]，获得[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。每回合第一次获得[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]时，额外选择至多1张手牌添加[gold]失心[/gold]。\n结束你的回合",
   "PALEREGENTMODV1-ATAVISM.selectionScreenPrompt": "选择牌附加[gold]失心[/gold]。",
   "PALEREGENTMODV1-ROLLBACK.title": "回退",
   "PALEREGENTMODV1-ROLLBACK.description": "获得{IfUpgraded:show:X+1|X}点[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。",

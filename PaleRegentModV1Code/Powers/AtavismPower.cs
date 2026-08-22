@@ -15,6 +15,8 @@ using STS2RitsuLib.Combat.SecondaryResources;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
+// 每消耗一次灵魂或虚空，获得灵魂
+
 public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
 {
     // 上一次因“获得虚空”触发失心选择的战斗回合编号。
