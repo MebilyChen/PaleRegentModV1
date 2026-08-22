@@ -46,6 +46,42 @@ public static class ParticleContainerRestartDebug
     private static readonly Dictionary<string, Texture2D> TextureCache =
         new Dictionary<string, Texture2D>(StringComparer.Ordinal);
 
+    // 运行时 PCK 已包含这些原版粒子场景。清除 .godot 后，外层实例有时会生成空类型占位节点；
+    // 此处只在该异常情况下重新实例化原场景，不重建或替换任何 PNG、材质、粒子参数。
+    private static readonly Dictionary<string, string> OriginalScenePathByParticle =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["vfx_common_glow"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_common_glow.tscn",
+            ["vfx_common_ray"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_common_ray.tscn",
+            ["vfx_common_ring_polar_a"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_common_ring_polar_a.tscn",
+            ["vfx_starry_impact_small_stars"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_small_stars.tscn",
+            ["vfx_starry_impact_constellation_small_a"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_constellation_small.tscn",
+            ["vfx_starry_impact_constellation_small_b"] =
+                "res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_constellation_small.tscn",
+        };
+
+    private static readonly Dictionary<string, string[]> OriginalParticleNamesByContainer =
+        new Dictionary<string, string[]>(StringComparer.Ordinal)
+        {
+            ["EnergyVfxBack"] =
+            [
+                "vfx_common_glow",
+                "vfx_common_ray",
+            ],
+            ["EnergyVfxFront"] =
+            [
+                "vfx_common_ring_polar_a",
+                "vfx_starry_impact_small_stars",
+                "vfx_starry_impact_constellation_small_a",
+                "vfx_starry_impact_constellation_small_b",
+            ],
+        };
+
     // 注意：此 Shader 不处理黑底透明。
     // 它只将最终色调转为白色，并通过亮度保留渐变、星点和图案细节。
     private const string WhiteTintShaderCode = @"
@@ -83,12 +119,24 @@ void fragment()
     private static ShaderMaterial _whiteTintMaterial;
 
     [HarmonyPrefix]
-    public static void Prefix(NParticlesContainer __instance)
+    public static bool Prefix(NParticlesContainer __instance)
     {
         if (!IsEnergyCounterFx(__instance))
-            return;
+        {
+            return true;
+        }
 
+        bool restoredAny = RestoreOriginalParticleScenes(__instance);
         AssignTexturesOpacityAndWhiteTint(__instance);
+
+        if (!restoredAny)
+        {
+            return true;
+        }
+
+        // 发生替换时，容器内部 _particles 仍缓存旧占位节点；直接播放刚恢复的原版粒子。
+        RestartRestoredOriginalParticles(__instance);
+        return false;
     }
 
     private static bool IsEnergyCounterFx(NParticlesContainer container)
@@ -99,6 +147,66 @@ void fragment()
         string containerName = container.Name.ToString();
         return containerName == "EnergyVfxBack"
             || containerName == "EnergyVfxFront";
+    }
+
+    private static bool RestoreOriginalParticleScenes(NParticlesContainer container)
+    {
+        bool restoredAny = false;
+        string containerName = container.Name.ToString();
+        if (!OriginalParticleNamesByContainer.TryGetValue(containerName, out string[] particleNames))
+        {
+            return false;
+        }
+
+        foreach (string particleName in particleNames)
+        {
+            Node existing = container.GetNodeOrNull<Node>(particleName);
+            if (existing is GpuParticles2D)
+            {
+                continue;
+            }
+
+            // 空占位节点没有正确类名，需先移除，再以 PCK 中已经导出的原版场景替换。
+            if (existing != null)
+            {
+                container.RemoveChild(existing);
+                existing.QueueFree();
+            }
+
+            PackedScene originalScene = GD.Load<PackedScene>(OriginalScenePathByParticle[particleName]);
+            if (originalScene == null)
+            {
+                GD.PushError($"[EnergyParticleFix] 原版粒子场景加载失败：{OriginalScenePathByParticle[particleName]}");
+                continue;
+            }
+
+            Node restored = originalScene.Instantiate();
+            if (restored is not GpuParticles2D)
+            {
+                GD.PushError($"[EnergyParticleFix] 原版粒子场景类型异常：{OriginalScenePathByParticle[particleName]}");
+                restored.QueueFree();
+                continue;
+            }
+
+            restored.Name = particleName;
+            container.AddChild(restored);
+            restoredAny = true;
+            GD.Print($"[EnergyParticleFix] restored original particle scene: {particleName}");
+        }
+
+        return restoredAny;
+    }
+
+    private static void RestartRestoredOriginalParticles(NParticlesContainer container)
+    {
+        foreach (Node child in container.GetChildren())
+        {
+            if (child is GpuParticles2D particles)
+            {
+                particles.Restart();
+                GD.Print($"[EnergyParticleFix] restarted original particle: {container.Name}/{particles.Name}");
+            }
+        }
     }
 
     private static void AssignTexturesOpacityAndWhiteTint(Node node)
