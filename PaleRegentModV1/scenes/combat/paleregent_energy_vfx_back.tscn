@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3]
 
-[ext_resource type="Script" path="res://src/Core/Nodes/Vfx/Utilities/NParticlesContainer.cs" id="1_mrjrt"]
+[ext_resource type="Script" path="res://PaleRegentModV1Code/Nodes/PaleRegentParticlesContainer.cs" id="1_mrjrt"]
 [ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_common_glow.tscn" id="2_o422u"]
 [ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_common_ray.tscn" id="3_mq8kj"]
 
