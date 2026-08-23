@@ -30,7 +30,7 @@ public class PlagueHarvest() : PaleRegentModV1Card(1,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromCard<Infection>(false),
+        [HoverTipFactory.FromCard<Infection>(false), //, HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Infection>(false)
          ModHoverTips.VoidCounter];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
@@ -38,7 +38,8 @@ public class PlagueHarvest() : PaleRegentModV1Card(1,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         List<CardModel> infections = CardPile.GetCards(Owner, PileType.Hand)
-            .Where(c => c is Infection)
+            .Where(c => c is Infection||
+                        c is MegaCrit.Sts2.Core.Models.Cards.Infection)
             .ToList();
         if (infections.Count == 0)
         {

@@ -1,0 +1,8 @@
+{	
+  "PALE_REGENT_MOD_V1_KEYWORD_LOST.title": "失心",
+  "PALE_REGENT_MOD_V1_KEYWORD_LOST.description": "该牌的[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]转化为[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]。获得[gold]重放{LostReplayCount}[/gold]。取消[blue]苍白[/blue]。打出时将一张[gold]虚空[/gold]置入手牌。",
+  "PALE_REGENT_MOD_V1_KEYWORD_PALE.title": "苍白",
+  "PALE_REGENT_MOD_V1_KEYWORD_PALE.description": "取消该牌的[purple]失心[/purple](及其附带的[gold]消耗[/gold])，并取消[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]。获得[gold]虚无[/gold]。",
+  "PALE_REGENT_MOD_V1_KEYWORD_PURE.title": "纯粹",
+  "PALE_REGENT_MOD_V1_KEYWORD_PURE.description": "战斗中无法被变化。"
+}

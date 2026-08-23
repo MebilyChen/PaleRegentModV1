@@ -23,15 +23,17 @@ public static class ParticleContainerRestartDebug
 
             ["vfx_common_ring_polar_a"] =
                 "res://PaleRegentModV1/images/charui/paleregent_orb_layer_1.png",
+            //["vfx_common_ring_polar_b"] =
+              //  "res://PaleRegentModV1/images/charui/common_ring_polar_b.png",
 
-            ["vfx_starry_impact_small_stars"] =
-                "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png",
+              //["vfx_starry_impact_small_stars"] =
+              // "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png",
 
             ["vfx_starry_impact_constellation_small_a"] =
                 "res://PaleRegentModV1/images/charui/paleregent_orb_layer_5.png",
 
-            ["vfx_starry_impact_constellation_small_b"] =
-                "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png",
+            //["vfx_starry_impact_constellation_small_b"] =
+            //   "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png",
         };
     // =========================
 
@@ -46,8 +48,11 @@ public static class ParticleContainerRestartDebug
     private static readonly Dictionary<string, Texture2D> TextureCache =
         new Dictionary<string, Texture2D>(StringComparer.Ordinal);
 
-    // 注意：此 Shader 不处理黑底透明。
-    // 它只将最终色调转为白色，并通过亮度保留渐变、星点和图案细节。
+    // 缓存“是否为明显黑底图”的检测结果，避免每次 Restart 都重新扫描像素。
+    private static readonly Dictionary<string, bool> BlackBackgroundCache =
+        new Dictionary<string, bool>(StringComparer.Ordinal);
+
+    // 普通透明图：保留原图 Alpha，只把最终色调转成带明暗层次的白色。
     private const string WhiteTintShaderCode = @"
 shader_type canvas_item;
 render_mode blend_mix;
@@ -80,7 +85,44 @@ void fragment()
 }
 ";
 
+    // 黑底图：把像素亮度转换成 Alpha。
+    // 这样纯黑背景会变透明，越亮的内容越不透明；最终 RGB 仍然输出白色。
+    private const string BlackBackgroundWhiteTintShaderCode = @"
+shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float white_gain : hint_range(0.1, 3.0, 0.01) = 1.60;
+
+void fragment()
+{
+    vec4 texture_color = texture(TEXTURE, UV);
+
+    // 使用最大 RGB 分量比单纯 luminance 更适合带颜色的发光素材：
+    // 纯黑 -> 0；任一通道较亮 -> 保留较高 Alpha。
+    float extracted_alpha = max(
+        texture_color.r,
+        max(texture_color.g, texture_color.b)
+    );
+
+    // 保留原图自身 Alpha，兼容本来就带半透明边缘的素材。
+    extracted_alpha *= texture_color.a;
+
+    float white_value = clamp(
+        pow(extracted_alpha, 0.55) * white_gain,
+        0.0,
+        1.0
+    );
+
+    // 粒子的 COLOR.a 仍负责整体淡入淡出。
+    COLOR = vec4(
+        vec3(white_value),
+        extracted_alpha * COLOR.a
+    );
+}
+";
+
     private static ShaderMaterial _whiteTintMaterial;
+    private static ShaderMaterial _blackBackgroundWhiteTintMaterial;
 
     [HarmonyPrefix]
     public static void Prefix(NParticlesContainer __instance)
@@ -118,11 +160,18 @@ void fragment()
                         particles.Texture = texture;
                         ApplyConfiguredOpacity(particles, texturePath);
 
-                        // 只用于最终白色着色；没有任何黑底转透明的代码。
-                        particles.Material = GetWhiteTintMaterial();
+                        bool hasBlackBackground = HasBlackBackground(texture, texturePath);
+                        particles.Material = hasBlackBackground
+                            ? GetBlackBackgroundWhiteTintMaterial()
+                            : GetWhiteTintMaterial();
 
                         GD.Print(
-                            $"[EnergyParticleFix] white tint: {particleName} <- {texture.ResourcePath}"
+                            $"[EnergyParticleFix][APPLY] particle={particleName}, " +
+                            $"texture={texture.ResourcePath}, " +
+                            $"size={texture.GetWidth()}x{texture.GetHeight()}, " +
+                            $"blackBg={hasBlackBackground}, " +
+                            $"shader={(hasBlackBackground ? "BlackBackgroundWhiteTintShader" : "WhiteTintShader")}, " +
+                            $"materialNull={particles.Material == null}"
                         );
                     }
                 }
@@ -166,6 +215,151 @@ void fragment()
         _whiteTintMaterial.Shader = shader;
 
         return _whiteTintMaterial;
+    }
+
+    private static ShaderMaterial GetBlackBackgroundWhiteTintMaterial()
+    {
+        if (_blackBackgroundWhiteTintMaterial != null)
+            return _blackBackgroundWhiteTintMaterial;
+
+        Shader shader = new Shader();
+        shader.Code = BlackBackgroundWhiteTintShaderCode;
+
+        _blackBackgroundWhiteTintMaterial = new ShaderMaterial();
+        _blackBackgroundWhiteTintMaterial.Shader = shader;
+
+        return _blackBackgroundWhiteTintMaterial;
+    }
+
+    private static bool HasBlackBackground(Texture2D texture, string texturePath)
+    {
+        if (BlackBackgroundCache.TryGetValue(texturePath, out bool cached))
+        {
+            GD.Print(
+                $"[EnergyParticleFix][BLACK_BG_CACHE] texture={texturePath}, result={cached}"
+            );
+            return cached;
+        }
+
+        Image image = texture.GetImage();
+        if (image == null || image.IsEmpty())
+        {
+            GD.PushWarning(
+                $"[EnergyParticleFix][BLACK_BG] 无法取得 Image：texture={texturePath}"
+            );
+            BlackBackgroundCache[texturePath] = false;
+            return false;
+        }
+
+        int width = image.GetWidth();
+        int height = image.GetHeight();
+        if (width <= 0 || height <= 0)
+        {
+            GD.PushWarning(
+                $"[EnergyParticleFix][BLACK_BG] 图片尺寸异常：texture={texturePath}, size={width}x{height}"
+            );
+            BlackBackgroundCache[texturePath] = false;
+            return false;
+        }
+
+        const float blackThreshold = 0.04f;
+        const float opaqueThreshold = 0.90f;
+        const float requiredRatio = 0.08f;
+
+        int stepX = Math.Max(1, width / 64);
+        int stepY = Math.Max(1, height / 64);
+
+        int sampled = 0;
+        int opaqueBlack = 0;
+        int transparent = 0;
+        int nearOpaque = 0;
+
+        float minR = 1f;
+        float minG = 1f;
+        float minB = 1f;
+        float minA = 1f;
+        float maxR = 0f;
+        float maxG = 0f;
+        float maxB = 0f;
+        float maxA = 0f;
+
+        for (int y = 0; y < height; y += stepY)
+        {
+            for (int x = 0; x < width; x += stepX)
+            {
+                Color pixel = image.GetPixel(x, y);
+                sampled++;
+
+                minR = Math.Min(minR, pixel.R);
+                minG = Math.Min(minG, pixel.G);
+                minB = Math.Min(minB, pixel.B);
+                minA = Math.Min(minA, pixel.A);
+
+                maxR = Math.Max(maxR, pixel.R);
+                maxG = Math.Max(maxG, pixel.G);
+                maxB = Math.Max(maxB, pixel.B);
+                maxA = Math.Max(maxA, pixel.A);
+
+                if (pixel.A <= 0.05f)
+                    transparent++;
+
+                if (pixel.A >= opaqueThreshold)
+                    nearOpaque++;
+
+                if (pixel.A >= opaqueThreshold
+                    && pixel.R <= blackThreshold
+                    && pixel.G <= blackThreshold
+                    && pixel.B <= blackThreshold)
+                {
+                    opaqueBlack++;
+                }
+            }
+        }
+
+        float blackRatio = sampled > 0 ? (float)opaqueBlack / sampled : 0f;
+        float transparentRatio = sampled > 0 ? (float)transparent / sampled : 0f;
+        float opaqueRatio = sampled > 0 ? (float)nearOpaque / sampled : 0f;
+
+        bool hasBlackBackground =
+            sampled > 0 && blackRatio >= requiredRatio;
+
+        BlackBackgroundCache[texturePath] = hasBlackBackground;
+
+        Color topLeft = image.GetPixel(0, 0);
+        Color topRight = image.GetPixel(width - 1, 0);
+        Color bottomLeft = image.GetPixel(0, height - 1);
+        Color bottomRight = image.GetPixel(width - 1, height - 1);
+        Color center = image.GetPixel(width / 2, height / 2);
+
+        GD.Print(
+            $"[EnergyParticleFix][BLACK_BG] texture={texturePath}, " +
+            $"size={width}x{height}, step={stepX}x{stepY}, sampled={sampled}, " +
+            $"opaqueBlack={opaqueBlack}, blackRatio={blackRatio:P2}, " +
+            $"transparent={transparent}, transparentRatio={transparentRatio:P2}, " +
+            $"nearOpaque={nearOpaque}, opaqueRatio={opaqueRatio:P2}, " +
+            $"thresholdRGB<={blackThreshold:F3}, alpha>={opaqueThreshold:F2}, requiredRatio={requiredRatio:P0}, " +
+            $"result={hasBlackBackground}"
+        );
+
+        GD.Print(
+            $"[EnergyParticleFix][RANGE] texture={texturePath}, " +
+            $"R={minR:F3}..{maxR:F3}, G={minG:F3}..{maxG:F3}, " +
+            $"B={minB:F3}..{maxB:F3}, A={minA:F3}..{maxA:F3}"
+        );
+
+        GD.Print(
+            $"[EnergyParticleFix][PIXELS] texture={texturePath}, " +
+            $"TL={FormatColor(topLeft)}, TR={FormatColor(topRight)}, " +
+            $"BL={FormatColor(bottomLeft)}, BR={FormatColor(bottomRight)}, " +
+            $"CENTER={FormatColor(center)}"
+        );
+
+        return hasBlackBackground;
+    }
+
+    private static string FormatColor(Color color)
+    {
+        return $"({color.R:F3},{color.G:F3},{color.B:F3},{color.A:F3})";
     }
 
     private static Texture2D GetTexture(string texturePath)

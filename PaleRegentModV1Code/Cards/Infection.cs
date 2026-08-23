@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -29,6 +30,13 @@ public class Infection : PaleRegentModV1Card
 {
     private const int VoidCost = 1;
     private const int BasePlague = 1;
+    
+    private static readonly HashSet<CardModel> PendingTurnEndReturn = new();
+
+    public static bool TryConsumeTurnEndReturn(CardModel card)
+    {
+        return PendingTurnEndReturn.Remove(card);
+    }
 
     public Infection() : base(0,
         CardType.Status, CardRarity.Status,
@@ -107,17 +115,25 @@ public class Infection : PaleRegentModV1Card
         {
             weakPower.SkipNextDurationTick = true;
         }
+        
+        //这里游戏自己的回合后结束还在手牌的结算会让该牌触发后自动进入弃牌堆，不好打补丁，故暂时不处理了
 
         // HasTurnEndInHandEffect 的标准结算会在本方法返回后将当前 this 放入弃牌堆。
         // 在此之前生成一个独立的感染副本并给予“仅本回合保留”：
         // 它不会进入本轮已建立的回合末结算队列，因此会留在手牌；
         // 下一回合单回合保留标记清除后，它会作为普通感染再次参与增生。
-        CardModel retainedReplacement = Owner.Creature.CombatState.CreateCard<Infection>(Owner);
-        retainedReplacement.GiveSingleTurnRetain();
-        CardCmd.PreviewCardPileAdd(
-            await CardPileCmd.AddGeneratedCardToCombat(retainedReplacement, PileType.Hand, Owner),
-            1.2f,
-            CardPreviewStyle.HorizontalLayout);
+        //CardModel retainedReplacement = Owner.Creature.CombatState.CreateCard<Infection>(Owner);
+        // retainedReplacement.GiveSingleTurnRetain();
+        // CardCmd.PreviewCardPileAdd(
+        //     await CardPileCmd.AddGeneratedCardToCombat(retainedReplacement, PileType.Hand, Owner),
+        //     1.2f,
+        //     CardPreviewStyle.HorizontalLayout);
+        
+        // 将正在结算的感染本体从 Play pile 放回手牌。
+        //await CardPileCmd.Add(this, PileType.Hand);
+        
+        PendingTurnEndReturn.Add(this);
+        GD.PrintErr("[InfectionReturn] MARK");
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -143,7 +159,7 @@ public class Infection : PaleRegentModV1Card
     /// </summary>
     public static async Task NotifyGenerated(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner, int count)
     {
-        Patches.CombatCounters.NotifyInfectionGenerated(count);
+        Patches.CombatCounters.NotifyInfectionGenerated(owner.CombatState, count);
 
         PlagueSpreadPower? spread = owner.GetPower<PlagueSpreadPower>();
         if (spread == null)

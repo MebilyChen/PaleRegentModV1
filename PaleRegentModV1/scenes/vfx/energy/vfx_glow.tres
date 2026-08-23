@@ -1,6 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://buimjwpet3sr3"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3]
 
-[ext_resource type="Shader" uid="uid://itf5b86p54j0" path="res://shaders/vfx/common/vfx_grayscale_particle_shader.gdshader" id="1_rvmb5"]
+[ext_resource type="Shader" path="res://shaders/vfx/common/vfx_grayscale_particle_shader.gdshader" id="1_rvmb4"]
+[ext_resource type="Shader" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_grayscale_particle_shader.gdshader" id="1_rvmb5"]
 
 [sub_resource type="Gradient" id="Gradient_rvmb5"]
 offsets = PackedFloat32Array(1)

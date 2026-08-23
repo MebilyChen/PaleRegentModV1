@@ -30,7 +30,8 @@ public class PlagueburstPower : PaleRegentModV1Power
 
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
-        if (card is not Infection)
+        if (card is not Infection  &&
+            card is not MegaCrit.Sts2.Core.Models.Cards.Infection)
         {
             return;
         }

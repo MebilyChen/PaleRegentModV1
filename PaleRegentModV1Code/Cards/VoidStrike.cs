@@ -98,6 +98,6 @@ public class VoidStrike() : PaleRegentModV1Card(1,
     
     public CardModel GetTranscendenceTransformedCard()
     {
-        return new DarkTide();
+        return ModelDb.Card<DarkTide>();
     }
 }

@@ -1,6 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://b2tsqjbtfnme0"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3]
 
-[ext_resource type="Shader" uid="uid://dwp5hb21ufwn2" path="res://shaders/vfx/common/vfx_ring_polar_shader.gdshader" id="1_gq4bx"]
+[ext_resource type="Shader" path="res://shaders/vfx/common/vfx_ring_polar_shader.gdshader" id="1_gq4by"]
+[ext_resource type="Shader" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_ring_polar_shader.gdshader" id="1_gq4bx"]
 
 [sub_resource type="Curve" id="Curve_8q0jc"]
 _data = [Vector2(0, 0.499536), 0.0, 1.15666, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

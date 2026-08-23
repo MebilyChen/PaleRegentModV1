@@ -24,12 +24,13 @@ public class VoidReclamation() : PaleRegentModV1Card(0,
     private int _gainPerCard = 1;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromCard<TheVoidStatus>(false), ModHoverTips.VoidCounter];
+        [HoverTipFactory.FromCard<TheVoidStatus>(false), ModHoverTips.VoidCounter]; //,HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Void>(false)
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         CardPile hand = PileTypeExtensions.GetPile(PileType.Hand, Owner);
-        List<CardModel> voids = hand.Cards.Where(c => c is TheVoidStatus).ToList();
+        List<CardModel> voids = hand.Cards.Where(c => c is TheVoidStatus||
+                                                      c is MegaCrit.Sts2.Core.Models.Cards.Void).ToList();
         if (voids.Count == 0)
         {
             return;

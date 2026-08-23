@@ -37,8 +37,10 @@ public class PestilentRadiation() : PaleRegentModV1Card(
     /// 牌面和实际结算共用的攻击次数。
     /// 保持原逻辑：在本牌生成感染之前读取统计值。
     /// </summary>
-    private static int GetHitCount()
+    private int GetHitCount()
     {
+        // 读取时再兜底确认一次战斗身份。
+        CombatCounters.EnsureInfectionCombat(CombatState);
         return 1 + Math.Max(0, CombatCounters.InfectionGeneratedThisCombat);
     }
 
@@ -88,17 +90,27 @@ public class PestilentRadiation() : PaleRegentModV1Card(
             Creature? target,
             bool runGlobalHooks)
         {
-            PreviewValue = GetHitCount();
+            // 非常重要：
+            // 不要保存构造 CurrentHitCountVar 时的卡牌引用，
+            // 而是使用当前正在刷新牌面的实际 CardModel。
+            if (card is PestilentRadiation radiation)
+            {
+                PreviewValue = radiation.GetHitCount();
+            }
+            else
+            {
+                PreviewValue = 1m;
+            }
         }
 
         protected override decimal GetBaseValueForIConvertible()
         {
-            return GetHitCount();
+            return PreviewValue;
         }
 
         public override string ToString()
         {
-            return GetHitCount().ToString();
+            return PreviewValue.ToString();
         }
     }
 }

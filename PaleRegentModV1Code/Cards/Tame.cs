@@ -28,7 +28,7 @@ public class Tame() : PaleRegentModV1Card(2,
     /// 升级版只有【虚空化神+】和【虚空化形+】两种结果；
     /// 未升级版才可能得到【失败实验】。
     /// </summary>
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => //,HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Void>(false)
         IsUpgraded
             ?
             [
@@ -56,7 +56,8 @@ public class Tame() : PaleRegentModV1Card(2,
         List<CardModel> voids = CardPile.GetCards(Owner, PileType.Hand)
             .Concat(CardPile.GetCards(Owner, PileType.Draw))
             .Concat(CardPile.GetCards(Owner, PileType.Discard))
-            .Where(card => card is TheVoidStatus)
+            .Where(card => card is TheVoidStatus||
+                           card is MegaCrit.Sts2.Core.Models.Cards.Void)
             .ToList();
 
         foreach (CardModel voidCard in voids)

@@ -7,12 +7,25 @@
 [ext_resource type="Texture2D" path="res://PaleRegentModV1/images/charui/paleregent_orb_layer_5.png" id="5_layer5"]
 [ext_resource type="PackedScene" path="res://PaleRegentModV1/scenes/combat/paleregent_energy_vfx_front.tscn" id="6_vfxfront"]
 
+[ext_resource type="Script" path="res://src/Core/Nodes/Combat/NEnergyCounter.cs" id="1_til17"]
+[ext_resource type="PackedScene" path="res://scenes/vfx/energy/regent/regent_energy_vfx_back.tscn" id="2_gqg4e"]
+[ext_resource type="Material" path="res://materials/ui/energy_orb_dark.tres" id="3_8b0ld"]
+
+[ext_resource type="PackedScene" path="res://scenes/vfx/energy/regent/regent_energy_vfx_front.tscn" id="8_xkpjh"]
+[ext_resource type="FontVariation" path="res://themes/kreon_bold_shared.tres" id="10_x1ova"]
+[ext_resource type="Script" path="res://addons/mega_text/MegaLabel.cs" id="11_5f4lc"]
+
+[sub_resource type="FontVariation" id="FontVariation_x0k5t"]
+base_font = ExtResource("10_x1ova")
+spacing_glyph = 2
+
 [node name="PaleRegentEnergyCounter" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 128.0
 offset_bottom = 128.0
 metadata/_edit_lock_ = true
+script = ExtResource("1_til17")
 
 [node name="EnergyVfxBack" parent="." instance=ExtResource("1_vfxback")]
 unique_name_in_owner = true
@@ -28,6 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Layer1" type="TextureRect" parent="Layers"]
+material = ExtResource("3_8b0ld")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -104,3 +118,4 @@ theme_override_font_sizes/font_size = 36
 text = "3/3"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("11_5f4lc")

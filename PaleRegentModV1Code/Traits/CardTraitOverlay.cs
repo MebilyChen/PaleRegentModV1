@@ -84,9 +84,9 @@ public static class CardTraitOverlay
     /// <summary>每张贴图的独立微调：(相对容器的缩放, 像素偏移)。</summary>
     private static readonly Dictionary<string, (float Scale, Vector2 Offset)> PerOverlayTweak = new()
     {
-        [PureOverlayName] = (1.00f, Vector2.Zero),
-        [PaleOverlayName] = (1.00f, Vector2.Zero),
-        [LostOverlayName] = (1.00f, Vector2.Zero),
+        [PureOverlayName] = (1.00f, new Vector2(2f, 0f)),
+        [PaleOverlayName] = (1.00f, new Vector2(2f, 0f)),
+        [LostOverlayName] = (1.00f, new Vector2(2f, 0f)),
     };
 
     /// <summary>兜底卡牌尺寸（实机量到的真实卡面尺寸，正常用不上）。</summary>

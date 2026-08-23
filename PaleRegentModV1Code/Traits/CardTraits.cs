@@ -132,14 +132,60 @@ public static class CardTraits
     internal static void CopyStateForClone(CardModel source, CardModel clone)
     {
         if (source == null || clone == null) return;
-        if (!States.TryGetValue(source, out TraitState? sourceState)) return;
 
-        TraitState cloneState = sourceState!.Clone();
-        States.Set(clone, cloneState);
-
-        if (cloneState.IsLost)
+        // 运行时附加的 TraitState 有就复制；没有也不能直接 return，
+        // 因为“天生纯粹 / 天生失心”来自卡牌类属性，本来就可能没有 AttachedState。
+        if (States.TryGetValue(source, out TraitState? sourceState))
         {
-            TrackLostCard(clone);
+            TraitState cloneState = sourceState!.Clone();
+            States.Set(clone, cloneState);
+
+            if (cloneState.IsLost)
+            {
+                TrackLostCard(clone);
+            }
+        }
+
+        // mutable clone 创建完成后同步声明型 Trait：
+        // - 天生纯粹：补 Pure keyword；
+        // - 天生失心：真正执行 ApplyLost，建立 TraitState 并应用费用/重放/消耗。
+        SyncDeclaredTraitKeywords(clone);
+
+        // 运行时附加纯粹也统一再同步一次；已有 keyword 时不会重复添加。
+        SyncPureKeyword(clone);
+    }
+
+    /// <summary>
+    /// 把卡牌类声明的天生 Trait 同步到 mutable card 实例。
+    ///
+    /// 【纯粹】：
+    ///   机制判定本来就直接读取 PaleRegentModV1Card.IsPure，
+    ///   因此这里只需要补 TraitKeywords.Pure，供牌面和 Hover 显示。
+    ///
+    /// 【失心】：
+    ///   不能只补 TraitKeywords.Lost。
+    ///   IsLost() 读取的是 TraitState.IsLost，费用转换、重放、消耗也都在 ApplyLost() 中完成。
+    ///   所以 HasInnateLost=true 的 mutable clone 必须真正执行一次 ApplyLost()。
+    /// </summary>
+    private static void SyncDeclaredTraitKeywords(CardModel card)
+    {
+        if (card == null || card.IsCanonical)
+            return;
+
+        if (card is not Cards.PaleRegentModV1Card paleCard)
+            return;
+
+        // 天生纯粹：机制由 IsPure 属性本身提供，只补显示 keyword。
+        if (paleCard.IsPure && !card.Keywords.Contains(TraitKeywords.Pure))
+        {
+            card.AddKeyword(TraitKeywords.Pure);
+        }
+
+        // 天生失心：必须真正走 ApplyLost，而不是只添加显示 keyword。
+        // IsLost(card) 用于防止 clone state 已经带着失心时重复应用。
+        if (paleCard.HasInnateLost && !IsLost(card))
+        {
+            ApplyLost(card);
         }
     }
 
@@ -311,7 +357,24 @@ public static class CardTraits
     public static bool IsPure(CardModel card) =>
         (card as Cards.PaleRegentModV1Card)?.IsPure == true ||
         (States.TryGetValue(card, out TraitState? s) && s!.IsPureApplied);
+    
+    public static void SyncPureKeyword(CardModel card)
+    {
+        if (card == null || card.IsCanonical)
+            return;
 
+        if (IsPure(card))
+        {
+            if (!card.Keywords.Contains(TraitKeywords.Pure))
+                card.AddKeyword(TraitKeywords.Pure);
+        }
+        else
+        {
+            if (card.Keywords.Contains(TraitKeywords.Pure))
+                card.RemoveKeyword(TraitKeywords.Pure);
+        }
+    }
+    
     /// <summary>
     /// 这张牌能否附加【纯粹】。
     /// 仅禁止重复附加【纯粹】本身；失心与苍白不影响本判定。
@@ -327,7 +390,11 @@ public static class CardTraits
     public static void ApplyPure(CardModel card)
     {
         if (!CanApplyPure(card)) return;
+
         States.GetOrCreate(card).IsPureApplied = true;
+
+        SyncPureKeyword(card);
+
         CardTraitUi.Refresh(card);
     }
 
@@ -532,6 +599,7 @@ public static class CardTraits
         // 失心重放只读取唯一的统一字段 LostReplayCount。
         // AppliedLostReplayCount 只记录本牌已应用多少，用于以后按差值同步。
         s.IsLost = true;
+        card.AddKeyword(TraitKeywords.Lost);
         s.AppliedLostReplayCount = 0;
         TrackLostCard(card);
         SyncLostReplayCount(card);
@@ -565,6 +633,7 @@ public static class CardTraits
             card.BaseReplayCount = Math.Max(0, card.BaseReplayCount - s.AppliedLostReplayCount);
             s.AppliedLostReplayCount = 0;
             s.IsLost = false;
+            card.RemoveKeyword(TraitKeywords.Lost);
             s.LostConvertedToVoidX = false;
             UntrackLostCard(card);
         }
@@ -583,8 +652,9 @@ public static class CardTraits
         // 能走到这一步的一定是固定虚空费（或没有虚空费）的牌。
         card.SecondaryCosts().Clear(VoidResource.Id);
 
-        // 3) 添加【虚无】
+        // 3) 添加【虚无】与自定义【苍白】关键词
         card.AddKeyword(CardKeyword.Ethereal);
+        card.AddKeyword(TraitKeywords.Pale);
 
         s.IsPale = true;
         CardTraitUi.Refresh(card);
@@ -595,6 +665,7 @@ public static class CardTraits
     private static void RemovePale(CardModel card, TraitState s)
     {
         card.RemoveKeyword(CardKeyword.Ethereal);
+        card.RemoveKeyword(TraitKeywords.Pale);
         // 恢复苍白清掉的原虚空费条目（含虚空 0 / 虚空 X）。
         if (s.OriginalHasVoidCost)
         {

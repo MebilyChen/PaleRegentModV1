@@ -38,7 +38,7 @@ public class PaleRegentModV1 : PlaceholderCharacterModel
         ModelDb.Card<VoidStrike>(),
         ModelDb.Card<Focus>()
     ];
-
+    
     /*public override IReadOnlyList<RelicModel> StartingRelics =>
     [
         ModelDb.Relic<DivineRight>()

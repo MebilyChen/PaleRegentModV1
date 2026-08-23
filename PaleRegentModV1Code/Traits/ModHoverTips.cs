@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 
@@ -29,7 +30,14 @@ public static class ModHoverTips
         new LocString(Table, $"PALEREGENTMODV1-{key}.description"));
 
     /// <summary>【虚空】能量计数器词条（名词表#18：回合开始按虚空数量扣灵魂，跨回合保留）。</summary>
-    public static IHoverTip VoidCounter => Static("VOID_COUNTER"); //没有ICON，最好还是引用POWER
+    /*public static IHoverTip VoidCounter => Static("VOID_COUNTER"); //没有ICON，最好还是引用POWER
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        ModHoverTips.VoidCounter,
+        HoverTipFactory.FromPower<VoidPower>((int?)null)
+    ];*/
+    public static IHoverTip VoidCounter =>
+        HoverTipFactory.FromPower<VoidPower>((int?)null);
 
     /// <summary>【失心 Lost】词条（重放层数读取 CardTraits.LostReplayCount）。</summary>
     public static IHoverTip Lost

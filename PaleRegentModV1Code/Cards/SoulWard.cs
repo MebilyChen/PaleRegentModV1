@@ -56,7 +56,8 @@ public class SoulWard() : PaleRegentModV1Card(1,
         // 2. 抽到感染 → 获得3点格挡
         foreach (CardModel card in drawn)
         {
-            if (card is Infection)
+            if (card is Infection ||
+                card is MegaCrit.Sts2.Core.Models.Cards.Infection)
             {
                 await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             }

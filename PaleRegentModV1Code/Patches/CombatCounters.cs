@@ -41,7 +41,47 @@ public static class CombatCounters
     /// <summary>本场战斗生成过的【感染】张数（病态辐射 C#70），由 Infection.NotifyGenerated 埋点。</summary>
     public static int InfectionGeneratedThisCombat { get; private set; }
 
-    /// <summary>感染生成埋点（由 Infection.NotifyGenerated 调用）。</summary>
+    /// <summary>
+    /// 当前感染计数所属的战斗对象。
+    /// 用引用身份区分不同 CombatState，避免静态计数跨战斗残留。
+    /// </summary>
+    private static object? _infectionCombatIdentity;
+
+    /// <summary>
+    /// 确保感染计数属于指定战斗；战斗对象变化时自动清零。
+    /// </summary>
+    public static void EnsureInfectionCombat(object? combatIdentity)
+    {
+        if (combatIdentity is null)
+        {
+            return;
+        }
+
+        if (ReferenceEquals(_infectionCombatIdentity, combatIdentity))
+        {
+            return;
+        }
+
+        _infectionCombatIdentity = combatIdentity;
+        InfectionGeneratedThisCombat = 0;
+    }
+
+    /// <summary>
+    /// 感染生成埋点。必须传入生成发生时所属的 CombatState。
+    /// </summary>
+    public static void NotifyInfectionGenerated(object? combatIdentity,int count)
+    {
+        EnsureInfectionCombat(combatIdentity);
+
+        if (count > 0)
+        {
+            InfectionGeneratedThisCombat += count;
+        }
+    }
+
+    /// <summary>
+    /// 兼容旧调用；建议所有 Infection.NotifyGenerated 调用迁移到带 combatIdentity 的重载。
+    /// </summary>
     public static void NotifyInfectionGenerated(int count)
     {
         if (count > 0)
@@ -89,5 +129,6 @@ public static class CombatCounters
         SoulGainCountThisCombat = 0;
         SoulGainedThisTurn = 0;
         InfectionGeneratedThisCombat = 0;
+        _infectionCombatIdentity = null;
     }
 }

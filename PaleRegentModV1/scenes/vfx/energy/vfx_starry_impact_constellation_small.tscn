@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwp01tds8rq7b"]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Material" uid="uid://ddioovdvc0dm1" path="res://materials/vfx/starry_impact/vfx_starry_impact_constellation_small.tres" id="1_a7f0l"]
-[ext_resource type="Texture2D" uid="uid://dncw2j8cggxn4" path="res://images/vfx/starry_impact/starry_impact_constellation_small.png" id="2_tx1gg"]
+[ext_resource type="Material" path="res://materials/vfx/starry_impact/vfx_starry_impact_constellation_small.tres" id="1_a8f0l"]
+[ext_resource type="Material" path="res://PaleRegentModV1/scenes/vfx/energy/vfx_starry_impact_constellation_small.tres" id="1_a7f0l"]
+[ext_resource type="Texture2D" path="res://images/vfx/starry_impact/starry_impact_constellation_small.png" id="2_tx1gg"]
 
 [sub_resource type="Curve" id="Curve_ivp5k"]
 _data = [Vector2(0, 0), 0.0, 17.126013, 0, 0, Vector2(0.15404701, 1), 0.0, 0.0, 0, 0, Vector2(0.50391644, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

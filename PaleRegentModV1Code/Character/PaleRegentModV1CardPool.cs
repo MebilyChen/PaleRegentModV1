@@ -44,6 +44,7 @@ public class PaleRegentModV1CardPool : CustomCardPoolModel
     //Color of small card icons
     
     public override Color DeckEntryCardColor => new("ffffff");
+    //public override string EnergyColorName => "PaleRegent";
     
     public override bool IsColorless => false;
 }

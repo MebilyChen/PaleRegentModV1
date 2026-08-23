@@ -35,7 +35,7 @@ public class EliteRecall : PaleRegentModV1Card
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        ModHoverTips.CreationRule
+        ModHoverTips.CreationRule,ModHoverTips.Pale
     ];
    
     protected override async Task OnPlay(

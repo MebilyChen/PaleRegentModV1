@@ -51,8 +51,8 @@ public class PlagueBlade() : PaleRegentModV1Card(
     /// </summary>
     private static int CountInfectionsForFinalDamage(CardModel card)
     {
-        return CardPile.GetCards(card.Owner, PileType.Exhaust).Count(c => c is Infection)
-            + CardPile.GetCards(card.Owner, PileType.Hand).Count(c => c is Infection);
+        return CardPile.GetCards(card.Owner, PileType.Exhaust).Count(c => c is Infection || c is MegaCrit.Sts2.Core.Models.Cards.Infection)
+            + CardPile.GetCards(card.Owner, PileType.Hand).Count(c => c is Infection || c is MegaCrit.Sts2.Core.Models.Cards.Infection);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -60,7 +60,7 @@ public class PlagueBlade() : PaleRegentModV1Card(
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
 
         List<CardModel> infections = CardPile.GetCards(Owner, PileType.Hand)
-            .Where(c => c is Infection)
+            .Where(c => c is Infection || c is MegaCrit.Sts2.Core.Models.Cards.Infection)
             .ToList();
 
         foreach (CardModel infection in infections)
