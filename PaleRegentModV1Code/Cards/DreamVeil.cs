@@ -14,12 +14,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【入梦帷幕】技能牌。
-/// 未升级：选择一个敌人，使其【苦痛之路】层数翻倍；为所有友方施加入梦；自身获得白根。
-/// 升级后：所有敌人的【苦痛之路】层数翻倍；入梦数值按 DynamicVars 的升级值结算。
+/// 未升级：施加1层苦痛之路。选择一个敌人，使其【苦痛之路】层数翻倍；为所有友方施加入梦；自身获得白根。
+/// 升级后：向所有敌人施加1层，且【苦痛之路】层数翻倍；入梦数值按 DynamicVars 的升级值结算。
 /// </summary>
 public class DreamVeil : PaleRegentModV1Card
 {
-    private const int BaseDreamAmount = 3;
+    private const int BaseDreamAmount = 5;
     private const int WhiteRootAmount = 1;
 
     public DreamVeil() : base(
@@ -37,7 +37,8 @@ public class DreamVeil : PaleRegentModV1Card
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<DreamPower>((int?)null),
-        HoverTipFactory.FromPower<WhiteRootPower>((int?)null)
+        HoverTipFactory.FromPower<WhiteRootPower>((int?)null),
+        HoverTipFactory.FromPower<PathOfPainPower>((int?)null)
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -52,11 +53,15 @@ public class DreamVeil : PaleRegentModV1Card
         {
             foreach (var enemy in Owner.Creature.CombatState.HittableEnemies.ToList())
             {
+                await PowerCmd.Apply<PathOfPainPower>(choiceContext, enemy,
+                    1, Owner.Creature, this);
                 await DoublePainPath(choiceContext, enemy);
             }
         }
         else if (cardPlay.Target is not null)
         {
+            await PowerCmd.Apply<PathOfPainPower>(choiceContext, cardPlay.Target,
+                1, Owner.Creature, this);
             await DoublePainPath(choiceContext, cardPlay.Target);
         }
 
@@ -108,6 +113,6 @@ public class DreamVeil : PaleRegentModV1Card
 
     protected override void OnUpgrade()
     {
-        DynamicVars["DreamPower"].UpgradeValueBy(2m);
+        DynamicVars["DreamPower"].UpgradeValueBy(5m);
     }
 }

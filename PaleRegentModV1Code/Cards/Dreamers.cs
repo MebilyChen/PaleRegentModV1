@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【守梦者】攻击牌（表 C#73，0727 新增）。
 /// 1 灵魂：造成 3 点伤害，获得 3 点格挡，获得 3 层入梦。带【纯粹】。
-/// 升级后：6 点伤害。
+/// 升级后：造成 6 点伤害，获得 6 点格挡，获得 6 层入梦。
 /// </summary>
 public class Dreamers() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Common,
@@ -24,9 +24,14 @@ public class Dreamers() : PaleRegentModV1Card(1,
     private const int UpgradeDamageBonus = 3;
     private const int BaseBlock = 3;
     private const int UpgradeBlockBonus = 3;
-    private const int DreamStacks = 3;
-    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    private const int BaseDreamStacks = 3;
+    private const int UpgradeDreamStacks = 3;
+
+    private int _dreamStacks = BaseDreamStacks;
+
+    // 带 Defend 标签：与“对防御牌生效”的效果联动（原版惯例）
     protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
+
     /// <summary>【纯粹】特质：不受感染/变形类效果影响。</summary>
     public override bool IsPure => true;
 
@@ -51,12 +56,13 @@ public class Dreamers() : PaleRegentModV1Card(1,
 
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        await PowerCmd.Apply<DreamPower>(choiceContext, Owner.Creature, DreamStacks, Owner.Creature, this);
+        await PowerCmd.Apply<DreamPower>(choiceContext, Owner.Creature, _dreamStacks, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(UpgradeDamageBonus);
         DynamicVars.Block.UpgradeValueBy(UpgradeBlockBonus);
+        _dreamStacks += UpgradeDreamStacks;
     }
 }

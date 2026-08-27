@@ -31,7 +31,7 @@ public class VoidGivenForm() : PaleRegentModV1Card(0,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Lost, ModHoverTips.Pure,
+        [ModHoverTips.Lost,
          HoverTipFactory.FromPower<VoidTouchPower>((int?)null)];
 
     public override bool IsCreationCard => true;

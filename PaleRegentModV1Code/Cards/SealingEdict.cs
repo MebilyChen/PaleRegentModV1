@@ -31,6 +31,9 @@ public class SealingEdict() : PaleRegentModV1Card(2,
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromPower<PureSealPower>((int?)null)];
     
+    /// <summary>【纯粹】特质：不受感染/变形类效果影响。</summary>
+    public override bool IsPure => true;
+    
     // 声明"这张牌提供格挡"，游戏会据此显示格挡预览等 UI
     public override bool GainsBlock => true;
 

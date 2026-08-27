@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【灵魂护佑】（表格 C#14，20260725 新增）。
-/// 1 灵魂 技能/Common：抽 2(3) 张牌，选择一张牌施加【纯粹】。若其中包含【感染】，额外获得3点格挡。
+/// 1 灵魂 技能/Common：抽 2(3) 张牌，选择一张牌施加【纯粹】。若其中包含【感染】，额外获得7点格挡。
 ///
 /// 实现说明：
 /// - 【纯粹】特质（名词表）：带纯粹的牌不会被【感染】的疑虑效果变形
@@ -26,7 +26,7 @@ public class SoulWard() : PaleRegentModV1Card(1,
     TargetType.None)
 {
     /// <summary>基础格挡。</summary>
-    private const int BaseBlock = 3;
+    private const int BaseBlock = 7;
 
     // 声明"这张牌提供格挡"，游戏会据此显示格挡预览等 UI
     public override bool GainsBlock => true;

@@ -24,11 +24,16 @@ public class BulwarkOath() : PaleRegentModV1Card(0,
     private const int UpgradedStacks = 5;
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<BulwarkOathPower>((int?)null)];
+    //protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    //    [HoverTipFactory.FromPower<BulwarkOathPower>((int?)null)];
+    
+    // 带 Defend 标签：与"对防御牌生效"的效果联动（原版惯例）
+    //protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<BulwarkOathPower>(BaseStacks)];
+    
+    public override bool GainsBlock => true;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

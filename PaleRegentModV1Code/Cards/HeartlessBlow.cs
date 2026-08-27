@@ -13,12 +13,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【失心重击】攻击牌。
-/// 0 灵魂 + 2 虚空：造成 7 点伤害。自带【失心】并获得相应的重放效果。
+/// 0 灵魂 + 1 虚空：造成 7 点伤害。自带【失心】并获得相应的重放效果。
 /// 升级后：12 点伤害。
 /// </summary>
 public class HeartlessBlow : PaleRegentModV1Card
 {
-    private const int VoidCost = 2;
+    private const int VoidCost = 1;
     private const int BaseDamage = 7;
     private const int UpgradeDamageBonus = 5;
 
@@ -35,6 +35,9 @@ public class HeartlessBlow : PaleRegentModV1Card
     /// 仍会保留失心提供的重放、消耗及对应词条表现。
     /// </summary>
     public override bool HasInnateLost => true;
+    
+    // 带 Strike 标签：与"对打击牌生效"的效果联动（原版惯例）
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Strike };
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [ModHoverTips.Lost];
 

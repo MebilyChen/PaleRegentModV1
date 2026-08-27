@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
@@ -21,6 +23,9 @@ public class MutagenicGrowthCard() : PaleRegentModV1Card(3,
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<MutagenicGrowthPower>(StrengthPerStatus)];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromPower<StrengthPower>((int?)null)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

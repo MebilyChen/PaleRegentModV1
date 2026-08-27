@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using PaleRegentModV1.PaleRegentModV1Code.Resources;
@@ -58,7 +59,7 @@ public static class CardTraits
     /// 默认重放1；其他能力通过 AddLostReplayCount / SetLostReplayCount 修改。
     /// 已经失心和之后新获得失心的牌都读取这一份数值。
     /// </summary>
-    public static int LostReplayCount { get; private set; } = 2;
+    public static int LostReplayCount { get; private set; } = 1; //改回重放1
     
     /// <summary>挂在卡牌实例上的特质数据。</summary>
     private sealed class TraitState
@@ -114,6 +115,15 @@ public static class CardTraits
     /// </summary>
     private static readonly List<WeakReference<CardModel>> TrackedLostCards = new();
 
+    /// <summary>防止重复订阅 CombatManager.CombatSetUp。</summary>
+    private static bool _combatPileLostSyncRegistered;
+
+    /// <summary>
+    /// 天生失心默认仅在实际战斗牌堆中应用。
+    /// 保留此常量是为了给下方 clone 同步处提供一行式回退开关。
+    /// </summary>
+    private const bool LimitInnateLostToCombatPiles = true;
+
     // ---------------- 查询 ----------------
     
     /// <summary>这张牌当前是否有【失心】。</summary>
@@ -146,28 +156,35 @@ public static class CardTraits
             }
         }
 
-        // mutable clone 创建完成后同步声明型 Trait：
-        // - 天生纯粹：补 Pure keyword；
-        // - 天生失心：真正执行 ApplyLost，建立 TraitState 并应用费用/重放/消耗。
-        SyncDeclaredTraitKeywords(clone);
+        // mutable clone 创建完成后只同步“天生纯粹”。
+        // 天生失心默认不在这里处理：奖励、牌组查看和图鉴同样会创建 mutable clone。
+        // 它只会在卡牌真正进入战斗牌堆时，由 CombatSetUp / CardAdded 事件应用。
+        SyncDeclaredPureKeyword(clone);
+
+        // =====================================================================
+        // 【失心仅限战斗牌堆开关】
+        // 正常情况下 LimitInnateLostToCombatPiles=true，以下 ApplyLost 不会执行。
+        // 若将来要恢复旧行为（任何 mutable clone 都立即 ApplyLost），
+        // 只需注释掉下一行 "!LimitInnateLostToCombatPiles &&"，其余不动。
+        // =====================================================================
+        if (clone is Cards.PaleRegentModV1Card paleCard &&
+            paleCard.HasInnateLost &&
+            !LimitInnateLostToCombatPiles &&
+            !IsLost(clone))
+        {
+            ApplyLost(clone);
+        }
 
         // 运行时附加纯粹也统一再同步一次；已有 keyword 时不会重复添加。
         SyncPureKeyword(clone);
     }
 
     /// <summary>
-    /// 把卡牌类声明的天生 Trait 同步到 mutable card 实例。
-    ///
-    /// 【纯粹】：
-    ///   机制判定本来就直接读取 PaleRegentModV1Card.IsPure，
-    ///   因此这里只需要补 TraitKeywords.Pure，供牌面和 Hover 显示。
-    ///
-    /// 【失心】：
-    ///   不能只补 TraitKeywords.Lost。
-    ///   IsLost() 读取的是 TraitState.IsLost，费用转换、重放、消耗也都在 ApplyLost() 中完成。
-    ///   所以 HasInnateLost=true 的 mutable clone 必须真正执行一次 ApplyLost()。
+    /// 将卡牌类声明的天生【纯粹】同步到 mutable card 实例。
+    /// 纯粹的机制判定直接读取 PaleRegentModV1Card.IsPure，
+    /// 所以这里只补显示用的 keyword；天生失心不在 clone 阶段处理。
     /// </summary>
-    private static void SyncDeclaredTraitKeywords(CardModel card)
+    private static void SyncDeclaredPureKeyword(CardModel card)
     {
         if (card == null || card.IsCanonical)
             return;
@@ -175,17 +192,9 @@ public static class CardTraits
         if (card is not Cards.PaleRegentModV1Card paleCard)
             return;
 
-        // 天生纯粹：机制由 IsPure 属性本身提供，只补显示 keyword。
         if (paleCard.IsPure && !card.Keywords.Contains(TraitKeywords.Pure))
         {
             card.AddKeyword(TraitKeywords.Pure);
-        }
-
-        // 天生失心：必须真正走 ApplyLost，而不是只添加显示 keyword。
-        // IsLost(card) 用于防止 clone state 已经带着失心时重复应用。
-        if (paleCard.HasInnateLost && !IsLost(card))
-        {
-            ApplyLost(card);
         }
     }
 
@@ -193,11 +202,80 @@ public static class CardTraits
     /// 在模组初始化时调用一次。
     /// RitsuLib 会在每次 AbstractModel.MutableClone 完成后，
     /// 将源 CardModel 的 TraitState 复制到新 CardModel。
+    /// 同时注册战斗牌堆同步，使天生失心仅对实际战斗中的牌应用。
     /// </summary>
     public static void RegisterCloneStateSync()
     {
         ModelCloneRegistry.For("PaleRegentModV1")
             .Register<CardModel>("card_traits_state", CopyStateForClone);
+
+        RegisterCombatPileLostSync();
+    }
+
+    /// <summary>
+    /// 只注册一次战斗开始监听。进入战斗时扫描手牌/抽牌堆/弃牌堆/消耗牌堆，
+    /// 并监听之后进入这些牌堆的卡。
+    /// </summary>
+    private static void RegisterCombatPileLostSync()
+    {
+        if (_combatPileLostSyncRegistered)
+            return;
+
+        _combatPileLostSyncRegistered = true;
+        CombatManager.Instance.CombatSetUp += ApplyInnateLostToCombatPiles;
+    }
+
+    /// <summary>
+    /// 战斗初始化完成后，失心才真正作用于玩家的战斗卡牌实例。
+    /// 因为这里只访问 PlayerCombatState 的牌堆，牌组查看、奖励和图鉴不会触发。
+    /// </summary>
+    private static void ApplyInnateLostToCombatPiles(CombatState state)
+    {
+        // 即使战斗在玩家回合结束前提前结束，临时失心重放加成也不会带入下一场战斗。
+        ResetLostReplayCount();
+
+        foreach (var player in state.Players)
+        {
+            var combatState = player.PlayerCombatState;
+            if (combatState == null)
+                continue;
+
+            SyncCombatPileLost(combatState.Hand);
+            SyncCombatPileLost(combatState.DrawPile);
+            SyncCombatPileLost(combatState.DiscardPile);
+            SyncCombatPileLost(combatState.ExhaustPile);
+        }
+    }
+
+    /// <summary>
+    /// 先补齐牌堆中的既有卡，再订阅 CardAdded，以覆盖战斗中生成、抽取、
+    /// 弃置或消耗后进入该牌堆的新卡。
+    /// </summary>
+    private static void SyncCombatPileLost(CardPile pile)
+    {
+        if (pile == null)
+            return;
+
+        foreach (CardModel card in pile.Cards)
+        {
+            ApplyInnateLostInCombatPile(card);
+        }
+
+        pile.CardAdded += ApplyInnateLostInCombatPile;
+    }
+
+    /// <summary>
+    /// 对真正位于战斗牌堆中的卡应用天生失心。ApplyLost 内部仍会防重复。
+    /// </summary>
+    private static void ApplyInnateLostInCombatPile(CardModel card)
+    {
+        if (card is not Cards.PaleRegentModV1Card paleCard)
+            return;
+
+        if (!paleCard.HasInnateLost || IsLost(card))
+            return;
+
+        ApplyLost(card);
     }
 
     /// <summary>
@@ -258,12 +336,23 @@ public static class CardTraits
     }
 
     /// <summary>
+    /// 扣除唯一的失心重放层数，并立即刷新全部存量失心牌。
+    /// 用于在本回合临时加成结束时精确回退对应层数。
+    /// </summary>
+    public static void RemoveLostReplayCount(int amount = 1)
+    {
+        if (amount <= 0) return;
+
+        SetLostReplayCount(LostReplayCount - amount);
+    }
+
+    /// <summary>
     /// 直接设置唯一的失心重放层数，并立即刷新全部存量失心牌。
-    /// 最低为 2。
+    /// 最低为 1，即失心的基础重放层数。
     /// </summary>
     public static void SetLostReplayCount(int amount)
     {
-        amount = Math.Max(2, amount);
+        amount = Math.Max(1, amount);
         if (LostReplayCount == amount) return;
 
         LostReplayCount = amount;
@@ -276,7 +365,7 @@ public static class CardTraits
     /// </summary>
     public static void ResetLostReplayCount()
     {
-        SetLostReplayCount(2);
+        SetLostReplayCount(1);
     }
     
     /// <summary>

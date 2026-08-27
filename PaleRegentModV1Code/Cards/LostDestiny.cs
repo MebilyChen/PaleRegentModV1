@@ -29,7 +29,7 @@ public class LostDestiny : PaleRegentModV1Card
     private const int BaseVoidCost = 3;
     private const int UpgradedVoidCost = 2;
 
-    public LostDestiny() : base(0,
+    public LostDestiny() : base(3,
         CardType.Power, CardRarity.Rare,
         TargetType.None)
     {
@@ -41,8 +41,7 @@ public class LostDestiny : PaleRegentModV1Card
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<LostDestinyPower>((int?)null),
-         ModHoverTips.Lost];
+        [ModHoverTips.Lost];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

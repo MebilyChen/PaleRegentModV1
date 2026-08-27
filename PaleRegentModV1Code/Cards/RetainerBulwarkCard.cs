@@ -6,6 +6,7 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -25,9 +26,12 @@ public class RetainerBulwarkCard : PaleRegentModV1Card
     {
         CardTraits.SetVoidCost(this, VoidCost);
     }
+    public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<RetainerBulwarkPower>(BaseBlock)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        [HoverTipFactory.FromCard<KingsRetainer>(false)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

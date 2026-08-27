@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -28,7 +29,8 @@ public class SoulHalos() : PaleRegentModV1Card(2,
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move),
          new RepeatVar(BaseHits)];
-
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [HoverTipFactory.FromPower<WeakPower>(_weakStacks)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // 对随机敌人造成 5 点伤害，共 Repeat 次

@@ -20,7 +20,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【黑暗潮汐】（表格 C#8，20260725 新增）—— 虚空打击的先古升级。
 /// 0 灵魂 0 虚空 攻击：面前每有一个敌人，对全体敌人造成 1 次 10(15) 点伤害，
-/// 且每次虚空 +1。然后为手牌任意张牌添加【失心】。
+/// 且每次虚空 +1。然后为手牌任意张牌添加【失心】。本回合内，[purple]失心[/purple]获得的重放次数+1。
 ///
 /// 实现说明：
 /// - 稀有度：表格 L8=Ancient（先古）。已在原版源码 CardRarity.cs 确认枚举含 Ancient。
@@ -88,6 +88,12 @@ public class DarkTide() : PaleRegentModV1Card(0,
         {
             CardTraits.ApplyLost(card);
         }
+        
+        // 本回合内：失心牌额外获得 1 层重放。
+        // 临时能力会在玩家回合结束时回退对应层数；重复使用时按层数叠加后统一回退。
+        await PowerCmd.Apply<LostReplayThisTurnPower>(
+            choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        CardTraits.AddLostReplayCount(1);
     }
 
     protected override void OnUpgrade()

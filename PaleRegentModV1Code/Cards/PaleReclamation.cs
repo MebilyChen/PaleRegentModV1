@@ -14,10 +14,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【苍白赎回】技能牌（表 C#86，0727 新增）。
-/// 2 灵魂：从消耗牌堆选择 3 张牌，为其施加【苍白】后放回抽牌堆（洗入随机位置）。
-/// 升级后：5 张。
+/// 3 灵魂：从消耗牌堆选择 1 张牌，为其施加【苍白】后放回抽牌堆（洗入随机位置）。
+/// 升级后：2 张。
 /// </summary>
-public class PaleReclamation() : PaleRegentModV1Card(2,
+public class PaleReclamation() : PaleRegentModV1Card(3,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {

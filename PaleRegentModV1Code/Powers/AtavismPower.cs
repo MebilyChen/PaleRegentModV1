@@ -15,7 +15,7 @@ using STS2RitsuLib.Combat.SecondaryResources;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Powers;
 
-// 每消耗一次灵魂或虚空，获得灵魂
+// 每消耗一次灵魂，获得灵魂 -- 修改：虚空不再触发
 
 public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
 {
@@ -42,7 +42,7 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
     }
 
     // 每次实际支付虚空时触发一次；若为同一张已因普通能量支付触发的牌，则跳过。
-    public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
+    /*public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
         if (context.Player != Owner.Player ||
             context.Definition.Id != VoidResource.Id)
@@ -59,7 +59,7 @@ public class AtavismPower : PaleRegentModV1Power, ISecondaryResourceHookListener
         // 非卡牌来源的虚空支付没有可用于合并的卡牌上下文，仍按一次支付触发一次。
         Flash();
         await PlayerCmd.GainEnergy(Amount, context.Player);
-    }
+    }*/
 
     // 卡牌完整结算后移除去重标记，使该卡牌下次被打出时可再次触发。
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

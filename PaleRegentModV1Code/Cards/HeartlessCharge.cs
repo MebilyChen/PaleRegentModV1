@@ -16,16 +16,16 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【失心冲锋】攻击牌（表 C#90，0727 新增）。
-/// 1 灵魂 + 1 虚空：造成 18 点伤害。动量 5（原版 Momentum 附魔：每次打出
+/// 1 灵魂 + 1 虚空：造成 10 点伤害。动量 5（原版 Momentum 附魔：每次打出
 /// 后本场战斗伤害 +5）。失心。
-/// 升级后：25 点伤害。动量 7
+/// 升级后：15 点伤害。动量 7
 /// 备注：按原版 Momentum 附魔语义实现（amount=5），即每次打出后后续
 /// 伤害累加 5；在进入战斗时自动挂附魔。
 /// </summary>
 public class HeartlessCharge : PaleRegentModV1Card
 {
-    private const int BaseDamage = 18;
-    private const int UpgradeDamageBonus = 7;
+    private const int BaseDamage = 10;
+    private const int UpgradeDamageBonus = 5;
     private const int VoidCost = 1;
     private const int MomentumAmount = 5;
     private const int UpgradeMomentumAmount = 7;

@@ -19,12 +19,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【虚空化神】生成牌（机制文档：造物流终端，"驯化"消耗 9 张虚空状态生成）。
-/// 0 灵魂 攻击（全体）：对所有敌人造成 35 点伤害并施加 10 层【虚空之触】；
-/// 然后选择至少一张手牌变为【虚空】状态牌（神性的代价）。
+/// 1 灵魂 攻击（全体）：对所有敌人造成 35 点伤害并施加 10 层【虚空之触】；
+/// 然后选择至少一张手牌变为【虚空】状态牌（神性的代价）。失心获得重放的次数+1。
 /// 纯粹。消耗。
 /// 升级后：40 伤，15 层虚空之触。
 /// </summary>
-public class VoidGivenFocus() : PaleRegentModV1Card(0,
+public class VoidGivenFocus() : PaleRegentModV1Card(1,
     CardType.Attack, CardRarity.Token,
     TargetType.AllEnemies)
 {
@@ -35,7 +35,7 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Pure,ModHoverTips.FollyRule,
+        [ModHoverTips.FollyRule,
          HoverTipFactory.FromPower<VoidTouchPower>((int?)null),
          HoverTipFactory.FromCard<TheVoidStatus>(false),
          HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Folly>(false)];
@@ -89,6 +89,12 @@ public class VoidGivenFocus() : PaleRegentModV1Card(0,
         {
             await CardCmd.TransformTo<TheVoidStatus>(card);
         }
+        
+        // 本回合内：失心牌额外获得 1 层重放。
+        // 临时能力会在玩家回合结束时回退对应层数；重复使用时按层数叠加后统一回退。
+        await PowerCmd.Apply<LostReplayThisTurnPower>(
+            choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        CardTraits.AddLostReplayCount(1);
     }
 
     protected override void OnUpgrade()

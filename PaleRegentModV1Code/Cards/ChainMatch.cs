@@ -9,9 +9,11 @@ using PaleRegentModV1.PaleRegentModV1Code.Powers;
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
-/// 【连锁引信】
-/// 本回合内，每当你连续打出同名牌时，对所有敌人造成伤害。
-/// 本场战斗内，该效果每触发一次，伤害永久提高。
+/// 【连连看】技能牌。
+/// 本回合内，你每连续打出 1 张同名牌，对所有敌人造成
+/// {ChainResonancePower:diff()} 点伤害，并获得
+/// {ChainResonancePower:diff()} 点格挡。
+/// 本场战斗内，该效果每触发一次，伤害与格挡永久提高。
 /// </summary>
 public class ChainMatch() : PaleRegentModV1Card(
     1,
@@ -21,8 +23,10 @@ public class ChainMatch() : PaleRegentModV1Card(
 {
     private const int BaseDamage = 3;
     private const int DamagePerTrigger = 1;
-
     private const int UpgradeDamageBonus = 2;
+
+    protected override HashSet<CardTag> CanonicalTags => new() { CardTag.Defend };
+    public override bool GainsBlock => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -53,12 +57,11 @@ public class ChainMatch() : PaleRegentModV1Card(
                 Owner.Creature,
                 this);
 
-            power =
-                Owner.Creature.GetPower<ChainResonancePower>();
+            power = Owner.Creature.GetPower<ChainResonancePower>();
         }
         else
         {
-            // Power 已存在时，在现有 Amount 上增加本回合临时伤害。
+            // Power 已存在时，在现有 Amount 上增加本回合临时伤害与格挡数值。
             // 这部分会在回合结束时自动扣除。
             await power.AddTemporaryDamageForTurn(
                 choiceContext,
@@ -66,11 +69,8 @@ public class ChainMatch() : PaleRegentModV1Card(
                 this);
         }
 
-        // 启用本回合监听。
-        // 不会重置 Amount，也不会清除临时伤害。
-        power?.ActivateForTurn(
-            initialDamage,
-            damageAdd);
+        // 启用本回合监听；不会重置 Amount，也不会清除临时数值。
+        power?.ActivateForTurn(initialDamage, damageAdd);
     }
 
     protected override void OnUpgrade()

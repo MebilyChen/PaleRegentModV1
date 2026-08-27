@@ -14,17 +14,17 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【虚蚀重击】攻击牌（表 C#91，0727 新增）。
-/// 1 灵魂 + 2 虚空：造成 35 点伤害，施加 5 层【虚空之触】。失心。
+/// 2 灵魂 + 3 虚空：造成 35 点伤害，施加 5 层【虚空之触】。失心。
 /// 升级后：40 点伤害，7 层。
 /// </summary>
 public class VoidscarStrike : PaleRegentModV1Card
 {
     private const int BaseDamage = 35;
     private const int UpgradeDamageBonus = 5;
-    private const int VoidCost = 2;
+    private const int VoidCost = 3;
     private const string TouchKey = "VoidTouchPower";
 
-    public VoidscarStrike() : base(1,
+    public VoidscarStrike() : base(2,
         CardType.Attack, CardRarity.Uncommon,
         TargetType.AnyEnemy)
     {
@@ -39,7 +39,7 @@ public class VoidscarStrike : PaleRegentModV1Card
          new PowerVar<VoidTouchPower>(5)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Lost];
+        [ModHoverTips.Lost,HoverTipFactory.FromPower<VoidTouchPower>((int?)null) ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

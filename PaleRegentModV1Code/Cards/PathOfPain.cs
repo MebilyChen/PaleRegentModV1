@@ -8,15 +8,16 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【试炼】稀有技能牌（效果"苦痛之路"的载体；旧名：苦痛之路）。
-/// 3 灵魂 技能：对所有敌人施加 5 层【苦痛之路】。
+/// 2 灵魂 技能：对所有敌人施加 5 层【苦痛之路】。本回合内，失心获得的重放次数+1
 /// 升级后：施加 10 层。
 /// </summary>
-public class PathOfPain() : PaleRegentModV1Card(3,
+public class PathOfPain() : PaleRegentModV1Card(2,
     CardType.Skill, CardRarity.Rare,
     TargetType.AllEnemies)
 {
@@ -24,7 +25,7 @@ public class PathOfPain() : PaleRegentModV1Card(3,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [HoverTipFactory.FromPower<PathOfPainPower>((int?)null)];
+        [ModHoverTips.Lost, HoverTipFactory.FromPower<PathOfPainPower>((int?)null)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<PathOfPainPower>(BaseAmount)];
@@ -38,6 +39,12 @@ public class PathOfPain() : PaleRegentModV1Card(3,
             await PowerCmd.Apply<PathOfPainPower>(choiceContext, enemy,
                 DynamicVars["PathOfPainPower"].BaseValue, Owner.Creature, this);
         }
+
+        // 本回合内：失心牌额外获得 1 层重放。
+        // 临时能力会在玩家回合结束时回退对应层数；重复使用时按层数叠加后统一回退。
+        await PowerCmd.Apply<LostReplayThisTurnPower>(
+            choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        CardTraits.AddLostReplayCount(1);
     }
 
     protected override void OnUpgrade()

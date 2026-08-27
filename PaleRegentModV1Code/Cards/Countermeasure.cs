@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -27,6 +28,11 @@ public class Countermeasure() : PaleRegentModV1Card(1,
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<WeakPower>(_debuffStacks),
+        HoverTipFactory.FromPower<VulnerablePower>(_debuffStacks)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

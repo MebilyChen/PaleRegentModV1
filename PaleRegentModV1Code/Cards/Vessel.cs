@@ -34,7 +34,7 @@ public class Vessel() : PaleRegentModV1Card(1,
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         [HoverTipFactory.FromCard<PureVessel>(IsUpgraded),
-         HoverTipFactory.FromCard<FailedVessel>(IsUpgraded)];
+         HoverTipFactory.FromCard<FailedVessel>(IsUpgraded),HoverTipFactory.FromPower<PureSealPower>((int?)null)];
 
     public override bool IsCreationCard => true;
 

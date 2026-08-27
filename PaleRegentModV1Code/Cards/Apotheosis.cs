@@ -12,8 +12,8 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【化神】uncommon能力牌（虚空流的核心终端）。
-/// 0 灵魂 + 4 虚空：获得【化神】buff——
-/// 每回合开始获得 1 点虚空（升级后 2 点），并选择一张手牌附加【失心】。
+/// 3 灵魂 + 4 虚空：获得【化神】buff——
+/// 每回合开始获得 1 点虚空（升级后 2 点），并选择一张手牌附加【失心】。失心获得的重放次数 +1
 ///
 /// 机制要点：
 /// - 虚空费在构造器里用 CardTraits.SetVoidCost 声明，
@@ -30,7 +30,7 @@ public class Apotheosis : PaleRegentModV1Card
     /// <summary>打出所需虚空费。</summary>
     private const int VoidCost = 4;
 
-    public Apotheosis() : base(0,
+    public Apotheosis() : base(3,
         CardType.Power, CardRarity.Uncommon,
         TargetType.Self)
     {
@@ -57,6 +57,11 @@ public class Apotheosis : PaleRegentModV1Card
         // 施加【化神】buff（层数 = 每回合获得的虚空数；基础 1，升级 2）
         await PowerCmd.Apply<ApotheosisPower>(choiceContext, cardPlay.Player.Creature,
             DynamicVars["ApotheosisPower"].BaseValue, cardPlay.Player.Creature, this);
+        
+        //失心获得的重放次数 +1
+        // 提高唯一的“失心重放层数”字段。
+        // 接口会立即刷新存量失心牌；之后新获得失心的牌也会读取新值。
+        CardTraits.AddLostReplayCount(1);
     }
 
     protected override void OnUpgrade()

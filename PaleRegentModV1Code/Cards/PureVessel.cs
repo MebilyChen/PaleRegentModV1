@@ -39,7 +39,7 @@ public class PureVessel() : PaleRegentModV1Card(0,
 
     /// <summary>手牌聚焦悬停词条（机制表：关键词/生成牌 Hover Card Preview）。</summary>
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        [ModHoverTips.Pure, ModHoverTips.RegretRule,
+        [ModHoverTips.RegretRule,
          HoverTipFactory.FromPower<PureSealPower>((int?)null),
          HoverTipFactory.FromPower<VoidGuardPower>((int?)null),
          HoverTipFactory.FromCard<MegaCrit.Sts2.Core.Models.Cards.Regret>(false)

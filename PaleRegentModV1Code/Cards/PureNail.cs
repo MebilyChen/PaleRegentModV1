@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -16,7 +17,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【纯粹之钉】攻击牌。
-/// 0 灵魂：选择手牌、抽牌堆、弃牌堆中的任意张牌附加【苍白】。
+/// 0 灵魂：选择手牌、抽牌堆、弃牌堆中的任意张牌附加【苍白】。带【纯粹】。
 /// 造成伤害。本牌每因苍白实际取消 1 次【失心】或虚空花费，攻击次数 +1。
 /// </summary>
 public class PureNail() : PaleRegentModV1Card(0,
@@ -25,9 +26,14 @@ public class PureNail() : PaleRegentModV1Card(0,
 {
     private const int BaseDamage = 5;
     private const int UpgradeDamageBonus = 3;
-
+    /// <summary>【纯粹】特质：不受感染/变形类效果影响。</summary>
+    public override bool IsPure => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(BaseDamage, ValueProp.Move)];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [ModHoverTips.Lost, ModHoverTips.Pale
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

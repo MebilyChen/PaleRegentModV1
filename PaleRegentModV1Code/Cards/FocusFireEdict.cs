@@ -40,7 +40,23 @@ public class FocusFireEdict() : PaleRegentModV1Card(1,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+        // 不升级此变量，因此始终施加 1 层旧日仇敌。
+        await PowerCmd.Apply<AncientEnemyPower>(
+            choiceContext,
+            cardPlay.Target,
+            DynamicVars["AncientEnemyPower"].BaseValue,
+            Owner.Creature,
+            this);
+        
+        // 未升级：1 层；升级后：2 层。
+        await PowerCmd.Apply<PlaguePower>(
+            choiceContext,
+            cardPlay.Player.Creature,
+            DynamicVars["PlaguePower"].BaseValue,
+            Owner.Creature,
+            this);
 
+        
         // 未升级：1 次；升级后：2 次。
         int hitCount = BaseHitCount
                        + (IsUpgraded ? UpgradeHitCountBonus : 0);
@@ -51,22 +67,7 @@ public class FocusFireEdict() : PaleRegentModV1Card(1,
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-
-        // 未升级：1 层；升级后：2 层。
-        await PowerCmd.Apply<PlaguePower>(
-            choiceContext,
-            cardPlay.Player.Creature,
-            DynamicVars["PlaguePower"].BaseValue,
-            Owner.Creature,
-            this);
-
-        // 不升级此变量，因此始终施加 1 层旧日仇敌。
-        await PowerCmd.Apply<AncientEnemyPower>(
-            choiceContext,
-            cardPlay.Target,
-            DynamicVars["AncientEnemyPower"].BaseValue,
-            Owner.Creature,
-            this);
+       
     }
 
     protected override void OnUpgrade()

@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using PaleRegentModV1.PaleRegentModV1Code.Powers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.HoverTips;
+using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
@@ -23,6 +25,9 @@ public class WhiteWyrmCradleCard() : PaleRegentModV1Card(4,
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new PowerVar<WhiteWyrmCradlePower>(BaseWhiteRoot)];
+    
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [HoverTipFactory.FromPower<SoulNextTurnPower>((int?)null),HoverTipFactory.FromPower<WhiteRootPower>((int?)null)];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

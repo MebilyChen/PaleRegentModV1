@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 /// <summary>
 /// 【灵魂支柱】
 /// 造成5点伤害。
-/// 消耗牌堆中每有1张牌，额外造成5点伤害。
+/// 消耗牌堆中每有1张牌，额外造成5点伤害。消耗。
 /// 升级后每张额外造成7点伤害。
 /// </summary>
 public class SoulPillars() : PaleRegentModV1Card(
@@ -25,7 +25,8 @@ public class SoulPillars() : PaleRegentModV1Card(
 {
     private const int BaseDamage = 5;
     private const int DamagePerExhaustedCard = 5;
-
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         // 计算公式中的固定基础伤害。

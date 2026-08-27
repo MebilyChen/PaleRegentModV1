@@ -30,6 +30,9 @@ public class CastOffShell() : PaleRegentModV1Card(
         [HoverTipFactory.FromPower<SoulNextTurnPower>((int?)null)];
 
     protected override bool HasEnergyCostX => true;
+    
+    /// <summary>【纯粹】特质：不受感染/变形类效果影响。</summary>
+    public override bool IsPure => true;
 
     /// <summary>升级后，蓄灵及保留数量各增加 1。</summary>
     private int _soulBonus;
