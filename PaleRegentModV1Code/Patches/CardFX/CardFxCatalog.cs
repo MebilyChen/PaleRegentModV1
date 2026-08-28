@@ -35,7 +35,7 @@ public static class CardFxCatalog
             SovereignFxRoot + "sovereign_blade_star_center2.png"
         ];
 
-        CardFxRegistry.For<Test>()
+        CardFxRegistry.For<Strike>()
             .On(
                 CardFxState.HoverEnter,
                 new PngSequenceCardFx(
