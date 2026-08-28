@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using PaleRegentModV1.PaleRegentModV1Code.Patches.CardFX;
 using PaleRegentModV1.PaleRegentModV1Code.Traits;
 
 namespace PaleRegentModV1.PaleRegentModV1Code;
@@ -18,18 +19,20 @@ public partial class MainFile : Node
         //If you want to use scripts defined in your mod for Godot scenes, uncomment the following line.
         //Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
         CheckAnimationResources();
-        
+
         PaleRegentModV1.PaleRegentModV1Code.Resources.VoidResource.Register();
+
         // 注册虚空资源全局监听器：任何途径的虚空增减（含 RitsuLib 自动支付卡牌虚空费）
         // 都会自动同步 VoidPower 图标层数（修复：花费虚空后 Power 不移除）
         PaleRegentModV1.PaleRegentModV1Code.Patches.VoidPowerListener.Init();
-        Harmony harmony = new(ModId);
 
+        CardFxCatalog.RegisterAll();
+
+        Harmony harmony = new(ModId);
         harmony.PatchAll();
         CardTraits.RegisterCloneStateSync();
-        
     }
-    
+
     private static void CheckAnimationResources()
     {
         string[] paths =
