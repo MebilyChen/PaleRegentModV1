@@ -10,6 +10,12 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Patches.CardFX;
 /// </summary>
 public sealed class GodotParticleCardFx : CardFxDefinition
 {
+    /// <summary>
+    /// CardFX 粒子的默认发射贴图。透明 glow 可配合 Additive 材质统一形成柔和光晕。
+    /// </summary>
+    public const string DefaultParticleTexturePath =
+        "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png";
+
     public GodotParticleCardFx(
         string scenePath,
         float durationSeconds,
@@ -30,6 +36,12 @@ public sealed class GodotParticleCardFx : CardFxDefinition
 
     /// <summary>需要自动播放的 AnimationPlayer 动画名；为空则不自动播放。</summary>
     public string AnimationName { get; init; } = string.Empty;
+
+    /// <summary>
+    /// 应用于场景内所有 GpuParticles2D / CpuParticles2D 的发射贴图。
+    /// 默认为 common_glow_transparent.png；设为 null 或空字符串时保留场景自身贴图。
+    /// </summary>
+    public string? ParticleTexturePath { get; init; } = DefaultParticleTexturePath;
 
     /// <summary>是否自动启动场景中的全部 2D 粒子节点。</summary>
     public bool AutoStartParticles { get; init; } = true;
@@ -54,6 +66,7 @@ public sealed class GodotParticleCardFx : CardFxDefinition
         }
 
         Node instance = scene.Instantiate();
+        ApplyParticleTexture(instance);
 
         if (instance is Node2D node2D)
         {
@@ -68,6 +81,35 @@ public sealed class GodotParticleCardFx : CardFxDefinition
 
         wrapper.AddChild(instance);
         return wrapper;
+    }
+
+    private void ApplyParticleTexture(Node root)
+    {
+        if (string.IsNullOrWhiteSpace(ParticleTexturePath))
+        {
+            return;
+        }
+
+        Texture2D? texture = CardFxResources.LoadTexture(ParticleTexturePath);
+
+        if (texture is null)
+        {
+            return;
+        }
+
+        foreach (Node node in EnumerateTree(root))
+        {
+            switch (node)
+            {
+                case GpuParticles2D gpu:
+                    gpu.Texture = texture;
+                    break;
+
+                case CpuParticles2D cpu:
+                    cpu.Texture = texture;
+                    break;
+            }
+        }
     }
 
     internal override void Start(Node2D instance)

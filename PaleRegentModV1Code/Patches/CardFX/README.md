@@ -164,6 +164,8 @@ Godot 的 `GPUParticles2D` 使用 `ParticleProcessMaterial` 或自定义 Shader 
 
 如果场景含有 `AnimationPlayer`，可设置 `AnimationName`；若是持续 Hover 粒子，应设置 `Persistent = true`、`OneShot = false`，并在 `HoverExit` 使用 `StopOn` 停止对应槽位。
 
+`GodotParticleCardFx` 会默认把场景内每个 `GpuParticles2D` 与 `CpuParticles2D` 的发射贴图设为 `res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png`，以统一采用透明 glow 的发光粒子语言。若某个特效确实需要保留场景内自行配置的贴图，可在对象初始化器中明确写入 `ParticleTexturePath = null`；也可以传入另一个 `res://` 纹理路径作单次覆盖。
+
 ## 8. “万象辉星”式效果如何拆分
 
 仓库内的 `sovereign_blade.tscn` 参考场景不是单一粒子，而是由**主体纹理、加色发光、中心星芒、环绕尖刺、锻造火花、聚拢粒子与斩击粒子**共同组成。CardFX 因此没有把“星星数量、速度、颜色”等美术参数写死在 C# 中，而是把 C# 定位为调度层，把视觉层完整保留在 `.tscn`。
@@ -177,7 +179,7 @@ Godot 的 `GPUParticles2D` 使用 `ParticleProcessMaterial` 或自定义 Shader 
 | 轨迹 | `Line2D`、拖尾纹理或粒子 Trail | 连接起点与终点，强调方向。 |
 | 外发光 | Additive CanvasItemMaterial | 叠加蓝白光辉，与储君 FX 的视觉语言一致。 |
 
-当前示例 `sovereign_star_burst.tscn` 已按“外圈爆发 + 环绕星芒 + 径向尖刺”拆成三层，可直接在 Godot 中继续调参。若将来要复刻完整的飞行剑或辉星投射物，只需新增场景并更换 `CardFxCatalog` 中的路径，运行中枢无需修改。
+当前示例 `sovereign_star_burst.tscn` 已按“外圈爆发 + 环绕星芒 + 径向尖刺”拆成三层，并默认使用 `common_glow_transparent.png` 作为三层粒子的发射贴图，可直接在 Godot 中继续调参。若将来要复刻完整的飞行剑或辉星投射物，只需新增场景并更换 `CardFxCatalog` 中的路径，运行中枢无需修改。
 
 ## 9. 资源目录建议
 

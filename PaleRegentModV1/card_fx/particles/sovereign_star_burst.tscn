@@ -1,8 +1,6 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_star_center.png" id="1_star"]
-[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_star_center2.png" id="2_star"]
-[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_spike.png" id="3_spike"]
+[ext_resource type="Texture2D" path="res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png" id="1_glow"]
 
 [sub_resource type="CanvasItemMaterial" id="Additive"]
 blend_mode = 1
@@ -80,7 +78,7 @@ color = Color(0.7, 0.88, 1, 0.85)
 material = SubResource("Additive")
 emitting = false
 amount = 48
-texture = ExtResource("1_star")
+texture = ExtResource("1_glow")
 lifetime = 0.95
 one_shot = true
 explosiveness = 1.0
@@ -92,7 +90,7 @@ process_material = SubResource("BurstMaterial")
 material = SubResource("Additive")
 emitting = false
 amount = 18
-texture = ExtResource("2_star")
+texture = ExtResource("1_glow")
 lifetime = 1.25
 one_shot = true
 explosiveness = 0.92
@@ -104,7 +102,7 @@ process_material = SubResource("HaloMaterial")
 material = SubResource("Additive")
 emitting = false
 amount = 16
-texture = ExtResource("3_spike")
+texture = ExtResource("1_glow")
 lifetime = 0.75
 one_shot = true
 explosiveness = 1.0
