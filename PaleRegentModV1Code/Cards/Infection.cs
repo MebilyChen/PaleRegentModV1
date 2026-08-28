@@ -88,10 +88,13 @@ public class Infection : PaleRegentModV1Card
         {
             CardModel target = Owner.RunState.Rng.CombatTargets.NextItem(candidates);
             CardPileAddResult? transformResult = await CardCmd.TransformTo<Infection>(target);
-            if (transformResult.HasValue)
+            // TransformTo 在战斗结束、目标牌被同步移出手牌等边界情况下，
+            // 可能返回“有结果但未实际加入卡牌”的结果对象。此时 cardAdded 为 null。
+            // 不应继续访问该对象，否则会中断整个回合结束的卡牌结算与收牌动画。
+            if (transformResult?.cardAdded is { } addedInfection)
             {
                 // 明确给予新感染本回合保留，确保它能穿过本次回合结束的手牌清理。
-                transformResult.Value.cardAdded.GiveSingleTurnRetain();
+                addedInfection.GiveSingleTurnRetain();
                 await NotifyGenerated(Owner.Creature, 1);
             }
         }

@@ -97,7 +97,7 @@ public class Tame() : PaleRegentModV1Card(2,
                 PileType.Hand,
                 Owner,
                 (CardPilePosition)1),
-            2.2f,
+            0f,
             (CardPreviewStyle)1);
     }
 

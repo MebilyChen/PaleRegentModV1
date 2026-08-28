@@ -43,7 +43,7 @@ public class VesselPlanPower : PaleRegentModV1Power
             }
             CardCmd.PreviewCardPileAdd(
                 await CardPileCmd.AddGeneratedCardToCombat(vessel, PileType.Hand, Owner.Player, (CardPilePosition)1),
-                2.2f, (CardPreviewStyle)1);
+                0f, (CardPreviewStyle)1);
         }
     }
 }

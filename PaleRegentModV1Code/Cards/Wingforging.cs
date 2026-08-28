@@ -44,7 +44,7 @@ public class Wingforging() : PaleRegentModV1Card(1,
         }
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(retainer, PileType.Hand, Owner),
-            2.2f, CardPreviewStyle.HorizontalLayout);
+            0f, CardPreviewStyle.HorizontalLayout);
 
         // 2) 获得驾驭
         await PowerCmd.Apply<HarnessPower>(choiceContext, Owner.Creature,

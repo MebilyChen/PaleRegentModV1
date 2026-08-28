@@ -14,10 +14,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【虚空崇拜】技能牌（表 C#69，0727 新增）。
-/// 2 灵魂：获得 2 点虚空。为1张手牌添加[gold]失心[/gold]。
-/// 升级后：获得 3 点虚空。
+/// 1 灵魂：获得 2 点虚空。为1张手牌添加[gold]失心[/gold]。
+/// 升级后：0灵魂。
 /// </summary>
-public class VoidWorship() : PaleRegentModV1Card(2,
+public class VoidWorship() : PaleRegentModV1Card(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
@@ -48,6 +48,8 @@ public class VoidWorship() : PaleRegentModV1Card(2,
 
     protected override void OnUpgrade()
     {
-        _voidGain = 3;
+        //_voidGain = 3;
+        // 升级：费用 1→0（UpgradeBy 是升级语义的标准降费 API，卡面会显示绿色费用）
+        EnergyCost.UpgradeBy(-1);
     }
 }

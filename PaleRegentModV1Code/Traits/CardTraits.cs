@@ -17,9 +17,10 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Traits;
 /// 【失心】（Lost）：
 ///   - 取消这张牌的灵魂耗能，把灵魂费 1:1 转换并入虚空费。
 ///     例：1灵魂0虚空 → 0灵魂1虚空；2灵魂2虚空 → 0灵魂4虚空。
-///   - x统一计为x（x灵魂1虚空，转化为0灵魂x虚空)。优化前：对 X 费牌无效（X 费牌无法附加失心）。
+///   - 任一费用为 X 时统一计为 X：例如 X灵魂1虚空 → 0灵魂X虚空。
 ///   - 自动获得当前统一的【失心重放层数】（默认重放1，可由其他能力提高）。
-///   - 同一张牌不能重复附加【失心】；附加失心时仍按原规则取消【苍白】。
+///   - 同一张牌不能重复附加【失心】。战斗中由效果附加的失心仍可按原规则覆盖【苍白】；
+///     但卡牌类声明的“自带失心”仅在实际战斗牌堆中施加，且绝不覆盖已有【苍白】。
 /// 【苍白】（Pale）：（20260729 变更：不再是"同时添加消耗和虚无"）
 ///   1. 取消【失心】及其添加的重放/消耗，再取消卡牌的虚空消耗（移除虚空费条目）。
 ///   2. 添加【虚无】。
@@ -118,17 +119,19 @@ public static class CardTraits
     /// <summary>防止重复订阅 CombatManager.CombatSetUp。</summary>
     private static bool _combatPileLostSyncRegistered;
 
-    /// <summary>
-    /// 天生失心默认仅在实际战斗牌堆中应用。
-    /// 保留此常量是为了给下方 clone 同步处提供一行式回退开关。
-    /// </summary>
-    private const bool LimitInnateLostToCombatPiles = true;
-
     // ---------------- 查询 ----------------
     
     /// <summary>这张牌当前是否有【失心】。</summary>
     public static bool IsLost(CardModel card) =>
         States.TryGetValue(card, out TraitState? s) && s!.IsLost;
+
+    /// <summary>
+    /// 判断卡牌是否带有【失心】标记。
+    /// 正常以 AttachedState 为准；若牌堆移动或实例重建导致状态未延续，
+    /// 则以已显示在卡牌上的自定义关键词作为防御性回退。
+    /// </summary>
+    private static bool HasLostMarker(CardModel card) =>
+        IsLost(card) || card.Keywords.Contains(TraitKeywords.Lost);
 
     /// <summary>这张牌当前是否有【苍白】。</summary>
     public static bool IsPale(CardModel card) =>
@@ -161,19 +164,8 @@ public static class CardTraits
         // 它只会在卡牌真正进入战斗牌堆时，由 CombatSetUp / CardAdded 事件应用。
         SyncDeclaredPureKeyword(clone);
 
-        // =====================================================================
-        // 【失心仅限战斗牌堆开关】
-        // 正常情况下 LimitInnateLostToCombatPiles=true，以下 ApplyLost 不会执行。
-        // 若将来要恢复旧行为（任何 mutable clone 都立即 ApplyLost），
-        // 只需注释掉下一行 "!LimitInnateLostToCombatPiles &&"，其余不动。
-        // =====================================================================
-        if (clone is Cards.PaleRegentModV1Card paleCard &&
-            paleCard.HasInnateLost &&
-            !LimitInnateLostToCombatPiles &&
-            !IsLost(clone))
-        {
-            ApplyLost(clone);
-        }
+        // 自带失心不得在 clone 阶段施加。图鉴、牌组查看、商店和奖励
+        // 都可能创建 mutable clone；仅实际战斗牌堆的同步入口可以调用 ApplyLost。
 
         // 运行时附加纯粹也统一再同步一次；已有 keyword 时不会重复添加。
         SyncPureKeyword(clone);
@@ -265,14 +257,24 @@ public static class CardTraits
     }
 
     /// <summary>
-    /// 对真正位于战斗牌堆中的卡应用天生失心。ApplyLost 内部仍会防重复。
+    /// 判断卡面是否带有【苍白】标记。
+    /// 通常以 AttachedState 为准；但部分牌堆移动/重建路径可能令卡牌实例变化，
+    /// 此时仍以已随卡牌复制的自定义关键词作为防御性回退，避免自带失心误覆盖苍白。
+    /// </summary>
+    private static bool HasPaleMarker(CardModel card) =>
+        IsPale(card) || card.Keywords.Contains(TraitKeywords.Pale);
+
+    /// <summary>
+    /// 对真正位于战斗牌堆中的卡应用天生失心。
+    /// 自带失心仅在手牌、抽牌堆、弃牌堆、消耗牌堆的同步入口调用；
+    /// 若该实例已具备【苍白】状态或关键词标记，则以苍白为优先，不调用 ApplyLost 覆盖它。
     /// </summary>
     private static void ApplyInnateLostInCombatPile(CardModel card)
     {
         if (card is not Cards.PaleRegentModV1Card paleCard)
             return;
 
-        if (!paleCard.HasInnateLost || IsLost(card))
+        if (!paleCard.HasInnateLost || IsLost(card) || HasPaleMarker(card))
             return;
 
         ApplyLost(card);
@@ -549,7 +551,7 @@ public static class CardTraits
     /// </summary>
     public static bool CanApplyLost(CardModel card)
     {
-        return card != null && !card.IsCanonical && !IsLost(card);
+        return card != null && !card.IsCanonical && !HasLostMarker(card);
     }
 
     /// <summary>
@@ -584,8 +586,9 @@ public static class CardTraits
         if (card == null) return false;
         if (card.IsCanonical) return false;
         // 已经是苍白的牌再加一次没有意义，不作为合法选择目标。
+        // 同时检查状态与关键词，防止牌堆移动/实例重建后重复施加苍白。
         // 失心与纯粹不影响本判定：失心会在 ApplyPale 中按原规则被取消。
-        if (IsPale(card)) return false;
+        if (HasPaleMarker(card)) return false;
         // 虚空 X 费的牌禁止附加苍白（20260801 新增规则，理由见上方注释）
         if (HasVoidCostX(card)) return false;
         return true;
@@ -706,20 +709,58 @@ public static class CardTraits
     /// 以及已具备【苍白】的牌均会被排除；失心与纯粹仍可参与原有交互。
     /// 返回值表示是否真的施加成功，方便调用方做提示或回退。
     /// </summary>
-    public static bool ApplyPale(CardModel card)
+    public static bool ApplyPale(CardModel card) =>
+        ApplyPale(card, out _, out _);
+
+    /// <summary>
+    /// 给一张牌附加【苍白】，并返回本次实际取消的【失心】与正数原生虚空费用。
+    /// 需要按“苍白实际取消了什么”结算后续效果的调用方，应使用此重载。
+    /// 虚空 0 费不计数；若虚空费用仅由失心转化产生，也不重复计入。
+    /// </summary>
+    public static bool ApplyPale(
+        CardModel card,
+        out bool cancelledLost,
+        out bool cancelledVoidCost)
     {
+        cancelledLost = false;
+        cancelledVoidCost = false;
+
         // 防御：canonical 实例不可修改、虚空X 牌禁止附加、已苍白不重复施加。
         // 这里统一走 CanApplyPale，保证任何调用路径（包括忘了做选牌过滤的牌）
         // 都无法绕过虚空X 的限制。//20260801
         if (!CanApplyPale(card)) return false;
         TraitState s = States.GetOrCreate(card);
 
+        // 在苍白处理前记录本次可被取消的实际状态。
+        // HasLostMarker 同时覆盖正常 AttachedState 与跨实例后仅剩关键词的情况。
+        bool hadLost = HasLostMarker(card);
+
         EnsureCostSnapshot(card, s);
 
+        // 正数虚空费用只统计“失心施加前原本就有”的部分：
+        // - 未失心的牌：当前正数固定虚空费用可计数；
+        // - 已失心的牌：只读取失心流程保留的原始虚空费用快照；
+        //   若原牌无虚空费，或原牌虚空费为 0，则不因失心并入灵魂费后出现的虚空费重复计数；
+        // - 虚空 X 已由 CanApplyPale 排除，不会进入这里。
+        bool hadCancellableOriginalVoidCost = hadLost
+            ? s.OriginalHasVoidCost &&
+              !s.OriginalVoidCostsX &&
+              s.OriginalVoidCost > 0
+            : GetVoidCost(card) > 0;
+
         // 1) 原有跨特质规则：苍白覆盖失心，恢复失心影响并收回其添加的重放/消耗。
-        if (s.IsLost)
+        if (hadLost)
         {
-            card.BaseReplayCount = Math.Max(0, card.BaseReplayCount - s.AppliedLostReplayCount);
+            // 只有 AttachedState 完整存在时，才拥有可精确回收的失心重放层数。
+            // 即使状态在实例重建中丢失，也必须移除遗留的失心关键词，
+            // 否则玩家会看到“失心未被苍白取消”，且结算计数也会失真。
+            if (s.IsLost)
+            {
+                card.BaseReplayCount = Math.Max(
+                    0,
+                    card.BaseReplayCount - s.AppliedLostReplayCount);
+            }
+
             s.AppliedLostReplayCount = 0;
             s.IsLost = false;
             card.RemoveKeyword(TraitKeywords.Lost);
@@ -747,6 +788,12 @@ public static class CardTraits
 
         s.IsPale = true;
         CardTraitUi.Refresh(card);
+
+        // 取消结果以苍白执行前的快照结算。到达这里表示 ApplyPale 已实际完成：
+        // 失心标记已被移除，虚空费用条目已被 Clear。不可依赖处理后的 AttachedState，
+        // 因为跨实例路径可能只保留关键词而不保留原状态对象。
+        cancelledLost = hadLost;
+        cancelledVoidCost = hadCancellableOriginalVoidCost;
         return true;
     }
 

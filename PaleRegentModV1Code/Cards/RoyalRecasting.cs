@@ -105,7 +105,7 @@ public class RoyalRecasting : PaleRegentModV1Card
                     PileType.Hand,
                     Owner,
                     (CardPilePosition)1),
-                2.2f,
+                0f,
                 (CardPreviewStyle)1);
         }
 

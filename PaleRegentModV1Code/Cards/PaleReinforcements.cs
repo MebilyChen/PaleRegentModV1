@@ -61,7 +61,7 @@ public class PaleReinforcements() : PaleRegentModV1Card(0,
         // 加入目标玩家手牌
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(retainer, PileType.Hand, targetPlayer),
-            2.2f, CardPreviewStyle.HorizontalLayout);
+            0f, CardPreviewStyle.HorizontalLayout);
     }
 
     protected override void OnUpgrade()

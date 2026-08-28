@@ -56,25 +56,24 @@ public class PureNail() : PaleRegentModV1Card(0,
         int cancelledEffectCount = 0;
         foreach (CardModel card in selectedCards)
         {
-            // 先记录苍白施加前的状态。
-            // 仅固定且大于 0 的虚空费用算作可计数的“虚空花费”；
-            // 虚空 0 费不计入，虚空 X 费已由 CanApplyPale 排除。
-            bool wasLost = CardTraits.IsLost(card);
-            bool hadCancellableVoidCost = CardTraits.GetVoidCost(card) > 0;
-
-            // 以返回值作为防御：即使今后选牌来源变化，也不统计未实际施加的苍白。
-            if (!CardTraits.ApplyPale(card))
+            // 由 ApplyPale 原子返回本次真正取消的内容。
+            // 虚空费用仅在“失心施加前原生存在且固定大于 0”时计 1 次；
+            // 因失心将灵魂费并入而产生的虚空费不重复计数；
+            // 虚空 0 费不计入，虚空 X 费仍由 CanApplyPale 排除。
+            if (!CardTraits.ApplyPale(
+                    card,
+                    out bool cancelledLost,
+                    out bool cancelledVoidCost))
             {
                 continue;
             }
 
-            // 再次读取状态，确保只统计苍白实际完成的取消，而不是仅按初始状态预估。
-            if (wasLost && !CardTraits.IsLost(card))
+            if (cancelledLost)
             {
                 cancelledEffectCount++;
             }
 
-            if (hadCancellableVoidCost && !CardTraits.HasVoidCost(card))
+            if (cancelledVoidCost)
             {
                 cancelledEffectCount++;
             }

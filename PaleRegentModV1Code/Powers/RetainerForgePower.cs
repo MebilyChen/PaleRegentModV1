@@ -41,7 +41,7 @@ public class RetainerForgePower : PaleRegentModV1Power
             }
             CardCmd.PreviewCardPileAdd(
                 await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner.Player, (CardPilePosition)1),
-                2.2f, (CardPreviewStyle)1);
+                0f, (CardPreviewStyle)1);
         }
     }
 }

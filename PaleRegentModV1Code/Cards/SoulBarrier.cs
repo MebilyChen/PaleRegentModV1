@@ -43,7 +43,7 @@ public class SoulBarrier() : PaleRegentModV1Card(1,
         }
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(copy, PileType.Discard, Owner),
-            2.2f, CardPreviewStyle.HorizontalLayout);
+            0f, CardPreviewStyle.HorizontalLayout);
     }
 
     protected override void OnUpgrade()

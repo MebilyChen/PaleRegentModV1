@@ -52,7 +52,7 @@ public class RoyalMuster() : PaleRegentModV1Card(2,
         }
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(retainer, PileType.Hand, Owner),
-            2.2f, CardPreviewStyle.HorizontalLayout);
+            0f, CardPreviewStyle.HorizontalLayout);
 
         // 3. 获得驾驭：基础 5，升级后 7。
         int harnessGain = IsUpgraded

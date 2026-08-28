@@ -48,7 +48,7 @@ public class Transformation() : PaleRegentModV1Card(4,
         }
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(shell, PileType.Draw, Owner, (CardPilePosition)1),
-            2.2f, (CardPreviewStyle)1);
+            0f, (CardPreviewStyle)1);
     }
 
     protected override void OnUpgrade()

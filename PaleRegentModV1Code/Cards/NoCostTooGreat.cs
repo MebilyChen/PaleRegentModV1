@@ -41,7 +41,7 @@ public class NoCostTooGreat() : PaleRegentModV1Card(0,
         }
         CardCmd.PreviewCardPileAdd(
             await CardPileCmd.AddGeneratedCardToCombat(vessel, PileType.Hand, Owner, (CardPilePosition)1),
-            2.2f, (CardPreviewStyle)1);
+            0f, (CardPreviewStyle)1);
 
         // 将 1 张羞愧加入手牌（特质召回：已有则全部移回手牌，没有才生成一张）
         await CurseTraitHelper.Summon<Shame>(Owner);
