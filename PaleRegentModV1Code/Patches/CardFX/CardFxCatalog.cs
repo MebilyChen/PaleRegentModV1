@@ -13,6 +13,9 @@ public static class CardFxCatalog
     private const string SovereignFxRoot =
         "res://PaleRegentModV1/images/vfx/sovereign_blade/";
 
+    private const string CommonGlowPath =
+        "res://PaleRegentModV1/scenes/vfx/energy/common_glow_transparent.png";
+
     private static bool _registered;
 
     public static void RegisterAll()
@@ -35,11 +38,16 @@ public static class CardFxCatalog
             SovereignFxRoot + "sovereign_blade_star_center2.png"
         ];
 
+        string[] hoverFrames =
+        [
+            CommonGlowPath
+        ];
+
         CardFxRegistry.For<Strike>()
             .On(
                 CardFxState.HoverEnter,
                 new PngSequenceCardFx(
-                    starFrames,
+                    hoverFrames,
                     durationSeconds: 0.8f,
                     placement: new CardFxPlacement
                     {
@@ -52,7 +60,7 @@ public static class CardFxCatalog
                     Persistent = true,
                     FadeInSeconds = 0.12f,
                     FadeOutSeconds = 0.18f,
-                    Modulate = new Color(0.45f, 0.75f, 1.0f, 0.8f)
+                    Modulate = new Color(1.0f, 1.0f, 1.0f, 0.8f)
                 },
                 slot: "test_hover_star")
             .StopOn(
@@ -71,7 +79,7 @@ public static class CardFxCatalog
                     })
                 {
                     FadeOutSeconds = 0.12f,
-                    Modulate = new Color(0.75f, 0.9f, 1.0f, 1.0f)
+                    Modulate = new Color(1.0f, 1.0f, 1.0f, 1.0f)
                 },
                 slot: "test_selected_star")
             .On(
@@ -87,7 +95,7 @@ public static class CardFxCatalog
                     })
                 {
                     FadeOutSeconds = 0.2f,
-                    Modulate = new Color(0.35f, 0.55f, 0.9f, 0.7f)
+                    Modulate = new Color(1.0f, 1.0f, 1.0f, 0.7f)
                 },
                 slot: "test_cancel_star")
             .On(

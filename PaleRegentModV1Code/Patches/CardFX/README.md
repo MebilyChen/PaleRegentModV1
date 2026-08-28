@@ -62,7 +62,7 @@ flowchart LR
 
 ## 4. 关联一张卡牌
 
-全部关联建议放在 `CardFxCatalog.RegisterAll()`。当前 `Test` 卡已经配置为示例：Hover 使用储君剑的两张中心星芒 PNG 循环，Selected 与 Cancelled 使用短 PNG 序列，Played 在鼠标落点播放独立的 `sovereign_star_burst.tscn`。
+全部关联建议放在 `CardFxCatalog.RegisterAll()`。当前 `Strike` 卡已经配置为示例：Hover 使用单张白色 `common_glow_transparent.png` 的持续 PNG 光晕，Selected 与 Cancelled 使用短 PNG 星芒序列，Played 在鼠标落点播放独立的白色 `sovereign_star_burst.tscn`。
 
 ```csharp
 CardFxRegistry.For<MyCard>()
@@ -177,9 +177,9 @@ Godot 的 `GPUParticles2D` 使用 `ParticleProcessMaterial` 或自定义 Shader 
 | 环绕辉星 | 低速、带 `OrbitVelocity` 的粒子 | 形成万象汇聚和旋转感。 |
 | 细碎火花 | 小尺寸、高数量、较强阻尼的粒子 | 丰富尾部细节而不抢焦点。 |
 | 轨迹 | `Line2D`、拖尾纹理或粒子 Trail | 连接起点与终点，强调方向。 |
-| 外发光 | Additive CanvasItemMaterial | 叠加蓝白光辉，与储君 FX 的视觉语言一致。 |
+| 外发光 | Additive CanvasItemMaterial | 叠加白色 glow 光辉，与当前 CardFX 的统一视觉语言一致。 |
 
-当前示例 `sovereign_star_burst.tscn` 已按“外圈爆发 + 环绕星芒 + 径向尖刺”拆成三层，并默认使用 `common_glow_transparent.png` 作为三层粒子的发射贴图，可直接在 Godot 中继续调参。若将来要复刻完整的飞行剑或辉星投射物，只需新增场景并更换 `CardFxCatalog` 中的路径，运行中枢无需修改。
+当前示例 `sovereign_star_burst.tscn` 已按“外圈爆发 + 环绕星芒 + 径向尖刺”拆成三层，并默认使用 `common_glow_transparent.png` 作为三层粒子的发射贴图与无色相白色调色，可直接在 Godot 中继续调参。若将来要复刻完整的飞行剑或辉星投射物，只需新增场景并更换 `CardFxCatalog` 中的路径，运行中枢无需修改。
 
 ## 9. 资源目录建议
 
