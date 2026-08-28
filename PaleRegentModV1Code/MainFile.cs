@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using PaleRegentModV1.PaleRegentModV1Code.Patches.CardFX;
 
 namespace PaleRegentModV1.PaleRegentModV1Code;
 
@@ -19,6 +20,8 @@ public partial class MainFile : Node
         CheckAnimationResources();
         
         //PaleRegentModV1.PaleRegentModV1Code.Resources.VoidResource.Register();
+        CardFxCatalog.RegisterAll();
+
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();

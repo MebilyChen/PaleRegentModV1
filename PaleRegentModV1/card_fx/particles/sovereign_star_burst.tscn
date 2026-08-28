@@ -1,0 +1,113 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_star_center.png" id="1_star"]
+[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_star_center2.png" id="2_star"]
+[ext_resource type="Texture2D" path="res://PaleRegentModV1/images/vfx/sovereign_blade/sovereign_blade_spike.png" id="3_spike"]
+
+[sub_resource type="CanvasItemMaterial" id="Additive"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="BurstGradient"]
+offsets = PackedFloat32Array(0, 0.18, 0.72, 1)
+colors = PackedColorArray(0.25, 0.55, 1, 0, 0.8, 0.95, 1, 1, 0.35, 0.65, 1, 0.8, 0.12, 0.3, 0.9, 0)
+
+[sub_resource type="GradientTexture1D" id="BurstColorRamp"]
+gradient = SubResource("BurstGradient")
+
+[sub_resource type="Curve" id="BurstScaleCurve"]
+_data = [Vector2(0, 0.1), 0.0, 6.0, 0, 0, Vector2(0.16, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.5, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="BurstScale"]
+curve = SubResource("BurstScaleCurve")
+
+[sub_resource type="ParticleProcessMaterial" id="BurstMaterial"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 220.0
+initial_velocity_max = 520.0
+gravity = Vector3(0, 80, 0)
+damping_min = 130.0
+damping_max = 210.0
+scale_min = 0.18
+scale_max = 0.55
+scale_curve = SubResource("BurstScale")
+color_ramp = SubResource("BurstColorRamp")
+
+[sub_resource type="Curve" id="HaloScaleCurve"]
+_data = [Vector2(0, 0), 0.0, 4.0, 0, 0, Vector2(0.28, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="HaloScale"]
+curve = SubResource("HaloScaleCurve")
+
+[sub_resource type="ParticleProcessMaterial" id="HaloMaterial"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 70.0
+initial_velocity_max = 150.0
+orbit_velocity_min = 0.35
+orbit_velocity_max = 0.8
+gravity = Vector3(0, 0, 0)
+damping_min = 15.0
+damping_max = 35.0
+scale_min = 0.25
+scale_max = 0.65
+scale_curve = SubResource("HaloScale")
+color = Color(0.45, 0.72, 1, 0.9)
+
+[sub_resource type="ParticleProcessMaterial" id="SpikeMaterial"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 90.0
+initial_velocity_max = 240.0
+angular_velocity_min = -120.0
+angular_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+damping_min = 40.0
+damping_max = 80.0
+scale_min = 0.16
+scale_max = 0.32
+scale_curve = SubResource("BurstScale")
+color = Color(0.7, 0.88, 1, 0.85)
+
+[node name="SovereignStarBurst" type="Node2D"]
+
+[node name="OuterBurst" type="GPUParticles2D" parent="."]
+material = SubResource("Additive")
+emitting = false
+amount = 48
+texture = ExtResource("1_star")
+lifetime = 0.95
+one_shot = true
+explosiveness = 1.0
+randomness = 0.35
+visibility_rect = Rect2(-700, -700, 1400, 1400)
+process_material = SubResource("BurstMaterial")
+
+[node name="OrbitingStars" type="GPUParticles2D" parent="."]
+material = SubResource("Additive")
+emitting = false
+amount = 18
+texture = ExtResource("2_star")
+lifetime = 1.25
+one_shot = true
+explosiveness = 0.92
+randomness = 0.5
+visibility_rect = Rect2(-700, -700, 1400, 1400)
+process_material = SubResource("HaloMaterial")
+
+[node name="RadialSpikes" type="GPUParticles2D" parent="."]
+material = SubResource("Additive")
+emitting = false
+amount = 16
+texture = ExtResource("3_spike")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.25
+visibility_rect = Rect2(-700, -700, 1400, 1400)
+process_material = SubResource("SpikeMaterial")
