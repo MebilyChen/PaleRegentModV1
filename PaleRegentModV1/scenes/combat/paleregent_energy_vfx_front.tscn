@@ -111,7 +111,7 @@ color_ramp = SubResource("GradientTexture1D_gml80")
 alpha_curve = SubResource("CurveTexture_hjhl6")
 anim_offset_max = 1.0
 
-[node name="regent_energy_vfx_front" type="Node2D" node_paths=PackedStringArray("_particles")]
+[node name="paleregent_energy_vfx_front" type="Node2D" node_paths=PackedStringArray("_particles")]
 script = ExtResource("1_qbb3t")
 _particles = [NodePath("vfx_common_ring_polar_a"), NodePath("vfx_starry_impact_small_stars"), NodePath("vfx_starry_impact_constellation_small_a")]
 

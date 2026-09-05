@@ -37,15 +37,57 @@ public enum CardInteractionState
 
 public static class CardInteractionDebugMachine
 {
-    private static CardInteractionState _state = CardInteractionState.None;
+    // =========================================================
+    // Debug 总开关
+    //
+    // 测试时：
+    //     true
+    //
+    // 发布时：
+    //     false
+    //
+    // 只关闭：
+    // 1. 左上角状态 Debug Box
+    // 2. PLAYED 落点 Debug Box
+    // 3. 普通 GD.Print Debug 日志
+    //
+    // 不影响真正的 CardFX。
+    // =========================================================
+
+    private const bool DebugEnabled = false;
+
+
+    private static CardInteractionState _state =
+        CardInteractionState.None;
+
     private static CardModel? _activeCard;
+
     private static Vector2 _activeCardPosition;
     private static Vector2 _activePointerPosition;
     private static Vector2 _activeViewportSize;
 
+
+    // =========================================================
+    // Debug UI 引用
+    // =========================================================
+
     private static CanvasLayer? _debugLayer;
     private static PanelContainer? _stateBox;
     private static Label? _stateLabel;
+
+
+    // =========================================================
+    // Debug Print
+    // =========================================================
+
+    private static void DebugPrint(
+        string message)
+    {
+        if (!DebugEnabled)
+            return;
+
+        GD.Print(message);
+    }
 
 
     // =========================================================
@@ -58,7 +100,8 @@ public static class CardInteractionDebugMachine
     /// 如果想测试所有卡：
     ///     return true;
     /// </summary>
-    public static bool ShouldTrack(CardModel? card)
+    public static bool ShouldTrack(
+        CardModel? card)
     {
         if (card == null)
             return false;
@@ -90,28 +133,45 @@ public static class CardInteractionDebugMachine
                 return;
             }
 
-            // 极快地从一张手牌移动到另一张时，先清理旧牌的持续 Hover 特效。
+
+            // 极快地从一张手牌移动到另一张时，
+            // 先清理旧牌的持续 Hover 特效。
             if (_state == CardInteractionState.Hover &&
                 _activeCard != null &&
                 !ReferenceEquals(_activeCard, card))
             {
-                TriggerCardFx(_activeCard, CardFxState.HoverExit);
+                TriggerCardFx(
+                    _activeCard,
+                    CardFxState.HoverExit
+                );
             }
+
 
             _activeCard = card;
             _state = CardInteractionState.Hover;
 
-            CaptureSpatialContext(holderNode);
-            TriggerCardFx(card, CardFxState.HoverEnter);
+
+            CaptureSpatialContext(
+                holderNode
+            );
+
+
+            TriggerCardFx(
+                card,
+                CardFxState.HoverEnter
+            );
+
 
             ShowStateBox(
                 card,
                 CardInteractionState.Hover
             );
 
-            GD.Print(
+
+            DebugPrint(
                 $"[CardInteraction] {card.Title} -> HOVER"
             );
+
 
             return;
         }
@@ -122,15 +182,25 @@ public static class CardInteractionDebugMachine
         if (_state == CardInteractionState.Hover &&
             ReferenceEquals(_activeCard, card))
         {
-            CaptureSpatialContext(holderNode);
-            TriggerCardFx(card, CardFxState.HoverExit);
+            CaptureSpatialContext(
+                holderNode
+            );
+
+
+            TriggerCardFx(
+                card,
+                CardFxState.HoverExit
+            );
+
 
             _activeCard = null;
             _state = CardInteractionState.None;
 
+
             HideStateBox();
 
-            GD.Print(
+
+            DebugPrint(
                 $"[CardInteraction] {card.Title} -> HOVER END"
             );
         }
@@ -147,6 +217,7 @@ public static class CardInteractionDebugMachine
         CardModel? card =
             cardPlay.Holder?.CardModel;
 
+
         if (!ShouldTrack(card) || card == null)
             return;
 
@@ -154,14 +225,27 @@ public static class CardInteractionDebugMachine
         if (_state == CardInteractionState.Hover &&
             ReferenceEquals(_activeCard, card))
         {
-            TriggerCardFx(card, CardFxState.HoverExit);
+            TriggerCardFx(
+                card,
+                CardFxState.HoverExit
+            );
         }
+
 
         _activeCard = card;
         _state = CardInteractionState.Selected;
 
-        CaptureSpatialContext(cardPlay.Holder);
-        TriggerCardFx(card, CardFxState.Selected);
+
+        CaptureSpatialContext(
+            cardPlay.Holder
+        );
+
+
+        TriggerCardFx(
+            card,
+            CardFxState.Selected
+        );
+
 
         ShowStateBox(
             card,
@@ -169,7 +253,7 @@ public static class CardInteractionDebugMachine
         );
 
 
-        GD.Print(
+        DebugPrint(
             $"[CardInteraction] {card.Title} -> SELECTED"
         );
 
@@ -184,7 +268,8 @@ public static class CardInteractionDebugMachine
         // Cleanup(true)  -> Finished(true)
         // Cleanup(false) -> Finished(false)
         //
-        // 节点结束后本来就会 QueueFree，所以不需要长期保存引用。
+        // 节点结束后本来就会 QueueFree，
+        // 所以不需要长期保存引用。
         // =====================================================
 
         Callable finishedCallable =
@@ -206,7 +291,7 @@ public static class CardInteractionDebugMachine
         );
 
 
-        GD.Print(
+        DebugPrint(
             $"[CardInteraction] {card.Title} -> FINISHED SIGNAL CONNECTED"
         );
     }
@@ -221,8 +306,9 @@ public static class CardInteractionDebugMachine
         CardModel card,
         bool success)
     {
-        GD.Print(
-            $"[CardInteraction] {card.Title} -> FINISHED SIGNAL success={success}"
+        DebugPrint(
+            $"[CardInteraction] {card.Title} -> " +
+            $"FINISHED SIGNAL success={success}"
         );
 
 
@@ -231,7 +317,7 @@ public static class CardInteractionDebugMachine
         // 不让旧信号覆盖新的状态。
         if (!ReferenceEquals(_activeCard, card))
         {
-            GD.Print(
+            DebugPrint(
                 $"[CardInteraction] {card.Title} -> " +
                 "FINISHED IGNORED (not active card)"
             );
@@ -239,7 +325,11 @@ public static class CardInteractionDebugMachine
             return;
         }
 
-        CapturePointerContext(cardPlay);
+
+        CapturePointerContext(
+            cardPlay
+        );
+
 
         // =====================================================
         // 真正取消
@@ -247,16 +337,23 @@ public static class CardInteractionDebugMachine
 
         if (!success)
         {
-            TriggerCardFx(card, CardFxState.Cancelled);
+            TriggerCardFx(
+                card,
+                CardFxState.Cancelled
+            );
+
 
             _activeCard = null;
             _state = CardInteractionState.None;
 
+
             HideStateBox();
 
-            GD.Print(
+
+            DebugPrint(
                 $"[CardInteraction] {card.Title} -> CANCELLED"
             );
+
 
             return;
         }
@@ -267,11 +364,20 @@ public static class CardInteractionDebugMachine
         // =====================================================
 
         Vector2 mousePosition =
-            GetMousePosition(cardPlay);
+            GetMousePosition(
+                cardPlay
+            );
 
 
-        _state = CardInteractionState.Played;
-        TriggerCardFx(card, CardFxState.Played);
+        _state =
+            CardInteractionState.Played;
+
+
+        TriggerCardFx(
+            card,
+            CardFxState.Played
+        );
+
 
         ShowStateBox(
             card,
@@ -286,7 +392,7 @@ public static class CardInteractionDebugMachine
         );
 
 
-        GD.Print(
+        DebugPrint(
             $"[CardInteraction] {card.Title} -> PLAYED " +
             $"Mouse=({mousePosition.X:0},{mousePosition.Y:0})"
         );
@@ -305,45 +411,78 @@ public static class CardInteractionDebugMachine
     // CardFX 空间上下文
     // =========================================================
 
-    private static void CaptureSpatialContext(Node? cardNode)
+    private static void CaptureSpatialContext(
+        Node? cardNode)
     {
-        CapturePointerContext(cardNode);
+        CapturePointerContext(
+            cardNode
+        );
 
-        _activeCardPosition = cardNode switch
-        {
-            Control control => control.GetGlobalRect().GetCenter(),
-            Node2D node2D => node2D.GlobalPosition,
-            _ => _activePointerPosition
-        };
+
+        _activeCardPosition =
+            cardNode switch
+            {
+                Control control =>
+                    control
+                        .GetGlobalRect()
+                        .GetCenter(),
+
+                Node2D node2D =>
+                    node2D.GlobalPosition,
+
+                _ =>
+                    _activePointerPosition
+            };
     }
 
-    private static void CapturePointerContext(Node? source)
+
+    private static void CapturePointerContext(
+        Node? source)
     {
         Viewport? viewport = null;
 
-        if (source != null && GodotObject.IsInstanceValid(source))
+
+        if (source != null &&
+            GodotObject.IsInstanceValid(source))
         {
-            viewport = source.GetViewport();
+            viewport =
+                source.GetViewport();
         }
 
-        if (viewport == null || !GodotObject.IsInstanceValid(viewport))
-        {
-            NCombatRoom? room = NCombatRoom.Instance;
 
-            if (room != null && GodotObject.IsInstanceValid(room))
+        if (viewport == null ||
+            !GodotObject.IsInstanceValid(viewport))
+        {
+            NCombatRoom? room =
+                NCombatRoom.Instance;
+
+
+            if (room != null &&
+                GodotObject.IsInstanceValid(room))
             {
-                viewport = room.GetViewport();
+                viewport =
+                    room.GetViewport();
             }
         }
 
-        if (viewport == null || !GodotObject.IsInstanceValid(viewport))
+
+        if (viewport == null ||
+            !GodotObject.IsInstanceValid(viewport))
         {
             return;
         }
 
-        _activePointerPosition = viewport.GetMousePosition();
-        _activeViewportSize = viewport.GetVisibleRect().Size;
+
+        _activePointerPosition =
+            viewport.GetMousePosition();
+
+
+        _activeViewportSize =
+            viewport
+                .GetVisibleRect()
+                .Size;
     }
+
 
     private static void TriggerCardFx(
         CardModel card,
@@ -355,7 +494,9 @@ public static class CardInteractionDebugMachine
                 state,
                 _activeCardPosition,
                 _activePointerPosition,
-                _activeViewportSize));
+                _activeViewportSize
+            )
+        );
     }
 
 
@@ -372,6 +513,7 @@ public static class CardInteractionDebugMachine
             Viewport? viewport =
                 cardPlay.GetViewport();
 
+
             if (viewport != null &&
                 GodotObject.IsInstanceValid(viewport))
             {
@@ -384,11 +526,13 @@ public static class CardInteractionDebugMachine
         NCombatRoom? room =
             NCombatRoom.Instance;
 
+
         if (room != null &&
             GodotObject.IsInstanceValid(room))
         {
             Viewport? viewport =
                 room.GetViewport();
+
 
             if (viewport != null &&
                 GodotObject.IsInstanceValid(viewport))
@@ -398,9 +542,12 @@ public static class CardInteractionDebugMachine
         }
 
 
+        // 这个属于真正错误信息，所以即使关闭 Debug，
+        // 也保留 PrintErr。
         GD.PrintErr(
             "[CardInteraction] Could not obtain mouse position."
         );
+
 
         return Vector2.Zero;
     }
@@ -412,8 +559,20 @@ public static class CardInteractionDebugMachine
 
     private static bool EnsureDebugUi()
     {
+        // =====================================================
+        // 总 Debug 开关
+        //
+        // 发布时 DebugEnabled = false，
+        // Debug UI 完全不会创建。
+        // =====================================================
+
+        if (!DebugEnabled)
+            return false;
+
+
         NCombatRoom? room =
             NCombatRoom.Instance;
+
 
         if (room == null ||
             !GodotObject.IsInstanceValid(room))
@@ -437,20 +596,26 @@ public static class CardInteractionDebugMachine
         _stateLabel = null;
 
 
-        _debugLayer = new CanvasLayer
-        {
-            Name = "CardInteractionDebugLayer",
-            Layer = 100
-        };
+        _debugLayer =
+            new CanvasLayer
+            {
+                Name =
+                    "CardInteractionDebugLayer",
+
+                Layer = 100
+            };
 
 
-        room.AddChild(_debugLayer);
-
-
-        _stateBox = CreateTextBox(
-            "",
-            out _stateLabel
+        room.AddChild(
+            _debugLayer
         );
+
+
+        _stateBox =
+            CreateTextBox(
+                "",
+                out _stateLabel
+            );
 
 
         _stateBox.Position =
@@ -460,7 +625,8 @@ public static class CardInteractionDebugMachine
             );
 
 
-        _stateBox.Visible = false;
+        _stateBox.Visible =
+            false;
 
 
         _debugLayer.AddChild(
@@ -510,12 +676,18 @@ public static class CardInteractionDebugMachine
             extra;
 
 
-        _stateBox.Visible = true;
+        _stateBox.Visible =
+            true;
     }
 
 
     private static void HideStateBox()
     {
+        // Debug 关闭时什么也不做。
+        if (!DebugEnabled)
+            return;
+
+
         if (_stateBox == null ||
             !GodotObject.IsInstanceValid(_stateBox))
         {
@@ -523,7 +695,8 @@ public static class CardInteractionDebugMachine
         }
 
 
-        _stateBox.Visible = false;
+        _stateBox.Visible =
+            false;
     }
 
 
@@ -553,7 +726,8 @@ public static class CardInteractionDebugMachine
             );
 
 
-        // 稍微偏移，避免正好被鼠标指针挡住。
+        // 稍微偏移，
+        // 避免正好被鼠标指针挡住。
         box.Position =
             mousePosition +
             new Vector2(
@@ -735,7 +909,8 @@ internal static class CardInteractionHoverPatch
 //
 // 只需要 Patch Start。
 // 后续 Played / Cancel 不再靠 Harmony Patch，
-// 而是直接监听这个 NMouseCardPlay 实例的 Finished(bool success) 信号。
+// 而是直接监听这个 NMouseCardPlay 实例的
+// Finished(bool success) 信号。
 // =====================================================================
 
 [HarmonyPatch(

@@ -14,7 +14,7 @@ namespace PaleRegentModV1.PaleRegentModV1Code.Cards;
 
 /// <summary>
 /// 【灵魂双刃】攻击牌。
-/// 造成等同于本场战斗中，本牌所属玩家获得的灵魂点数与虚空点数总和的伤害。
+/// 造成等同于本场战斗中，本牌所属玩家获得的灵魂点数与虚空点数总和的伤害。 //应该计入所有的点数变化，而不只是玩家出牌主动获得的点数
 /// 升级后费用由 2 灵魂 + 2 虚空变为 1 灵魂 + 1 虚空。
 /// </summary>
 public class SoulBlades : PaleRegentModV1Card

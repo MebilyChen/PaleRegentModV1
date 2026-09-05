@@ -236,7 +236,7 @@ turbulence_noise_speed_random = 1.2
 turbulence_influence_min = 0.01
 turbulence_influence_max = 0.03
 
-[node name="Regent" type="Node2D"]
+[node name="PaleRegent" type="Node2D"]
 script = ExtResource("1_3dwrg")
 metadata/_edit_group_ = true
 

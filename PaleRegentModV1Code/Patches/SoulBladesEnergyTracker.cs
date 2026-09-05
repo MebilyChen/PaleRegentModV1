@@ -4,17 +4,30 @@ using MegaCrit.Sts2.Core.Entities.Players;
 namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 
 /// <summary>
-/// 【灵魂双刃】专用战斗资源获得统计。
+/// 【灵魂双刃】灵魂统计入口。
 ///
-/// 和旧 CombatCounters 不同：
+/// 默认使用 ActualEnergyChange：
+/// - 旧 SoulBladesSoulGainPatch 可以继续保留；
+/// - 旧 Patch 调用 AddSoul(...) 时不会写入；
+/// - 只有 EnergyChanged 入口调用 AddSoulFromEnergyChange(...) 会写入。
 ///
-/// 1. 统计的是“点数”，不是“获得次数”；
-/// 2. 按 Player 分开保存；
-/// 3. A 玩家获得资源不会计入 B 玩家；
-/// 4. 只服务 SoulBlades，不修改其他卡牌的旧统计口径。
+/// 如果以后需要回退旧逻辑，只改 SoulTrackingMode 即可。
 /// </summary>
 internal static class SoulBladesEnergyTracker
 {
+    internal enum SoulTrackingMode
+    {
+        LegacyNotifySoulGain,
+        ActualEnergyChange
+    }
+
+    /// <summary>
+    /// 默认：按玩家实际 Energy 增加统计。
+    /// 改为 LegacyNotifySoulGain 即可恢复旧 NotifySoulGain 口径。
+    /// </summary>
+    public static SoulTrackingMode TrackingMode { get; set; } =
+        SoulTrackingMode.ActualEnergyChange;
+
     private sealed class PlayerCounter
     {
         public int SoulGained;
@@ -26,19 +39,44 @@ internal static class SoulBladesEnergyTracker
 
     private static readonly object Gate = new();
 
-    /// <summary>
-    /// 当前战斗中的玩家 → 灵魂双刃资源账本。
-    ///
-    /// 使用 ConditionalWeakTable 避免为了统计器长期持有 Player。
-    /// 战斗开始时仍会主动 ResetAll。
-    /// </summary>
     private static ConditionalWeakTable<Player, PlayerCounter> _states =
         new();
 
     /// <summary>
-    /// 当前玩家主动获得灵魂。
+    /// 旧入口：CombatCounters.NotifySoulGain 使用。
+    ///
+    /// 代码保留，但默认 ActualEnergyChange 模式下不会写账本，
+    /// 从根源避免“旧 Notify + 新 EnergyChanged”重复累计。
     /// </summary>
     public static void AddSoul(
+        Player? player,
+        int amount)
+    {
+        if (TrackingMode != SoulTrackingMode.LegacyNotifySoulGain)
+        {
+            return;
+        }
+
+        AddSoulCore(player, amount);
+    }
+
+    /// <summary>
+    /// 新入口：实际 EnergyChanged 使用。
+    /// 只在 ActualEnergyChange 模式下写账本。
+    /// </summary>
+    public static void AddSoulFromEnergyChange(
+        Player? player,
+        int amount)
+    {
+        if (TrackingMode != SoulTrackingMode.ActualEnergyChange)
+        {
+            return;
+        }
+
+        AddSoulCore(player, amount);
+    }
+
+    private static void AddSoulCore(
         Player? player,
         int amount)
     {
@@ -59,7 +97,7 @@ internal static class SoulBladesEnergyTracker
     }
 
     /// <summary>
-    /// 当前玩家获得虚空。
+    /// 虚空入口保持原逻辑。
     /// </summary>
     public static void AddVoid(
         Player? player,
@@ -133,7 +171,8 @@ internal static class SoulBladesEnergyTracker
     }
 
     /// <summary>
-    /// 新战斗开始时清空所有玩家的灵魂双刃统计。
+    /// 新战斗开始时清空所有玩家统计。
+    /// TrackingMode 不重置，方便全局选择统计策略。
     /// </summary>
     public static void ResetAll()
     {

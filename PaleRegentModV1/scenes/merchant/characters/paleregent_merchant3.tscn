@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Core/Nodes/Screens/Shops/NMerchantCharacter.cs" id="1_84ijk"]
 [ext_resource type="SpineSkeletonDataResource" path="res://PaleRegentModV1/animations/merchant/paleregent/paleregent_merchant_skel_data.tres" id="2_84ijk"]
 
-[node name="RegentMerchant" type="Node2D"]
+[node name="PaleRegentMerchant" type="Node2D"]
 script = ExtResource("1_84ijk")
 
 [node name="SpineSprite" type="SpineSprite" parent="."]

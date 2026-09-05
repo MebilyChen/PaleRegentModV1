@@ -51,6 +51,8 @@
         <EmbeddedResource Remove="materials/**"/>
         <EmbeddedResource Remove="shaders/**"/>
         <EmbeddedResource Remove="images/**"/>
+        <Compile Remove="PaleRegentModV1Code\Patches\CharacterAsessmentDebug.cs" />
+        <Compile Remove="PaleRegentModV1Code\Patches\CharacterVisualInstanceDebug.cs" />
     </ItemGroup>
 
     <ItemGroup>

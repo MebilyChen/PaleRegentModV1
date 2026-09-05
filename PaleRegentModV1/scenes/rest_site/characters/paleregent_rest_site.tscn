@@ -6,7 +6,7 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h2i30"]
 
-[node name="RegentRestSite" type="Node2D"]
+[node name="PaleRegentRestSite" type="Node2D"]
 scale = Vector2(0.760006, 0.760006)
 script = ExtResource("1_rqbgi")
 

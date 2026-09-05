@@ -12,7 +12,7 @@
   "PALEREGENTMODV1-THE_VOID_STATUS.title": "虚空",
   "PALEREGENTMODV1-THE_VOID_STATUS.description": "获得[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]",
   "PALEREGENTMODV1-APOTHEOSIS.title": "化神",
-  "PALEREGENTMODV1-APOTHEOSIS.description": "在你的回合开始时：获得{ApotheosisPower:diff()}[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]，并选择手牌中的{IfUpgraded:show:2|1}张牌加[purple]失心[/purple]。本回合内，[purple]失心[/purple]获得的重放次数+1。",
+  "PALEREGENTMODV1-APOTHEOSIS.description": "在你的回合开始时：获得{ApotheosisPower:diff()}[img]res://PaleRegentModV1/images/charui/star_icon.png[/img]，并选择手牌中的{IfUpgraded:show:2|1}张牌加[purple]失心[/purple]。[purple]失心[/purple]获得的重放次数+1。",
   "PALEREGENTMODV1-VOID_FINISHER.title": "虚空必杀",
   "PALEREGENTMODV1-VOID_FINISHER.description": "造成{Damage:diff()}点伤害{IfUpgraded:show:X+1|X}次。X大于4时，次数翻倍。为弃牌堆至多{IfUpgraded:show:X+1|X}张牌添加[purple]失心[/purple]。",
   "PALEREGENTMODV1-VOID_FINISHER.selectionScreenPrompt": "选择牌附加[purple]失心[/purple]。",

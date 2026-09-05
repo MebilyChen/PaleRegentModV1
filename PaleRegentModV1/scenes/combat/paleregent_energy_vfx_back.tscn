@@ -80,7 +80,7 @@ alpha_curve = SubResource("CurveTexture_u1lcf")
 anim_offset_min = 0.25
 anim_offset_max = 1.0
 
-[node name="regent_energy_vfx_back" type="Node2D" node_paths=PackedStringArray("_particles")]
+[node name="paleregent_energy_vfx_back" type="Node2D" node_paths=PackedStringArray("_particles")]
 script = ExtResource("1_mrjrt")
 _particles = [NodePath("vfx_common_glow"), NodePath("vfx_common_ray")]
 

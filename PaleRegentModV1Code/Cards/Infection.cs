@@ -180,4 +180,9 @@ public class Infection : PaleRegentModV1Card
     public override CardPoolModel Pool => ModelDb.CardPool<TokenCardPool>();
     public override CardPoolModel VisualCardPool => ModelDb.CardPool<TokenCardPool>();
     public override bool CanBeGeneratedInCombat => false;
+    
+    //自定义模式无法塞牌
+    public override bool CanBeGeneratedByModifiers => false;
 }
+
+

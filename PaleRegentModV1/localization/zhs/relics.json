@@ -42,5 +42,8 @@
 	"PALEREGENTMODV1-SOUL_TOTEM.title": "偶像图腾",
 	"PALEREGENTMODV1-SOUL_TOTEM.description": "每场战斗你的[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]第一次降为0时，获得1点[img]res://PaleRegentModV1/images/charui/text_energy.png[/img]。",
 	"PALEREGENTMODV1-SOUL_TOTEM.flavor": "最后一声回响。",
-	"SEA_GLASS.PALE_REGENT_MOD_V1.title": "苍白玻璃"
+	"SEA_GLASS.PALE_REGENT_MOD_V1.title": "苍白玻璃",
+	"SEA_GLASS.PALEREGENTMODV1-PALE_REGENT_MOD_V1.title": "苍白玻璃"
+	
+	
 }

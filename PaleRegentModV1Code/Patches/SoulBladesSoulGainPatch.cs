@@ -4,12 +4,11 @@ using MegaCrit.Sts2.Core.Entities.Players;
 namespace PaleRegentModV1.PaleRegentModV1Code.Patches;
 
 /// <summary>
-/// 复用现有 CombatCounters.NotifySoulGain 的埋点，
-/// 但额外为灵魂双刃记录：
+/// 旧的灵魂获得统计入口。
 ///
-///     谁获得的 + 获得了多少点。
-///
-/// 不修改 CombatCounters 原行为。
+/// 保留 CombatCounters.NotifySoulGain 埋点用于兼容/回退，
+/// 但当新的 EnergyChanged 统计启用时，本 Patch 不再写入
+/// SoulBladesEnergyTracker，避免同一笔灵魂被累计两次。
 /// </summary>
 [HarmonyPatch(
     typeof(CombatCounters),
@@ -21,6 +20,13 @@ internal static class SoulBladesSoulGainPatch
         Player? player,
         int amount)
     {
+        // 新统计入口启用时，旧 Patch 仍然存在，
+        // 但不写入灵魂双刃账本，防止重复计数。
+        // if (SoulBladesTrackingConfig.UseEnergyChangeTracking)
+        //{
+           // return;
+        //}
+
         if (player == null || amount <= 0)
         {
             return;
